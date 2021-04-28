@@ -31,7 +31,7 @@ function kakaoLogin() {
             console.log(authObj);
             window.Kakao.API.request({
                 url:'/v2/user/me',
-                success:res => {
+                success: function(res) {
                     const kakao_account = res.kakao_account;
                     console.log(kakao_account);
                     console.log(kakao_account.profile);
