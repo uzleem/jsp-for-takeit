@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib_menu.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,19 +10,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
-<%
-	if(session.getAttribute("memberId") == null){
-%>
-<!-- 로그인 전 메뉴 -->
-<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-<%
-	} else {
-%>
-<!-- 로그인 후 메뉴 -->
-<jsp:include page="/common/after_login_menu.jsp"></jsp:include>
-<%
-	}
-%>
+<c:choose>
+	<c:when test="${empty memberId}">
+		<!-- 로그인 전 메뉴 -->
+		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<!-- 로그인 후 메뉴 -->
+		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
@@ -30,15 +28,11 @@
 <div id="title">
 	<h3>공지사항</h3>
 </div>
-<%
-	if((String)session.getAttribute("grade") != "A" ){
-%>
-<div id="small-btn">
-	<a href="#">등록</a>
-</div>
-<%
-	}
-%>
+<c:if test="${grade == 'A' }">
+	<div id="small-btn">
+		<a href="#">등록</a>
+	</div>
+</c:if>
 <form action="#">
 <table id="notice-tbl">
 	<tr>
