@@ -28,13 +28,13 @@
 <div id="title">
 	<h3>공지사항</h3>
 </div>
-<c:if test="${grade == 'A' }">
+<%-- <c:if test="${grade == 'A' }"> --%>
 	<div id="small-btn">
-		<a href="#">등록</a>
+		<a href="/takeit/board/noticeInput.jsp">등록</a>
 	</div>
-</c:if>
+<%-- </c:if> --%>
 <form action="#">
-<table id="notice-tbl">
+<table id="notice-tbl" class="notice-table">
 	<tr>
 		<th>번호</th>
 		<th>제목</th>

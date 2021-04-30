@@ -8,7 +8,9 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/takeit/js/slide.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!--카카오 javascript SDL 등록(kakao.min.js)  -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -19,7 +21,7 @@ $(document).ready(function(){
 
 <script>
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-window.Kakao.init("4a836a6d7613b825e60dc25d5b9d8a82");
+window.Kakao.init("");
 window.Kakao.isInitialized();
 // SDK 초기화 여부를 판단합니다.
 console.log(Kakao.isInitialized());
@@ -31,8 +33,8 @@ function kakaoLogin() {
             console.log(authObj);
             window.Kakao.API.request({
                 url:'/v2/user/me',
-                success: function(res) {
-                    const kakao_account = res.kakao_account;
+                success: function(response) {
+                    const kakao_account = response.kakao_account;
                     console.log(kakao_account);
                     console.log(kakao_account.profile);
                     console.log(kakao_account.email);
@@ -101,9 +103,6 @@ function kakaoLogin() {
 		border: 1px solid #7B977A;
 	}
 
-
-	
-	
 </style>
 </head>
 <body>
@@ -131,7 +130,7 @@ function kakaoLogin() {
 		<td><input type="button" value="일반 로그인" id="normalLogin"/></td>
 	</tr>
 	<tr>
-		<td align="center"><a href="javascript:kakaoLogin();"><img src="../img/kakao/kakao_login_medium_narrow.png" alt="" id="kakaoLogin"/></a></td>
+		<td align="center"><a href="javascript:kakaoLogin();"><img src="/takeit/img/icon/kakao_login_medium_wide.png" alt="" id="kakaoLogin"/></a></td>
 		<!-- <td><input type="button" value="카카오 로그인" id="kakaoLogin" onclick="kakaoLogin();"/></td> -->
 	</tr>
 </table>

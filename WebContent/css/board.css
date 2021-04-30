@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-table,tr,th,td{
+.notice-table, .notice-tr
+.notice-tr>th, .notice-tr>td{
 		border: solid 1px #8D959C;
 		margin: 0 auto;
 		border-collapse: collapse;
