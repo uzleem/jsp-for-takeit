@@ -1,146 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기 페이지</title>
+<title>회원가입</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/slide.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#header").load("../common/header.jsp")
-	$("#footer").load("../common/footer.jsp")
-});
-</script>
-<style>
-	#contents_box {	
-		margin: auto;
-	}
-		
-	#contents_box > table {		
-		font-size: 9px;
-	}
+<link type="text/css" rel="stylesheet" href="/takeit/css/member.css">
+<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../js/member/input.js"></script>
+<!-- 상단 메뉴 -->
+<c:choose>
+	<c:when test="${empty memberId or empty grade}">
+		<!-- 로그인 전 메뉴 -->
+		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<!-- 로그인 후 메뉴 -->
+		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+	</c:otherwise>
+</c:choose>
+<!-- logo.jsp 삽입 -->
+<jsp:include page="/common/logo.jsp"></jsp:include>
 
-	#contents_box > p {	
-		font-size: 9px;
-	}
-		
-	#submit_input{
-		width:50%;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		background-color: #7B977A;
-		color: white;
-		border: 1px solid #7B977A;
-		margin-top: 10px;	
-	}
-	
-	#memberId{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw_Chk{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#name{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#email{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#mobile{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#test1{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#test2{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#entryDate{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberId_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#memberPw_checkbox{
-		border: 1px solid #7B977A;
-	}
-	
-	#email_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#mobile_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
 
-</style>
 </head>
 <body>
-
-<div id="header"><h1>header</h1></div>
-
 <div id="contents_box" align="center">
+<a href="../index.jsp">index</a>
 <h3>회원가입</h3>
+<form action="#" method="post">
 <table>
 		<tr>
 			<td>아이디</td>
@@ -188,6 +78,7 @@ $(document).ready(function(){
 			<td colspan="3" align="center"><input type="submit" value="가입하기" id="submit_input" /></td>
 		</tr>
 	</table>
+</form>
 </div>
 </body>
 </html> 
