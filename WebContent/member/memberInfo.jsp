@@ -35,6 +35,7 @@
 
 #container{
 	height: 700px;
+	display: flex;
 }
 .myPage_menu_aside {
 	width: 200px;
@@ -51,14 +52,14 @@
     width: 800px;
     height: 500px;
     float: left;
-    margin-left: 50px;
 	text-align: -webkit-center;
 	margin-left: 60px;
+	margin-top: 30px;
 }
 
 #myInfo_btn{
 margin-top: 30px;
-margin-left: 30px;	
+margin-left: -100px;	
 }
 #btn{
 margin-right: 20px;}
@@ -85,6 +86,16 @@ margin-right: 20px;}
 		margin-top: 15px;
 		border: 1px solid #7B977A;
 		margin-right: 20px;
+}
+
+#infoUpdateBtn {
+		height:35px; 
+		padding: 0px 19px;
+		font-size: 9px;
+		border: 1px solid #7B977A;
+		color: white;
+		background: #7B977A;
+
 }
 </style>
 </head>
@@ -133,6 +144,7 @@ margin-right: 20px;}
 			<th>비밀번호</th>
 			<td>
 			<input type="password" id="memberPw" name="memberPw">
+			<input id="infoUpdateBtn" type="button" value="비밀번호 변경">
 			</td>		
 		</tr>
 		<tr>
@@ -178,12 +190,6 @@ margin-right: 20px;}
 			</td>		
 		</tr>
 		<tr>
-			<th>상세주소</th>
-			<td>
-			<input type="text" id="addressDetali" name="addressDetail">
-			</td>		
-		</tr>
-		<tr>
 			<th>생일</th>	
 			<td>
 			<input type="text" id="birth" name="birth">
@@ -201,19 +207,12 @@ margin-right: 20px;}
 			<input type="text" id="grade" name="grade">
 			</td>	
 		</tr>
-	
-	
-	
 	</table>
 	<div id="myInfo_btn">
 			<input id = "mypage_btn" class="inline" type="button" value="홈으로 이동" onclick="location.href='/takeit/member/index.jsp'">
-			<input id = "mypage_btn" class="inline" type="button" value="판매자 전환" onclick="location.href='/takeit/member/sellerJoin.jsp'">
 	</div>
 </div>
-
 </div>
-
-
 </div>
 
  

@@ -10,29 +10,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <style type="text/css">
 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #5a7d59;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #5a7d59;
     color: white;
 }
 #container{
-height: 700px;}
+	height: 700px;
+	display: flex;
+}
 .myPage_menu_aside {
 	width: 200px;
 	height: 500px;
@@ -57,9 +59,10 @@ height: 700px;}
     width: 800px;
     height: 700px;
     float: left;
-    margin-left: 50px;
 	text-align: -webkit-center;
 	margin-left: 60px;
+	margin-top: 30px;
+	
 }
 
 
