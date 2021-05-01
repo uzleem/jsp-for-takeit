@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/member/login.js"></script>

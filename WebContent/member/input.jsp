@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/member/input.js"></script>
 <!-- 상단 메뉴 -->
@@ -28,7 +28,6 @@
 </head>
 <body>
 <div id="contents_box" align="center">
-<a href="../index.jsp">index</a>
 <h3>회원가입</h3>
 <form action="#" method="post">
 <table>
@@ -64,11 +63,11 @@
 		</tr>
 		<tr>
 			<td>우편번호</td>
-			<td><input type="text" placeholder="변경예정" id="test1"/></td> 
+			<td><input type="text" placeholder="변경예정" id="zipCode"/></td> 
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" placeholder="변경예정" id="test2"/></td>
+			<td><input type="text" placeholder="변경예정" id="addr"/></td>
 		</tr>
 		<tr>
 			<td>생년월일</td>

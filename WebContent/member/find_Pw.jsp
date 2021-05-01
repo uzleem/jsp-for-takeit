@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>비밀번호찾기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script type="text/javascript" src="/takeit/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/member/find_Pw.js"></script>
 <!-- 상단 메뉴 -->
