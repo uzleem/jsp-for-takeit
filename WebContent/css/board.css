@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.notice-table, .notice-tr
+.notice-tr>th, .notice-tr>td{
+		border: solid 1px #8D959C;
+		margin: 0 auto;
+		border-collapse: collapse;
+		padding: 5px;
+		width: 1050px;
+		margin-top: 30px;
+		margin-bottom: 20px;
+}
+#notice{
+	width: 1050px;
+	margin: 0 auto;
+}
