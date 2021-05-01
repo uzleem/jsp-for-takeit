@@ -7,14 +7,11 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-
 <link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="../js/member/input.js"></script>
-
 </head>
 <body>
-
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -26,11 +23,14 @@
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
+<!-- 내용 -->
 <div id="contents_box" align="center">
 <h3>회원가입</h3>
 <form action="#" method="post">

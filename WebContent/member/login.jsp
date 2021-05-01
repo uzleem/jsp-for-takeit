@@ -1,23 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-
 <link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="../js/member/login.js"></script>
 <!--카카오 javascript SDL 등록(kakao.min.js)  -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
   
 <script type="text/javascript">
-
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 window.Kakao.init("");
 window.Kakao.isInitialized();
@@ -45,9 +42,8 @@ function kakaoLogin() {
     });
 }
 </script>
-
 </head>
-
+<body>
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -59,13 +55,14 @@ function kakaoLogin() {
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-
-<body>
+<!-- 내용 -->
 <div id="contents_box" align="center">
 <h3>로그인 </h3>
 <form action="/takeit/member/myInfo.jsp" method="post" name="loginForm">
