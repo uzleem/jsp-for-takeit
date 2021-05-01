@@ -7,9 +7,8 @@
 		<h3 class="active" >마이페이지</h3>
 		<ul>
 			<li><a href="/takeit/member/myPage.jsp">내 주문내역 조회</a></li>
-			<li><a href="/takeit/member/myInfo.jsp">내 정보 조회</a></li>
-			<li><a href="/takeit/member/myInfoUpdate.jsp">개인정보 수정</a></li>
-			<li><a href="/takeit/member/sellerJoin.jsp">판매자 등록</a></li>
+			<li><a href="/takeit/member/memberInfo.jsp">내 정보 조회</a></li>
+			<li><a href="/takeit/member/memberInfoUpdate.jsp">개인정보 수정</a></li>
 			<li><a href="/takeit/member/memberRemove.jsp">회원 탈퇴</a></li>
 			
 		</ul>
