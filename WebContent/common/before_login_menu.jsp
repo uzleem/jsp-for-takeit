@@ -6,5 +6,5 @@
 	<span id="pipe">|</span>
 	<a href="/takeit/member/login.jsp">로그인</a>
 	<span id="pipe">|</span>
-	<a href="#">고객센터</a>
+	<a href="/takeit/board/customerCenter.jsp">고객센터</a>
 </div>
