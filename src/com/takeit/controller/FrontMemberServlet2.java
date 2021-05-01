@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FrontMemberServlet
  */
-@WebServlet("/FrontMemberServlet")
 @WebServlet(urlPatterns = {"/member/memberController"})
 public class FrontMemberServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
