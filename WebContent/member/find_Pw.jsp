@@ -7,9 +7,13 @@
 <meta charset="UTF-8">
 <title>비밀번호찾기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+
 <link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script type="text/javascript" src="/takeit/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/member/find_Pw.js"></script>
+
+</head>
+
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -23,13 +27,15 @@
 </c:choose>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
-</head>
-
+<!-- 네비게이션 -->
+<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 <body>
 <div id="contents_box" align="center">
 <h3>비밀번호 찾기</h3>
-<form action="#">
+
+<form action="#" method="post">
+
 <table>
 	<tr>
 		<td>아이디</td>

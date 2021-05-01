@@ -7,9 +7,13 @@
 <meta charset="UTF-8">
 <title>아이디찾기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+
 <link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="../js/member/find_Id.js"></script>
+
+</head>
+  
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -21,15 +25,16 @@
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+  
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
-</head>
-
+<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 <body>
 <div id="contents_box" align="center">
 <form action="#">
 <h3>아이디 찾기</h3>
+<form action="#" method="post">
 <table>
 	<tr>
 		<td>이름</td>
