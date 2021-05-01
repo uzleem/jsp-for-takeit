@@ -25,7 +25,7 @@ public class FrontBoardServlet extends HttpServlet {
 	public void init() {
 		application = getServletContext();
 		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");	
-	}	
+	}	   
 
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
