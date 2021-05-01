@@ -29,7 +29,7 @@
 <h1 style="width:fit-content; margin: 0 auto;">TAKE IT 고객센터</h1>
 <br>
 <div>
-	<a href="/takeit/board/boardController?action=noticeList" class="link">공지사항</a>
+	<a href="/takeit/board/noticeList.jsp" class="link">공지사항</a>
 	<a href="#" class="link">자주하는 질문</a>
 	<a href="#" class="link">상품문의</a>
 </div>
