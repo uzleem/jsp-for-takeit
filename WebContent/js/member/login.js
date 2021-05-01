@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 	/* 회원가입 이동 이벤트 */
 	$("#input_button").click(function() {
-		 location.href = "/takeit/member/input.jsp"
+		 location.href = "/takeit/member/memberInputForm.jsp"
 	});
 	
 });
