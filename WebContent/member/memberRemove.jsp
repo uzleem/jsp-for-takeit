@@ -24,11 +24,11 @@ li a {
     text-decoration: none;
 }
 h3.active {
-    background-color: #4CAF50;
+    background-color: #5a7d59;
     color: white;
 }
 li a:hover:not(.active) {
-    background-color: #555;
+    background-color: #5a7d59;
     color: white;
 }
 #container{
