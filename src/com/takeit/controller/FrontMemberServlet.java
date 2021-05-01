@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * 회원관리 컨트롤러
  */
 @WebServlet("/memberController")
-public class FrontMemberController extends HttpServlet {
+public class FrontMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//서버 구동시에 해당 어플리케이션당 한 개의 환경설정, 모든 서블릿(jsp)공유객체, 서버 종료시까지 사용
 	public ServletContext application;
