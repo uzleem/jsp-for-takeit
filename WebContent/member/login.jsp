@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +11,6 @@
 <script type="text/javascript" src="/takeit/js/slide.js"></script>
 <!--카카오 javascript SDL 등록(kakao.min.js)  -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#header").load("../common/header.jsp")
-	$("#footer").load("../common/footer.jsp")
-});
-</script>
 
 <script>
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -107,11 +100,25 @@ function kakaoLogin() {
 </head>
 <body>
 
-<div id="header"><h1>header</h1></div>
+<!-- 상단 메뉴 -->
+<c:choose>
+	<c:when test="${empty memberId or empty grade}">
+		<!-- 로그인 전 메뉴 -->
+		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<!-- 로그인 후 메뉴 -->
+		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+	</c:otherwise>
+</c:choose>
+<!-- logo.jsp 삽입 -->
+<jsp:include page="/common/logo.jsp"></jsp:include>
+<!-- 네비게이션 -->
+<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 <div id="contents_box" align="center">
 <h3>로그인 </h3>
-<form action="myInfo.jsp" method="post" name="loginForm">
+<form action="/takeit/member/myInfo.jsp" method="post" name="loginForm">
 <table>
 	<tr>
 		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId"/></td>

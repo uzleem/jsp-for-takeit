@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- 상단메뉴 -->
 <div id="top-menu" class="view-width">
-	<a href="#">회원가입</a>
+	<a href="/takeit/member/input.jsp">회원가입</a>
 	<span id="pipe">|</span>
 	<a href="/takeit/member/login.jsp">로그인</a>
 	<span id="pipe">|</span>

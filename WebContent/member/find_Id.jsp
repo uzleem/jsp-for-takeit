@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +9,6 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/takeit/js/slide.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#header").load("../common/header.jsp")
-	$("#footer").load("../common/footer.jsp")
-});
-</script>
 <style>
 	#contents_box {	
 		margin: auto;
@@ -54,10 +49,25 @@ $(document).ready(function(){
 </head>
 <body>
 
-<div id="header"><h1>header</h1></div>
+<!-- 상단 메뉴 -->
+<c:choose>
+	<c:when test="${empty memberId or empty grade}">
+		<!-- 로그인 전 메뉴 -->
+		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+	</c:when>
+	<c:otherwise>
+		<!-- 로그인 후 메뉴 -->
+		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+	</c:otherwise>
+</c:choose>
+<!-- logo.jsp 삽입 -->
+<jsp:include page="/common/logo.jsp"></jsp:include>
+<!-- 네비게이션 -->
+<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 <div id="contents_box" align="center">
 <h3>아이디 찾기</h3>
+<form action="#" method="post">
 <table>
 	<tr>
 		<td>이름</td>
@@ -76,6 +86,7 @@ $(document).ready(function(){
 		<td><input type="submit" value="찾기" id="check_submit"/></td>
 	</tr>
 </table>
+</form>
 </div>
 </body>
 </html> 
