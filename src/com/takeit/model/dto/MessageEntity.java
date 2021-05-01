@@ -29,7 +29,7 @@ public class MessageEntity {
 		error.add("[잇거래 검색 오류]");
 		error.add("[잇거래 삭제 오류]");
 		
-		error.add("[공지사항/자주하는질문 등록 오류]");
+		error.add("[공지사항/자주하는질문 등록 오류]"); 
 		error.add("[공지사항/자주하는질문 조회 오류]");
 		error.add("[공지사항/자주하는질문 검색 오류]");
 		error.add("[공지사항/자주하는질문 삭제 오류]");		

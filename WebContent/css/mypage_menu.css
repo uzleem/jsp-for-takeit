@@ -1,25 +1,25 @@
 @charset "UTF-8";
 
 <!-- 마이페이지 --> 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
-    background-color: #4CAF50;
+.myPage_menu_aside h3.active {
+    background-color: #5a7d59;
     color: white;
 }
-li a:hover:not(.active) {
-    background-color: #555;
+.myPage_menu_aside li a:hover:not(.active) {
+    background-color: #5a7d59;
     color: white;
 }
 
@@ -81,24 +81,24 @@ margin-bottom: 20px;
 }
 <!-- 내 정보 보기  일반회원 -->
 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
@@ -158,24 +158,24 @@ margin-right: 20px;}
 }
 
 <!-- 내 정보 수정 일반회원-->
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
@@ -225,24 +225,24 @@ height: 700px;}
 
 <!-- 회원 탈퇴 -->
 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
@@ -282,24 +282,24 @@ display: inline-block;
 }
 
 <!-- 판매자 정보 조회 -->
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
@@ -350,24 +350,24 @@ height: 700px;}
 }
 
 <!-- 판매자 정보 수정 -->
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
@@ -408,24 +408,24 @@ margin-right: 20px;}
 }
 
 <!-- 판매자 등록 -->
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #4CAF50;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #555;
     color: white;
 }

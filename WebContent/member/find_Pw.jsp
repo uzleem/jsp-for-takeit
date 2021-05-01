@@ -5,56 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호찾기 페이지</title>
+<title>비밀번호찾기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/slide.js"></script>
-<style>
-	#contents_box {	
-		margin: auto;
-	}
-		
-	#contents_box > table {		
-		font-size: 9px;
-	}
-		
-	#check_submit{
-		width:100%;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		background-color: #7B977A;
-		color: white;
-		border: 1px solid #7B977A;
-	}
-	
-	#memberId{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#name{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#email{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		margin-bottom: 10px;
-		border: 1px solid #7B977A;
-	}
-
-</style>
+<script type="text/javascript" src="../js/member/find_Pw.js"></script>
 </head>
-<body>
 
+
+<body>
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -66,11 +25,14 @@
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
+<!--내용 -->
 <div id="contents_box" align="center">
 <h3>비밀번호 찾기</h3>
 <form action="#" method="post">

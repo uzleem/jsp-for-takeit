@@ -5,130 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기 페이지</title>
+<title>회원가입</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/slide.js"></script>
-<style>
-	#contents_box {	
-		margin: auto;
-	}
-		
-	#contents_box > table {		
-		font-size: 9px;
-	}
-
-	#contents_box > p {	
-		font-size: 9px;
-	}
-		
-	#submit_input{
-		width:50%;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		background-color: #7B977A;
-		color: white;
-		border: 1px solid #7B977A;
-		margin-top: 10px;	
-	}
-	
-	#memberId{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw_Chk{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#name{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#email{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#mobile{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#test1{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#test2{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#entryDate{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberId_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#memberPw_checkbox{
-		border: 1px solid #7B977A;
-	}
-	
-	#email_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#mobile_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-
-</style>
+<script type="text/javascript" src="../js/member/input.js"></script>
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -142,10 +23,14 @@
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
+
+<!-- 내용 -->
 <div id="contents_box" align="center">
 <h3>회원가입</h3>
 <form action="#" method="post">
@@ -182,11 +67,11 @@
 		</tr>
 		<tr>
 			<td>우편번호</td>
-			<td><input type="text" placeholder="변경예정" id="test1"/></td> 
+			<td><input type="text" placeholder="변경예정" id="zipCode"/></td> 
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" placeholder="변경예정" id="test2"/></td>
+			<td><input type="text" placeholder="변경예정" id="addr"/></td>
 		</tr>
 		<tr>
 			<td>생년월일</td>

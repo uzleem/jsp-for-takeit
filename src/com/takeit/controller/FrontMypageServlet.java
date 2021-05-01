@@ -8,32 +8,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.takeit.model.biz.BoardBiz;
+import com.takeit.model.biz.MypageBiz;
 
 /**
- * 게시판 관리 컨트롤러
+ * Servlet implementation class FrontMypageServlet
  */
-@WebServlet("/boardController")
-public class FrontBoardServlet extends HttpServlet {
+@WebServlet("/mypageController")
+public class FrontMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-	//서버 구동시에 해당 어플리케이션당 한 개의 환경설정, 모든 서블릿(jsp)공유객체, 서버 종료시까지 사용
+       
+    
 	public ServletContext application;
 	public String CONTEXT_PATH;
 	
 	public void init() {
 		application = getServletContext();
 		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");	
-	}	   
-
+	}	
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		request.setCharacterEncoding("utf-8");
 		switch(action) {
-		case "noticeList":
-			noticeList(request, response);
+		case "myInfoForm_General":
+			myInfoForm_General(request, response);
 			break;
 //		case "":
 //			(request, response);
@@ -49,6 +49,8 @@ public class FrontBoardServlet extends HttpServlet {
 //			break;
 		}
 	}
+	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
@@ -57,13 +59,40 @@ public class FrontBoardServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
 	}
-
-	protected void noticeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[debug]공지사항 전체 조회 요청");
+	
+	
+	//일반 회원 정보 조회
+	protected void myInfoForm_General(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("일반회원 내 정보 조회");
 		
-		BoardBiz biz = new BoardBiz();
-		request.setAttribute("noticeList", biz.getNoticeList());
-		request.getRequestDispatcher("/board/noticeList.jsp").forward(request, response);
+		HttpSession session = request.getSession(false);
+		
+		String memberId = (String)session.getAttribute("memberId");
+		
+		MypageBiz biz = new MypageBiz();
+		
+		biz.getMember_General(memberId);
+		
+		
 	}
-
+	
+	//판매자  정보 조회
+		protected void myInfoForm_Seller(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("판매자 내 정보 조회");
+			
+			HttpSession session = request.getSession(false);
+			
+			String memberId = (String)session.getAttribute("memberId");
+			
+			MypageBiz biz = new MypageBiz();
+			
+			biz.getMember_Seller(memberId);
+			
+			
+		}
+	
+	
+	
+	
+	
 }
