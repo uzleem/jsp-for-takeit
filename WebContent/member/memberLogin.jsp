@@ -7,42 +7,43 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/login.css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="../js/member/login.js"></script>
-<!--카카오 javascript SDL 등록(kakao.min.js)  -->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> 
-  
-<script type="text/javascript">
-// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-window.Kakao.init("");
-window.Kakao.isInitialized();
-// SDK 초기화 여부를 판단합니다.
-console.log(Kakao.isInitialized());
-
+<script type="text/javascript" src="/takeit/js/member/login.js"></script>
+<!-- 카카오 스크립트 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+Kakao.init('ef7d648c9d8cef88d6c092d4942eee41'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
 function kakaoLogin() {
-	window.Kakao.Auth.login({
-        scope:'profile, account_email, birthday',
-        success:function(authObj){
-            console.log(authObj);
-            window.Kakao.API.request({
-                url:'/v2/user/me',
-                success: function(response) {
-                    const kakao_account = response.kakao_account;
-                    console.log(kakao_account);
-                    console.log(kakao_account.profile);
-                    console.log(kakao_account.email);
-                    console.log(kakao_account.birthday);
-                    document.getElementById("memberId").value=kakao_account.email;
-                    document.loginForm.submit();
-                }
-            });
-        }
-    });
-}
+    Kakao.Auth.login({
+      scope: 'account_email',
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+        	  const kakao_account = response.kakao_account;
+        	  //$("#id").text(response.id);
+        	  //("#email").text(response.kakao_account.email);
+        	  console.log(response)
+        	  
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
 </script>
 </head>
+
+
 <body>
 <!-- 상단 메뉴 -->
 <c:choose>
@@ -64,7 +65,7 @@ function kakaoLogin() {
 
 <!-- 내용 -->
 <div id="contents_box" align="center">
-<h3>로그인 </h3>
+<h1>로그인 </h1>
 <form action="/takeit/member/myInfo.jsp" method="post" name="loginForm">
 <table>
 	<tr>
@@ -76,8 +77,8 @@ function kakaoLogin() {
 	</tr>
 	<tr>
 		<td id="find" align="right">
-			<a href="find_Id.jsp">아이디찾기</a>
-			<a href="find_Pw.jsp">비밀번호찾기</a>
+			<a href="memberFindId.jsp">아이디찾기</a>
+			<a href="memberFindPw.jsp">비밀번호찾기</a>
 		</td>
 	</tr>
 	<tr>
@@ -87,10 +88,18 @@ function kakaoLogin() {
 		<td><input type="button" value="회원가입" id="input_button" name="input_button"/></td>
 	</tr>
 	<tr>
-		<td align="center"><a href="javascript:kakaoLogin();"><img src="/takeit/img/login/kakao_login_medium_narrow.png" alt="" id="kakaoLogin"/></a></td>
+		<td align="center" onclick="kakaoLogin();">
+			<a href="javascript:void(0)">
+				<img src="/takeit/img/login/kakao_login_medium_narrow.png" alt="" id="kakaoLogin"/>
+			</a>
+		</td>
 		<!-- <td><input type="button" value="카카오 로그인" id="kakaoLogin" onclick="kakaoLogin();"/></td> -->
 	</tr>
 </table>
+<div>
+	회원번호 : <span id ="id"></span><br>
+	이메일 : <span id="email"></span><br>
+</div>
 </form>
 </div>
 </body>

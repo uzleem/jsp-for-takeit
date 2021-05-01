@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>아이디찾기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/findId.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="../js/member/find_Id.js"></script>
+<script type="text/javascript" src="/takeit/js/member/findId.js"></script>
 </head>
   
   
@@ -32,7 +32,7 @@
 
 <!-- 내용 -->
 <div id="contents_box" align="center">
-<h3>아이디 찾기</h3>
+<h1>아이디 찾기</h1>
 <form action="#" method="post">
 <table>
 	<tr>
