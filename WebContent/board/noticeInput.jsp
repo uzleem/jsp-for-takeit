@@ -36,9 +36,10 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-
+<br>
 <form action="#" method="post">
 <h1 style="width:fit-content; margin: 0 auto;">게시글 입력</h1>
+<br>
 <table>
 	<tr>
 		<th>글제목</th>
