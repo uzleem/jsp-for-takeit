@@ -11,25 +11,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <style type="text/css">
 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
-    background-color: #4CAF50;
+.myPage_menu_aside h3.active {
+    background-color: #5a7d59;
     color: white;
 }
-li a:hover:not(.active) {
-    background-color: #555;
+.myPage_menu_aside li a:hover:not(.active) {
+    background-color: #5a7d59;
     color: white;
 }
 
@@ -126,67 +126,67 @@ margin-right: 20px;}
 		<tr>
 			<th>아이디</th>
 			<td>
-			<input type="text" id="member_id" name="member_id">
+			<input type="text" id="memberId" name="memberId">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="password" id="memberPw" name="memberPw">
 			</td>		
 		</tr>
 		<tr>
 			<th>이름</th>	
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="name" name="name">
 			</td>	
 		</tr>
 		<tr>
 			<th>휴대폰</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="mobile" name="mobile">
 			</td>		
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="email" name="email">
 			</td>		
 		</tr>
 		<tr>
 			<th>가입일자</th>	
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="enrtyDate" name="enrtyDate">
 			</td>	
 		</tr>
 		<tr>
 			<th>포인트</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="point" name="point">
 			</td>		
 		</tr>
 		<tr>
 			<th>우편번호</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="postno" name="postno">
 			</td>		
 		</tr>
 		<tr>
 			<th>주소</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="address" name="address">
 			</td>		
 		</tr>
 		<tr>
 			<th>상세주소</th>
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="addressDetali" name="addressDetail">
 			</td>		
 		</tr>
 		<tr>
 			<th>생일</th>	
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="birth" name="birth">
 			</td>	
 		</tr>
 		<tr>
@@ -198,7 +198,7 @@ margin-right: 20px;}
 		<tr>
 			<th>등급</th>	
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="grade" name="grade">
 			</td>	
 		</tr>
 	
@@ -220,4 +220,5 @@ margin-right: 20px;}
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
+
 </html>
