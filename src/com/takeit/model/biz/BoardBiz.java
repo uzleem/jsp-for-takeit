@@ -9,7 +9,7 @@ package com.takeit.model.biz;
  */
 public class BoardBiz {
 
-	public Object getBoardList() {
+	public Object getNoticeList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
