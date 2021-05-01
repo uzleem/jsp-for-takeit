@@ -24,11 +24,11 @@
     text-decoration: none;
 }
 .myPage_menu_aside h3.active {
-    background-color: #4CAF50;
+    background-color: #5a7d59;
     color: white;
 }
 .myPage_menu_aside li a:hover:not(.active) {
-    background-color: #555;
+    background-color: #5a7d59;
     color: white;
 }
 
