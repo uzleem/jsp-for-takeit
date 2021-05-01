@@ -10,29 +10,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <style type="text/css">
 
-ul {
+.myPage_menu_aside ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
     background-color: #f1f1f1;
 }
-li a {
+.myPage_menu_aside li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
 }
-h3.active {
+.myPage_menu_aside h3.active {
     background-color: #5a7d59;
     color: white;
 }
-li a:hover:not(.active) {
+.myPage_menu_aside li a:hover:not(.active) {
     background-color: #5a7d59;
     color: white;
 }
 #container{
- height: 700px;
+	height: 700px;
+	display: flex;
 }
 .myPage_menu_aside {
 	width: 200px;
@@ -107,85 +108,91 @@ margin-right: 20px;}
 						<tr>
 							<th>아이디</th>
 							<td>
-							<input type="text" id="member_id" name="member_id">
+							<input type="text" id="sellerId" name="sellerId" value="">
 							</td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
 							<td>
-							<input type="text" id="" name="">
+							<input type="password" id="sellerPw" name="sellerPw" value="">
 							</td>		
 						</tr>
 						<tr>
 							<th>이름</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="name" name="name" value="">
 							</td>	
 						</tr>
 						<tr>
 							<th>사업자등록번호</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="sellerNo" name="sellerNo" value="">
 							</td>	
 						</tr>
 						<tr>
 							<th>상점명</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="shopName" name="shopName" value="">
 							</td>	
 						</tr>
 						<tr>
 							<th>상점연락처</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="shopMobile" name="shopMobile" value="">
 							</td>	
 						</tr>
 						<tr>
 							<th>휴대폰</th>
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="mobile" name="mobile" value="">
 							</td>		
 						</tr>
 						<tr>
 							<th>이메일</th>
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="email" name="email" value="">
 							</td>		
 						</tr>
 						<tr>
 							<th>가입일자</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="entryDate" name="entryDate" value="">
 							</td>	
 						</tr>
 						<tr>
 							<th>우편번호</th>
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="postno" name="postno" value="">
 							</td>		
 						</tr>
 						<tr>
-							<th>주소</th>
+							<th>성점주소</th>
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="addrss" name="addrss" value="">
 							</td>		
-						</tr>
-						<tr>
-							<th>상세주소</th>
-							<td>
-							<input type="text" id="" name="">
-							</td>		
-						</tr>
-						<tr>
-							<th>상점구역코드</th>	
-							<td>
-							<input type="text" id="" name="">
-							</td>	
 						</tr>
 						<tr>
 							<th>등급</th>	
 							<td>
-							<input type="text" id="" name="">
+							<input type="text" id="grade" name="grade" value="">
+							</td>	
+						</tr>
+						<tr>
+							<th>주요제품</th>	
+							<td>
+							<input type="text" id="shopCategoryNo" name="shopCategoryNo" value="">
+							</td>	
+						</tr>
+						<tr>
+							<th>카카오톡아이디</th>	
+							<td>
+							<input type="text" id="shopKaKaoId" name="shopKaKaoId" value="">
+							</td>	
+						</tr>
+						<tr>
+							<th>상점구역코드</th>	
+							<td>
+							<input type="text" id="shopLocCode" name="shopLocCode" value="">
 							</td>	
 						</tr>
 						<tr>

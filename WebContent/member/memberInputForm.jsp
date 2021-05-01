@@ -5,15 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호찾기</title>
+<title>회원가입</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/member.css">
-<script type="text/javascript" src="/takeit/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="../js/member/find_Pw.js"></script>
-
+<link type="text/css" rel="stylesheet" href="/takeit/css/member/input.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/takeit/js/member/inputForm.js"></script>
 </head>
-
+<body>
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -25,39 +23,22 @@
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-<body>
+<!-- 내용 -->
 <div id="contents_box" align="center">
-<h3>비밀번호 찾기</h3>
-
 <form action="#" method="post">
-
 <table>
 	<tr>
-		<td>아이디</td>
+		<td><input type="button" value="일반 회원가입" id="nomal_inputForm" name="nomal_inputForm"/></td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId"/></td>
-	</tr>
-	<tr>
-		<td>이름</td>
-	</tr>
-	<tr>
-		<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name"/></td>
-	</tr>
-	<tr>
-		<td>이메일</td>
-	</tr>
-	<tr>
-		<td><input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email"/></td>
-	</tr>
-	
-	<tr>
-		<td><input type="submit" value="찾기	" id="check_submit"/></td>
+		<td><input type="button" value="판매자 회원가입" id="seller_inputForm" name="seller_inputForm"/></td>
 	</tr>
 </table>
 </form>

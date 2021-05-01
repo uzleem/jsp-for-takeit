@@ -1,120 +1,240 @@
-<style>
-	#contents_box {	
-		margin: auto;
-	}
-		
-	#contents_box > table {		
-		font-size: 9px;
-	}
+@charset "UTF-8";
 
-	#contents_box > p {	
-		font-size: 9px;
-	}
-		
-	#submit_input{
-		width:50%;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		background-color: #7B977A;
-		color: white;
-		border: 1px solid #7B977A;
-		margin-top: 10px;	
-	}
+#contents_box {	
+	margin: auto;
+}
 	
-	#memberId{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberPw_Chk{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#name{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#email{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#mobile{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#addr{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#zipCode{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#entryDate{
-		width:250px;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-	}
-	#memberId_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#memberPw_checkbox{
-		border: 1px solid #7B977A;
-	}
-	
-	#email_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
-	#mobile_button{
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-	}
-	
+#contents_box > table {		
+	/* font-size: 9px; */
+}
 
-</style>
+#contents_box > p {	
+	/* font-size: 9px; */
+}
+
+/* 일반회원가입 폼 */
+#nomal_inputForm{
+	width: 315px;
+	height: 60px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	background-color: #7B977A;
+	color: white;
+	margin-top: 15px;
+	border: 1px solid #7B977A;
+}
+
+/* 일반회원 데이터 시작*/
+#memberId{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#id_button{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+}
+
+#memberPw{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#memberPw_chk{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#pw_checkbox{
+	background: #7B977A;
+}
+
+#name{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#email{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#email_button{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+}
+
+#mobile{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#mobile_button{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+}
+
+#postNo{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#address{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#entryDate{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#normal_submit{
+	width:50%;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	background-color: #7B977A;
+	color: white;
+	border: 1px solid #7B977A;
+	margin-top: 10px;	
+}
+/* 일반회원 데이터 끝*/
+
+/* 판매자 회원가입  폼 */
+#seller_inputForm{
+	width: 315px;
+	height: 60px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	background-color: #7B977A;
+	color: white;
+	border: 1px solid #7B977A;
+	margin-top: 20px;
+}
+
+/* 판매자회원 데이터 시작*/
+#sellerId{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#sellerPw{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#sellerPw_chk{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#sellerNo{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#shop_mobile{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#shop_name{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#kakao_id{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#shop_img{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#shop_categoryNo{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
+#seller_submit{
+	width:50%;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	background-color: #7B977A;
+	color: white;
+	border: 1px solid #7B977A;
+	margin-top: 10px;	
+}
+/* 판매자회원 데이터 끝*/
+
+

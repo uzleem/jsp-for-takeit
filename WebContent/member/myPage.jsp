@@ -34,7 +34,7 @@
 
 #container{
 	height: 700px;
-
+	display: flex;
 }
 .myPage_menu_aside {
 	width: 200px;
@@ -54,14 +54,14 @@
 }
 
 .order_img{
-	width: 149px;
-	height: 240px;
+	width: 106px;
+	height: 149px;
 	float:left;
 }
 
 #itemInfo{
-	width:300px;
-	height: 200px;
+	width:160px;
+	height: 174px;
 	float:left;
 	margin-left: 50px;
 	margin-top: auto;
@@ -69,16 +69,16 @@
 
 #order_Info{
 	width:700px;
-	height:350px;
+	height:222px;
 	margin-left: 30px;
 
 }
 
 #order_item{
 	float:left;
-	width:70px;
+	width:150px;
 	margin-left: 100px;
-	margin-top: 50px;
+	font-size: 19px;
 
 }
 
@@ -86,7 +86,10 @@
 	margin-bottom: 20px;
 }
 #shipping_ask_btn{
-margin-bottom: 20px;
+	margin-bottom: 20px;
+}
+#orderState {
+	
 }
 </style>
 </head>
@@ -138,10 +141,9 @@ margin-bottom: 20px;
 						<h6>상품 수량 : 1개</h6>
 						<h6>결제금액 : 4000원</h6>
 						<h6>수령 방법 : 배송</h6>
-						<h6>주문 상태 : 배송중</h6>
 					</div>
 						<div id="order_item">
-							<input id="shipping_ask_btn" type="button" value="배송문의">
+							<h6 id="orderState">주문 상태 : 배송중</h6>
 							<input id="item_review_btn" type="button" value="상품 후기">
 							<input type="button" value="상품 문의">
 						</div>
@@ -149,9 +151,32 @@ margin-bottom: 20px;
 			
 		</div>
 		<hr>
+		<div id="order_Info">
+		<h4>주문번호 : xxxxxxxxx </h4>
+		
+			<div >
+				<img class="order_img" src="/takeit/img/item/item1.jpg">	
+					<div id="itemInfo">
+						<h6>상품명 : 1등급 마블링 한우</h6>
+						<h6>상품 수량 : 1개</h6>
+						<h6>결제금액 : 4000원</h6>
+						<h6>수령 방법 : 배송</h6>
+						
+					</div>
+						<div id="order_item">
+							<h6 id="orderState">주문 상태 : 배송중</h6>
+							<input id="item_review_btn" type="button" value="상품 후기">
+							<input type="button" value="상품 문의">
+						</div>
+			</div>
+			
+		</div>
+		
+		
 	</div>
 
  </div>
+ 
  
  <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>

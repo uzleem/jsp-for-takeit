@@ -5,7 +5,7 @@
 }
 	
 #contents_box > table {		
-	font-size: 9px;
+	/* font-size: 9px; */
 }
 	
 #contents_box > submit{
@@ -32,7 +32,7 @@
 	border: 1px solid #7B977A;
 }
 
-a{
+#find{
 	text-decoration: none;
 	font-size: 9px;
 }
