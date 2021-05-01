@@ -129,8 +129,8 @@
 				<td>잇거래여부</td>
 				<td><select onchange="takeIt">
 			    		<option value="">==잇거래 여부== </option>
-	            		<option value="">잇거래등록</option>
-	            		<option value="">잇거래 등록안함</option>
+	            		<option value="">True(등록)</option>
+	            		<option value="">False(등록안함)</option>
 	        		</select>
 	        	</td>
 			</tr><br>

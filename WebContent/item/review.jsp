@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div align='right'>
-			<!-- 로그인 후 메뉴 -->
+		<!-- 로그인 후 메뉴 -->
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</div>
 		<div  id=logo_menu align='center'>	
