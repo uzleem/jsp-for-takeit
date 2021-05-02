@@ -131,14 +131,14 @@ $(document).ready(function() {
 	});
 
 	/* 생년월일 포커스 */
-	$("#entryDate").on('focus', function() {
-		$("#entryDate").css({
+	$("#brith").on('focus', function() {
+		$("#brith").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 생년월일 포커스 아웃 */
-	$("#entryDate").on('focusout', function() {
-		$("#entryDate").css({
+	$("#brith").on('focusout', function() {
+		$("#brith").css({
 			'background' : "white"
 		});
 	});
@@ -282,15 +282,18 @@ $(document).ready(function() {
  }
  
  /* 비밀번호 표시 */
- function memberPw_Chkbox_Onclick() {
+ function pwCheckbox_onclick() {
 		
-	var memberPw_ChkboxElement = document.getElementById("memberPw_Chkbox")
+	var pwCheckboxElement = document.getElementById("pwCheckbox")
 	var memberPwElement = document.getElementById("memberPw")
+	var pwChk_Element = document.getElementById("pwChk")
 	
-	if(memberPw_ChkboxElement.checked) {
+	if(pwCheckboxElement.checked) {
 		memberPwElement.type = "text"
+		pwChk_Element.type = "text"
 	}else {
 		memberPwElement.type = "password"
+		pwChk_Element.type = "password"
 	}
 }
 
