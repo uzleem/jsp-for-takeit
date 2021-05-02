@@ -75,7 +75,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 <div id="item-recomm" class="view-width">
 <ul>
 	<li>
-		<a href="#">
+		<a href="/takeit/item/item1.jsp">
 		<img id="itemImg" alt="소불고기" src="/takeit/img/item/item1.jpg">
 		</a>
 	</li>
@@ -86,7 +86,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 </ul>
 <ul>
 	<li>
-		<a href="#">
+		<a href="/takeit/item/item2.jsp">
 		<img id="itemImg" alt="맛간장" src="/takeit/img/item/item2.jpg">
 		</a>
 	</li>
@@ -95,7 +95,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 </ul>
 <ul>
 	<li>
-		<a href="#">
+		<a href="/takeit/item/item3.jsp">
 		<img id="itemImg" alt="소불고기" src="/takeit/img/item/item3.jpg">
 		</a>
 	</li>
@@ -106,7 +106,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 </ul>
 <ul>
 	<li>
-		<a href="#">
+		<a href="/takeit/item/item4.jsp">
 		<img id="itemImg" alt="소불고기" src="/takeit/img/item/item4.jpg">
 		</a>
 	</li>

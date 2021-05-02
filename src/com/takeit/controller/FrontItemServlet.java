@@ -19,7 +19,7 @@ import com.takeit.model.dto.MessageEntity;
 /**
  * 상품관리를 위한 FrontController servlet
  */
-@WebServlet("/itemController")
+@WebServlet("/item/itemController")
 public class FrontItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,8 +45,8 @@ public class FrontItemServlet extends HttpServlet {
 		case "itemEnroll":
 			itemEnroll(request, response);
 		break;
-//		case "":
-//			(request, response);
+		case "itemList":
+//		itemList(request, response);
 //			break;
 //		case "":
 //			(request, response);

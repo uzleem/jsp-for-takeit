@@ -20,8 +20,8 @@ a:active {
 	text-decoration: underline;
 	color: #ff0000;
 }
-
-/* logo img */
+/* 
+logo img
 img[src^="img/logo/"] {
 	width: 50px;
 	height: 40px;
@@ -33,17 +33,17 @@ img[src$="img/.jpg/"] {
 }
 
 
-/* main_menu */
+main_menu
 #main_menu {
 	text-align: right;
 }
 
-/* footer_menu */
+footer_menu
 div#footer_menu {
 	text-align: center;
 }
 
-/*  class="seperator" */
+ class="seperator"
 span.seperator {
 	margin: 0 5px;
 	font-size: 0.7em;
@@ -56,12 +56,12 @@ span.seperator_title {
 	color: #ffcc00;	
 }
 
-/* title */
+title
 h3.title {
 	color: #152a84;		
 }
 
-/* form readonly */
+form readonly
 input[readonly] {
 	background-color: cyan;
 }
@@ -70,12 +70,7 @@ input.large {
 	width: 500px;	
 }
 
-/*table */
-table, tr, td, th {
-	border: 1px solid Pink;
-	margin-left: 20px;
-	padding: 3px;
-}
+
 
 tr.title_rows {
 	text-align: center;
@@ -87,4 +82,32 @@ div.form {
 	margin-top: 20px;
 	margin-left: 20px;
 	padding: 5px;
+} */
+img[src$="item/.jpg/"] {
+	width: 30px;
+	height: 30px;
+}
+
+table {
+	width: 100%;
+	border: 1px solid black;
+}
+
+.itemTable {
+	border-collapse: collapse;
+}
+
+.itemTable th, .itemTable td {
+	border: 1px solid black;
+}
+
+#enroll_total {
+	border: 0px solid black;
+	width : 1700px;
+	height: 400px;
+	margin: 100px;
+}
+
+#meat_div {
+	margin-left: 50px;
 }

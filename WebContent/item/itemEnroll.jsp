@@ -105,15 +105,15 @@
 				<td><input type="text" name="title" placeholder="신선도">
 				</td>
 			</tr>
-			<br>
+			
 
 		</table>
-		</form>
+	<br></form>
 		<div id="signup" align='center'>
+		
 			<tr>
-				<br>
-				<input type="submit" value="상품등록">
-				<input type="reset" value="취소">
+				<td><input type="submit" value="상품등록"></td>
+				<td><input type="reset" value="취소"></td>
 			</tr>
 		</div>
 	</div>
