@@ -45,7 +45,8 @@ public class MessageEntity {
 		success.add("[회원 등록 성공]");	
 		success.add("[회원 로그인 성공]");	
 		success.add("[회원 로그아웃 성공]");		
-		success.add("[회원정보 수정 성공]");	
+		success.add("[회원정보 수정 성공]");
+		success.add("[회원 탈퇴 성공]");
 		success.add("[상품정보 수정 성공]");		
 		success.add("[상품삭제 성공]");		
 		success.add("[잇거래 등록 성공]");
