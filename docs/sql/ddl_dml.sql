@@ -76,7 +76,7 @@ CREATE TABLE MEMBER_LOC (
   , CONSTRAINT FK_SHOP_LOC_TO_MEMB_LOC FOREIGN KEY (SHOP_LOC_CODE) REFERENCES SHOP_LOC(SHOP_LOC_CODE) ON DELETE CASCADE
 );
 -- 판매자
-CREATE TABLE SELLER_MEMBER (
+CREATE TABLE SELLER (
 	SELLER_ID varchar2(50) NOT NULL -- 판매자회원아이디,
   ,	SELLER_PW VARCHAR2(50) NOT NULL -- 비밀번호,
   ,	NAME VARCHAR(30) NOT NULL -- 이름,
@@ -84,7 +84,8 @@ CREATE TABLE SELLER_MEMBER (
   ,	EMAIL VARCHAR(100) NOT NULL -- 이메일,
   ,	ENTRY_DATE TIMESTAMP DEFAULT SYSDATE NOT NULL -- 가입일자,
   ,	POSTNO CHAR(5) NOT NULL -- 우편번호,
-  ,	ADDRESS VARCHAR(255) NOT NULL -- 상세주소,
+  ,	ADDRESS VARCHAR(255) NOT NULL -- 도로명주소,
+  ,	ADDRESS_DETAIL VARCHAR(255) NOT NULL -- 상세주소,
   ,	GRADE CHAR(1) DEFAULT 'S' NULL -- 등급,
   ,	SELLER_NO CHAR(12) UNIQUE NOT NULL -- 사업자등록번호,
   ,	SHOP_MOBILE VARCHAR2(13) NOT NULL -- 상점연락처,
@@ -101,7 +102,7 @@ CREATE TABLE SELLER_MEMBER (
 );
 
 -- 일반
-CREATE TABLE GENERAL_MEMBER (
+CREATE TABLE GENERAL (
 	MEMBER_ID varchar2(50) NOT NULL -- 일반회원아이디,
   ,	MEMBER_PW VARCHAR2(50) NOT NULL -- 비밀번호,
   ,	NAME VARCHAR(30) NOT NULL -- 이름,
@@ -109,7 +110,8 @@ CREATE TABLE GENERAL_MEMBER (
   ,	EMAIL VARCHAR(100) NOT NULL -- 이메일,
   ,	ENTRY_DATE TIMESTAMP DEFAULT SYSDATE NOT NULL -- 가입일자,
   ,	POSTNO CHAR(5) NULL -- 우편번호,
-  ,	ADDRESS VARCHAR(255) NULL -- 상세주소,
+  ,	ADDRESS VARCHAR(255) NOT NULL -- 도로명주소,
+  ,	ADDRESS_DETAIL VARCHAR(255) NOT NULL -- 상세주소,
   ,	GRADE CHAR(1) DEFAULT 'G' NULL -- 등급,
   ,	POINT NUMBER(7,0) DEFAULT 1000 NULL -- 적립금,
   ,	BIRTH CHAR(10) NULL -- 생일,
@@ -274,8 +276,6 @@ CREATE TABLE CART (
 );
 
 -------------------------------------------------------------------------------
--------------------------------초기화데이터--------------------------------------
--------------------------------------------------------------------------------
 DELETE FROM TAKEIT_DETAIL;
 DELETE FROM TAKEIT;
 
@@ -316,18 +316,18 @@ insert into MEMBER_LOC values('30','BB','서울시 관악구');
 --SELECT * FROM MEMBER_LOC;
 
 --일반회원
-INSERT INTO GENERAL_MEMBER VALUES('user01', 'password01', '홍길동', '010-1111-1111', 'user01@takeit.com', '2021-04-30', 12345, '인천시 부평구', 'G', 1000, '1987-05-05', '29', 'AA'); 
-INSERT INTO GENERAL_MEMBER VALUES('user02', 'password02', '김유신', '010-2222-2222', 'user02@takeit.com', '2020-05-13', 56789, '인천시 부평구', 'G', 89000, '1997-07-06', '29', 'AA'); 
-INSERT INTO GENERAL_MEMBER VALUES('user03', 'password03', '강감찬', '010-3333-3333', 'user03@takeit.com', '2021-02-27', 98765, '서울시 부평구', 'G', 5000, '1987-05-05', '29', 'AA'); 
-INSERT INTO GENERAL_MEMBER VALUES('admin', 'adminpass99', '관리자', '010-9999-9999', 'admin@takeit.com', '2014-02-27', 45678, '서울시 관악구', 'A', 0, '1995-12-05', '30', 'BB'); 
+INSERT INTO GENERAL_MEMBER VALUES('user01', 'password01', '홍길동', '010-1111-1111', 'user01@takeit.com', '2021-04-30', 12345, '인천시 부평구', '승리호아파트 309동 502호', 'G', 1000, '1987-05-05', '29', 'AA'); 
+INSERT INTO GENERAL_MEMBER VALUES('user02', 'password02', '김유신', '010-2222-2222', 'user02@takeit.com', '2020-05-13', 56789, '인천시 부평구', '해바라기아파트 1209동 706호', 'G', 89000, '1997-07-06', '29', 'AA'); 
+INSERT INTO GENERAL_MEMBER VALUES('user03', 'password03', '강감찬', '010-3333-3333', 'user03@takeit.com', '2021-02-27', 98765, '서울시 부평구', '안경잡이아파트 110동 208호', 'G', 5000, '1987-05-05', '29', 'AA'); 
+INSERT INTO GENERAL_MEMBER VALUES('admin', 'adminpass99', '관리자', '010-9999-9999', 'admin@takeit.com', '2014-02-27', 45678, '서울시 관악구', '아자아자아파트 807동 1302호', 'A', 0, '1995-12-05', '30', 'BB'); 
 --SELECT * FROM GENERAL_MEMBER;
 
 --판매자회원
-INSERT INTO SELLER_MEMBER VALUES('seller01', 'password01', '심선경', '010-1234-1111', 'seller01@takeit.com', '2021-02-27', 98765, '인천시 부평구', 'S', '456-78-90123', '010-1111-1234', '선경이네 야채가게', 9.8, NULL, NULL, '1', 'AA'); 
-INSERT INTO SELLER_MEMBER VALUES('seller02', 'password02', '김태경', '010-1234-2222', 'seller02@takeit.com', '2021-04-30', 12345, '인천시 부평구', 'S','123-45-67890', '010-2222-1234', '태경이네 과일가게', 9.3, NULL, NULL, '2', 'AA'); 
-INSERT INTO SELLER_MEMBER VALUES('seller03', 'password03', '임우진', '010-1234-3333', 'seller03@takeit.com', '2019-06-30', 95123, '서울시 동대문구', 'S','748-59-61230', '010-3333-1234', '우진이네 정육점', 9.3, NULL, NULL, '3', 'BB'); 
-INSERT INTO SELLER_MEMBER VALUES('seller04', 'password04', '한소희', '010-1234-4444', 'seller04@takeit.com', '2020-12-13', 56789, '인천시 남동구', 'S', '968-57-41302', '010-4444-1234', '소희네 반차가게', 9.5, NULL, NULL, '4', 'AA'); 
-INSERT INTO SELLER_MEMBER VALUES('seller05', 'password05', '김효원', '010-1234-5555', 'seller05@takeit.com', '2020-05-13', 56789, '인천시 부평구', 'S', '987-65-43210', '010-5555-1234', '효원이네 쌀가게', 9.7, NULL, NULL, '5', 'AA'); 
+INSERT INTO SELLER_MEMBER VALUES('seller01', 'password01', '심선경', '010-1234-1111', 'seller01@takeit.com', '2021-02-27', 98765, '인천시 부평구', '부평시장', 'S', '456-78-90123', '010-1111-1234', '선경이네 야채가게', 9.8, NULL, NULL, '1', 'AA'); 
+INSERT INTO SELLER_MEMBER VALUES('seller02', 'password02', '김태경', '010-1234-2222', 'seller02@takeit.com', '2021-04-30', 12345, '인천시 부평구', '부평시장', 'S','123-45-67890', '010-2222-1234', '태경이네 과일가게', 9.3, NULL, NULL, '2', 'AA'); 
+INSERT INTO SELLER_MEMBER VALUES('seller03', 'password03', '임우진', '010-1234-3333', 'seller03@takeit.com', '2019-06-30', 95123, '서울시 동대문구', '동대문시장', 'S','748-59-61230', '010-3333-1234', '우진이네 정육점', 9.3, NULL, NULL, '3', 'BB'); 
+INSERT INTO SELLER_MEMBER VALUES('seller04', 'password04', '한소희', '010-1234-4444', 'seller04@takeit.com', '2020-12-13', 56789, '인천시 남동구', '남동시장', 'S', '968-57-41302', '010-4444-1234', '소희네 반차가게', 9.5, NULL, NULL, '4', 'AA'); 
+INSERT INTO SELLER_MEMBER VALUES('seller05', 'password05', '김효원', '010-1234-5555', 'seller05@takeit.com', '2020-05-13', 56789, '인천시 부평구', '부평시장', 'S', '987-65-43210', '010-5555-1234', '효원이네 쌀가게', 9.7, NULL, NULL, '5', 'AA'); 
 --SELECT * FROM SELLER_MEMBER;
 --------------------------------------------------------------------------------
 --포장초기화데이터--

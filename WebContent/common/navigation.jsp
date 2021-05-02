@@ -11,7 +11,7 @@
 		<span id="pipe">|</span>
 		<a href="#">잇거래</a>
 		<span id="pipe">|</span>
-		<a href="/takeit/board/noticeList.jsp">공지사항</a>
+		<a href="/takeit/boardController?action=noticeList">공지사항</a>
 	</div>
 	<form action="#" id="mainSearch">
 		<input type="text" id="searchInput" name="searchInput"  placeholder="검색어를 입력하세요..">

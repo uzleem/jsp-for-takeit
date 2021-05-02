@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
+table, tr, th , td{
+		border: solid 1px #8D959C;
+}
+
+
 .notice-table, .notice-tr
 .notice-tr>th, .notice-tr>td{
-		border: solid 1px #8D959C;
 		margin: 0 auto;
 		border-collapse: collapse;
 		padding: 5px;
@@ -14,4 +18,13 @@
 #notice{
 	width: 1050px;
 	margin: 0 auto;
+}
+
+#boardLink{
+	text-decoration: none;
+	color: black;
+}
+#boardLink:hover{
+	color: #5a7d59;
+	font-weight: 700;
 }
