@@ -180,7 +180,7 @@ margin-right: 20px;}
 		<tr>
 			<th>우편번호</th>
 			<td>
-			<input type="text" id="postno" name="postno">
+			<input type="text" id="postNo" name="postNo">
 			</td>		
 		</tr>
 		<tr>
@@ -198,7 +198,7 @@ margin-right: 20px;}
 		<tr>
 			<th>구역번호</th>	
 			<td>
-			<input type="text" id="" name="">
+			<input type="text" id="memberLocNo" name="memberLocNo">
 			</td>	
 		</tr>
 		<tr>
