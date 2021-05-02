@@ -14,6 +14,7 @@
 	font-size: 9px;
 	background-color: #7B977A;
 	color: white;
+	cursor: pointer;
 }
 
 #memberId{
@@ -46,6 +47,7 @@
 	color: white;
 	margin-top: 15px;
 	border: 1px solid #7B977A;
+	cursor: pointer;
 }
 
 #input_button{
@@ -56,4 +58,5 @@
 	background-color: #7B977A;
 	color: white;
 	border: 1px solid #7B977A;
+	cursor: pointer;
 }

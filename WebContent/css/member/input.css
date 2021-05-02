@@ -22,6 +22,7 @@
 	color: white;
 	margin-top: 15px;
 	border: 1px solid #7B977A;
+	cursor: pointer;
 }
 
 /* 일반회원 데이터 시작*/
@@ -40,6 +41,7 @@
 	border: 1px solid #7B977A;
 	color: white;
 	background: #7B977A;
+	cursor: pointer;
 }
 
 #memberPw{
@@ -50,7 +52,7 @@
 	border: 1px solid #7B977A;
 }
 
-#memberPw_chk{
+#pwChk{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -58,7 +60,7 @@
 	border: 1px solid #7B977A;
 }
 
-#pw_checkbox{
+#pwCheckbox{
 	background: #7B977A;
 }
 
@@ -85,6 +87,7 @@
 	border: 1px solid #7B977A;
 	color: white;
 	background: #7B977A;
+	cursor: pointer;
 }
 
 #mobile{
@@ -93,6 +96,7 @@
 	padding: 0px 19px;
 	font-size: 9px;
 	border: 1px solid #7B977A;
+	
 }
 
 #mobile_button{
@@ -102,9 +106,29 @@
 	border: 1px solid #7B977A;
 	color: white;
 	background: #7B977A;
+	cursor: pointer;
 }
 
-#postNo{
+#zipNo{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	
+}
+
+#zipNoBtn{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+}
+
+#roadAddrPart1{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -112,7 +136,7 @@
 	border: 1px solid #7B977A;
 }
 
-#address{
+#addrDetail{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -120,7 +144,7 @@
 	border: 1px solid #7B977A;
 }
 
-#entryDate{
+#brith{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -137,6 +161,7 @@
 	color: white;
 	border: 1px solid #7B977A;
 	margin-top: 10px;	
+	cursor: pointer;
 }
 /* 일반회원 데이터 끝*/
 
@@ -150,6 +175,7 @@
 	color: white;
 	border: 1px solid #7B977A;
 	margin-top: 20px;
+	cursor: pointer;
 }
 
 /* 판매자회원 데이터 시작*/
@@ -218,8 +244,8 @@
 }
 
 #shop_categoryNo{
-	width:250px;
-	height:35px; 
+	width:290px;
+	height:37px; 
 	padding: 0px 19px;
 	font-size: 9px;
 	border: 1px solid #7B977A;
@@ -234,6 +260,7 @@
 	color: white;
 	border: 1px solid #7B977A;
 	margin-top: 10px;	
+	cursor: pointer;
 }
 /* 판매자회원 데이터 끝*/
 
