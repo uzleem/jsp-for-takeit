@@ -68,9 +68,9 @@ public class FrontBoardServlet extends HttpServlet {
 		System.out.println("[debug]공지사항 전체 조회 요청");
 		
 		ArrayList<Board> noticeList = new ArrayList<Board>();
-		BoardBiz biz = new BoardBiz();
+		BoardBiz bbiz = new BoardBiz();
 		try {
-			biz.getNoticeList(noticeList);
+			bbiz.getNoticeList(noticeList);
 			if(noticeList != null) {
 				request.setAttribute("noticeList", noticeList);
 				request.getRequestDispatcher("/board/noticeList.jsp").forward(request, response);
