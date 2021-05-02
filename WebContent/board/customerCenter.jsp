@@ -31,7 +31,7 @@
 <div>
 	<a href="/takeit/boardController?action=noticeList" class="link">공지사항</a>
 	<a href="#" class="link">자주하는 질문</a>
-	<a href="#" class="link">상품문의</a>
+	<a href="/takeit/item/ask.jsp" class="link">상품문의</a>
 </div>
 </body>
 </html>
