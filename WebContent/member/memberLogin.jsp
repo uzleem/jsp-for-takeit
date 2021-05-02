@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/login.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/login.css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/member/login.js"></script>
+<script type="text/javascript" src="${CONTEXT_PATH}/js/member/login.js"></script>
 <!-- 카카오 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
@@ -66,14 +66,13 @@ function kakaoLogin() {
 <!-- 내용 -->
 <div id="contents_box" align="center">
 <h1>로그인 </h1>
-<form action="/takeit/member/myInfo.jsp" method="post" name="loginForm">
+<form action="${CONTEXT_PATH}/member/controller?action=memberLogin" method="post">
 <table>
 	<tr>
-		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId"/></td>
+		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId" required="required"/></td>
 	</tr>
 	<tr>
-		<td><input type="password" placeholder="고객님의 비밀번호를 입력해주세요" id="memberPw" name="memberPw" /></td>
-		
+		<td><input type="password" placeholder="고객님의 비밀번호를 입력해주세요" id="memberPw" name="memberPw" required="required"/></td>
 	</tr>
 	<tr>
 		<td id="find" align="right">
@@ -96,10 +95,10 @@ function kakaoLogin() {
 		<!-- <td><input type="button" value="카카오 로그인" id="kakaoLogin" onclick="kakaoLogin();"/></td> -->
 	</tr>
 </table>
-<div>
+<!-- <div>
 	회원번호 : <span id ="id"></span><br>
 	이메일 : <span id="email"></span><br>
-</div>
+</div> -->
 </form>
 </div>
 </body>

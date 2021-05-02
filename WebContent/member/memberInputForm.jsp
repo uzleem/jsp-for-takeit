@@ -6,11 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/input.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/member/inputForm.js"></script>
+<script type="text/javascript" src="${CONTEXT_PATH}/js/member/inputForm.js"></script>
 </head>
+
+
 <body>
 <!-- 상단 메뉴 -->
 <c:choose>

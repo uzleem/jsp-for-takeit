@@ -1,6 +1,7 @@
 package com.takeit.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.takeit.common.CommonException;
 import com.takeit.model.biz.BoardBiz;
+import com.takeit.model.dto.Board;
+import com.takeit.model.dto.MessageEntity;
 
 /**
  * 게시판 관리 컨트롤러
@@ -35,9 +39,9 @@ public class FrontBoardServlet extends HttpServlet {
 		case "noticeList":
 			noticeList(request, response);
 			break;
-//		case "":
-//			(request, response);
-//			break;
+		case "noticeDetail":
+			noticeDetail(request, response);
+			break;
 //		case "":
 //			(request, response);
 //			break;
@@ -49,6 +53,8 @@ public class FrontBoardServlet extends HttpServlet {
 //			break;
 		}
 	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
@@ -61,9 +67,25 @@ public class FrontBoardServlet extends HttpServlet {
 	protected void noticeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]공지사항 전체 조회 요청");
 		
+		ArrayList<Board> noticeList = new ArrayList<Board>();
 		BoardBiz biz = new BoardBiz();
-		request.setAttribute("noticeList", biz.getNoticeList());
-		request.getRequestDispatcher("/board/noticeList.jsp").forward(request, response);
+		try {
+			biz.getNoticeList(noticeList);
+			if(noticeList != null) {
+				request.setAttribute("noticeList", noticeList);
+				request.getRequestDispatcher("/board/noticeList.jsp").forward(request, response);
+			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 13);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
 	}
 
+	private void noticeDetail(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("[debug]공지사항 상세 조회 요청");
+		
+		
+	}
 }

@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디찾기</title>
-<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/findId.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/findId.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/member/findId.js"></script>
+<script type="text/javascript" src="${CONTEXT_PATH}/js/member/findId.js"></script>
 </head>
   
   
@@ -33,19 +33,19 @@
 <!-- 내용 -->
 <div id="contents_box" align="center">
 <h1>아이디 찾기</h1>
-<form action="#" method="post">
+<form action="${CONTEXT_PATH}/member/controller?action=memberFindId" method="post">
 <table>
 	<tr>
 		<td>이름</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name"/></td>
+		<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name" required="required"/></td>
 	</tr>
 	<tr>
 		<td>이메일</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email"/></td>
+		<td><input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email" required="required"/></td>
 	</tr>
 	
 	<tr>

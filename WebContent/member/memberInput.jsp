@@ -6,11 +6,43 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/member/input.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
+<link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/takeit/js/member/input.js"></script>
+<script type="text/javascript" src="${CONTEXT_PATH}/js/member/input.js"></script>
+<script type="text/javascript">
+function pwCheckbox_onclick() {
+	
+	var pwCheckboxElement = document.getElementById("pwCheckbox")
+	var memberPwElement = document.getElementById("memberPw")
+	var pwChk_Element = document.getElementById("pwChk")
+	
+	if(pwCheckboxElement.checked) {
+		memberPwElement.type = "text"
+		pwChk_Element.type = "text"
+	}else {
+		memberPwElement.type = "password"
+		pwChk_Element.type = "password"
+	}
+}
+</script>
+<script type="text/javascript">
+var goPopup = function() {
+	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+ } 
+var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
+	 document.getElementById("zipNo").value = zipNo; 
+	 document.getElementById("roadAddrPart1").value = roadAddrPart1; 
+	 document.getElementById("addrDetail").value = addrDetail; 
+	 if(addrDetail.length>30){ 
+		alert('상세주소를 30자 이내로 입력하세요.'); 
+		return; 
+	} 
+}
+</script>
 </head>
+
+
 <body>
 <!-- 상단 메뉴 -->
 <c:choose>
@@ -33,56 +65,66 @@
 <!-- 내용 -->
 <div id="contents_box" align="center">
 <h1>일반 회원가입</h1>
-<form action="#" method="post">
+<form action="${CONTEXT_PATH}/member/controller?action=memberInput" method="post">
 <table>
-
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId"/>
+				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId" required="required"/>
 				<input type="button" value="중복확인" id="id_button"/>
 			</td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" placeholder="비밀번호를 입력해주세요" id="memberPw"/></td>
+			<td><input type="password" placeholder="비밀번호를 입력해주세요" id="memberPw" name="memberPw" required="required"/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인</td>
 			<td>
-				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요" id="memberPw_chk"/>
-				<input type="checkbox" id="pw_checkbox"/>
+				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요" id="pwChk" name="pwChk" required="required"/>
+				<input type="checkbox" id="pwCheckbox" name="pwCheckbox" onclick="pwCheckbox_onclick()"/>
 			</td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" placeholder="이름을 입력해주세요" id="name"/></td>
-		</tr>
-		<tr>
-			<td>이메일</td>
-			<td>
-				<input type="text" placeholder="예:takeit@take.com" id="email"/>
-				<input type="button" value="중복확인" id="email_button"/>
-			</td>
+			<td><input type="text" placeholder="이름을 입력해주세요" id="name" required="required"/></td>
 		</tr>
 		<tr>
 			<td>휴대폰</td>
 			<td>
-				<input type="text" id="mobile" placeholder="숫자만 입력해주세요" id="mobile"/>
+				<input type="text" id="mobile" placeholder="숫자만 입력해주세요" id="mobile" required="required"/>
 				<input type="button" value="인증번호" id="mobile_button"/>
 			</td>
 		</tr>
 		<tr>
-			<td>우편번호</td>
-			<td><input type="text" placeholder="변경예정" id="postNo"/></td> 
+			<td>이메일</td>
+			<td>
+				<input type="text" placeholder="예:takeit@take.com" id="email" required="required"/>
+				<input type="button" value="중복확인" id="email_button"/>
+			</td>
 		</tr>
 		<tr>
-			<td>주소</td>
-			<td><input type="text" placeholder="변경예정" id="address"/></td>
+			<td>우편번호</td>
+			<td>
+				<input type="text" placeholder="우편번호" id="zipNo" name="zipNo" readonly="readonly"/>
+				<input type="button" id="zipNoBtn" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
+			</td>
+		</tr>
+		<tr>
+			<td>도로명주소</td>
+			<td>
+				<input type="text" placeholder="도로명주소" id="roadAddrPart1" name="roadAddrPart1" readonly="readonly"/>
+			</td>
+		</tr>
+		<tr>
+			<td>상세주소</td>
+			<td>
+				<input type="text" placeholder="상세주소" id="addrDetail" name="addrDetail"/>
+			</td>
 		</tr>
 		<tr>
 			<td>생년월일</td>
-			<td><input type="text" placeholder="YYYY / MM / DD" id="entryDate" /></td>
+			<td><input type="text" placeholder="YYYY / MM / DD" id="brith" /></td>
 		</tr>
 		<tr>
 			<td colspan="3" align="center"><input type="submit" value="가입하기" id="normal_submit" /></td>

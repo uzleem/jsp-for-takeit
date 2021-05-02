@@ -222,14 +222,9 @@ public class Item implements Serializable{
 		return itemTakeit;
 	}
 
-	public void setItemTakeit(String itemTakeIt) {
+	public void setItemTakeit(String itemTakeit) {
+
 		this.itemTakeit = itemTakeit;
 	}
-
-
-
-	
-	
-
 }
 

@@ -51,7 +51,7 @@ public class Seller implements Serializable{
 	public Seller() {}
 
 	/* 사용자 입력 데이터 */
-	public Seller(String sellerId, String sellerPw, String name, String mobile, String email, String entryDate,
+	public Seller(String sellerId, String sellerPw, String name, String mobile, String email,
 			String postNo, String address, String grade, String sellerNo, String shopMobile, String shopName,
 			String shopKakaoId, String shopImg, String shopCategoryNo) {
 		this.sellerId = sellerId;
@@ -59,7 +59,6 @@ public class Seller implements Serializable{
 		this.name = name;
 		this.mobile = mobile;
 		this.email = email;
-		this.entryDate = entryDate;
 		this.postNo = postNo;
 		this.address = address;
 		this.grade = grade;

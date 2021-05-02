@@ -99,7 +99,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 		<img id="itemImg" alt="소불고기" src="/takeit/img/item/item3.jpg">
 		</a>
 	</li>
-	<li id="itemTitle">[상하목장]마이리틀 유기농 자먹는 요거트 3종</li>
+	<li id="itemTitle">[상하목장]마이리틀 유기농 짜먹는 요거트 3종</li>
 	<li id="discRate">26%</li>
 	<li id="salePrice">2,575원</li>
 	<li id="price">3,480원</li>
