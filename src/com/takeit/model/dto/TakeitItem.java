@@ -6,6 +6,7 @@ public class TakeitItem extends Item implements Serializable {
 	private String takeitNo;
 	private int takeitPrice;
 	private int takeitCurrPrice;
+	private String takeitDate;
 	private double takeitCustScore;
 	private String takeitAlive; // boolean으로 할지 결정해야함 문자열위주로?
 	private String memberLocNo;
@@ -15,16 +16,25 @@ public class TakeitItem extends Item implements Serializable {
 	public TakeitItem() {
 	}
 	
-	public TakeitItem(String takeitNo, int takeitPrice, int takeitCurrPrice, double takeitCustScore, String takeitAlive,
-			String memberLocNo, String shopLocCode) {
+	public TakeitItem(String takeitNo, int takeitPrice, int takeitCurrPrice, String takeitDate, double takeitCustScore,
+			String takeitAlive, String memberLocNo, String shopLocCode) {
 		super();
 		this.takeitNo = takeitNo;
 		this.takeitPrice = takeitPrice;
 		this.takeitCurrPrice = takeitCurrPrice;
+		this.takeitDate = takeitDate;
 		this.takeitCustScore = takeitCustScore;
 		this.takeitAlive = takeitAlive;
 		this.memberLocNo = memberLocNo;
 		this.shopLocCode = shopLocCode;
+	}
+
+	public String getTakeitDate() {
+		return takeitDate;
+	}
+
+	public void setTakeitDate(String takeitDate) {
+		this.takeitDate = takeitDate;
 	}
 
 	public String getTakeitNo() {
@@ -92,6 +102,8 @@ public class TakeitItem extends Item implements Serializable {
 		builder.append(", ");
 		builder.append(takeitCurrPrice);
 		builder.append(", ");
+		builder.append(takeitDate);
+		builder.append(", ");
 		builder.append(takeitCustScore);
 		builder.append(", ");
 		builder.append(takeitAlive);
@@ -99,7 +111,6 @@ public class TakeitItem extends Item implements Serializable {
 		builder.append(memberLocNo);
 		builder.append(", ");
 		builder.append(shopLocCode);
-		return super.toString() + builder.toString();
+		return builder.toString();
 	}
-	
 }
