@@ -19,7 +19,7 @@ public class MessageEntity {
 		error.add("[회원 검색 오류]");
 		error.add("[회원 탈퇴 오류]");
 		error.add("[아이디 또는 비밀번호를 확인해주세요.]"); //5
-		error.add("[이름 또는 휴대폰번호를 확인해주세요.]"); //6
+		error.add("[이름 또는 이메일을 확인해주세요.]"); //6
 		
 		error.add("[상품 등록 오류]");
 		error.add("[상품 조회 오류]");

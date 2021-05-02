@@ -37,7 +37,7 @@ public class Utility {
 	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
 	 */
 	public static String getCurrentDate() {
-		return getCurrentDate("yyyy/MM/dd HH:MI:SS", Locale.KOREA);
+		return getCurrentDate("yyyy.MM.dd HH:mm:ss", Locale.KOREA);
 	}
 	
 	public static String getCurrentDate(String pattern) {
@@ -118,7 +118,7 @@ public class Utility {
 		
 		System.out.println("\n보안문자 : 숫자형식");
 		System.out.println(Utility.getSecureNumber());
-		System.out.println(Utility.getSecureNumber(4));
+		System.out.println(Utility.getSecureNumber(6));
 		System.out.println(Utility.getSecureNumber(8));
 		System.out.println(Utility.getSecureNumber(12));
 		
