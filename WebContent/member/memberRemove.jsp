@@ -91,17 +91,9 @@ display: inline-block;
 		<c:when test ="${grade == 'S' }">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
-		</c:when>
-		<c:otherwise>
-			<!-- 일반회원 마이페이지 메뉴 -->
-			<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
-		</c:otherwise>
-	</c:choose>
-
-
-	<div id="mypage_remove">
-	<h3>회원 탈퇴</h3>
-	<hr>
+	 		<div id="mypage_remove">
+				<h3>회원 탈퇴</h3>
+				<hr>
 		<div id="myInfoRemove">
 			<table id="myInfo_table">
 				<tr>
@@ -125,13 +117,55 @@ display: inline-block;
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input class="mypage_menu" class="inline" type="button" value="탈퇴하기" onclick="location.href='/takeit/member/myInfoUpdate.jsp'">
+					<input class="mypage_menu" class="inline" type="button" value="탈퇴하기" onclick="location.href='/takeit/member/memberController?action=removeSeller'">
 				</tr>
 			
 			</table>
 		
 		</div>
 	</div>
+		</c:when>
+		<c:otherwise>
+			<!-- 일반회원 마이페이지 메뉴 -->
+			<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
+			<div id="mypage_remove">
+			<h3>회원 탈퇴</h3>
+			<hr>
+				<div id="myInfoRemove">
+					<form action="/takeit/member/mypageController?action=removeMember" method="post">
+					<table id="myInfo_table">
+						<tr>
+							<th>아이디</th>
+							<td>
+							<input type="text" id="memberId" name="memberId">
+							</td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td>
+							<input type="text" id="memberPw" name="memberPw">
+							</td>		
+						</tr>
+						<tr>
+							<th>비밀번호 확인</th>
+							<td>
+							<input type="text" id="member_pw2" name="member_pw2">
+							</td>		
+						</tr>
+						
+						<tr>
+							<td colspan="2" align="center">
+							<input type="submit" value="탈퇴하기">
+						</tr>
+					
+					</table>
+				</form>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
+
+	
 </div>
 
  <!-- footer 구역 -->

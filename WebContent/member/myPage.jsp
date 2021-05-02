@@ -128,6 +128,7 @@
 	</c:choose>
 	
 	
+	
 	<div id="mypage_order">
 	<h3>주문내역</h3>
 	<hr>
@@ -151,28 +152,6 @@
 			
 		</div>
 		<hr>
-		<div id="order_Info">
-		<h4>주문번호 : xxxxxxxxx </h4>
-		
-			<div >
-				<img class="order_img" src="/takeit/img/item/item1.jpg">	
-					<div id="itemInfo">
-						<h6>상품명 : 1등급 마블링 한우</h6>
-						<h6>상품 수량 : 1개</h6>
-						<h6>결제금액 : 4000원</h6>
-						<h6>수령 방법 : 배송</h6>
-						
-					</div>
-						<div id="order_item">
-							<h6 id="orderState">주문 상태 : 배송중</h6>
-							<input id="item_review_btn" type="button" value="상품 후기">
-							<input type="button" value="상품 문의">
-						</div>
-			</div>
-			
-		</div>
-		
-		
 	</div>
 
  </div>

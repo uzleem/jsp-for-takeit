@@ -133,81 +133,94 @@ margin-right: 20px;}
 			<h3>내 정보 조회</h3>
 			<hr>
 <div id="myInfo">
+	<form action ="/takeit/member/mypageController?action=setMemberInfo" method="post">
 	<table id="myInfo_table">
 		<tr>
 			<th>아이디</th>
 			<td>
-			<input type="text" id="memberId" name="memberId">
+			<input type="text" id="memberId" name="memberId" value="${member.memberId }" readonly="readonly">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td>
-			<input type="password" id="memberPw" name="memberPw">
+			<input type="password" id="memberPw" name="memberPw" value="${member.memberPw }">
 			<input id="infoUpdateBtn" type="button" value="비밀번호 변경">
 			</td>		
 		</tr>
 		<tr>
 			<th>이름</th>	
 			<td>
-			<input type="text" id="name" name="name">
+			<input type="text" id="name" name="name" value="${ member.name}">
 			</td>	
 		</tr>
 		<tr>
 			<th>휴대폰</th>
 			<td>
-			<input type="text" id="mobile" name="mobile">
+			<input type="text" id="mobile" name="mobile" value="${member.mobile }">
 			</td>		
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>
-			<input type="text" id="email" name="email">
+			<input type="text" id="email" name="email" value="${ member.email}">
 			</td>		
 		</tr>
 		<tr>
 			<th>가입일자</th>	
 			<td>
-			<input type="text" id="enrtyDate" name="enrtyDate">
+			<input type="text" id="entryDate" name="entryDate" value="${ member.entryDate}" readonly="readonly">
 			</td>	
 		</tr>
 		<tr>
 			<th>포인트</th>
 			<td>
-			<input type="text" id="point" name="point">
+			<input type="text" id="point" name="point" value="${member.point }" readonly="readonly">
 			</td>		
 		</tr>
 		<tr>
 			<th>우편번호</th>
 			<td>
-			<input type="text" id="postNo" name="postNo">
+			<input type="text" id="postNo" name="postNo" value="${member.postNo }">
 			</td>		
 		</tr>
 		<tr>
 			<th>주소</th>
 			<td>
-			<input type="text" id="address" name="address">
+			<input type="text" id="address" name="address" value="${ member.address}">
+			</td>		
+		</tr>
+		<tr>
+			<th>상세주소</th>
+			<td>
+			<input type="text" id="addressDetail" name="addressDetail" value="${member.addressDetail }">
 			</td>		
 		</tr>
 		<tr>
 			<th>생일</th>	
 			<td>
-			<input type="text" id="birth" name="birth">
+			<input type="text" id="birth" name="birth" value="${member.birth }">
 			</td>	
 		</tr>
 		<tr>
 			<th>구역번호</th>	
 			<td>
-			<input type="text" id="memberLocNo" name="memberLocNo">
+			<input type="text" id="memberLocNo" name="memberLocNo" value="${member.memberLocNo }" readonly="readonly">
 			</td>	
 		</tr>
 		<tr>
 			<th>등급</th>	
 			<td>
-			<input type="text" id="grade" name="grade">
+			<input type="text" id="grade" name="grade" value="${member.grade}" readonly="readonly">
 			</td>	
 		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="내 정보 수정">
+			</td>
+		</tr>
 	</table>
+</form>
 	<div id="myInfo_btn">
 			<input id = "mypage_btn" class="inline" type="button" value="홈으로 이동" onclick="location.href='/takeit/member/index.jsp'">
 	</div>
