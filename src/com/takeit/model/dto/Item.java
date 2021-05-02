@@ -19,9 +19,6 @@ public class Item implements Serializable{
 	private String expirationDate;
 	private String notice;
 	private int freshPercent;
-	
-
-//---------------------------------
 	private String itemNo;
 	private String sellerId;
 	private String itemName;
@@ -61,7 +58,7 @@ public class Item implements Serializable{
 	//상품 전체데이터
 	public Item(
 			String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
-			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent,String salesUnit, int itemCustScore,
+			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent,String salesUnit, double itemCustScore,
 			String itemInputDate,int discRate,String itemNo,String packTypeNo,String itemCategoryNo) {
 		
 		this(itemCategoryName,sellerId, itemName, itemPrice,itemOrigin,itemStock,itemImg,itemTakeIt,packTypeName,expirationDate,notice,freshPercent);
@@ -221,13 +218,13 @@ public class Item implements Serializable{
 		this.discRate = discRate;
 	}
 
-	public String getItemTakeIt() {
+	public String getItemTakeit() {
 		return itemTakeit;
 	}
 
-	public void setItemTakeIt(String itemTakeit) {
+	public void setItemTakeit(String itemTakeit) {
+
 		this.itemTakeit = itemTakeit;
 	}
-
 }
 

@@ -55,49 +55,48 @@ table {
 	<div id="enroll_total">
 		<div style="display: flex;">
 			<div style="width: fit-content;">
-				<img alt='맛간장' src="/takeit/img/item/item2.jpg" width="450" height="310">
+				<img alt='매그넘' src="/takeit/img/item/item4.jpg" width="450" height="320">
 		
 			</div>
 		
 			<div id="meat_div" style="width: fit-content;">
-				<h1>[미자언니네]프리미엄 맛간장</h1>
+				<h2>[매그넘]부드러운 클래식라인 아이스크림 바 3종 (4입팩)</h2>
 				<div>
-					<span style="color: red"> 12,000원 </span> <span> (0%할인) </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-					 <span> 소비자 권장소매가: </span> <span>12,000원 </span>
+					<span style="color: red"> 3,271원</span> <span> (59%할인) </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+					 <span> 소비자 권장소매가: </span> <span>7,980원</span>
 				</div>
 				<hr class="line1">
 				<div>
 					<span> 카테고리 </span> &nbsp;
-					<span> 조미료</span>
+					<span> 아이스크림</span>
 				</div>
-				
 				<div>
 					<span> 판매단위 </span> &nbsp;
-					<span> 500g </span>
+					<span> 4개입 </span>
 				</div>
 				<div>
 					<span> 재고량 </span> &nbsp;
-					<span> 10 </span>
+					<span> 10</span>
 				</div>
 				<div>
 					<span> 원산지</span> &nbsp;
-					<span>국산</span>
+					<span>유럽</span>
 				</div>
 				<div>
 					<span> 포장타입 </span>&nbsp;
-					 <span>상온포장</span>
+					 <span>냉동포장</span>
 				</div>
 				<div>
 					<span> 판매자</span> &nbsp;
-					<span> 미자언니네</span>
+					<span>매그넘</span>
 				</div>
 				<div>
 					<span> 고객평점 </span> &nbsp;
-					<span> 9.5점 </span>
+					<span> 10점 </span>
 				</div>
 				<div>
 					<span> 등록일자 </span> &nbsp;
-					<span> 2021-05-02 </span>
+					<span> 2021-05-01 </span>
 				</div>
            </div>
 			</div>

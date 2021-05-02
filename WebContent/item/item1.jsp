@@ -55,45 +55,44 @@ table {
 	<div id="enroll_total">
 		<div style="display: flex;">
 			<div style="width: fit-content;">
-				<img alt='맛간장' src="/takeit/img/item/item2.jpg" width="450" height="310">
+				<img alt='소불고기' src="/takeit/img/item/item1.jpg" width="450" height="320">
 		
 			</div>
 		
 			<div id="meat_div" style="width: fit-content;">
-				<h1>[미자언니네]프리미엄 맛간장</h1>
+				<h1>[일상味소]불고기 200g(냉장)</h1>
 				<div>
-					<span style="color: red"> 12,000원 </span> <span> (0%할인) </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-					 <span> 소비자 권장소매가: </span> <span>12,000원 </span>
+					<span style="color: red"> 5,525원 </span> <span> (35%할인) </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+					 <span> 소비자 권장소매가: </span> <span> 8,500원 </span>
 				</div>
 				<hr class="line1">
 				<div>
 					<span> 카테고리 </span> &nbsp;
-					<span> 조미료</span>
+					<span> 고기류</span>
 				</div>
-				
 				<div>
 					<span> 판매단위 </span> &nbsp;
-					<span> 500g </span>
+					<span> 200g </span>
 				</div>
 				<div>
 					<span> 재고량 </span> &nbsp;
-					<span> 10 </span>
+					<span> 7 </span>
 				</div>
 				<div>
 					<span> 원산지</span> &nbsp;
-					<span>국산</span>
+					<span>호주 </span>
 				</div>
 				<div>
 					<span> 포장타입 </span>&nbsp;
-					 <span>상온포장</span>
+					 <span>냉장포장</span>
 				</div>
 				<div>
 					<span> 판매자</span> &nbsp;
-					<span> 미자언니네</span>
+					<span> 임우진 </span>
 				</div>
 				<div>
 					<span> 고객평점 </span> &nbsp;
-					<span> 9.5점 </span>
+					<span> 9.8점 </span>
 				</div>
 				<div>
 					<span> 등록일자 </span> &nbsp;
