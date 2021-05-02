@@ -109,7 +109,7 @@
 	cursor: pointer;
 }
 
-#zipNo{
+#postNo{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -118,7 +118,7 @@
 	
 }
 
-#zipNoBtn{
+#postNoBtn{
 	height:35px; 
 	padding: 0px 19px;
 	font-size: 9px;
@@ -128,7 +128,7 @@
 	cursor: pointer;
 }
 
-#roadAddrPart1{
+#address{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -136,7 +136,7 @@
 	border: 1px solid #7B977A;
 }
 
-#addrDetail{
+#addressDetail{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
