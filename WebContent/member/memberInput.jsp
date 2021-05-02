@@ -40,6 +40,15 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 	} 
 }
 </script>
+<script type="text/javascript">
+function mobilePopup() {
+     // window.name = "부모창 이름"; 
+     window.name = "parentForm";
+     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+     window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
+             "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
+}
+</script>
 </head>
 
 
@@ -92,8 +101,14 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		<tr>
 			<td>휴대폰</td>
 			<td>
-				<input type="text" id="mobile" placeholder="숫자만 입력해주세요" id="mobile" name="mobile" required="required"/>
-				<input type="button" value="인증번호" id="mobile_button"/>
+				<input type="text" id="mobile" placeholder="휴대폰번호를 입력하세요." id="mobile" name="mobile" required="required" />
+				<input type="button" value="인증번호" id="mobile_button" name="mobile_button" onclick="mobilePopup();"/>
+			</td>
+		</tr>
+		<tr>
+			<td>인증번호</td>
+			<td>
+				<input type="text" placeholder="인증번호 선택" id="mobileNum" name="mobileNum" required="required" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -106,7 +121,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		<tr>
 			<td>우편번호</td>
 			<td>
-				<input type="text" placeholder="우편번호" id="postNo" name="postNo" readonly="readonly"/>
+				<input type="text" placeholder="우편번호 선택" id="postNo" name="postNo" readonly="readonly"/>
 				<input type="button" id="postNoBtn" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
 			</td>
 		</tr>

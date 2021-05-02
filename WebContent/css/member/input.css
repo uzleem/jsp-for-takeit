@@ -99,6 +99,15 @@
 	
 }
 
+#mobileNum{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	
+}
+
 #mobile_button{
 	height:35px; 
 	padding: 0px 19px;

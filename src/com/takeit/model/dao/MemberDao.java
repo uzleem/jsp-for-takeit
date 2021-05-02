@@ -29,7 +29,7 @@ public class MemberDao {
 
 		PreparedStatement stmt = null;
 		
-		String date = Utility.getCurrentDate("yyyy/mm/dd HH:MI:SS");
+		String date = Utility.getCurrentDate("yyyy.MM.dd HH:mm:ss");
 		
 		try {
 			stmt = con.prepareStatement(sql);
@@ -55,7 +55,7 @@ public class MemberDao {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			MessageEntity message = new MessageEntity("error",1);
-			message.setUrl("/takeit/member/memberLogin.jsp");
+			message.setUrl("/memberLogin.jsp");
 			message.setLinkTitle("로그인");
 
 			throw new CommonException(message);
@@ -64,7 +64,6 @@ public class MemberDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-	
 	
 	/**
 	 * 로그인
@@ -129,10 +128,12 @@ public class MemberDao {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, member.getName());
 			stmt.setString(2, member.getEmail());
-			stmt.executeQuery();
-
-			member.getMemberId();
 			
+			rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				member.getMemberId();
+			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

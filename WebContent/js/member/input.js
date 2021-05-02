@@ -53,14 +53,14 @@ $(document).ready(function() {
 	});
 	
 	/* 비밀번호 확인 포커스 */
-	$("#memberPw_chk").on('focus', function() {
-		$("#memberPw_chk").css({
+	$("#pwChk").on('focus', function() {
+		$("#pwChk").css({
 			'background' : "#E8F0FE"
 		});
 	});	
 	/* 비밀번호 확인 포커스 아웃 */
-	$("#memberPw_chk").on('focusout', function() {
-		$("#memberPw_chk").css({
+	$("#pwChk").on('focusout', function() {
+		$("#pwChk").css({
 			'background' : "white"
 		});
 	});
@@ -103,6 +103,19 @@ $(document).ready(function() {
 			'background' : "white"
 		});
 	});
+
+	/* 인증번호 포커스 */
+	$("#mobileNum").on('focus', function() {
+		$("#mobileNum").css({
+			'background' : "#E8F0FE"
+		});
+	});	
+	/* 인증번호 포커스 아웃 */
+	$("#mobileNum").on('focusout', function() {
+		$("#mobileNum").css({
+			'background' : "white"
+		});
+	});
 	
 	/* 우편번호 포커스 */
 	$("#postNo").on('focus', function() {
@@ -126,6 +139,19 @@ $(document).ready(function() {
 	/* 주소 포커스 아웃 */
 	$("#address").on('focusout', function() {
 		$("#address").css({
+			'background' : "white"
+		});
+	});
+
+	/* 상세주소 포커스 */
+	$("#addressDetail").on('focus', function() {
+		$("#addressDetail").css({
+			'background' : "#E8F0FE"
+		});
+	});
+	/* 상세주소 포커스 아웃 */
+	$("#addressDetail").on('focusout', function() {
+		$("#addressDetail").css({
 			'background' : "white"
 		});
 	});
