@@ -37,7 +37,7 @@ public class Item implements Serializable{
 
 	//판매자입력 필수데이터
 	public Item(String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
-			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent) {
+			String itemTakeit,String packTypeName,String expirationDate,String notice,int freshPercent) {
 		
 		
 		this.itemCategoryName =itemCategoryName;
