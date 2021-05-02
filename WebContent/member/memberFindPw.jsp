@@ -41,19 +41,19 @@
 		<td>아이디</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" required="required"/></td>
+		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId" required="required"/></td>
 	</tr>
 	<tr>
 		<td>이름</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name" required="required"/></td>
+		<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name" name="name" required="required"/></td>
 	</tr>
 	<tr>
 		<td>이메일</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email" required="required"/></td>
+		<td><input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email" name="email" required="required"/></td>
 	</tr>
 	
 	<tr>

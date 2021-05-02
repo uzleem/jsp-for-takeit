@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.MemberBiz;
@@ -67,16 +68,18 @@ public class FrontMemberServlet extends HttpServlet {
 		process(request, response);
 	}
 
-
 	/**
 	 * 일반 회원가입 
 	 */
 	protected void memberInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/exe02/teacher/message.jsp");
+		System.out.println("작동확인 : memberInput");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
 
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
+		String pwChk = request.getParameter("pwChk");
 		String name = request.getParameter("name");
 		String mobile = request.getParameter("mobile");
 		String email = request.getParameter("email");
@@ -87,6 +90,7 @@ public class FrontMemberServlet extends HttpServlet {
 				
 		System.out.println(memberId);
 		System.out.println(memberPw);
+		System.out.println(pwChk);
 		System.out.println(name);
 		System.out.println(mobile);
 		System.out.println(email);
@@ -103,14 +107,13 @@ public class FrontMemberServlet extends HttpServlet {
 			biz.addMember(dto);
 			
 			MessageEntity message = new MessageEntity("success", 0);
-			message.setUrl("${COTEXT_PATH}/member/memberlogin.jsp");
+			message.setUrl("/takeit/member/memberlogin.jsp");
 			message.setLinkTitle("로그인");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		} catch (CommonException e) {
 			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();
-			
 			System.out.println(message);
 		}
 	}
@@ -120,17 +123,70 @@ public class FrontMemberServlet extends HttpServlet {
 	 */
 	protected void memberLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
-
+		System.out.println("작동확인 : memberLogin");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		RequestDispatcher rdIndex = request.getRequestDispatcher("/index.jsp");
+		
+		String memberId = request.getParameter("memberId");
+		String memberPw = request.getParameter("memberPw");
+		
+		System.out.println(memberId);
+		System.out.println(memberPw);
+		
+		Member dto = new Member();
+		
+		MemberBiz biz = new MemberBiz();
+		
+		dto.setMemberId(memberId);
+		dto.setMemberPw(memberPw);
+		
+		try {
+			biz.login(dto);
+			
+			if(dto.getAddress() != null) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("memberId", memberId); 
+				session.setAttribute("dto", dto); 			
+				rdIndex.forward(request, response);
+			}else {
+				MessageEntity message = new MessageEntity("error", 5);
+				message.setLinkTitle("뒤로가기");
+				message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+				request.setAttribute("message", message);
+				rd.forward(request, response);
+			}
+		} catch (CommonException e) {
+			//e.printStackTrace();
+			//MessageEntity message = e.getMessageEntity();
+			MessageEntity message = new MessageEntity("error", 5);
+			message.setLinkTitle("뒤로가기");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		}
 	}
 
 	/**
 	 * 로그아웃
 	 */
 	protected void memberLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		System.out.println("작동확인 : memberLogout");
 		
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
-
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		
+		HttpSession session = request.getSession(false);
+		
+		session.removeAttribute("dto");
+		
+		session.invalidate();
+	
+		MessageEntity message = new MessageEntity("success", 2);
+		message.setUrl("/takeit/index.jsp");
+		message.setLinkTitle("처음으로");
+		request.setAttribute("message", message);
+		rd.forward(request, response);
 	}
 	
 	/**
@@ -138,8 +194,36 @@ public class FrontMemberServlet extends HttpServlet {
 	 */
 	protected void memberFindId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		System.out.println("작동 확인 : memberFindId");
 
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		RequestDispatcher rdfind = request.getRequestDispatcher("/member/findMessage.jsp");
+		
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		System.out.println("name");
+		System.out.println("email");
+		
+		MemberBiz biz = new MemberBiz();
+		Member dto = new Member();
+
+		dto.setName(name);
+		dto.setEmail(email);
+		
+		try {
+			System.out.println("확인");
+			biz.idFind(dto);
+			request.setAttribute("findMessage", dto.getMemberId());
+			rdfind.forward(request, response);
+		}catch (CommonException e) {
+			e.printStackTrace();
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("뒤로가기");
+			message.setUrl("takeit/member/memberFindId.jsp");
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		}
 	}
 	
 	/**
@@ -147,8 +231,41 @@ public class FrontMemberServlet extends HttpServlet {
 	 */
 	protected void memberFindPw(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		System.out.println("작동 확인 : memberFindPw");
 
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		RequestDispatcher rdfind = request.getRequestDispatcher("/member/findMessage.jsp");
+		
+		String memberId = request.getParameter("memberId");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		System.out.println(memberId);
+		System.out.println(name);
+		System.out.println(email);
+
+		MemberBiz biz = new MemberBiz();
+		Member dto = new Member();
+
+		dto.setMemberId(memberId);
+		dto.setName(name);
+		dto.setEmail(email);
+		
+		try {
+			System.out.println("확인");
+			biz.pwFind(dto);
+			request.setAttribute("findMessage", "임시비밀번호:" + dto.getMemberPw());
+			rdfind.forward(request, response);
+		} catch (CommonException e) {
+			e.printStackTrace();
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("뒤로가기");
+			message.setUrl("takeit/member/memberFindPw.jsp");
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		}
 	}
+	
+	
 	
 }

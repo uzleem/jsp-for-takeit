@@ -23,9 +23,7 @@ public class MemberBiz {
 	 * 회원가입 
 	 */
 	public void addMember(Member member) throws CommonException{
-
 		Connection con = JdbcTemplate.getConnection();
-		 
 		 try {
 			dao.addMember(con, member);
 			JdbcTemplate.commit(con);
@@ -34,6 +32,50 @@ public class MemberBiz {
 			JdbcTemplate.rollback(con);
 			throw e;
 		}finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	
+	/**
+	 * 로그인
+	 */
+	public void login(Member member) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.login(con, member);
+		} catch(CommonException e) {
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	
+	/**
+	 * 아이디 찾기
+	 */
+	public void idFind(Member member) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.idFind(con, member);
+		} catch(CommonException e) {
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	
+	/**
+	 * 비밀번호 찾기
+	 */
+	public void pwFind(Member member) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.pwFind(con, member);
+			JdbcTemplate.commit(con);
+		} catch(CommonException e) {
+			JdbcTemplate.rollback(con);
+			throw e; 
+		} finally {
 			JdbcTemplate.close(con);
 		}
 	}

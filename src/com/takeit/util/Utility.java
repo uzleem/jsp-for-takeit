@@ -13,12 +13,31 @@ import java.util.Random;
  */
 public class Utility {
 
+	/* 랜덤값 반환 메서드 */
+	public static String getSecureString(int length, boolean isUpper) {
+		Random extractNo = new Random((long)(Math.random() * System.nanoTime()));
+		String secureCode = "";
+		for (int index = 0; index < length; index++) {
+			if (extractNo.nextBoolean()) {
+				secureCode += extractNo.nextInt(10); // 0 ~ 9 숫자
+			} else {
+				if (isUpper) {	// 영문 대문자
+					secureCode += (char)(extractNo.nextInt(26) + 65);
+				} else {		// 영문 소문자
+					secureCode += (char)(extractNo.nextInt(26) + 97);
+				}
+			}
+		}
+		
+		return secureCode;
+	}
+	
 	/**
 	 * 현재날짜 반환 
 	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
 	 */
 	public static String getCurrentDate() {
-		return getCurrentDate("yyyy-MM-dd", Locale.KOREA);
+		return getCurrentDate("yyyy/MM/dd HH:MI:SS", Locale.KOREA);
 	}
 	
 	public static String getCurrentDate(String pattern) {

@@ -81,7 +81,7 @@ function kakaoLogin() {
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="일반 로그인" id="normalLogin"/></td>
+		<td><input type="submit" value="로그인" id="normalLogin"/></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="회원가입" id="input_button" name="input_button"/></td>
