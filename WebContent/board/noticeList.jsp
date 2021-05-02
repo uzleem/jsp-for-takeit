@@ -36,7 +36,6 @@
 		<a href="/takeit/board/noticeInput.jsp">등록</a>
 	</div>
 <%-- </c:if> --%>
-<form action="#">
 <table id="notice-tbl" class="notice-table">
 	<tr>
 		<th>번호</th>
@@ -64,7 +63,6 @@
 		}
 	%>
 </table>
-</form>
 <a href="/takeit/index.jsp" class="link">홈으로이동</a>
 </div>
 <!-- footer 구역 -->

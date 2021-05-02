@@ -25,28 +25,37 @@ public class BoardDao {
 		return instance;
 	}
 	
-	public void getNoticeList(Connection con, ArrayList<Board> boardList) throws CommonException {
+	/***
+	 * 공지사항 전체목록
+	 * @param con
+	 * @param boardList
+	 * @throws CommonException
+	 */
+	public void getNoticeList(Connection con, ArrayList<Board> noticeList) throws CommonException {
 		System.out.println("[debug] 공지사항 dao 목록 요청");
 		String sql = "SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO = '1' ORDER BY BOARD_DATE DESC";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		System.out.println("[debug] 공지사항 try전");
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs= pstmt.executeQuery();
-			
+			System.out.println("[debug] 공지사항 while전");
 			while(rs.next()) {
 				Board dto = new Board();
-				dto.setBoardNo(rs.getString("board_no"));
-				dto.setBoardTitle(rs.getString("board_title"));
-				dto.setBoardWriter(rs.getString("board_writer"));
-				dto.setBoardViews(rs.getInt("board_views"));
-				dto.setBoardPicks(rs.getInt("board_picks"));
-				dto.setBoardDate(rs.getString("board_date"));
+				dto.setBoardNo(rs.getString("BOARD_NO"));
+				dto.setBoardTitle(rs.getString("BOARD_TITLE"));
+				dto.setBoardWriter(rs.getString("BOARD_WRITER"));
+				dto.setBoardViews(rs.getInt("BOARD_VIEWS"));
+				dto.setBoardPicks(rs.getInt("BOARD_PICKS"));
+				dto.setBoardDate(rs.getString("BOARD_DATE"));
 				
-				boardList.add(dto);
+				noticeList.add(dto);
+				System.out.println("[debug]"+dto.getBoardTitle());
 				System.out.println("[debug] 공지사항 dao 목록 요청 완료");
 			}
+			System.out.println("[debug] 공지사항 while후");
 			
 		} catch (SQLException e) {
 			System.out.println("[debug] 공지사항 dao 목록 요청 실패");
@@ -61,6 +70,14 @@ public class BoardDao {
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(pstmt);
 	}
+	
+	/***
+	 * 공지사항 상세조회
+	 * @param con
+	 * @param board_no
+	 * @param notice
+	 * @throws CommonException
+	 */
 	public void noticeDetail(Connection con, String board_no, Board notice) throws CommonException {
 		System.out.println("[debug] 공지사항 dao 상세조회 요청");
 		String sql = "SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO = '1' AND BOARD_NO=?";
