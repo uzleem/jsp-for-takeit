@@ -70,7 +70,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId" required="required"/>
+				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId"  name="memberId" required="required"/>
 				<input type="button" value="중복확인" id="id_button"/>
 			</td>
 		</tr>
@@ -87,19 +87,19 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" placeholder="이름을 입력해주세요" id="name" required="required"/></td>
+			<td><input type="text" placeholder="이름을 입력해주세요" id="name" name="name"required="required"/></td>
 		</tr>
 		<tr>
 			<td>휴대폰</td>
 			<td>
-				<input type="text" id="mobile" placeholder="숫자만 입력해주세요" id="mobile" required="required"/>
+				<input type="text" id="mobile" placeholder="숫자만 입력해주세요" id="mobile" name="mobile" required="required"/>
 				<input type="button" value="인증번호" id="mobile_button"/>
 			</td>
 		</tr>
 		<tr>
 			<td>이메일</td>
 			<td>
-				<input type="text" placeholder="예:takeit@take.com" id="email" required="required"/>
+				<input type="text" placeholder="예:takeit@take.com" id="email" name="email" required="required"/>
 				<input type="button" value="중복확인" id="email_button"/>
 			</td>
 		</tr>
@@ -124,7 +124,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		</tr>
 		<tr>
 			<td>생년월일</td>
-			<td><input type="text" placeholder="YYYY / MM / DD" id="brith" /></td>
+			<td><input type="text" placeholder="YYYY / MM / DD" id="brith" name="birth" /></td>
 		</tr>
 		<tr>
 			<td colspan="3" align="center"><input type="submit" value="가입하기" id="normal_submit" /></td>
