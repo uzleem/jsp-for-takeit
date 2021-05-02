@@ -108,8 +108,8 @@ table {
 		</div>
 
 		<div id="signup" align='center'>
-			<input type="submit" name="buy" id="buy" value="바로 구매"> <input
-				type="submit" name="cart" id="cart" value="장바구니">
+			<input type="submit" name="buy" id="buy" value="바로 구매"> 
+			<input type="submit" name="cart" id="cart" value="장바구니">
 		</div>
 	</form>
 
