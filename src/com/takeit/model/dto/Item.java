@@ -30,10 +30,10 @@ public class Item implements Serializable{
 	private String itemOrigin;
 	private int itemStock;
 	private String itemImg;
-	private int itemCustScore;
+	private double itemCustScore;
 	private String itemInputDate;
 	private int discRate;
-	private String itemTakeIt;
+	private String itemTakeit;
 	
 	
 	public Item() {}
@@ -50,7 +50,7 @@ public class Item implements Serializable{
 		this.itemOrigin = itemOrigin;
 		this.itemStock = itemStock;
 		this.itemImg = itemImg;
-		this.itemTakeIt = itemTakeIt;
+		this.itemTakeit = itemTakeit;
 		this.packTypeName = packTypeName;
         this.expirationDate = expirationDate;
 		this.notice = notice;
@@ -197,11 +197,11 @@ public class Item implements Serializable{
 		this.itemImg = itemImg;
 	}
 
-	public int getItemCustScore() {
+	public double getItemCustScore() {
 		return itemCustScore;
 	}
 
-	public void setItemCustScore(int itemCustScore) {
+	public void setItemCustScore(double itemCustScore) {
 		this.itemCustScore = itemCustScore;
 	}
 
@@ -222,11 +222,11 @@ public class Item implements Serializable{
 	}
 
 	public String getItemTakeIt() {
-		return itemTakeIt;
+		return itemTakeit;
 	}
 
-	public void setItemTakeIt(String itemTakeIt) {
-		this.itemTakeIt = itemTakeIt;
+	public void setItemTakeIt(String itemTakeit) {
+		this.itemTakeit = itemTakeit;
 	}
 
 }
