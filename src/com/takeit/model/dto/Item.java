@@ -19,9 +19,6 @@ public class Item implements Serializable{
 	private String expirationDate;
 	private String notice;
 	private int freshPercent;
-	
-
-//---------------------------------
 	private String itemNo;
 	private String sellerId;
 	private String itemName;
@@ -30,10 +27,10 @@ public class Item implements Serializable{
 	private String itemOrigin;
 	private int itemStock;
 	private String itemImg;
-	private int itemCustScore;
+	private double itemCustScore;
 	private String itemInputDate;
 	private int discRate;
-	private String itemTakeIt;
+	private String itemTakeit;
 	
 	
 	public Item() {}
@@ -50,7 +47,7 @@ public class Item implements Serializable{
 		this.itemOrigin = itemOrigin;
 		this.itemStock = itemStock;
 		this.itemImg = itemImg;
-		this.itemTakeIt = itemTakeIt;
+		this.itemTakeit = itemTakeit;
 		this.packTypeName = packTypeName;
         this.expirationDate = expirationDate;
 		this.notice = notice;
@@ -61,7 +58,7 @@ public class Item implements Serializable{
 	//상품 전체데이터
 	public Item(
 			String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
-			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent,String salesUnit, int itemCustScore,
+			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent,String salesUnit, double itemCustScore,
 			String itemInputDate,int discRate,String itemNo,String packTypeNo,String itemCategoryNo) {
 		
 		this(itemCategoryName,sellerId, itemName, itemPrice,itemOrigin,itemStock,itemImg,itemTakeIt,packTypeName,expirationDate,notice,freshPercent);
@@ -197,11 +194,11 @@ public class Item implements Serializable{
 		this.itemImg = itemImg;
 	}
 
-	public int getItemCustScore() {
+	public double getItemCustScore() {
 		return itemCustScore;
 	}
 
-	public void setItemCustScore(int itemCustScore) {
+	public void setItemCustScore(double itemCustScore) {
 		this.itemCustScore = itemCustScore;
 	}
 
@@ -221,13 +218,18 @@ public class Item implements Serializable{
 		this.discRate = discRate;
 	}
 
-	public String getItemTakeIt() {
-		return itemTakeIt;
+	public String getItemTakeit() {
+		return itemTakeit;
 	}
 
-	public void setItemTakeIt(String itemTakeIt) {
-		this.itemTakeIt = itemTakeIt;
+	public void setItemTakeit(String itemTakeIt) {
+		this.itemTakeit = itemTakeit;
 	}
+
+
+
+	
+	
 
 }
 
