@@ -1,6 +1,7 @@
 package com.takeit.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -30,12 +31,31 @@ public class FrontTakeitController extends HttpServlet {
 
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		String action = request.getParameter("action");
 		switch (action) {
 		case "takeitItemList":
 			takeitItemList(request, response);
 			break;
+		case "takeitItemDetail":
+			takeitItemDetail(request, response);
 		}
+	}
+	
+	protected void takeitItemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String itemNo = request.getParameter("itemNo");
+		System.out.println("itemNo : " + itemNo);
+		
+		TakeitBiz biz = new TakeitBiz();
+		
+		TakeitItem takeitItem = new TakeitItem();
+		takeitItem.setItemNo(itemNo);
+		
+		biz.getTakeitItem(takeitItem);
+		
+		request.setAttribute("takeitItem", takeitItem);
+		request.getRequestDispatcher("/takeit/takeitItemDetail.jsp").forward(request, response);
+		
 	}
 	
 	/**
@@ -70,17 +90,9 @@ public class FrontTakeitController extends HttpServlet {
 		TakeitBiz biz = new TakeitBiz();
 		biz.getTakeitItemList(member, takeitItemList);
 		
-		
-		System.out.println("상품갯수:"+takeitItemList.size());
-		System.out.println(takeitItemList);
-		
-		//리스트를 jsp로 넘겨준다
 		request.setAttribute("takeitItemList", takeitItemList);
-		//request.getRequestDispatcher(path)
-		
-		
+		request.getRequestDispatcher("/takeit/takeitList.jsp").forward(request, response);
 	}
-	
 }
 
 

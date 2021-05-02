@@ -35,7 +35,12 @@ public class TakeitBiz {
 	 * 
 	 */
 	public void getTakeitItem(TakeitItem takeitItem) {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
 		
+		dao.searchTakeitItem(conn, takeitItem);
+		
+		JdbcTemplate.close(conn);
 	}
 	
 }
