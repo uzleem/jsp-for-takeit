@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.BoardBiz;
 import com.takeit.model.dto.Board;
+import com.takeit.model.dto.Category;
 import com.takeit.model.dto.MessageEntity;
 
 /**
@@ -36,21 +37,37 @@ public class FrontBoardServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		request.setCharacterEncoding("utf-8");
 		switch(action) {
-		case "noticeList":
-			noticeList(request, response);
+		case "boardList":
+			boardList(request, response);
 			break;
-		case "noticeDetail":
-			noticeDetail(request, response);
+		case "boardInputForm":
+			boardInputForm(request, response);
+			break;
+		case "boardDetail":
+			boardDetail(request, response);
+			break;
+		case "boardInput":
+			boardInput(request, response);
 			break;
 //		case "":
-//			(request, response);
-//			break;
-//		case "":
-//			(request, response);
+//			(request,response);
 //			break;
 //		case "":
 //			(request,response);
 //			break;
+//		case "":
+//			(request,response);
+//			break;
+//		case "":
+//			(request,response);
+//			break;
+//		case "":
+//			(request,response);
+//			break;
+//		case "":
+//			(request,response);
+//			break;
+			
 		}
 	}
 
@@ -64,28 +81,97 @@ public class FrontBoardServlet extends HttpServlet {
 		process(request, response);
 	}
 
-	protected void noticeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[debug]공지사항 전체 조회 요청");
+	/**게시글 전체 목록*/
+	protected void boardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 전체 조회 요청");
+		String categoryNo = request.getParameter("board_category_no");
+		System.out.println("[debug]categoryNo:"+categoryNo);
 		
-		ArrayList<Board> noticeList = new ArrayList<Board>();
+		ArrayList<Board> boardList = new ArrayList<Board>();
 		BoardBiz bbiz = new BoardBiz();
 		try {
-			bbiz.getNoticeList(noticeList);
-			if(noticeList != null) {
-				request.setAttribute("noticeList", noticeList);
-				request.getRequestDispatcher("/board/noticeList.jsp").forward(request, response);
+			bbiz.getBoardList(categoryNo, boardList);
+			if(boardList != null) {
+				request.setAttribute("boardList", boardList);
+				request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
+			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 14);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	}
+	
+	/**게시글 상세조회*/
+	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 상세 조회 요청");
+		
+		String boardNo = request.getParameter("board_no");
+		String boardCategory = request.getParameter("board_category");
+		
+		BoardBiz bbiz = new BoardBiz();
+		Board board = new Board();
+		try {
+			bbiz.boardDetail(boardNo, boardCategory, board);
+			if(board != null) {
+				request.setAttribute("board", board);
+				request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);
+			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 14);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	}
+	
+	/**카테고리*/
+	private void boardInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 등록 페이지 요청");
+		BoardBiz bbiz = new BoardBiz();
+		ArrayList<Category> category = new ArrayList<Category>();
+		try {
+			bbiz.getCategoryList(category);
+			if(category != null) {
+				request.setAttribute("category", category);
+				request.getRequestDispatcher("/board/boardInput.jsp").forward(request, response);
 			}
 		} catch (CommonException e) {
 			MessageEntity message = new MessageEntity("error", 13);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
-		
 	}
-
-	private void noticeDetail(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("[debug]공지사항 상세 조회 요청");
+	
+	/**게시글 등록*/
+	private void boardInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 등록 요청");
 		
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContents = request.getParameter("boardContents");
+		String boardCategory = request.getParameter("boardCategory");
+		String boardItemNo = request.getParameter("itemNo");
+		boardItemNo = boardItemNo.trim();
+		boardTitle = boardTitle.trim();
+		boardContents = boardContents.trim();
+		boardCategory = boardContents.trim();
+		/*session적용 후 바뀔 내용*/
+		String boardWriter = request.getParameter("boardWriter");
+		boardWriter = boardWriter.trim();
 		
+		System.out.println("[debug] " + boardTitle + boardContents);
+		BoardBiz bbiz = new BoardBiz();
+		Board notice = new Board(boardWriter, boardTitle, boardContents, boardCategory, boardItemNo);
+		
+		try {
+			bbiz.boardInput(notice);
+			request.getRequestDispatcher("/boardContrller?action=boardList").forward(request, response);;
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 13);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
 	}
+	
 }

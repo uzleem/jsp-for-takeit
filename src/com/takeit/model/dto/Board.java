@@ -17,11 +17,11 @@ public class Board implements Serializable{
 	private int boardPicks;
 	private String boardDate;
 	private String boardCategory;
+	private String boardCategoryName;
 	private String boardItem;
 	private String boardItemSeller;
 	
 	public Board() {}
-
 	/***
 	 * 공지사항,자주하는 질문 사용자(관리자) 입력데이터
 	 * @param boardWriter
@@ -36,6 +36,7 @@ public class Board implements Serializable{
 		this.boardCategory = boardCategory;
 	}
 	
+	
 	/***
 	 * 상품문의 사용자 입력데이터
 	 * @param boardWriter
@@ -47,6 +48,11 @@ public class Board implements Serializable{
 	public Board(String boardWriter, String boardTitle, String boardContents, String boardCategory, String boardItem) {
 		this(boardWriter, boardTitle, boardContents, boardCategory);
 		this.boardItem = boardItem;
+	}
+	
+	public Board(String boardWriter, String boardTitle, String boardContents, String boardCategory, String boardItem, String boardCategoryName) {
+		this(boardWriter, boardTitle, boardContents, boardCategory, boardItem);
+		this.boardCategoryName = boardCategoryName;
 	}
 	
 	/***
@@ -151,6 +157,13 @@ public class Board implements Serializable{
 		this.boardItemSeller = boardItemSeller;
 	}
 
+	
+	public String getBoardCategoryName() {
+		return boardCategoryName;
+	}
+	public void setBoardCategoryName(String boardCategoryName) {
+		this.boardCategoryName = boardCategoryName;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
