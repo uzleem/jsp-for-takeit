@@ -60,7 +60,6 @@ public class FrontMemberServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		process(request, response);
 	}
 
@@ -81,9 +80,9 @@ public class FrontMemberServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String mobile = request.getParameter("mobile");
 		String email = request.getParameter("email");
-		String zipNo = request.getParameter("zipNo");
-		String roadAddrPart1 = request.getParameter("roadAddrPart1");
-		String addrDetail = request.getParameter("addrDetail");
+		String postNo = request.getParameter("postNo");
+		String address = request.getParameter("address");
+		String addressDetail = request.getParameter("addressDetail");
 		String birth = request.getParameter("birth");
 				
 		System.out.println(memberId);
@@ -91,12 +90,12 @@ public class FrontMemberServlet extends HttpServlet {
 		System.out.println(name);
 		System.out.println(mobile);
 		System.out.println(email);
-		System.out.println(zipNo);
-		System.out.println(roadAddrPart1);
-		System.out.println(addrDetail);
+		System.out.println(postNo);
+		System.out.println(address);
+		System.out.println(addressDetail);
 		System.out.println(birth);
 		
-		Member dto = new Member(memberId, memberPw, name, mobile, email, zipNo, roadAddrPart1, addrDetail, birth);
+		Member dto = new Member(memberId, memberPw, name, mobile, email, postNo, address, addressDetail, birth);
 		
 		MemberBiz biz = new MemberBiz();
 				
@@ -111,6 +110,7 @@ public class FrontMemberServlet extends HttpServlet {
 		} catch (CommonException e) {
 			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();
+			
 			System.out.println(message);
 		}
 	}

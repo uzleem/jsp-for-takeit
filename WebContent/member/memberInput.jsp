@@ -31,10 +31,10 @@ var goPopup = function() {
 	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
  } 
 var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
-	 document.getElementById("zipNo").value = zipNo; 
-	 document.getElementById("roadAddrPart1").value = roadAddrPart1; 
-	 document.getElementById("addrDetail").value = addrDetail; 
-	 if(addrDetail.length>30){ 
+	 document.getElementById("postNo").value = zipNo; 
+	 document.getElementById("address").value = roadAddrPart1; 
+	 document.getElementById("addressDetail").value = addrDetail; 
+	 if(addressDetail.length>30){ 
 		alert('상세주소를 30자 이내로 입력하세요.'); 
 		return; 
 	} 
@@ -106,20 +106,20 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		<tr>
 			<td>우편번호</td>
 			<td>
-				<input type="text" placeholder="우편번호" id="zipNo" name="zipNo" readonly="readonly"/>
-				<input type="button" id="zipNoBtn" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
+				<input type="text" placeholder="우편번호" id="postNo" name="postNo" readonly="readonly"/>
+				<input type="button" id="postNoBtn" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
 			</td>
 		</tr>
 		<tr>
 			<td>도로명주소</td>
 			<td>
-				<input type="text" placeholder="도로명주소" id="roadAddrPart1" name="roadAddrPart1" readonly="readonly"/>
+				<input type="text" placeholder="도로명주소" id="address" name="address" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<td>상세주소</td>
 			<td>
-				<input type="text" placeholder="상세주소" id="addrDetail" name="addrDetail"/>
+				<input type="text" placeholder="상세주소" id="addressDetail" name="addressDetail"/>
 			</td>
 		</tr>
 		<tr>
