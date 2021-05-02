@@ -29,14 +29,11 @@
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <div id="notice">
 <div id="title">
-	<h3>공지사항</h3>
+	<h3>공지사항 </h3>
 </div>
-<%-- <c:if test="${grade == 'A' }"> --%>
-	<div id="small-btn">
-		<a href="/takeit/board/noticeInput.jsp">등록</a>
-	</div>
-<%-- </c:if> --%>
-<form action="#">
+<div id="small-btn">
+	<a href="/takeit/boardController?action=boardInputForm">등록</a>
+</div>
 <table id="notice-tbl" class="notice-table">
 	<tr>
 		<th>번호</th>
@@ -47,13 +44,13 @@
 		<th>작성일자</th>
 	</tr>
 	<%
-		ArrayList<Board> noticeList = (ArrayList<Board>)request.getAttribute("noticeList");
-		for(Board dto : noticeList){
+		ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
+		for(Board dto : boardList){
 	%>
 	<tr>
 		<td><%= dto.getBoardNo() %></td>
 		<td>
-		<a href="/takeit/boardController?action=noticeDetail&board_no=<%= dto.getBoardNo() %>" id="boardTitle"><%= dto.getBoardTitle()%></a>
+		<a href="/takeit/boardController?action=boardDetail&board_no=<%= dto.getBoardNo() %>&board_category=1" id="boardLink"><%= dto.getBoardTitle()%></a>
 		</td>
 		<td><%= dto.getBoardWriter() %></td>
 		<td><%= dto.getBoardViews() %></td>
@@ -64,29 +61,6 @@
 		}
 	%>
 </table>
-<table>
-	<tr>
-		<th>글제목</th>
-		<td><input type="text" name="noticeTitle" placeholder="제목을 입력하세요.."> </td>
-		<th>카테고리</th>
-		<td><a href="/takeit/boardController?action=boardList" id="boardLink">공지사항</a></td>
-	</tr>
-	<tr>
-		<th>작성자</th>
-		<td><input type="text" value="" readonly="readonly"></td>
-		<th>작성일자</th>
-		<td></td>
-	</tr>
-	<tr>
-		<th colspan="4">내용</th>
-	</tr>
-	<tr>
-		<td colspan="4">
-			<textarea rows="30" cols="100" placeholder="내용을 입력하세요.."></textarea>
-		</td>
-	</tr>
-</table>
-</form>
 <a href="/takeit/index.jsp" class="link">홈으로이동</a>
 </div>
 <!-- footer 구역 -->

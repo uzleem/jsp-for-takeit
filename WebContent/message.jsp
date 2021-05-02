@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>takeit::결과 안내</title>
+<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
 <!-- 상단 메뉴 -->

@@ -28,42 +28,42 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <div id="notice">
+<%
+	Board dto = (Board)request.getAttribute("board");
+%>
 <div id="title">
-	<h3>공지사항</h3>
+	<h3><%= dto.getBoardCategory() %> </h3>
 </div>
-<%-- <c:if test="${grade == 'A' }"> --%>
-	<div id="small-btn">
-		<a href="/takeit/board/noticeInput.jsp">등록</a>
-	</div>
-<%-- </c:if> --%>
-<table id="notice-tbl" class="notice-table">
+<table class="notice-table">
 	<tr>
-		<th>번호</th>
-		<th>제목</th>
-		<th>작성자</th>
-		<th>조회수</th>
-		<th>추천수</th>
-		<th>작성일자</th>
-	</tr>
-	<%
-		ArrayList<Board> noticeList = (ArrayList<Board>)request.getAttribute("noticeList");
-		for(Board dto : noticeList){
-	%>
-	<tr>
+		<th>글번호</th>
 		<td><%= dto.getBoardNo() %></td>
-		<td>
-		<a href="/takeit/boardController?action=noticeDetail&board_no=<%= dto.getBoardNo() %>" id="boardLink"><%= dto.getBoardTitle()%></a>
-		</td>
-		<td><%= dto.getBoardWriter() %></td>
-		<td><%= dto.getBoardViews() %></td>
-		<td><%= dto.getBoardPicks()%></td>
-		<td><%= dto.getBoardDate()%></td>
+		<th>글제목</th>
+			<td><%= dto.getBoardTitle() %> </td>
+		</tr>
+	<tr>
+		<th>조회수</th>
+		<td><%= dto.getBoardViews()%></td>
+		<th>추천수</th>
+		<td><%= dto.getBoardPicks()%> </td>
 	</tr>
-	<%
-		}
-	%>
+	<tr>
+		<th>작성자</th>
+		<td><%= dto.getBoardWriter() %></td>
+		<th>작성일자</th>
+		<td><%= dto.getBoardDate() %></td>
+	</tr>
+	<tr>
+		<th colspan="4">내용</th>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<%= dto.getBoardContents() %>
+		</td>
+	</tr>
 </table>
-<a href="/takeit/index.jsp" class="link">홈으로이동</a>
+<a href="#" class="link">추천</a>
+<a href="/takeit/boardController?action=boardList&board_category_no=1" class="link">목록</a>
 </div>
 <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
