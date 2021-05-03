@@ -33,13 +33,15 @@ public class Item implements Serializable{
 	private int discRate;
 	private String itemTakeit;
 	
+	//판매자
+	private String sellerName;
+	private String shopName;
 	
 	public Item() {}
 
 	//판매자입력 필수데이터
 	public Item(String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
 			String itemTakeit,String packTypeName,String expirationDate,String notice,int freshPercent) {
-		
 		
 		this.itemCategoryName =itemCategoryName;
 		this.sellerId = sellerId;
@@ -53,26 +55,40 @@ public class Item implements Serializable{
         this.expirationDate = expirationDate;
 		this.notice = notice;
 		this.freshPercent = freshPercent;
-		
 	}
 	
 	//상품 전체데이터
-	public Item(
-			String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
-			String itemTakeIt,String packTypeName,String expirationDate,String notice,int freshPercent,String salesUnit, double itemCustScore,
-			String itemInputDate,int discRate,String itemNo,String packTypeNo,String itemCategoryNo) {
-		
-		this(itemCategoryName,sellerId, itemName, itemPrice,itemOrigin,itemStock,itemImg,itemTakeIt,packTypeName,expirationDate,notice,freshPercent);
-		
+	public Item(String packTypeNo, String packTypeName, String itemCategoryNo, String itemCategoryName,
+			String expirationDate, String notice, int freshPercent, String itemNo, String sellerId, String itemName,
+			int itemPrice, String salesUnit, String itemOrigin, int itemStock, String itemImg, double itemCustScore,
+			String itemInputDate, int discRate, String itemTakeit, String sellerName, String shopName) {
+		this(itemCategoryName,sellerId, itemName, itemPrice,itemOrigin,itemStock,itemImg,itemTakeit,packTypeName,expirationDate,notice,freshPercent);
 		this.salesUnit = salesUnit;
+		this.itemOrigin = itemOrigin;
+		this.itemStock = itemStock;
+		this.itemImg = itemImg;
 		this.itemCustScore = itemCustScore;
 		this.itemInputDate = itemInputDate;
 		this.discRate = discRate;
-		this.itemNo = itemNo;
-		this.packTypeNo = packTypeNo;
-		this.itemCategoryNo = itemCategoryNo;
-		
+		this.itemTakeit = itemTakeit;
+		this.sellerName = sellerName;
+		this.shopName = shopName;
+	}
 
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
 	public String getPackTypeNo() {
