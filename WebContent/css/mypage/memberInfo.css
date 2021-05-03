@@ -76,6 +76,7 @@ margin-right: 20px;}
 		margin-top: 15px;
 		border: 1px solid #7B977A;
 		margin-right: 20px;
+		cursor: pointer;
 }
 
 #infoUpdateBtn {
@@ -85,5 +86,6 @@ margin-right: 20px;}
 		border: 1px solid #7B977A;
 		color: white;
 		background: #7B977A;
+		cursor: pointer;
 
 }

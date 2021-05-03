@@ -25,7 +25,7 @@ public class MypageBiz {
 	 * 내 정보 상세 조회 > 일반회원
 	 * @param dto 일반회원 객체
 	 */
-	public void getMember(Member dto){
+	public void getMember(Member dto) throws CommonException{
 		System.out.println("비즈 내 정보 조회 메서드");
 		Connection conn = JdbcTemplate.getConnection();
 		
@@ -33,6 +33,7 @@ public class MypageBiz {
 			dao.getMemberDetail(conn, dto);
 		}catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -51,6 +52,7 @@ public class MypageBiz {
 			dao.getSellerDetail(conn, dto);
 		}catch (CommonException e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -61,16 +63,16 @@ public class MypageBiz {
 	 * 내 정보 수정 > 일반회원
 	 * @param dto 일반회원 객체
 	 */
-	public void setMember(Member dto){
+	public void setMember(Member dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		try {
 			dao.setMemberInfo(conn,dto);
 			JdbcTemplate.commit(conn);
-			System.out.println("커밋완료");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -81,16 +83,15 @@ public class MypageBiz {
 	 * 내 정보 수정 > 판매자
 	 * @param dto 일반회원 객체
 	 */
-	public void setSeller(Seller dto){
+	public void setSeller(Seller dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		try {
 			dao.setSeller(conn,dto);
 			JdbcTemplate.commit(conn);
-			System.out.println("판매자 정보 수정 커밋 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);
-			System.out.println("판매자 정보 수정 롤백");
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -98,26 +99,35 @@ public class MypageBiz {
 	}
 	
 	
-	//비밀번호 변경  >일반회원
-	public void setMemberPw(String memberPw2, Member dto){
+	/**
+	 * 비밀번호 변경 일반회원
+	 * @param memberPw2 변경할 비밀번호
+	 * @param dto 일반회원 객체
+	 * @throws CommonException
+	 */
+	public void setMemberPw(String memberPw2, Member dto) throws CommonException{
 		
 		Connection conn = JdbcTemplate.getConnection();
 		try {
 			dao.setMemberPw(conn, memberPw2, dto);
 			JdbcTemplate.commit(conn);
-			System.out.println("비밀번호 변경 완료");
 		}catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);
-			System.out.println("비밀번호 변경 실패");
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
 		
 	}
 	
-	//비밀번호 변경 > 판매자
-		public void setSellerPw(String SellerPw2, Seller dto){
+	/**
+	 * 비밀번호 변경 > 판매자
+	 * @param SellerPw2 변경할 비밀번호
+	 * @param dto 판매자 객체
+	 * @throws CommonException
+	 */
+		public void setSellerPw(String SellerPw2, Seller dto) throws CommonException{
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
@@ -126,33 +136,42 @@ public class MypageBiz {
 			}catch (Exception e) {
 				e.printStackTrace();
 				JdbcTemplate.rollback(conn);
+				throw e;
 			}finally {
 				JdbcTemplate.close(conn);
 			}
 			
 		}
 		
-	//회원 탈퇴 > 일반회원
-		public void removeMember(String memberId, String memberPw){
+		/**
+		 * 회원탈퇴 일반회원
+		 * @param memberId 탈퇴할 아이디
+		 * @param memberPw 탈퇴할 비밀번호
+		 * @throws CommonException
+		 */
+		public void removeMember(String memberId, String memberPw) throws CommonException{
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
 				dao.removeMember(conn, memberId, memberPw);
 				JdbcTemplate.commit(conn);
-				System.out.println("회원 탈퇴 성공");
 			}catch (Exception e) {
 				e.printStackTrace();
 				JdbcTemplate.rollback(conn);
-				System.out.println("회원 탈퇴 실패");
+				throw e;
 			}finally {
 				JdbcTemplate.close(conn);
 			}
-			
 		}
 		
 
-		//회원 탈퇴 > 판매자
-		public void removeSeller(String sellerId, String sellerPw){
+		/**
+		 * 회원 탈퇴 판매자
+		 * @param sellerId 탈퇴할 아이디
+		 * @param sellerPw 탈퇴할 비밀번호
+		 * @throws CommonException
+		 */
+		public void removeSeller(String sellerId, String sellerPw) throws CommonException{
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
@@ -162,6 +181,7 @@ public class MypageBiz {
 			}catch (Exception e) {
 				e.printStackTrace();
 				JdbcTemplate.rollback(conn);
+				throw e;
 			}finally {
 				JdbcTemplate.close(conn);
 			}

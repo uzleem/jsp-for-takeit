@@ -61,8 +61,8 @@
 					</div>
 						<div id="order_item">
 							<h6 id="orderState">주문 상태 : 배송중</h6>
-							<input id="item_review_btn" type="button" value="상품 후기">
-							<input type="button" value="상품 문의">
+							<input id="item_review_btn" type="button" value="상품 후기" >
+							<input type="button" value="상품 문의" onclick="location.href='/takeit/boardController?action=boardList&boardCategory=3'">
 						</div>
 			</div>
 			

@@ -155,6 +155,9 @@
 		</tr>
 			</table>
 		</form>
+		<div id="myInfo_btn">
+			<input id = "mypage_btn" class="inline" type="button" value="홈으로 이동" onclick="location.href='/takeit/index.jsp'">
+	</div>
 	</div>
 
 

@@ -16,7 +16,7 @@ import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
 
 /**
- * Servlet implementation class FrontMypageServlet
+ * 마이페이지 관리 컨트롤러
  */
 @WebServlet("/member/mypageController")
 public class FrontMypageServlet extends HttpServlet {
@@ -80,33 +80,57 @@ public class FrontMypageServlet extends HttpServlet {
 	
 	
 	/**
-	 * 일반 회원 내 정보 조회 ok
-	 * 
+	 * 일반회원 내 정보 조회
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void memberInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("일반회원 내 정보 조회");
 		
 		HttpSession session = request.getSession();
 		
+		MessageEntity message = null;
+		
 		String memberId = (String)session.getAttribute("memberId");
+		
+		if(memberId == null || memberId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("마이페이지로 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		memberId = memberId.trim();
+		
 		MypageBiz biz = new MypageBiz();
 		
 		Member dto = new Member();
 		dto.setMemberId(memberId);
 		
+		
 		try {
 			biz.getMember(dto);
 			session.setAttribute("member", dto);
 			request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
 		}
 	}
 	
 	/**
-	 * 판매자 정보 조회 ok
+	 * 판매자 정보 조회 
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -117,11 +141,27 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		
+		MessageEntity message = null;
 //		String sellerId = (String)session.getAttribute("sellerId");
 //		String sellerId = request.getParameter("memberId");
 		String sellerId = "seller01";
 		
-		Seller dto = new Seller();
+		
+		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("마이페이지로 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		sellerId = sellerId.trim();
+		
+ 		Seller dto = new Seller();
 		dto.setSellerId(sellerId);
 		
 		MypageBiz biz = new MypageBiz();
@@ -131,16 +171,18 @@ public class FrontMypageServlet extends HttpServlet {
 			biz.getSeller(dto);	
 			session.setAttribute("seller", dto);
 			request.getRequestDispatcher("/member/sellerInfo.jsp").forward(request, response);
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 		
 	}
 	
 	
 	/**
-	 * ok
 	 * 일반회원 내 정보 수정  
 	 * @param request
 	 * @param response
@@ -152,6 +194,8 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		MessageEntity message = null;
+		
 		String memberId = (String)session.getAttribute("memberId");
 		String memberPw = request.getParameter("memberPw");
 		String name = request.getParameter("name");
@@ -162,6 +206,114 @@ public class FrontMypageServlet extends HttpServlet {
 		String addressDetail = request.getParameter("addressDetail");
 		String birth = request.getParameter("birth");
 		
+		if(memberId == null || memberId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(memberPw == null || memberPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(name == null || name.trim().length() ==0) {
+
+
+			message = new MessageEntity("validation",2);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(postNo == null || postNo.trim().length() == 0) {
+
+
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(address == null || address.trim().length() ==0) {
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(addressDetail == null || addressDetail.trim().length() ==0) {
+
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(mobile == null || mobile.trim().length() > 10
+				|| email == null || email.trim().length() == 0
+				|| birth == null || birth.trim().length() == 0) {
+
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(email == null || email.trim().length() == 0) {
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(birth == null || birth.trim().length() == 0) {
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		memberId = memberId.trim();
+		memberPw = memberPw.trim();
+		name = name.trim();
+		mobile = mobile.trim();
+		email = email.trim();
+		postNo = postNo.trim();
+		address = address.trim();
+		addressDetail = addressDetail.trim();
+		birth = birth.trim();
+	
 		MypageBiz biz = new MypageBiz();
 		
 		Member dto = new Member();
@@ -175,24 +327,30 @@ public class FrontMypageServlet extends HttpServlet {
 		dto.setAddressDetail(addressDetail);
 		dto.setBirth(birth);
 		
-		
 		try {
 			biz.setMember(dto);
 			
-			if(session.getAttribute("member") != null) {
-				session.removeAttribute("member");
+			if(session != null) {
+				if(session.getAttribute("member") != null) {
+					session.removeAttribute("member");
+				}
 			}
 			
 			session.setAttribute("member", dto);
+			message = new MessageEntity("success", 3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
-			request.getRequestDispatcher("/member/mypageController?action=memberInfoForm").forward(request, response);
-			
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
-	
 	
 	/**
 	 * 판매자 정보 수정 ok
@@ -205,6 +363,8 @@ public class FrontMypageServlet extends HttpServlet {
 		System.out.println("내 판매자  수정");
 		
 		HttpSession session = request.getSession();
+		
+		MessageEntity message = null;
 		
 //		String sellerId = (String)session.getAttribute("memberId");
 		String sellerId = request.getParameter("sellerId");
@@ -220,6 +380,167 @@ public class FrontMypageServlet extends HttpServlet {
 		String postNo = request.getParameter("postno");
 		String address = request.getParameter("address");
 //		String addressDetail = request.getParameter("addressDetail");
+		
+		
+		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(sellerPw == null || sellerPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(name == null || name.trim().length() ==0) {
+
+
+			message = new MessageEntity("validation",2);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		
+		if(postNo == null || postNo.trim().length() == 0) {
+
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(address == null || address.trim().length() ==0) {
+
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+//		if(addressDetail == null || addressDetail.trim().length() ==0) {
+//				
+//
+//			message = new MessageEntity("validation",3);
+//			message.setLinkTitle("내 정보 보러가기");
+//			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+//			
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
+//			return;
+//		}
+		if(mobile == null || mobile.trim().length() > 10) {
+
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(email == null || email.trim().length() ==0) {
+
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		
+		if(sellerNo == null || sellerNo.trim().length() ==0) {
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(shopName == null || shopName.trim().length() ==0) {
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(shopMobile == null || shopMobile.trim().length() ==0) {
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(shopCategoryNo == null || shopCategoryNo.trim().length() ==0) {
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(shopKakaoId == null || shopKakaoId.trim().length() ==0) {
+
+			message = new MessageEntity("validation",4);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		sellerId = sellerId.trim();
+		sellerPw = sellerPw.trim();
+		name = name.trim();
+		mobile = mobile.trim();
+		email = email.trim();
+		postNo = postNo.trim();
+		address = address.trim();
+//		addressDetail = addressDetail.trim();
+		shopKakaoId = shopKakaoId.trim();
+		shopCategoryNo = shopCategoryNo.trim();
+		shopMobile = shopMobile.trim();
+		shopName = shopName.trim();
+		sellerNo = sellerNo.trim();
+		
 		
 		MypageBiz biz = new MypageBiz();
 		
@@ -248,12 +569,18 @@ public class FrontMypageServlet extends HttpServlet {
 			}
 			
 			session.setAttribute("seller", dto);
-			request.getRequestDispatcher("/member/mypageController?action=sellerInfoForm").forward(request, response);
+			message = new MessageEntity("success", 3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
-			
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 		
 	} 
@@ -292,25 +619,72 @@ public class FrontMypageServlet extends HttpServlet {
 		System.out.println("회원 탈퇴 요청");
 		
 		HttpSession session = request.getSession(false);
+		MessageEntity message = null;
 		
 		String memberId = (String)session.getAttribute("memberId");
 		String memberPw = request.getParameter("memberPw");
 		
+		if(memberId == null || memberId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(memberPw == null || memberPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
 		
-		MypageBiz biz = new MypageBiz();
+		memberId = memberId.trim();
+		memberPw = memberPw.trim();
+		
+		MypageBiz mybiz = new MypageBiz();
+		
 		
 
 		try {
-			biz.removeMember(memberId,memberPw);
+			mybiz.removeMember(memberId,memberPw);
 			
-			if(session.getAttribute("member") != null) {
-				session.removeAttribute("member");
+			message = new MessageEntity("success", 4);
+			message.setLinkTitle("메인화면으로");
+			message.setUrl("/takeit/index.jsp");
+			
+			
+			if(session != null) {
+				if(session.getAttribute("member") != null) {
+					session.removeAttribute("member");
+				}
+				if(session.getAttribute("memberId") != null) {
+					session.removeAttribute("memberId");
+				}
+				if(session.getAttribute("dto") != null) {
+					session.removeAttribute("dto");
+				}
+				
+				session.invalidate();
+			
 			}
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
-			response.sendRedirect("/takeit/index.jsp");
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 		
 	} 
@@ -327,23 +701,66 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		MessageEntity message = null;
+		
 		String sellerId = request.getParameter("sellerId");
 		String sellerPw = request.getParameter("sellerPw");
 		
+		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(sellerPw == null || sellerPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		sellerId = sellerId.trim();
+		sellerPw = sellerPw.trim();
+		
 		MypageBiz biz = new MypageBiz();
+		
 		
 		try {
 			biz.removeSeller(sellerId,sellerPw);
 			
-			if(session.getAttribute("seller") != null) {
-				session.removeAttribute("seller");
+			if(session != null) {
+				if(session.getAttribute("seller") != null) {
+					session.removeAttribute("seller");
+				}
+//				if(session.getAttribute("sellerId") != null) {
+//					session.removeAttribute("sellerId");
+//				}
+//				if(session.getAttribute("dto") != null) {
+//					session.removeAttribute("dto");
+//				}
+			
+				session.invalidate();
+			
 			}
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
-			response.sendRedirect("/takeit/index.jsp");
-			
-		}catch (Exception e) {
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 		
 	} 
@@ -359,7 +776,6 @@ public class FrontMypageServlet extends HttpServlet {
 			System.out.println("비밀번호 변경 요청 페이지 ");
 			
 			HttpSession session = request.getSession(false);
-			
 
 			try {
 				session.getAttribute("member");
@@ -382,12 +798,51 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void setSellerPw (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("일반회원 > 비밀번호 변경 요청 서블릿 ");
 		
 		String sellerId = request.getParameter("sellerId");
 		String sellerPw = request.getParameter("sellerPw");
 		String sellerPw2 = request.getParameter("sellerPw2");
 		
+		MessageEntity message = null;
+		
+		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(sellerPw == null || sellerPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		if(sellerPw2 == null || sellerPw2.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		sellerId = sellerId.trim();
+		sellerPw = sellerPw.trim();
+		sellerPw2= sellerPw2.trim();
 		
 		MypageBiz biz = new MypageBiz();
 		
@@ -399,23 +854,79 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		try {
 			biz.setSellerPw(sellerPw2, dto);
-			request.getRequestDispatcher("/member/mypageController?action=sellerInfoForm").forward(request, response);
 			
-		}catch (Exception e) {
+			message = new MessageEntity("success", 3);
+			message.setLinkTitle("내 정보 보러가기");
+			message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			
+			
+			
+		}catch (CommonException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 		
 	} 
 	
-	//비밀번호 변경  > 판매자
+	/**
+	 * 비밀번호 변경 일반회원
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 		protected void setMemberPw (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("일반회원 > 비밀번호 변경 요청 서블릿 ");
 			
-			HttpSession session = request.getSession();
+//			HttpSession session = request.getSession();
+			MessageEntity message = null;
+			
 			String memberId = request.getParameter("memberId");
 			String memberPw = request.getParameter("memberPw");
 			String memberPw2 = request.getParameter("memberPw2");
+			
+			
+			if(memberId == null || memberId.trim().length()  == 0 ) {
+
+
+				message = new MessageEntity("validation",0);
+				message.setLinkTitle("내 정보 보러가기");
+				message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+				
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
+			}
+			if(memberPw == null || memberPw.trim().length() == 0  ) {
+
+
+				message = new MessageEntity("validation",1);
+				message.setLinkTitle("내 정보 보러가기");
+				message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+				
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
+			}
+			if(memberPw2 == null || memberPw2.trim().length() == 0  ) {
+
+
+				message = new MessageEntity("validation",1);
+				message.setLinkTitle("내 정보 보러가기");
+				message.setUrl("/takeit/member/mypageController?action=memberInfoForm");
+				
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
+			}
+			
+			memberId = memberId.trim();
+			memberPw = memberPw.trim();
+			memberPw2 = memberPw2.trim();
 			
 			
 			MypageBiz biz = new MypageBiz();
@@ -425,14 +936,23 @@ public class FrontMypageServlet extends HttpServlet {
 			dto.setMemberId(memberId);
 			dto.setMemberPw(memberPw);
 			
-			
 			try {
 				biz.setMemberPw(memberPw2, dto);
-				request.getRequestDispatcher("/member/mypageController?action=memberInfoForm").forward(request, response);
 				
-			}catch (Exception e) {
+				
+				message = new MessageEntity("success", 3);
+				message.setLinkTitle("내 정보 보러가기");
+				message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				
+				
+			}catch (CommonException e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
+				message = e.getMessageEntity();
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
 			
 		} 
