@@ -42,7 +42,7 @@
 	<h3><%= dto.getBoardCategoryName() %> </h3>
 </div>
 <%
-	if(memberId.equals(dto.getBoardWriter())){ 
+	if(memberId != null && memberId.equals(dto.getBoardWriter())){ 
 %>
 <form action="/takeit/boardController?action=boardUpdateForm&boardNo=<%= dto.getBoardNo() %>&boardCategory=<%= dto.getBoardCategory() %>" method="post">
 	<input type="submit" value="수정" class="btn">
