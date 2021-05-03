@@ -7,102 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>내 정보 조회</title>
+<link type="text/css" rel="stylesheet" href="/takeit/css/mypage/memberInfo.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<style type="text/css">
-
-.myPage_menu_aside ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-}
-.myPage_menu_aside li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-.myPage_menu_aside h3.active {
-    background-color: #5a7d59;
-    color: white;
-}
-.myPage_menu_aside li a:hover:not(.active) {
-    background-color: #5a7d59;
-    color: white;
-}
-
-#container{
-	height: 700px;
-	display: flex;
-}
-.myPage_menu_aside {
-	width: 200px;
-	height: 500px;
-	float: left;
-	margin-left: 200px;
-	margin-top: 100px;
-}
-
-
-#myInfo{
-	display: inline-block;
-    padding: 0;
-    width: 800px;
-    height: 500px;
-    float: left;
-	text-align: -webkit-center;
-	margin-left: 60px;
-	margin-top: 30px;
-}
-
-#myInfo_btn{
-margin-top: 30px;
-margin-left: -100px;	
-}
-#btn{
-margin-right: 20px;}
-
-#mypage_info{
- padding: 0;
-    width: 800px;
-    height: 700px;
-    float: left;
-    margin-left: 130px;
-}
-
-#myInfo_table{
-	width: 500px;
-}
-
-#mypage_btn{
-		width:30%;
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		background-color: #7B977A;
-		color: white;
-		margin-top: 15px;
-		border: 1px solid #7B977A;
-		margin-right: 20px;
-}
-
-#infoUpdateBtn {
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-
-}
-</style>
 </head>
 <body>
 <!-- 상단 메뉴 -->
 <c:choose>
-	<c:when test="${empty memberId or empty grade}">
+	<c:when test="${empty member.memberId or empty member.grade}">
 		<!-- 로그인 전 메뉴 -->
 		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
 	</c:when>
@@ -119,7 +31,7 @@ margin-right: 20px;}
 
 <div id="container">
 	<c:choose>
-		<c:when test ="${grade == 'S' }">
+		<c:when test ="${member.grade == 'S' }">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
 		</c:when>
@@ -145,7 +57,7 @@ margin-right: 20px;}
 			<th>비밀번호</th>
 			<td>
 			<input type="password" id="memberPw" name="memberPw" value="${member.memberPw }">
-			<input id="infoUpdateBtn" type="button" value="비밀번호 변경">
+			<input id="infoUpdateBtn" type="button" value="비밀번호 변경" onclick="location.href='/takeit/member/mypageController?action=memberPwUpdateForm'">
 			</td>		
 		</tr>
 		<tr>

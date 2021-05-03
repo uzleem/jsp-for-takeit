@@ -42,7 +42,11 @@ public class MypageBiz {
 			JdbcTemplate.close(conn);
 	}
 	
-	//내 정보 조회 > 판매자 회원
+	/**
+	 * 내 정보 상세 조회 > 판매자 
+	 * @param dto
+	 * @throws CommonException
+	 */
 	public void getSeller(Seller dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		
@@ -85,10 +89,11 @@ public class MypageBiz {
 		try {
 			dao.setSeller(conn,dto);
 			JdbcTemplate.commit(conn);
-		
+			System.out.println("판매자 정보 수정 커밋 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);
+			System.out.println("판매자 정보 수정 롤백");
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -103,9 +108,11 @@ public class MypageBiz {
 		try {
 			dao.setMemberPw(conn, memberPw2, dto);
 			JdbcTemplate.commit(conn);
+			System.out.println("비밀번호 변경 완료");
 		}catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);
+			System.out.println("비밀번호 변경 실패");
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -113,7 +120,7 @@ public class MypageBiz {
 	}
 	
 	//비밀번호 변경 > 판매자
-		public void setSellerrPw(String SellerPw2, Seller dto){
+		public void setSellerPw(String SellerPw2, Seller dto){
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
@@ -129,36 +136,40 @@ public class MypageBiz {
 		}
 		
 	//회원 탈퇴 > 일반회원
-			public void removeMember(String memberId, String memberPw){
-				
-				Connection conn = JdbcTemplate.getConnection();
-				try {
-					dao.removeMember(conn, memberId, memberPw);
-					JdbcTemplate.commit(conn);
-				}catch (Exception e) {
-					e.printStackTrace();
-					JdbcTemplate.rollback(conn);
-				}finally {
-					JdbcTemplate.close(conn);
-				}
-				
+		public void removeMember(String memberId, String memberPw){
+			
+			Connection conn = JdbcTemplate.getConnection();
+			try {
+				dao.removeMember(conn, memberId, memberPw);
+				JdbcTemplate.commit(conn);
+				System.out.println("회원 탈퇴 성공");
+			}catch (Exception e) {
+				e.printStackTrace();
+				JdbcTemplate.rollback(conn);
+				System.out.println("회원 탈퇴 실패");
+			}finally {
+				JdbcTemplate.close(conn);
 			}
+			
+		}
+		
 
-	//회원 탈퇴 > 판매자
-			public void removeSeller(Seller dto){
+		//회원 탈퇴 > 판매자
+		public void removeSeller(String sellerId, String sellerPw){
+			
+			Connection conn = JdbcTemplate.getConnection();
+			try {
 				
-				Connection conn = JdbcTemplate.getConnection();
-				try {
-					dao.removeSeller(conn,dto);
-					JdbcTemplate.commit(conn);
-				}catch (Exception e) {
-					e.printStackTrace();
-					JdbcTemplate.rollback(conn);
-				}finally {
-					JdbcTemplate.close(conn);
-				}
-				
+				dao.removeSeller(conn,sellerId, sellerPw);
+				JdbcTemplate.commit(conn);
+			}catch (Exception e) {
+				e.printStackTrace();
+				JdbcTemplate.rollback(conn);
+			}finally {
+				JdbcTemplate.close(conn);
 			}
+			
+		}
 	
 	
 	
