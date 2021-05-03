@@ -19,19 +19,6 @@
 	flex-direction: column;
 }
 
-.btn-style{
-	width:150px;
-	height:42px;
-	border:none;
-	background-color: #795B8f;
-	color: #FFF;
-}
-
-.btn-style:hover {
-	background-color: #5f0080;
-	cursor: pointer;
-}
-
 /*****header*****/
 /*navigation*/
 #navi-wrap{
