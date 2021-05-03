@@ -18,7 +18,7 @@ import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 
 /**
- * 회원관리 컨트롤러
+ * 일반 회원관리 컨트롤러
  */
 @WebServlet(urlPatterns = {"/member/controller"}, loadOnStartup = 1)
 public class FrontMemberServlet extends HttpServlet {
@@ -79,7 +79,6 @@ public class FrontMemberServlet extends HttpServlet {
 
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
-		String pwChk = request.getParameter("pwChk");
 		String name = request.getParameter("name");
 		String mobile = request.getParameter("mobile");
 		String email = request.getParameter("email");
@@ -90,7 +89,6 @@ public class FrontMemberServlet extends HttpServlet {
 				
 		System.out.println(memberId);
 		System.out.println(memberPw);
-		System.out.println(pwChk);
 		System.out.println(name);
 		System.out.println(mobile);
 		System.out.println(email);
@@ -105,16 +103,27 @@ public class FrontMemberServlet extends HttpServlet {
 				
 		try {
 			biz.addMember(dto);
-			
-			MessageEntity message = new MessageEntity("success", 0);
-			message.setUrl("/takeit/member/memberLogin.jsp");
-			message.setLinkTitle("로그인");
+			if(dto.getMemberId() != null) {
+				MessageEntity message = new MessageEntity("success", 0);
+				message.setUrl("/takeit/member/memberLogin.jsp");
+				message.setLinkTitle("로그인");
+				request.setAttribute("message", message);
+				rd.forward(request, response);
+			}else {
+				MessageEntity message = new MessageEntity("error", 0);
+				message.setLinkTitle("뒤로가기");
+				message.setUrl(CONTEXT_PATH + "/member/memberInput.jsp");
+				request.setAttribute("message", message);
+				rd.forward(request, response);
+			}
+		} catch (CommonException e) {
+			//e.printStackTrace();
+			//MessageEntity message = e.getMessageEntity();
+			MessageEntity message = new MessageEntity("error", 0);
+			message.setLinkTitle("뒤로가기");
+			message.setUrl(CONTEXT_PATH + "/member/memberInput.jsp");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
-		} catch (CommonException e) {
-			e.printStackTrace();
-			MessageEntity message = e.getMessageEntity();
-			System.out.println(message);
 		}
 	}
 	
@@ -197,7 +206,6 @@ public class FrontMemberServlet extends HttpServlet {
 		System.out.println("작동 확인 : memberFindId");
 
 		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
-		RequestDispatcher rdfind = request.getRequestDispatcher("/member/findMessage.jsp");
 		
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -214,8 +222,17 @@ public class FrontMemberServlet extends HttpServlet {
 		try {
 			System.out.println("확인");
 			biz.idFind(dto);
-			request.setAttribute("findMessage", "아이디:" + dto.getMemberId());
-			rdfind.forward(request, response);
+			//if(dto.getMemberId() != null){
+				request.setAttribute("idInfo", dto.getMemberId());
+				request.setAttribute("entryDate", dto.getEntryDate());
+				request.getRequestDispatcher("/member/idFindMessage.jsp").forward(request, response);;
+//			}else {
+//				MessageEntity message = new MessageEntity("error", 6);
+//				message.setLinkTitle("뒤로가기");
+//				message.setUrl("memberFindId.jsp");
+//				request.setAttribute("message", message);
+//				rd.forward(request, response);
+//			}
 		}catch (CommonException e) {
 			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();
@@ -234,7 +251,6 @@ public class FrontMemberServlet extends HttpServlet {
 		System.out.println("작동 확인 : memberFindPw");
 
 		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
-		RequestDispatcher rdfind = request.getRequestDispatcher("/member/findMessage.jsp");
 		
 		String memberId = request.getParameter("memberId");
 		String name = request.getParameter("name");
@@ -252,11 +268,11 @@ public class FrontMemberServlet extends HttpServlet {
 		dto.setEmail(email);
 		
 		try {
+			System.out.println("확인");
+			biz.pwFind("dto", dto);
 			if(dto.getMemberPw() != null) {
-				System.out.println("확인");
-				biz.pwFind(dto);
-				request.setAttribute("findMessage", "임시비밀번호:" + dto.getMemberPw());
-				rdfind.forward(request, response);
+				request.setAttribute("pwInfo", dto.getMemberPw());
+				request.getRequestDispatcher("/member/pwFindMessage.jsp").forward(request, response);
 			}else {
 				MessageEntity message = new MessageEntity("error", 6);
 				message.setLinkTitle("뒤로가기");

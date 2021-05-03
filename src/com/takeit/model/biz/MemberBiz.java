@@ -67,10 +67,10 @@ public class MemberBiz {
 	/**
 	 * 비밀번호 찾기
 	 */
-	public void pwFind(Member member) throws CommonException {
+	public void pwFind(String temporaryPw, Member member) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try{
-			dao.pwFind(con, member);
+			dao.pwFind(con, temporaryPw, member);
 			JdbcTemplate.commit(con);
 		} catch(CommonException e) {
 			JdbcTemplate.rollback(con);
