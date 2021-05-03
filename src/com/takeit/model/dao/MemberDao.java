@@ -54,12 +54,11 @@ public class MemberDao {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",1);
-			message.setUrl("/memberLogin.jsp");
-			message.setLinkTitle("로그인");
-
-			throw new CommonException(message);
 			
+			MessageEntity message = new MessageEntity("error",1);
+			message.setUrl("/memberInput.jsp");
+			message.setLinkTitle("뒤로가기");
+			throw new CommonException(message);
 		}finally {
 			JdbcTemplate.close(stmt);
 		}
@@ -101,13 +100,12 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",5);
+			MessageEntity message = new MessageEntity("error",0);
 			message.setUrl("/takeit/member/memberLogin.jsp");
 			message.setLinkTitle("뒤로가기");
-
 			throw new CommonException(message);
-			
 		}finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -119,7 +117,7 @@ public class MemberDao {
 	 */
 	public void idFind(Connection con, Member member) throws CommonException {
 		
-		String sql = "select member_id from member where name = ? and email = ?";
+		String sql = "select member_id, entry_date from member where name = ? and email = ?";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -133,16 +131,16 @@ public class MemberDao {
 
 			if(rs.next()) {
 				member.getMemberId();
+				member.getEntryDate();
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
 			MessageEntity message = new MessageEntity("error",6);
 			message.setUrl("/takeit/member/memberFindId.jsp");
 			message.setLinkTitle("뒤로가기");
-
 			throw new CommonException(message);
-			
 		}finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -152,20 +150,21 @@ public class MemberDao {
 	/**
 	 * 비밀번호 찾기
 	 */
-	public void pwFind(Connection con, Member member) throws CommonException {
+	public void pwFind(Connection con, String temporaryPw, Member member) throws CommonException {
 		
 		String sql = "update member set member_pw = ? where member_id = ? and name = ? and email = ?";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		String pp = Utility.getSecureString(10, false);
+		String randomPw = Utility.getSecureString(10, false);
 		
-		Member dto = null;
+		//임시비밀번호
+		temporaryPw = randomPw;
+				
 		try {
-			dto = new Member();
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, pp);
+			stmt.setString(1, temporaryPw);
 			stmt.setString(2, member.getMemberId());
 			stmt.setString(3, member.getName());
 			stmt.setString(4, member.getEmail());
@@ -173,19 +172,16 @@ public class MemberDao {
 			int rows = stmt.executeUpdate();
 			
 			if(rows == 1) {
-				dto.setMemberPw(pp);
-				
+				member.setMemberPw(temporaryPw);
 			}
-			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+
 			MessageEntity message = new MessageEntity("error",6);
 			message.setUrl("/takeit/member/memberFindPw.jsp");
 			message.setLinkTitle("뒤로가기");
-
 			throw new CommonException(message);
-			
 		}finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);

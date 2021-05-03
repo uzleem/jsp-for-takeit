@@ -2,14 +2,12 @@
 
 /* 필요시 사용 예정 */
 
-/* 회원가입 */
-/* @import url("input.css"); */
+/* 일반,판매자 회원가입 */
+@import url("input.css");
 
 /* 로그인 */
-/* @import url("login.css");*/
+@import url("login.css");
 
-/* 아이디 찾기 */
-/* @import url("findId.css"); */
+/* 아이디,비밀번호 찾기 */
+@import url("find.css");
 
-/* 비밀번호 찾기 */
-/* @import url("findPw.css"); */

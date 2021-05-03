@@ -224,66 +224,66 @@ $(document).ready(function() {
 	});
 	
 	/* 싱잠연락처 포커스 */
-	$("#shop_mobile").on('focus', function() {
-		$("#shop_mobile").css({
+	$("#shopMobile").on('focus', function() {
+		$("#shopMobile").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 싱잠연락처 포커스 아웃*/
-	$("#shop_mobile").on('focusout', function() {
-		$("#shop_mobile").css({
+	$("#shopMobile").on('focusout', function() {
+		$("#shopMobile").css({
 			'background' : "white"
 		});
 	});
 	
 	/* 싱잠명 포커스 */
-	$("#shop_name").on('focus', function() {
-		$("#shop_name").css({
+	$("#shopName").on('focus', function() {
+		$("#shopName").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 상점명 포커스 아웃*/
-	$("#shop_name").on('focusout', function() {
-		$("#shop_name").css({
+	$("#shopName").on('focusout', function() {
+		$("#shopName").css({
 			'background' : "white"
 		});
 	});
 	
 	/* 카카오톡아이디 포커스 */
-	$("#kakao_id").on('focus', function() {
-		$("#kakao_id").css({
+	$("#shopKakaoId").on('focus', function() {
+		$("#shopKakaoId").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 카카오톡아이디 포커스 아웃*/
-	$("#kakao_id").on('focusout', function() {
-		$("#kakao_id").css({
+	$("#shopKakaoId").on('focusout', function() {
+		$("#shopKakaoId").css({
 			'background' : "white"
 		});
 	});
 
 	/* 상점이미지 포커스 */
-	$("#shop_img").on('focus', function() {
-		$("#shop_img").css({
+	$("#shopImg").on('focus', function() {
+		$("#shopImg").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 상점이미지 포커스 아웃*/
-	$("#shop_img").on('focusout', function() {
-		$("#shop_img").css({
+	$("#shopImg").on('focusout', function() {
+		$("#shopImg").css({
 			'background' : "white"
 		});
 	});
 
 	/* 상점카테고리번호 포커스 */
-	$("#shop_categoryNo").on('focus', function() {
-		$("#shop_categoryNo").css({
+	$("#shopCategoryNo").on('focus', function() {
+		$("#shopCategoryNo").css({
 			'background' : "#E8F0FE"
 		});
 	});
 	/* 상점카테고리번호 포커스 아웃*/
-	$("#shop_categoryNo").on('focusout', function() {
-		$("#shop_categoryNo").css({
+	$("#shopCategoryNo").on('focusout', function() {
+		$("#shopCategoryNo").css({
 			'background' : "white"
 		});
 	});

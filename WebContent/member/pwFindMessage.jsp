@@ -33,13 +33,15 @@
 
 <!-- contents -->
 <div id="contents">
-<h3 align="center">응답 메세지</h3><br>	
+<h3 align="center">임시비밀번호 발급</h3><br>	
 <table id="table_logds" border="1px" align="center" cellspacing = 5>
 	<tr>
-		<td>${findMessage}</td>
+		<td>회원님의 임시비밀번호 입니다.</td>
+	</tr>
+	<tr>
+		<td>${pwInfo}</td>
 	</tr>	
 </table>
-		${findMessage}
 </div>
 <hr/>
 <!-- scroll function -->
