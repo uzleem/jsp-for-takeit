@@ -30,7 +30,7 @@ public class MypageDao {
 	 * @param conn
 	 * @param dto 회원 객체
 	 */
-	public void getMemberDetail(Connection conn, Member dto){
+	public void getMemberDetail(Connection conn, Member dto) throws CommonException{
 		String sql = "select * from member where member_id=?";
 		
 		PreparedStatement stmt = null;
@@ -64,6 +64,11 @@ public class MypageDao {
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",1);
+			message.setLinkTitle("마이페이지로 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -75,7 +80,7 @@ public class MypageDao {
 	 * @param conn
 	 * @param dto 일반회원 객체
 	 */
-	public void setMemberInfo (Connection conn, Member dto){
+	public void setMemberInfo (Connection conn, Member dto) throws CommonException{
 		String sql = "update member set member_pw=? ,name=?,mobile=?,"
 					 + "email=?, postno=?, address=?, address_detail=?, birth=? where member_id=? ";
 		
@@ -93,12 +98,20 @@ public class MypageDao {
 			stmt.setString(8, dto.getBirth());
 			stmt.setString(9, dto.getMemberId());
 			
-			stmt.executeUpdate();
+			int result = stmt.executeUpdate();
 			
+			if(result == 0) {
+				throw new Exception();
+			}
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",2);
+			message.setLinkTitle("내 정보 페이지 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			throw new CommonException(message);
 		}finally {
 			JdbcTemplate.close(stmt);
 		}
@@ -108,8 +121,10 @@ public class MypageDao {
 	
 	
 	/**
-	 * 판매자 정보 상세 조회  x
-	 * 
+	 * 판매자 정보 상세 조회
+	 * @param conn
+	 * @param dto	판매자 객체
+	 * @throws CommonException
 	 */
 	public void getSellerDetail(Connection conn, Seller dto) throws CommonException {
 		
@@ -162,10 +177,12 @@ public class MypageDao {
 	}
 	
 	/**
-	 * 내 정보 수정 > 판매자      x
+	 * 내 정보 수정 > 판매자 
+	 * @param conn
+	 * @param dto 판매자 객체
+	 * @throws CommonException
 	 */
-	
-	public void setSeller(Connection conn, Seller dto) {
+	public void setSeller(Connection conn, Seller dto) throws CommonException{
 		String sql = "update seller set seller_pw=? ,name=?,mobile=?,"
 				 + "email=?, postno=?, address=?, address_detail=?, seller_no=? ,"
 				 + " shop_mobile=? , shop_name=?, shop_kakao_id=?, "
@@ -190,20 +207,33 @@ public class MypageDao {
 			stmt.setString(13, dto.getSellerId());
 			
 			
-			stmt.executeUpdate();
-			
+			int result = stmt.executeUpdate();
+			if(result == 0) {
+				throw new Exception();
+			}
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",2);
+			message.setLinkTitle("내 정보페이지로  이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			throw new CommonException(message);
 		}finally {
 			JdbcTemplate.close(stmt);
 		}
 		
 	}
 	
-	//비밀번호 변경 > 일반회원 
-	public void setMemberPw(Connection conn , String memberPw2, Member dto) {
+	/**
+	 * 비밀번호 변경 > 일반회원
+	 * @param conn 
+	 * @param memberPw2	변경할 비밀번호
+	 * @param dto 		일반회원 객체
+	 * @throws CommonException
+	 */
+	public void setMemberPw(Connection conn , String memberPw2, Member dto) throws CommonException{
 		String sql = "update member set member_pw=? where member_id=? and member_pw=?";
 		
 		PreparedStatement stmt = null;
@@ -216,20 +246,33 @@ public class MypageDao {
 			stmt.setString(2, dto.getMemberId());
 			stmt.setString(3, dto.getMemberPw());
 			
-			stmt.executeQuery();
-			
+			int result = stmt.executeUpdate();
+			if(result == 0) {
+				throw new Exception();
+			}
 			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",2);
+			message.setLinkTitle("내 정보페이지 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			throw new CommonException(message);
 		}finally {
 			JdbcTemplate.close(stmt);
 		}
 		
 	}
 	
-	//비밀번호 변경 > 판매자  
-		public void setSellerPw(Connection conn , String sellerPw2, Seller dto) {
+	/**
+	 * 비밀번호 변경 > 판매자
+	 * @param conn
+	 * @param sellerPw2	변경할 비밀번호
+	 * @param dto		판매자 객체
+	 * @throws CommonException
+	 */
+		public void setSellerPw(Connection conn , String sellerPw2, Seller dto) throws CommonException{
 			String sql = "update seller set seller_pw=? where seller_id=? and seller_pw=?";
 			
 			PreparedStatement stmt = null;
@@ -242,11 +285,20 @@ public class MypageDao {
 				stmt.setString(2, dto.getSellerId());
 				stmt.setString(3, dto.getSellerPw());
 				
-				stmt.executeQuery();
+				int result = stmt.executeUpdate();
+				
+				if(result == 0) {
+					throw new Exception();
+				}
 				
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error",2);
+				message.setLinkTitle("내 정보페이지 이동");
+				message.setUrl("/takeit/member/myPage.jsp");
+				throw new CommonException(message);
 			}finally {
 				JdbcTemplate.close(stmt);
 			}
@@ -254,42 +306,59 @@ public class MypageDao {
 		}
 	
 		/**
-		 * 회원탈퇴      일반회원 o
-		 * 
+		 * 회원 탈퇴 일반회원
+		 * @param conn
+		 * @param memberId 탈퇴할 아이디
+		 * @param memberPw 탈퇴할 비밀번호
+		 * @throws CommonException
 		 */
-		public void removeMember(Connection conn, String memberId, String memberPw) {
+		public void removeMember(Connection conn, String memberId, String memberPw) throws CommonException {
 			String sql = "delete from member where member_id=? and member_pw=?";
 			
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
-			System.out.println("회원 탈퇴 요청");
+			System.out.println("회원 탈퇴 요청--dao");
 			
 			try {
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, memberId);
 				stmt.setString(2, memberPw);
 				
-				stmt.executeUpdate();
-				System.out.println("탈퇴 성공");
+				int result = stmt.executeUpdate();
+				
+				
+				if(result == 0) {
+					throw new Exception();
+				}
 				
 			}catch (Exception e) {
-				System.out.println("탈퇴 실패");
+				System.out.println("탈퇴 요청 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error",4);
+				message.setLinkTitle("마이페이지로 이동");
+				message.setUrl("/takeit/member/myPage.jsp");
+				throw new CommonException(message);
+				
+				
 			}finally {
 				JdbcTemplate.close(rs);
 				JdbcTemplate.close(stmt);
 			}
+			
 		}
 		
 		
 		/**
-		 * 회원 탈퇴 >판매자  ok
+		 * 회원 탈퇴 판매자
 		 * @param conn
-		 * @param dto
+		 * @param sellerId 탈퇴할 아이디
+		 * @param sellerPw	탈퇴할 비밀번호
+		 * @throws CommonException
 		 */
-		public void removeSeller(Connection conn, String sellerId, String sellerPw) {
+		public void removeSeller(Connection conn, String sellerId, String sellerPw) throws CommonException{
 			
 			String sql = "delete from seller where seller_id=? and seller_pw=?";
 			
@@ -301,10 +370,22 @@ public class MypageDao {
 				stmt.setString(1, sellerId);
 				stmt.setString(2, sellerPw);
 				
-				stmt.executeUpdate();
+				int result = stmt.executeUpdate();
+				
+				
+				if(result == 0) {
+					throw new Exception();
+				}
+				
 			}catch (Exception e) {
+				System.out.println("탈퇴 요청 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error",4);
+				message.setLinkTitle("마이페이지로 이동");
+				message.setUrl("/takeit/member/myPage.jsp");
+				throw new CommonException(message);
 			}finally {
 				JdbcTemplate.close(rs);
 				JdbcTemplate.close(stmt);
