@@ -70,21 +70,41 @@ public void deleteItem(Item dto){
 	}
 	
 }
+
+/**
+ * 판매자 등록 상품보기
+ * @param dto 상품 
+ */
+public void getSellItem(Item dto){
+	Connection conn = JdbcTemplate.getConnection();
+	
+	try {
+		dao.SellDetail(conn, dto);
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		JdbcTemplate.close(conn);
+	}
 }
 /**
- * 내가 작성한 후기보기
- * @param dto 일반회원 객체
+ * 작성후기내용 수정
+ * @param dto 후기
  */
-//public void getSellItem(Item dto){
-//	Connection conn = JdbcTemplate.getConnection();
-//	
-//	try {
-//		dao.ReviewDetail(conn, dto);
-//	}catch (Exception e) {
-//		e.printStackTrace();
-//	}finally {
-//		JdbcTemplate.close(conn);
-//	}
-//}
-//}
+public void setSellItem(Item dto) throws CommonException{
+	Connection conn = JdbcTemplate.getConnection();
+	try {
+		dao.updateSellItem(conn,dto);
+	
+	} catch (Exception e) {
+		e.printStackTrace();
+		JdbcTemplate.rollback(conn);
+		throw e;
+	}finally {
+		JdbcTemplate.close(conn);
+		
+	}
+	}
+
+}
+
 	

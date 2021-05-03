@@ -55,8 +55,8 @@ public class FrontItemServlet extends HttpServlet {
 			itemEnroll(request, response);
 		break;
 		case "itemList":
-//		itemList(request, response);
-//			break;
+		itemList(request, response);
+			break;
 		case "deleteItem":
 			deleteItem(request, response);
 			break;
@@ -293,20 +293,58 @@ public class FrontItemServlet extends HttpServlet {
 			
 //			String sellerId = (String)session.getAttribute("sellerId");
 //			String sellerId = request.getParameter("sellerId");
-//			String sellerId = "seller04";
-//			ItemBiz biz = new ItemBiz();
+			String sellerId = "seller04";
+			
+			ItemBiz biz = new ItemBiz();
+			
+			Item dto = new Item();
+		   dto.setSellerId(sellerId);
+			try {
+				biz.getSellItem(dto);
+				request.setAttribute("item", dto);
+				request.getRequestDispatcher("/item/sellerItem.jsp").forward(request, response);
+			
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+			}
+		}	
+//		/**
+//		 *등록 상품수정
+//		 * @param request
+//		 * @param response
+//		 * @throws ServletException
+//		 * @throws IOException
+//		 */
+//		protected void setReviewInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//			String reviewTitle = request.getParameter("reviewTitle");
+//			String reviewContents = request.getParameter("reviewContents");
+//			String reviewScore = request.getParameter("reviewScore");
+//			String reviewImg = request.getParameter("reviewImg");
+//		
+//
 //			
-//			Item dto = new Item();
-//			dto.setSellerId(sellerId);
+//			ReviewBiz biz = new ReviewBiz();
+//			
+//			Review dto = new Review();
+//			dto.setReviewTitle(reviewTitle);
+//			dto.setReviewContents(reviewContents);
+//			dto.setReviewScore(reviewScore);
+//			dto.setReviewImg(reviewImg);
+//
+//			
 //			try {
-//				biz.getItem(dto);
-//				request.setAttribute("item", dto);
-//				request.getRequestDispatcher("/item/sellerItem.jsp").forward(request, response);
+//				biz.setReview(dto);
+//				request.setAttribute("dto", dto);
+//				request.getRequestDispatcher("/review/reviewController?action=updateReviewForm").forward(request, response);
 //				
 //			}catch (Exception e) {
 //				System.out.println(e.getMessage());
 //				e.printStackTrace();
-//				
 //			}
-		}		
+//			
+//		}
+				
 }

@@ -10,6 +10,7 @@ import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Review;
 
 
 
@@ -79,9 +80,14 @@ public class ItemDao {
 	 */
 	public void ItemList(Connection conn, ArrayList<Item> itemList) throws CommonException {
 	
-		String sql = "select * from packing p ,item_category c ,item i " + 
-				"where p.pack_type_no =c.pack_type_no" + 
-				"and  c.ITEM_CATEGORY_NO =i.ITEM_CATEGORY_NO";
+		System.out.println("ItemList==========================================");
+		String sql = "select a.item_no , a.seller_id , a.item_name , a.item_price"+
+			          ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
+			          ", a.item_input_date , a.disc_rate , a.item_takeit , a.item_category_no , b.item_category_name"+
+			          ", b.expiration_date, b.fresh_percent,b.notice, b.pack_type_no , c.pack_type_name"+
+			          " from item a, item_category b , packing c"+
+			          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
+			          " order by a.item_input_date desc";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -89,7 +95,6 @@ public class ItemDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
-			
 			Item dto = null;
 			
 			while(rs.next()) {
@@ -105,7 +110,7 @@ public class ItemDao {
 				dto.setItemNo(rs.getString("ITEM_NO"));
 				
 				dto.setSellerId(rs.getString("SELLER_ID"));
-				dto.setItemName(rs.getString("ITEM_NAME "));
+				dto.setItemName(rs.getString("ITEM_NAME"));
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
 				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));
 				dto.setItemStock(rs.getInt("ITEM_STOCK"));
@@ -155,5 +160,92 @@ public class ItemDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}		
+	}
+	/**
+	 * 내가 등록한 상품보기
+	 * @param conn
+	 * @param dto 상품
+	 */
+	public void SellDetail(Connection conn, Item dto){
+		String sql = "select * from Item where seller_id=?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getSellerId());
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+	
+				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
+				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
+				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY"));
+				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
+				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
+				dto.setNotice(rs.getString("NOTICE"));
+				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
+				dto.setItemNo(rs.getString("ITEM_NO "));			
+				dto.setSellerId(rs.getString("SELLER_ID"));			
+				dto.setItemName(rs.getString("ITEM_NAME"));			
+				dto.setItemPrice(rs.getInt("ITEM_PRICE"));			
+				dto.setSalesUnit(rs.getString("SALES_UNIT"));			
+				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));			
+				dto.setItemStock(rs.getInt("ITEM_STOCK"));			
+				dto.setItemImg(rs.getString("ITEM_IMG"));			
+				dto.setItemCustScore(rs.getInt("ITEM_CUST_SCORE"));			
+				dto.setItemInputDate(rs.getString("ITEM_INPUT_DATE"));			
+				dto.setDiscRate(rs.getInt("DISC_RATE"));			
+				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));			
+						
+			}
+			
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+	}
+		/**
+		 * 등록상품내역변경
+		 * @param conn
+		 * @param dto 상품
+		 */
+		public void updateSellItem (Connection conn,Item dto){
+			String sql = "update review set  REVIEW_TITLE=? ,REVIEW_CONTENTS=?,REVIEW_SCORE=?,"
+						 + "REVIEW_IMG=? where member_id=? ";
+			
+			PreparedStatement stmt = null;
+			
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, dto.getPackTypeName());
+				stmt.setString(2, dto.getExpirationDate());
+				stmt.setString(3, dto.getNotice());
+				stmt.setInt(4, dto.getFreshPercent());
+				stmt.setString(5, dto.getItemName());
+				stmt.setInt(6, dto.getItemPrice());
+				stmt.setString(7, dto.getSalesUnit());
+				stmt.setString(8, dto.getItemOrigin());
+				stmt.setInt(9, dto.getItemStock());
+				stmt.setString(10, dto.getItemImg());
+				stmt.setDouble(11, dto.getItemCustScore());
+				stmt.setInt(12, dto.getDiscRate());
+				stmt.setString(13, dto.getItemTakeit());
+	
+				
+				stmt.executeUpdate();
+				
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}finally {
+				JdbcTemplate.close(stmt);
+			}
+			
 	}
 }

@@ -81,21 +81,19 @@ public class ReviewDao {
 	 */
 
 	public void enrollReview(Connection conn, Review dto) throws CommonException {
-		String sql = "insert into review values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into review values(?,?,?,?,?,?)";
 
 		PreparedStatement stmt = null;
 	
 	try {
 			stmt = conn.prepareStatement(sql);
 			
-			stmt = conn.prepareStatement(sql);
-	
 			stmt.setString(1, dto.getMemberId());
 			stmt.setString(2, dto.getItemNo());
-			stmt.setString(5, dto.getReviewTitle());
-			stmt.setString(6, dto.getReviewContents());
-			stmt.setInt(7, dto.getReviewScore());
-			stmt.setString(8, dto.getReviewImg());
+			stmt.setString(3, dto.getReviewTitle());
+			stmt.setString(4, dto.getReviewContents());
+			stmt.setInt(5, dto.getReviewScore());
+			stmt.setString(6, dto.getReviewImg());
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {

@@ -3,7 +3,7 @@
 /*  css 파일 */
 
 /* a config */
-a:link {
+/* a:link {
 	text-decoration: none;
 	color: #152a84;
 }
@@ -19,7 +19,7 @@ a:hover {
 a:active {
 	text-decoration: underline;
 	color: #ff0000;
-}
+}*/
 /* 
 logo img
 img[src^="img/logo/"] {
