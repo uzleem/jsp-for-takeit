@@ -2,11 +2,14 @@ package com.takeit.model.biz;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Member;
+import com.takeit.model.dto.ShopLoc;
 import com.takeit.model.dto.TakeitItem;
+import com.takeit.util.Utility;
 
 public class TakeitBiz {
 	
@@ -43,4 +46,74 @@ public class TakeitBiz {
 		JdbcTemplate.close(conn);
 	}
 	
+	/**
+	 * argument로 전달받은 주소의 위치에 따른 구역코드를 반환합니다
+	 * 
+	 * 상점구역코드, 회원구역번호
+	 * 1. Shop_Loc 테이블 내에 저장 되어있는지를 비교한다
+	 *  - 상점구역 목록중에 
+	 * 
+	 * 
+	 * 
+	 */
+	public void getMemberLocNo(Member member) {
+		HashMap<String, String> latLng = Utility.getLatlng(member.getAddress());
+		String _lat = latLng.get("lat");
+		String _lng = latLng.get("lng");
+		if ( _lat == null || _lng == null) {
+			System.out.println("주소가 잘못되었습니다");
+			return ;
+		}
+		Double lat = Double.valueOf(_lat);
+		Double lng = Double.valueOf(_lng);
+		
+		System.out.println("[debug] 위도 :" + lat);
+		System.out.println("[debug] 경도 :" + lng);
+		
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		ArrayList<ShopLoc> shopLocList = new ArrayList<ShopLoc>();
+		dao.searchShopLocList(conn, shopLocList);
+		JdbcTemplate.close(conn);
+		
+		double locLat = 0;
+		double locLng = 0;
+		
+		for (ShopLoc shopLoc : shopLocList) {
+			Double shopLat = Double.valueOf(shopLoc.getShopLocLat());
+			Double shopLng = Double.valueOf(shopLoc.getShopLocLng());
+			
+			locLat = shopLat-lat;
+			locLng = shopLng-lng;
+			
+			//지역에 포함된다면
+			if (Math.abs(locLat) <= 0.05 && Math.abs(locLng) <= 0.05) {
+				member.setShopLocCode(shopLoc.getShopLocCode());
+				break;
+			}
+		}
+		
+		if (member.getShopLocCode() == null) {
+			System.out.println("근처 지역상점이 없습니다");
+			return ;
+		}
+		String memberLocNo = "";
+		locLat += 0.05;
+		memberLocNo += (int)(locLat*100);
+		
+		locLng += 0.05;
+		memberLocNo += (int)(locLat*100);
+		member.setMemberLocNo(memberLocNo);
+		System.out.println("회원구역설정 완료");
+		
+		conn = JdbcTemplate.getConnection();
+		boolean result = dao.isValidMemberLocNo(conn, member);
+		
+		if (!result) {
+			dao.addMemberLocNo(conn, member);
+		}
+		
+		JdbcTemplate.close(conn);
+	}
 }

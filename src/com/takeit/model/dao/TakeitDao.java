@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Member;
+import com.takeit.model.dto.ShopLoc;
 import com.takeit.model.dto.TakeitItem;
 
 public class TakeitDao {
@@ -48,7 +49,7 @@ public class TakeitDao {
 				takeitItem.setItemName(rs.getString("item_Name"));
 				takeitItem.setItemPrice(rs.getInt("item_Price")); //int
 				takeitItem.setItemImg(rs.getString("item_Img"));
-				takeitItem.setItemCustScore((int)rs.getDouble("item_Cust_Score")); //int 인데 double로 바꾸길 권장
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
 				takeitItem.setDiscRate(rs.getInt("disc_Rate")); //int
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
@@ -108,7 +109,7 @@ public class TakeitDao {
 				takeitItem.setItemOrigin(rs.getString("item_Origin"));
 				takeitItem.setItemStock(rs.getInt("item_Stock")); //int
 				takeitItem.setItemImg(rs.getString("item_Img"));
-				takeitItem.setItemCustScore((int)rs.getDouble("item_Cust_Score")); //double
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
 				takeitItem.setDiscRate(rs.getInt("disc_Rate")); //int
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
@@ -133,4 +134,82 @@ public class TakeitDao {
 			JdbcTemplate.close(stmt);
 		}	
 	}
+
+	public void searchShopLocList(Connection conn, ArrayList<ShopLoc> shopLocList) {
+		String sql = 
+				"SELECT * "
+				+ "FROM SHOP_LOC";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			ShopLoc shopLoc = null;
+			while (rs.next()) {
+				shopLoc = new ShopLoc();
+				shopLoc.setShopLocCode(rs.getString("shop_Loc_Code"));
+				shopLoc.setShopLocName(rs.getString("shop_Loc_Name"));
+				//shopLoc.setShopLocLat(rs.getString("shop_Loc_Lat"));
+				//shopLoc.setShopLocLng(rs.getString("shop_Loc_Lng"));
+				
+				shopLocList.add(shopLoc);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+	}
+	
+	public boolean isValidMemberLocNo(Connection conn, Member member) {
+		String sql = 
+				"SELECT 1 "
+				+ "FROM MEMBER_LOC "
+				+ "WHERE MEMBER_LOC_NO = ? AND SHOP_LOC_CODE = ? "; 
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getMemberLocNo());
+			stmt.setString(2, member.getShopLocCode());
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+		return false;
+	}
+
+	public void addMemberLocNo(Connection conn, Member member) {
+		String sql = 
+				"INSERT INTO MEMBER_LOC VALUES(?,?,?) ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getMemberLocNo());
+			stmt.setString(2, member.getShopLocCode());
+			stmt.setString(3, member.getShopLocCode() + member.getMemberLocNo());
+			
+			int row = stmt.executeUpdate();
+			if (row == 1) {
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
+
+	
 }
