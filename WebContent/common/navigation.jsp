@@ -37,7 +37,7 @@
 	$(document).ready(function(){
 		$("#drop-menu").hide();
 	});
-	$("#category-wrap, #drop-menu").hover(function(){
+	$("#category-wrap, #drop-menu").on("click",function(){
 		$("#drop-menu").stop().slideToggle(400);
 	});	
 	

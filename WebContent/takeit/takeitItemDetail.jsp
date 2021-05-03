@@ -51,7 +51,7 @@ $(document).ready(function (){
 <div class="takeit_detail">
 	<div class="takeit_item-content takeit_detail_wrap">
 		<div class="takeitImg-wrap" >
-			<img id="takeitImg" src="/takeit/img/item/${takeitItem.itemImg}">
+			<img id="takeitImg" style="width:330px; height: 400px; " src="/takeit/img/item/${takeitItem.itemImg}">
 		</div>
 		<div class="desc takeit_detail_wrap">
 			<fmt:formatNumber var="itemPrice" value="${takeitItem.itemPrice}" type="number"/>
@@ -60,38 +60,36 @@ $(document).ready(function (){
 			<fmt:formatNumber var="takeitItemPrice" value="${intPrice*1000}" type="number"/>
 			<fmt:formatNumber var="itemDiscRate" value="${takeitItem.discRate / 100}" type="percent"/>
 			<fmt:formatNumber var="takeitDisc" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100) - intPrice*1000 }" type="number"/>
-			<ul>
-				<li>${takeitItem.itemName}</li>
-				<li>
-					<span>${itemPrice}원</span>
-					<span>${discPrice}원</span>
+			<ul class="takeit_info">
+				<h2>${takeitItem.itemName}</h2>
+				<li style="list-style: none">
+					<span style="color: grey; text-decoration: line-through;">${itemPrice}원</span>
+					<span style="color: black; font-weight: 700;">${discPrice}원</span>
 					<span>(할인 ${itemDiscRate})</span>
-					<span>${takeitItemPrice}원</span>
-					<span>(잔돈할인 ${takeitDisc}원)</span>
+					<span style="color: red; font-size:20px; font-weight: 700;">${takeitItemPrice}원</span>
+					<span style="color: grey;">(잔돈할인 ${takeitDisc}원)</span>
 				<hr>
-				<div>
-				판매단위 ${takeitItem.salesUnit}<br>
-				남은시간 <span class="takeitTime blink" data-takeittime="${takeitItem.takeitDate}"></span><br>
-				원산지 ${takeitItem.itemOrigin}<br>
-				포장타입 ${takeitItem.packTypeName}<br>
-				판매자 [Item 도메인에 sellerName, shopName 추가할것]<br>
-				고객평점 ${takeitItem.itemCustScore}<br>
-				유통기한 ${takeitItem.expirationDate}<br>
-				등록일자 ${takeitItem.itemInputDate}<br>
-				구역번호 ${takeitItem.shopLocCode}-${takeitItem.memberLocNo } ([구역이름을 takeitItem 도메인에 추가하기])<br>
+				<span class="it_info"><b>판매단위</b>&emsp;${takeitItem.salesUnit}</span><br>
+				<span class="it_info"><b>남은시간</b>&emsp;<span class="takeitTime takeit-detailTime blink" data-takeittime="${takeitItem.takeitDate}"></span></span><br>
+				<span class="it_info"><b>원산지</b>&emsp;&emsp;${takeitItem.itemOrigin}</span><br>
+				<span class="it_info"><b>포장타입</b>&emsp;${takeitItem.packTypeName}</span><br>
+				<span class="it_info"><b>판매자</b>&emsp;&emsp;[Item 도메인에 sellerName, shopName 추가할것]</span><br>
+				<span class="it_info"><b>고객평점</b>&emsp;${takeitItem.itemCustScore}</span><br>
+				<span class="it_info"><b>유통기한</b>&emsp;${takeitItem.expirationDate}</span><br>
+				<span class="it_info"><b>등록일자</b>&emsp;${takeitItem.itemInputDate}</span><br>
+				<span class="it_info"><b>구역번호</b>&emsp;<span style="font-weight: 600;">${takeitItem.shopLocCode}-${takeitItem.memberLocNo }</span> ([구역이름을 takeitItem 도메인에 추가하기])</span><br>
 				<fmt:formatNumber var="takeitRate" type="percent" value="${takeitItem.takeitCurrPrice/takeitItem.takeitPrice}" />
 				<fmt:formatNumber var="takeitCurrPrice" type="number" value="${takeitItem.takeitCurrPrice}" />
 				<fmt:formatNumber var="takeitPrice" type="number" value="${takeitItem.takeitPrice}" />
-				목표금액 달성률 ${takeitRate} (${takeitCurrPrice}원 / ${takeitPrice}원)<br>
+				<span class="it_info"><b>목표금액 달성률</b>&emsp; <span style="color: red; font-weight: 600;">${takeitRate}</span> (${takeitCurrPrice}원 / ${takeitPrice}원)</span><br>
 			</ul>
-			</div>
 		</div>
-		<div class="btn-area">
-		<input type="button" class="link"  style="display: inline-block;" value="장바구니"/>
-		<input type="button" class="link" style="display: inline-block;" value="구매"/>
-		</div>
-	</div>	
-</div>
+	</div>
+	<div class="btn-area">
+	<input type="button" class="link"  style="display: inline-block;" value="장바구니"/>
+	<input type="button" class="link" style="display: inline-block;" value="구매"/>
+	</div>
+</div>	
 <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->

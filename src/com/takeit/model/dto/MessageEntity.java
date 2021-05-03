@@ -37,6 +37,11 @@ public class MessageEntity {
 		error.add("[공지사항/자주하는질문 삭제 오류]");		
 		error.add("[공지사항/자주하는질문 변경 오류]"); //19
 		
+		error.add("[장바구니 등록 오류]");
+		error.add("[장바구니 조회 오류]");
+		error.add("[장바구니 검색 오류]");
+		error.add("[장바구니 삭제 오류]"); //23
+		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");	
 		validation.add("[비밀번호 정보 오류]");	

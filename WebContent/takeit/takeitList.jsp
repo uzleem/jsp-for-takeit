@@ -58,7 +58,7 @@
 	<c:forEach items="${takeitItemList}" var="dto">
 	<div class="takeit_item_wrap">
 		
-		<span class="takeitTime blink" data-takeittime="${dto.takeitDate}"></span><br>
+		<span class="takeitTime takeit-listTime blink" data-takeittime="${dto.takeitDate}"></span><br>
 		
 		<ul class="takeit_item">
 			<li>
@@ -73,7 +73,7 @@
 				<fmt:formatNumber var="takeitItemPrice" value="${intPrice*1000}" type="number"/>
 				<fmt:formatNumber var="itemDiscRate" value="${dto.discRate / 100}" type="percent"/>
 				<fmt:formatNumber var="takeitDisc" value="${(dto.itemPrice * (100-dto.discRate) / 100) - intPrice*1000 }" type="number"/>
-				
+				<br>
 				<li id="itemTitle">${dto.itemName}</li>
 				<li id="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
 				<li id="salePrice">${takeitItemPrice}원</li>

@@ -5,6 +5,7 @@
 	width: fit-content;
 }
 #takeitImg{
+	margin-top: 35px;
 	width: 250px;
 	height: 320px;
 }
@@ -18,9 +19,12 @@
 	width: 1050px;
 	justify-content: space-between;
 }
-.takeitTime{
+.takeit-listTime{
+	padding-left: 20px;
 	margin-top: 40px;
     position: absolute;
+    margin-left: 40px;
+    text-align: center;
     margin-left: 40spx;
 	font-weight: 700;
 	background-color: #a7a384;
@@ -52,12 +56,21 @@
 .takeit_detail{
 	width: 1050px;
 	margin: 0 auto;
-	text-align: center;
 }
 .takeit_detail_wrap{
 	width: 1050px;
 	display: flex;
 }
 .btn-area{
-	width: 1050px;
+	width: fit-content;
+	float: right;
+}
+.takeit-detailTime{
+	margin-top: 40px;
+    text-align: center;
+	font-weight: 700;
+	background-color: #a7a384;
+}
+.it_info{
+	line-height: 2;
 }
