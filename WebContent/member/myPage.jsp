@@ -6,96 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
+<link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<style type="text/css">
 
-.myPage_menu_aside ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-}
-.myPage_menu_aside li a {
-    display: block;
-    color: #001;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-.myPage_menu_aside h3.active {
-    background-color: #5a7d59;
-    color: white;
-}
-.myPage_menu_aside li a:hover:not(.active) {
-    background-color: #5a7d59;
-    color: white;
-}
-
-#container{
-	height: 700px;
-	display: flex;
-}
-.myPage_menu_aside {
-	width: 200px;
-	height: 500px;
-	float: left;
-	margin-left: 200px;
-	margin-top: 100px;
-}
-
-#mypage_order{
-		display: inline-block;
-    padding: 0;
-    width: 800px;
-    height: 500px;
-    float: left;
-    margin-left: 170px;
-}
-
-.order_img{
-	width: 106px;
-	height: 149px;
-	float:left;
-}
-
-#itemInfo{
-	width:160px;
-	height: 174px;
-	float:left;
-	margin-left: 50px;
-	margin-top: auto;
-}
-
-#order_Info{
-	width:700px;
-	height:222px;
-	margin-left: 30px;
-
-}
-
-#order_item{
-	float:left;
-	width:150px;
-	margin-left: 100px;
-	font-size: 19px;
-
-}
-
-#item_review_btn{
-	margin-bottom: 20px;
-}
-#shipping_ask_btn{
-	margin-bottom: 20px;
-}
-#orderState {
-	
-}
-</style>
 </head>
 <body>
 
-	
 <!-- 상단 메뉴 -->
 <c:choose>
 	<c:when test="${empty memberId or empty grade}">
@@ -116,7 +33,8 @@
 <h3 align="center">마이페이지</h3>
 
 <div id="container">
-	<c:choose>
+
+		<c:choose>
 		<c:when test ="${grade == 'S' }">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
@@ -126,9 +44,7 @@
 			<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
 		</c:otherwise>
 	</c:choose>
-	
-	
-	
+		
 	<div id="mypage_order">
 	<h3>주문내역</h3>
 	<hr>

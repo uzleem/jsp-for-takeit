@@ -113,7 +113,7 @@ public class MypageDao {
 	 */
 	public void getSellerDetail(Connection conn, Seller dto) throws CommonException {
 		
-		String sql = "select * from seller_member where sellerId=?";
+		String sql = "select * from seller where seller_id=?";
 		
 		
 		PreparedStatement stmt = null;
@@ -143,7 +143,7 @@ public class MypageDao {
 				dto.setCustScore(rs.getDouble("cust_score"));
 				dto.setShopKakaoId(rs.getString("shop_kakao_id"));
 				dto.setShopImg(rs.getString("shop_img"));
-				dto.setShopCategoryNo(rs.getString("shop_category"));
+				dto.setShopCategoryNo(rs.getString("shop_category_no"));
 				dto.setShopLocCode(rs.getString("shop_loc_code"));
 			}
 		}catch (SQLException e) {
@@ -169,10 +169,9 @@ public class MypageDao {
 		String sql = "update seller set seller_pw=? ,name=?,mobile=?,"
 				 + "email=?, postno=?, address=?, address_detail=?, seller_no=? ,"
 				 + " shop_mobile=? , shop_name=?, shop_kakao_id=?, "
-				 + "shop_category_no=? where member_id=? ";
-		
+				 + "shop_category_no=? where seller_id=? ";
+	
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		
 		try {
 			stmt = conn.prepareStatement(sql);
@@ -189,6 +188,7 @@ public class MypageDao {
 			stmt.setString(11, dto.getShopKakaoId());
 			stmt.setString(12, dto.getShopCategoryNo());
 			stmt.setString(13, dto.getSellerId());
+			
 			
 			stmt.executeUpdate();
 			
@@ -213,8 +213,8 @@ public class MypageDao {
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, memberPw2);
-			stmt.setString(2, dto.getMemberPw());
-			stmt.setString(3, dto.getMemberId());
+			stmt.setString(2, dto.getMemberId());
+			stmt.setString(3, dto.getMemberPw());
 			
 			stmt.executeQuery();
 			
@@ -239,8 +239,8 @@ public class MypageDao {
 				stmt = conn.prepareStatement(sql);
 				
 				stmt.setString(1, sellerPw2);
-				stmt.setString(2, dto.getSellerPw());
-				stmt.setString(3, dto.getSellerId());
+				stmt.setString(2, dto.getSellerId());
+				stmt.setString(3, dto.getSellerPw());
 				
 				stmt.executeQuery();
 				
@@ -254,7 +254,7 @@ public class MypageDao {
 		}
 	
 		/**
-		 * 회원탈퇴      x
+		 * 회원탈퇴      일반회원 o
 		 * 
 		 */
 		public void removeMember(Connection conn, String memberId, String memberPw) {
@@ -285,11 +285,11 @@ public class MypageDao {
 		
 		
 		/**
-		 * 회원 탈퇴 >판매잔
+		 * 회원 탈퇴 >판매자  ok
 		 * @param conn
 		 * @param dto
 		 */
-		public void removeSeller(Connection conn, Seller dto) {
+		public void removeSeller(Connection conn, String sellerId, String sellerPw) {
 			
 			String sql = "delete from seller where seller_id=? and seller_pw=?";
 			
@@ -298,8 +298,8 @@ public class MypageDao {
 			
 			try {
 				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, dto.getSellerId());
-				stmt.setString(2, dto.getSellerPw());
+				stmt.setString(1, sellerId);
+				stmt.setString(2, sellerPw);
 				
 				stmt.executeUpdate();
 			}catch (Exception e) {
@@ -312,24 +312,4 @@ public class MypageDao {
 		}
 		
 		
-		/**
-		 * 주문 상세 조회
-		 * @param conn
-		 */
-		public void orderDetail(Connection conn) {
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-		
-		
-		
-		
-	
-	
 }

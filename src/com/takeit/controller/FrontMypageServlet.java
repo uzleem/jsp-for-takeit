@@ -50,18 +50,21 @@ public class FrontMypageServlet extends HttpServlet {
 		case "removeMember":
 			removeMember(request,response);
 			break;
-//			case "":
-//			(request,response);
-//			break;
-//			case "":
-//			(request,response);
-//			break;
-//			case "":
-//			(request,response);
-//			break;
-//			case "":
-//			(request,response);
-//			break;
+		case "removeMemberForm":
+			removeMemberForm(request,response);
+			break;
+		case "removeSeller":
+			removeSeller(request,response);
+			break;
+		case "memberPwUpdateForm":
+			memberPwUpdateForm(request,response);
+			break;
+		case "setMemberPw":
+			setMemberPw(request,response);
+			break;
+		case "setSellerPw":
+			setSellerPw(request,response);
+			break;
 		}
 	}
 	
@@ -77,26 +80,24 @@ public class FrontMypageServlet extends HttpServlet {
 	
 	
 	/**
-	 * 일반 회원 내 정보 조회 
+	 * 일반 회원 내 정보 조회 ok
 	 * 
 	 */
 	protected void memberInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("일반회원 내 정보 조회");
 		
-//		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		
-//		String memberId = (String)session.getAttribute("memberId");
-//		String memberId = request.getParameter("memberId");
-		String memberId = "user01";
+		String memberId = (String)session.getAttribute("memberId");
 		MypageBiz biz = new MypageBiz();
 		
 		Member dto = new Member();
 		dto.setMemberId(memberId);
+		
 		try {
 			biz.getMember(dto);
-			request.setAttribute("member", dto);
+			session.setAttribute("member", dto);
 			request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
-			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -104,15 +105,21 @@ public class FrontMypageServlet extends HttpServlet {
 		}
 	}
 	
-	//판매자  정보 조회
-
+	/**
+	 * 판매자 정보 조회 ok
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void sellerInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("판매자 내 정보 조회");
 		
-//		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		
-//		String sellerId = (String)session.getAttribute("memberId");
-		String sellerId = request.getParameter("memberId");
+//		String sellerId = (String)session.getAttribute("sellerId");
+//		String sellerId = request.getParameter("memberId");
+		String sellerId = "seller01";
 		
 		Seller dto = new Seller();
 		dto.setSellerId(sellerId);
@@ -122,7 +129,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		try {
 			biz.getSeller(dto);	
-			request.setAttribute("seller", dto);
+			session.setAttribute("seller", dto);
 			request.getRequestDispatcher("/member/sellerInfo.jsp").forward(request, response);
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -133,7 +140,8 @@ public class FrontMypageServlet extends HttpServlet {
 	
 	
 	/**
-	 * 일반회원 내 정보 수정
+	 * ok
+	 * 일반회원 내 정보 수정  
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -142,8 +150,9 @@ public class FrontMypageServlet extends HttpServlet {
 	protected void setMemberInfo (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("일반회원 내 정보  수정");
 		
+		HttpSession session = request.getSession();
 		
-		String memberId = request.getParameter("memberId");
+		String memberId = (String)session.getAttribute("memberId");
 		String memberPw = request.getParameter("memberPw");
 		String name = request.getParameter("name");
 		String mobile = request.getParameter("mobile");
@@ -169,7 +178,13 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		try {
 			biz.setMember(dto);
-			request.setAttribute("dto", dto);
+			
+			if(session.getAttribute("member") != null) {
+				session.removeAttribute("member");
+			}
+			
+			session.setAttribute("member", dto);
+			
 			request.getRequestDispatcher("/member/mypageController?action=memberInfoForm").forward(request, response);
 			
 		}catch (Exception e) {
@@ -179,11 +194,17 @@ public class FrontMypageServlet extends HttpServlet {
 	}
 	
 	
-	
+	/**
+	 * 판매자 정보 수정 ok
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void setMemberSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("내 판매자  수정");
 		
-//		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		
 //		String sellerId = (String)session.getAttribute("memberId");
 		String sellerId = request.getParameter("sellerId");
@@ -222,7 +243,12 @@ public class FrontMypageServlet extends HttpServlet {
 			biz.setSeller(dto);
 			
 			request.setAttribute("dto", dto);
-			request.getRequestDispatcher("/member/mypageController?action=memberInfoForm").forward(request, response);
+			if(session.getAttribute("seller") != null) {
+				session.removeAttribute("seller");
+			}
+			
+			session.setAttribute("seller", dto);
+			request.getRequestDispatcher("/member/mypageController?action=sellerInfoForm").forward(request, response);
 			
 			
 		}catch (Exception e) {
@@ -232,17 +258,43 @@ public class FrontMypageServlet extends HttpServlet {
 		
 	} 
 	
-	
-	//회원 삭제  > 일반회원
+	/**
+	 * 회원 탈퇴 요청 페이지
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+		protected void removeMemberForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("회원 탈퇴 요청 페이지 ");
+			
+			HttpSession session = request.getSession(false);
+			
+			try {
+				session.getAttribute("member");
+				session.getAttribute("seller");
+				request.getRequestDispatcher("/member/memberRemove.jsp").forward(request, response);
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+			
+		} 
+
+	/**
+	 * 회원 탈퇴 일반회원
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void removeMember (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("회원 탈퇴 요청");
 		
-//		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false);
 		
-		String memberId = request.getParameter("memberId");
+		String memberId = (String)session.getAttribute("memberId");
 		String memberPw = request.getParameter("memberPw");
-//		String memberId = "user01";
-//		String memberPw = "password01";
 		
 		
 		MypageBiz biz = new MypageBiz();
@@ -250,6 +302,11 @@ public class FrontMypageServlet extends HttpServlet {
 
 		try {
 			biz.removeMember(memberId,memberPw);
+			
+			if(session.getAttribute("member") != null) {
+				session.removeAttribute("member");
+			}
+			
 			response.sendRedirect("/takeit/index.jsp");
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -258,23 +315,56 @@ public class FrontMypageServlet extends HttpServlet {
 		
 	} 
 	
-	//회원 삭제  > 일반회원
-		protected void removeSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("내 판매자  수정");
+	/**
+	 * 회원 탈퇴 판매자 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void removeSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("판매자 탈퇴");
+		
+		HttpSession session = request.getSession();
+		
+		String sellerId = request.getParameter("sellerId");
+		String sellerPw = request.getParameter("sellerPw");
+		
+		MypageBiz biz = new MypageBiz();
+		
+		try {
+			biz.removeSeller(sellerId,sellerPw);
+			
+			if(session.getAttribute("seller") != null) {
+				session.removeAttribute("seller");
+			}
+			
+			response.sendRedirect("/takeit/index.jsp");
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+	} 
+	
+		/**
+		 * 비밀번호 변경 요청 페이지
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void memberPwUpdateForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("비밀번호 변경 요청 페이지 ");
 			
 			HttpSession session = request.getSession(false);
 			
-			String memberId = request.getParameter("memberId");
-			String memberPw = request.getParameter("memberPw");
-			
-			
-			MypageBiz biz = new MypageBiz();
-			
-			
-			
+
 			try {
-				
-				
+				session.getAttribute("member");
+				session.getAttribute("seller");
+				request.getRequestDispatcher("/member/memberPwUpdate.jsp").forward(request, response);
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
@@ -283,34 +373,69 @@ public class FrontMypageServlet extends HttpServlet {
 		} 
 	
 	
-	
 	//비밀번호 변경  > 일반회원
-	protected void setMemberPw (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("일반회원 > 비밀번호 변경 요청 서블릿 ㄴ");
+	/**
+	 * 비밀번호 변경 일반회원
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void setSellerPw (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("일반회원 > 비밀번호 변경 요청 서블릿 ");
 		
-		
-		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
-		String memberPw2 = request.getParameter("memberPw2");
+		String sellerId = request.getParameter("sellerId");
+		String sellerPw = request.getParameter("sellerPw");
+		String sellerPw2 = request.getParameter("sellerPw2");
 		
 		
 		MypageBiz biz = new MypageBiz();
 		
 		
-		Member dto = new Member();
-		dto.setMemberId(memberId);
-		dto.setMemberPw(memberPw2);
-		
+		Seller dto = new Seller();
+		dto.setSellerId(sellerId);
+		dto.setSellerPw(sellerPw);
 		
 		
 		try {
-			biz.setMemberPw(memberPw2, dto);
+			biz.setSellerPw(sellerPw2, dto);
+			request.getRequestDispatcher("/member/mypageController?action=sellerInfoForm").forward(request, response);
+			
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		
 	} 
+	
+	//비밀번호 변경  > 판매자
+		protected void setMemberPw (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("일반회원 > 비밀번호 변경 요청 서블릿 ");
+			
+			HttpSession session = request.getSession();
+			String memberId = request.getParameter("memberId");
+			String memberPw = request.getParameter("memberPw");
+			String memberPw2 = request.getParameter("memberPw2");
+			
+			
+			MypageBiz biz = new MypageBiz();
+			
+			
+			Member dto = new Member();
+			dto.setMemberId(memberId);
+			dto.setMemberPw(memberPw);
+			
+			
+			try {
+				biz.setMemberPw(memberPw2, dto);
+				request.getRequestDispatcher("/member/mypageController?action=memberInfoForm").forward(request, response);
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+			
+		} 
 	
 	
 	
