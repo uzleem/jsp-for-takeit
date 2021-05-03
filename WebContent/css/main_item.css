@@ -20,10 +20,9 @@
 	box-shadow: 3px 3px grey;
 }
 #itemTitle {
-	
+	font-weight: 600;
 }
 #itemTitle:hover {
-	font-weight: 600;
 	color: #5a7d59;
 	cursor: pointer;
 }
