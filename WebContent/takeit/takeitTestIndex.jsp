@@ -11,6 +11,7 @@
 <h1> 테스트용 링크 페이지</h1>
 <h3>
 	<a href="/takeit/takeit/takeitController?action=takeitItemList">1. 테이크잇상품 리스트</a><br>
+	<a href="/takeit/takeit/takeitController?action=test">2. 테스트용</a><br>
 </h3>
 </div>
 </body>

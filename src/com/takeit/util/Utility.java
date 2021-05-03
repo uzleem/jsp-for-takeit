@@ -90,8 +90,8 @@ public class Utility {
 		
 		//System.out.println(x+" , "+y);
 		HashMap<String, String> latLng = new HashMap<String, String>();
-		latLng.put("lat", x);
-		latLng.put("lng", y);
+		latLng.put("lat", y);
+		latLng.put("lng", x);
 		return latLng;
 	}
 	

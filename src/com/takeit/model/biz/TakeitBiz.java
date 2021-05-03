@@ -13,6 +13,15 @@ import com.takeit.util.Utility;
 
 public class TakeitBiz {
 	
+	/**
+	 * 
+	 */
+	public void addTakeit() {
+		TakeitDao dao = TakeitDao.getInstance();
+		
+		//dao.insertTakeit();
+			
+	}
 	
 	/**
 	 * 1. memberDto에서 꺼낸 상점구역이 null이라면
@@ -60,7 +69,7 @@ public class TakeitBiz {
 		HashMap<String, String> latLng = Utility.getLatlng(member.getAddress());
 		String _lat = latLng.get("lat");
 		String _lng = latLng.get("lng");
-		if ( _lat == null || _lng == null) {
+		if ( _lat == null || _lng == null) { 
 			System.out.println("주소가 잘못되었습니다");
 			return ;
 		}
@@ -83,6 +92,8 @@ public class TakeitBiz {
 		for (ShopLoc shopLoc : shopLocList) {
 			Double shopLat = Double.valueOf(shopLoc.getShopLocLat());
 			Double shopLng = Double.valueOf(shopLoc.getShopLocLng());
+			System.out.println("[debug]상점위도 :" + shopLat);
+			System.out.println("[debug]상점경도 :" + shopLng);
 			
 			locLat = shopLat-lat;
 			locLng = shopLng-lng;

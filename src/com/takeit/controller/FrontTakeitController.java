@@ -39,7 +39,18 @@ public class FrontTakeitController extends HttpServlet {
 			break;
 		case "takeitItemDetail":
 			takeitItemDetail(request, response);
+			break;
+		case "test":
+			test(request, response);
+			break;
 		}
+	}
+	
+	protected void test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member member = new Member();
+		member.setAddress("인천광역시 부평구 부평5동 대정로 롯데시네마 부평");
+		new TakeitBiz().getMemberLocNo(member);
+		System.out.println("[debug]회원구역:"+member.getShopLocCode()+member.getMemberLocNo());
 	}
 	
 	protected void takeitItemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

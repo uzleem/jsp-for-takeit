@@ -62,15 +62,15 @@ public class TakeitDao {
 				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
 				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
 				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
+				//판매자
+				takeitItem.setSellerName(rs.getString("name"));
+				takeitItem.setShopName(rs.getString("Shop_name"));
+				
 				
 				takeitItemList.add(takeitItem);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-//			MessageEntity message = new MessageEntity("error", 4);
-//			message.setLinkTitle("교수 로그인");
-//			message.setUrl("/exercise/exe02/teacher/main.jsp");
-//			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -122,13 +122,12 @@ public class TakeitDao {
 				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
 				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
 				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
+				//판매자
+				takeitItem.setSellerName(rs.getString("name"));
+				takeitItem.setShopName(rs.getString("Shop_name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-//			MessageEntity message = new MessageEntity("error", 4);
-//			message.setLinkTitle("교수 로그인");
-//			message.setUrl("/exercise/exe02/teacher/main.jsp");
-//			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -150,8 +149,8 @@ public class TakeitDao {
 				shopLoc = new ShopLoc();
 				shopLoc.setShopLocCode(rs.getString("shop_Loc_Code"));
 				shopLoc.setShopLocName(rs.getString("shop_Loc_Name"));
-				//shopLoc.setShopLocLat(rs.getString("shop_Loc_Lat"));
-				//shopLoc.setShopLocLng(rs.getString("shop_Loc_Lng"));
+				shopLoc.setShopLocLat(rs.getString("shop_Loc_Lat"));
+				shopLoc.setShopLocLng(rs.getString("shop_Loc_Lng"));
 				
 				shopLocList.add(shopLoc);
 			}
