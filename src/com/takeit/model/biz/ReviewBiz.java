@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ReviewDao;
-import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Review;
 
 

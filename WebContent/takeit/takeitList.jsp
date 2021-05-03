@@ -15,25 +15,18 @@
 	function getTakeitTime() {
 		var date = new Date();
 		
-		var year = date.getFullYear();
-		var month = date.getMonth()+1;
-		month = month < 10 ? "0" + month: month ;
-		var day = date.getDate();
-		day = day < 10 ? "0" + day: day ;
-		var hour = date.getHours();
-		hour = hour < 10 ? "0" + hour: hour ;
-		var minute = date.getMinutes();
-		minute = minute < 10 ? "0" + minute: minute ;
-		var second = date.getSeconds();
-		second = second < 10 ? "0" + second: second ;
-		
-		var time = ""+ year + "-"+ month + "-" + day +" "+ hour +":"+ minute +":"+ second; 	
-		
 		for (i = 0; i < $(".takeitTime").length; i++) {
 			var takeitTimeElement = $(".takeitTime").get(i);
 			var takeitTime = takeitTimeElement.dataset.takeittime;
+			var takeitDate =new Date(takeitTime);
+			var result = takeitDate - date;
+			result = result + 604800000;
+			var d1 = parseInt(result / 86400000);
+			var h1 = Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var m1 = Math.floor((result % (1000 * 60 * 60)) / (1000 * 60));
+			var s1 = Math.floor((result % (1000 * 60)) / 1000);
 			
-			takeitTimeElement.innerHTML = "남은시간 : "+time +" - " + takeitTime + "   <br>(연산 할줄모름)";
+			takeitTimeElement.innerHTML = "남은시간 :" +d1 + "일 "+ h1+"시간 "+m1+"분 "+s1 + "초"
 			
 		}
 	}
@@ -72,10 +65,18 @@
 					<img id="itemImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
 				</a>
 			</li>
-			<li id="itemTitle">${dto.itemName}</li>
-			<li id="discRate">${dto.discRate}%</li>
-			<li id="salePrice">${dto.itemPrice * (100-dto.discRate) / 100}원</li>
-			<li id="price">${dto.itemPrice}원</li>
+			
+				<fmt:formatNumber var="itemPrice" value="${dto.itemPrice}" type="number"/>
+				<fmt:formatNumber var="discPrice" value="${dto.itemPrice * (100-dto.discRate) / 100}" type="number"/>
+				<fmt:parseNumber  var="intPrice" value="${(dto.itemPrice * (100-dto.discRate) / 100)/1000}" integerOnly="true"/>
+				<fmt:formatNumber var="takeitItemPrice" value="${intPrice*1000}" type="number"/>
+				<fmt:formatNumber var="itemDiscRate" value="${dto.discRate / 100}" type="percent"/>
+				<fmt:formatNumber var="takeitDisc" value="${(dto.itemPrice * (100-dto.discRate) / 100) - intPrice*1000 }" type="number"/>
+				
+				<li class="itemTitle">${dto.itemName}</li>
+				<li class="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
+				<li class="salePrice">${takeitItemPrice}원</li>
+				<li class="price">${dto.itemPrice}원</li>
 		</ul>
 	</div>
 	</c:forEach>

@@ -9,7 +9,7 @@
 		<span id="pipe">|</span>
 		<a href="#">베스트</a>
 		<span id="pipe">|</span>
-		<a href="#">잇거래</a>
+		<a href="/takeit/takeit/takeitController?action=takeitItemList">잇거래</a>
 		<span id="pipe">|</span>
 		<a href="/takeit/boardController?action=boardList&board_category_no=1">공지사항</a>
 	</div>
