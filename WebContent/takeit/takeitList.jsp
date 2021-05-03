@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>잇거래 상품 목록</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/takeit.css">
 <style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -38,16 +39,14 @@
 </head>
 <body>
 <!-- 상단 메뉴 -->
-<c:choose>
-	<c:when test="${empty memberId or empty grade}">
-		<!-- 로그인 전 메뉴 -->
-		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<!-- 로그인 후 메뉴 -->
-		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
-	</c:otherwise>
-</c:choose>
+<c:if test="${empty memberId }">
+	<!-- 로그인 전 메뉴 -->
+	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+</c:if>
+<c:if test="${not empty memberId }">
+	<!-- 로그인 후 메뉴 -->
+	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+</c:if>
 
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
@@ -57,9 +56,11 @@
 <h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">잇거래</h3>
 <div id="item-recomm" class="view-width">
 	<c:forEach items="${takeitItemList}" var="dto">
-	<div class="takeit_item">
-		<span class="takeitTime" data-takeittime="${dto.takeitDate}"></span><br>
-		<ul>
+	<div class="takeit_item_wrap">
+		
+		<span class="takeitTime blink" data-takeittime="${dto.takeitDate}"></span><br>
+		
+		<ul class="takeit_item">
 			<li>
 				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${dto.itemNo }">
 					<img id="itemImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
@@ -73,10 +74,10 @@
 				<fmt:formatNumber var="itemDiscRate" value="${dto.discRate / 100}" type="percent"/>
 				<fmt:formatNumber var="takeitDisc" value="${(dto.itemPrice * (100-dto.discRate) / 100) - intPrice*1000 }" type="number"/>
 				
-				<li class="itemTitle">${dto.itemName}</li>
-				<li class="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
-				<li class="salePrice">${takeitItemPrice}원</li>
-				<li class="price">${dto.itemPrice}원</li>
+				<li id="itemTitle">${dto.itemName}</li>
+				<li id="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
+				<li id="salePrice">${takeitItemPrice}원</li>
+				<li id="price">${dto.itemPrice}원</li>
 		</ul>
 	</div>
 	</c:forEach>
