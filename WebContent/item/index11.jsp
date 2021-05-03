@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.takeit.model.dto.Review" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="com.takeit.model.dto.MessageEntity" %>
 
+<%@ include file="/common/taglib_menu.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +17,7 @@
       
 		<a href="/takeit/item/itemController?action=itemList">상품전체조회</a>
 
-		<a href="/takeit/item/reviewController?action=reviewEnrollForm">후기등록</a>
+		<a href="/takeit/item/reviewController?action=enrollReviewForm">후기등록</a>
 	
 		<a href="/takeit/item/reviewController?action=reviewList">후기전체조회</a>
 		

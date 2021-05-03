@@ -27,7 +27,7 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-		<div id="mypage_info" align='center'>
+		<div id="review_info" align='center'>
 			<h3>작성 후기조회</h3>
 			<hr>
 <div id="review">
@@ -66,7 +66,7 @@
 		</tr>
 		<tr>
 			<th>후기내용</th>	
-			<td><textarea name="contents" rows="7" cols="50"></textarea>
+			<td><textarea name="contents" rows="7" cols="50">${review.reviewContents}</textarea>
 			</td>	
 		</tr>
 		<tr>

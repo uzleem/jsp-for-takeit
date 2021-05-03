@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <title>후기조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-
+<link type="text/css" rel="stylesheet" href="/takeit/css/board.css">
 </head>
 
 <body>

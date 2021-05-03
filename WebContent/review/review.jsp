@@ -24,37 +24,40 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 
 	<h3 align="center">REVIEW</h3>
-	<form method="post" action="inputreview" enctype="multipart/form-data"></form>
+	<form action="/takeit/item/reviewController?action=enrollReview" method="post">
 		<div align='center'>
 			<table id="review_table">
-	
+	 	        <tr>
+						<td><input type="text" name="memberId" placeholder="작성자" ></td>
+				</tr>
+				
 				<tr>
-						<td><input type="text" placeholder="상품번호"></td>
+						<td><input type="text" name="itemNo" placeholder="상품번호"></td>
 				</tr>
 			     <tr>
-						<td><input type="text" placeholder="제목을 입력해주세요"></td>
+						<td><input type="text" name="reviewTitle" placeholder="제목을 입력해주세요"></td>
 						
 				</tr>
 				<tr>
-						<td><textarea name="contents" rows="13" cols="80"
+						<td><textarea name="contents" name="reviewContents" rows="13" cols="80"
 							placeholder="자세한 후기작성은 저희에게 큰 도움이 됩니다.반품/환불문의는 카톡문의로 가능합니다."></textarea>
 						</td>
 				</tr>
 	
 		 		<tr>	
 					<td>상품평점 :
-						<select onchange="reviewChange(value)">
+						<select onchange="reviewChange(value)" name="reviewScore" >
 				    		<option value="">==평점선택==</option>
-		            		<option value="">1점</option>
-		            		<option value="">2점</option>
-		            		<option value="">3점</option>
-		            		<option value="">4점</option>
-		            		<option value="">5점</option>
-		            		<option value="">6점</option>
-		            		<option value="">7점</option>
-		            		<option value="">8점</option>
-		            		<option value="">9점</option>
-		            		<option value="">10점</option>
+		            		<option value="1">1점</option>
+		            		<option value="2">2점</option>
+		            		<option value="3">3점</option>
+		            		<option value="4">4점</option>
+		            		<option value="5">5점</option>
+		            		<option value="6">6점</option>
+		            		<option value="7">7점</option>
+		            		<option value="8">8점</option>
+		            		<option value="9">9점</option>
+		            		<option value="10">10점</option>
 		        		</select>
 		      
 		        	</td>
@@ -62,7 +65,7 @@
 			
 				<tr>
 					<td>상품이미지 :
-					<input type="file" name="file1" placeholder="상품이미지">
+					<input type="file" name="reviewImg" placeholder="상품이미지">
 					</td>
 				</tr>
 		    </table><br>
@@ -73,11 +76,12 @@
 
 		
 	    <br> <div id="signup" align='center'>
-			<tr>
-			<td><input type="submit" value="상품등록"></td>
-			<td><input type="reset" value="취소"></td>
-			</tr>
+
+			<input type="submit" value="상품등록">
+			<input type="reset" value="취소">
+
 		  </div>
+</form>
 <!--	</div> -->
 	<!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
