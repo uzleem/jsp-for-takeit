@@ -44,7 +44,7 @@ public class ReviewBiz {
 public void enrollReview(Review dto) throws CommonException{
 	Connection conn = JdbcTemplate.getConnection();
 	try {
-		dao.addReview(conn, dto);
+		dao.enrollReview(conn, dto);
 	} catch(CommonException e) {
 		throw e; 
 	} finally {
@@ -52,5 +52,40 @@ public void enrollReview(Review dto) throws CommonException{
 	}
 }
 
+/**
+ * 내가 작성한 후기보기
+ * @param dto 일반회원 객체
+ */
+public void getReview(Review dto){
+	Connection conn = JdbcTemplate.getConnection();
+	
+	try {
+		dao.ReviewDetail(conn, dto);
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		JdbcTemplate.close(conn);
+	}
+}
+	/**
+	 * 작성후기내용 수정
+	 * @param dto 후기
+	 */
+	public void setReview(Review dto) throws CommonException{
+		Connection conn = JdbcTemplate.getConnection();
+		try {
+			dao.updateReview(conn,dto);
+			//JdbcTemplate.commit(conn);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			JdbcTemplate.rollback(conn);
+			throw e;
+		}finally {
+			JdbcTemplate.close(conn);
+			
+		}
+		}
 
 }
+

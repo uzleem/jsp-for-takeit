@@ -20,7 +20,8 @@ public class Item implements Serializable{
 	private String notice;
 	private int freshPercent;
 	private String itemNo;
-	private String sellerId;
+	
+	private String sellerId;//상품
 	private String itemName;
 	private int itemPrice;
 	private String salesUnit;

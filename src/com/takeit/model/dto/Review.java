@@ -25,26 +25,26 @@ public class Review implements Serializable{
 	
 	public Review() {}
 	//후기 필수입력데이터
-	public Review(String itemNo,String reviewTitle, String reviewContents, int reviewScore,String reviewImg) {
+	public Review(String itemNo,String memberId,String reviewTitle, String reviewContents, int reviewScore) {
 		
 		
 		this.itemNo =itemNo;
+		this.memberId = memberId;
 		this.reviewTitle = reviewTitle;
 		this.reviewContents = reviewContents;
 		this.reviewScore = reviewScore;
-		this.reviewImg = reviewImg;
+	
 	}
 	
 
 	//후기 전체데이터
 	public Review(String reviewNo,String memberId, String itemNo, String reviewDate, String reviewTitle, String reviewContents, int reviewScore,
 			String reviewImg) {
-		
+	
 		
 		this.reviewNo =reviewNo;
-		this.memberId = memberId;
 		this.reviewDate = reviewDate;
-
+		this.reviewImg = reviewImg;
 		
 
 	}

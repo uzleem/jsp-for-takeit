@@ -36,10 +36,7 @@ public class MypageBiz {
 		}finally {
 			JdbcTemplate.close(conn);
 		}
-		
-			
-		
-			JdbcTemplate.close(conn);
+
 	}
 	
 	/**

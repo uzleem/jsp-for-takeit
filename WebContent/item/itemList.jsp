@@ -18,7 +18,7 @@
 <body>
 <c:choose>
 	<c:when test="${empty memberId}">
-		<!-- 로그인 전 메뉴 -->
+<!-- 로그인 전 메뉴 -->
 		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
 	</c:when>
 	<c:otherwise>
@@ -35,53 +35,57 @@
 <h3 class="title"><span class="seperator_title">|||</span>상품전체조회<span class="seperator_title">|||</span></h3>
 <table>
 	<!-- 제목행 -->
-	<tr>	
-		<th>카테고리이름</th>
-		<th>판매자</th>
-		<th>상품</th>
-		<th>판매가</th>
-		<th>원산지</th>
-		<th>재고량</th>
-		<th>이미지</th>
-		<th>잇거래여부</th>
+	<tr>
+		<th>포장타입번호</th>
 		<th>포장타입</th>
+		
+		<th>카테고리번호</th>	
+		<th>카테고리이름</th>
 		<th>유통기한</th>
 		<th>공지사항</th>
 		<th>신선도</th>
+		
+		<th>상품번호</th>
+		<th>판매자</th>
+		<th>상품</th>
+		<th>판매가</th>
 		<th>판매단위</th>
+		<th>원산지</th>
+		<th>재고량</th>
+		<th>이미지</th>
 		<th>고객평점</th>
 		<th>등록일자</th>
 		<th>할인율</th>
-		<th>상품번호</th>
-		<th>포장타입번호</th>
-		<th>카테고리번호</th>
-		
+		<th>잇거래여부</th>
+
 	</tr>
 	
-	<!-- 상품전체 -->
 	<c:forEach var="dto" items="${list}">
-		<tr>	
-		
-			<td>${dto.itemCategoryName}</td>
-			<td>${dto.sellerId}</td>
-			<td>${dto.itemName}</td>
-			<td>${dto.itemPrice}</td>
-			<td>${dto.itemOrigin}</td>
-			<td>${dto.itemStock}</td>
-			<td>${dto.itemImg}</td>
-			<td>${dto.itemTakeit}</td>
-			<td>${dto.packTypeName}</td>
-			<td>${dto.expirationDate}</td>
-			<td>${dto.notice}</td>
-			<td>${dto.freshPercent}</td>
-			<td>${dto.salesUnit}</td>
-			<td>${dto.itemCustScore}</td>
-			<td>${dto.itemInputDate}</td>
-			<td>${dto.discRate}</td>
-			<td>${dto.itemNo}</td>
-			<td>${dto.packTypeNo}</td>
-			<td>${dto.itemCategoryNo}</td>
-		
+		<tr>
+				<td><a
+				href="${initParam.CONTEXT_PATH}/item/itemDetail?itemName=${dto.itemName}"
+				title="${dto.memberId} 클릭 상품상세조회">${dto.memberId}</a></td>
+				<td>${dto.PackTypeNo}</td>
+				<td>${dto.PackTypeName}</td>
+				<td>${dto.ItemCategoryNo}</td>
+				<td>${dto.ItemCategoryName}</td>
+				<td>${dto.ExpirationDate}</td>
+				<td>${dto.Notice}</td>
+				<td>${dto.FreshPercent}</td>
+				<td>${dto.ItemNo}</td>
+				<td>${dto.SellerId}</td>
+				<td>${dto.ItemName}</td>
+				<td>${dto.ItemPrice}</td>
+				<td>${dto.SalesUnit}</td>
+				<td>${dto.ItemOrigin}</td>
+				<td>${dto.ItemStock}</td>
+				<td>${dto.ItemImg}</td>
+				<td>${dto.ItemInputDate}</td>
+				<td>${dto.DiscRate}</td>
+				<td>${dto.ItemTakeit}</td>
+
+				<td><a href="${initParam.CONTEXT_PATH}/item/itemDelete?sellerId=${dto.sellerId}>" title="${dto.sellerId} 클릭 상품탈퇴">삭제</a></td>
+		</tr>
 	</c:forEach>	
 </table>
 <a href="/takeit/index.jsp" class="link">홈으로이동</a>
