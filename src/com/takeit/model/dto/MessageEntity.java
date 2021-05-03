@@ -24,17 +24,18 @@ public class MessageEntity {
 		error.add("[상품 등록 오류]");
 		error.add("[상품 조회 오류]");
 		error.add("[상품 검색 오류]");
-		error.add("[상품 삭제 오류]");
+		error.add("[상품 삭제 오류]"); //10
 		
 		error.add("[잇거래 등록 오류]");
 		error.add("[잇거래 조회 오류]");
 		error.add("[잇거래 검색 오류]");
-		error.add("[잇거래 삭제 오류]");
+		error.add("[잇거래 삭제 오류]"); //14
 		
 		error.add("[공지사항/자주하는질문 등록 오류]"); 
 		error.add("[공지사항/자주하는질문 조회 오류]");
 		error.add("[공지사항/자주하는질문 검색 오류]");
 		error.add("[공지사항/자주하는질문 삭제 오류]");		
+		error.add("[공지사항/자주하는질문 변경 오류]"); //19
 		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");	

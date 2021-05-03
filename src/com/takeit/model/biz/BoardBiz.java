@@ -54,6 +54,7 @@ public class BoardBiz {
 		Connection con = JdbcTemplate.getConnection();
 		try {
 			dao.boardInput(con, notice);
+			JdbcTemplate.commit(con);
 		} catch (CommonException e) {
 			JdbcTemplate.rollback(con);
 			throw e;
@@ -75,5 +76,55 @@ public class BoardBiz {
 		}
 		
 	}
+
+	/**게시글 수정 화면*/
+	public void boardDetail(String boardNo, String boardCategory, String boardWriter, Board board) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.boardDetail(con, boardNo, boardCategory, boardWriter, board);
+			
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
+	/**게시글 수정*/
+	public void boardUpdate(String boardNo, Board board) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.boardUpdate(con, boardNo, board);
+			JdbcTemplate.commit(con);
+			System.out.println("[debug] 게시글 수정 완료");
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			System.out.println("[debug] 게시글 수정 실패");
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
+	/**게시글 삭제*/
+	public void boardDelete(String boardNo, String boardWriter, String boardCategory) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.boardDelete(con, boardNo, boardWriter, boardCategory);
+			JdbcTemplate.commit(con);
+			System.out.println("[debug] 게시판 삭제 완료");
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			System.out.println("[debug] 게시판 삭제 실패");
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
+	
 
 }

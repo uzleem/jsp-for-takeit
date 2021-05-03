@@ -11,16 +11,14 @@
 </head>
 <body>
 <!-- 상단 메뉴 -->
-<c:choose>
-	<c:when test="${empty memberId or empty grade}">
-		<!-- 로그인 전 메뉴 -->
-		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<!-- 로그인 후 메뉴 -->
-		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
-	</c:otherwise>
-</c:choose>
+<c:if test="${empty memberId }">
+	<!-- 로그인 전 메뉴 -->
+	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+</c:if>
+<c:if test="${not empty memberId }">
+	<!-- 로그인 후 메뉴 -->
+	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+</c:if>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
@@ -29,9 +27,9 @@
 <h1 style="width:fit-content; margin: 0 auto;">TAKE IT 고객센터</h1>
 <br>
 <div>
-	<a href="/takeit/boardController?action=noticeList" class="link">공지사항</a>
-	<a href="#" class="link">자주하는 질문</a>
-	<a href="/takeit/item/ask.jsp" class="link">상품문의</a>
+	<a href="/takeit/boardController?action=boardList&boardCategory=1" class="link">공지사항</a>
+	<a href="/takeit/boardController?action=boardList&boardCategory=2" class="link">자주하는 질문</a>
+	<a href="/takeit/boardController?action=boardList&boardCategory=3" class="link">상품문의</a>
 </div>
 </body>
 </html>
