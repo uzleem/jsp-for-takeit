@@ -24,6 +24,7 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 
 	<h3 align="center">REVIEW</h3>
+	<form method="post" action="inputreview" enctype="multipart/form-data"></form>
 		<div align='center'>
 			<table id="review_table">
 	

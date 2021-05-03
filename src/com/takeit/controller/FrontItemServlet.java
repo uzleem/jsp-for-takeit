@@ -1,6 +1,10 @@
 package com.takeit.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -9,11 +13,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
+import com.takeit.common.JdbcTemplate;
+import com.takeit.model.biz.ItemBiz;
+import com.takeit.model.biz.MypageBiz;
+import com.takeit.model.biz.ReviewBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
-
+import com.takeit.model.dto.Review;
 
 
 /**
@@ -48,12 +57,18 @@ public class FrontItemServlet extends HttpServlet {
 		case "itemList":
 //		itemList(request, response);
 //			break;
-//		case "":
-//			(request, response);
-//			break;
-//		case "":
-//			(request,response);
-//			break;
+		case "deleteItem":
+			deleteItem(request, response);
+			break;
+		case "SellerItemForm":
+		SellerItemForm(request,response);
+			break;
+//		case "SellerItemForm":
+//			SellerItemForm(request,response);
+//				break;
+//		case "SellerItemForm":
+//			SellerItemForm(request,response);
+//				break;
 		}
 	}
 	
@@ -225,4 +240,73 @@ public class FrontItemServlet extends HttpServlet {
 			response.sendRedirect(url); 
 		}
 
+		/**
+		 * 상품전체조회
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void itemList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+			ArrayList<Item> itemList = new ArrayList<Item>();
+			ItemBiz biz = new ItemBiz();
+			try {
+				biz.getItemList(itemList);
+				if(itemList != null) {
+					request.setAttribute("itemList",itemList);
+					request.getRequestDispatcher("/item/itemList.jsp").forward(request, response);
+				}
+			} catch (CommonException e) {
+				MessageEntity message = new MessageEntity("error", 13);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+			}
+		
+}
+		/**
+		 * 상품삭제
+		 * @param conn
+		 * @param dto
+		 */
+		protected void deleteItem (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			HttpSession session = request.getSession(false);
+			
+			String sellerId = request.getParameter("sellerId");
+			String memberPw = request.getParameter("item_no");
+			
+			
+			ItemBiz biz = new ItemBiz();
+		}	
+
+		/**
+		 * 판매자 등록 상품 조회
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void SellerItemForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+//			HttpSession session = request.getSession(false);
+			
+//			String sellerId = (String)session.getAttribute("sellerId");
+//			String sellerId = request.getParameter("sellerId");
+//			String sellerId = "seller04";
+//			ItemBiz biz = new ItemBiz();
+//			
+//			Item dto = new Item();
+//			dto.setSellerId(sellerId);
+//			try {
+//				biz.getItem(dto);
+//				request.setAttribute("item", dto);
+//				request.getRequestDispatcher("/item/sellerItem.jsp").forward(request, response);
+//				
+//			}catch (Exception e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//				
+//			}
+		}		
 }

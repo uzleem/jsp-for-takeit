@@ -36,10 +36,7 @@ public class MypageBiz {
 		}finally {
 			JdbcTemplate.close(conn);
 		}
-		
-			
-		
-			JdbcTemplate.close(conn);
+
 	}
 	
 	//내 정보 조회 > 판매자 회원

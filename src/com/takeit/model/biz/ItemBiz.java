@@ -8,17 +8,34 @@ import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ItemDao;
 import com.takeit.model.dto.Item;
+import com.takeit.model.dto.Review;
 
 
-/**
- * @author 김효원
- *
+
+/** 
+ * 등록상품 조회
+ * @return ArrayList<Item>
  */
+
 public class ItemBiz {
 
-private ItemDao dao = ItemDao.getInstance(); 
+  private ItemDao dao = ItemDao.getInstance(); 
 	
-   /**
+
+
+	
+	public void getItemList(ArrayList<Item> ItemList) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.ItemList(con, ItemList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+
+	   /**
      * <pre>
 	 * 상품등록
 	 * -- 상품등록 입력 데이터 : 상품번호,상품카테고리이름,판매가,할인율,판매단위,재고량,원산지,포장타입,판매자,이미지,안내사항,유통기한,잇거래여부	 * -- 시스템 추가 데이터 : 상품 등록일
@@ -38,26 +55,36 @@ public void enrollItem(Item dto) throws CommonException{
 		JdbcTemplate.close(conn);
 	}
 }
-
-/** 
- * 등록상품 조회
- * @return ArrayList<Item>
- */
-public void getItemList(ArrayList<Item> list) throws CommonException {
+/**상품삭제*/
+public void deleteItem(Item dto){
 	
 	Connection conn = JdbcTemplate.getConnection();
-	
 	try {
-	
-		dao.selectList(conn, list);
-	} catch (CommonException e) {
+		dao.deleteItem(conn,dto);
+		JdbcTemplate.commit(conn);
+	}catch (Exception e) {
 		e.printStackTrace();
-		throw e;
-	} finally {
+		JdbcTemplate.rollback(conn);
+	}finally {
 		JdbcTemplate.close(conn);
 	}
+	
 }
-
-
 }
+/**
+ * 내가 작성한 후기보기
+ * @param dto 일반회원 객체
+ */
+//public void getSellItem(Item dto){
+//	Connection conn = JdbcTemplate.getConnection();
+//	
+//	try {
+//		dao.ReviewDetail(conn, dto);
+//	}catch (Exception e) {
+//		e.printStackTrace();
+//	}finally {
+//		JdbcTemplate.close(conn);
+//	}
+//}
+//}
 	
