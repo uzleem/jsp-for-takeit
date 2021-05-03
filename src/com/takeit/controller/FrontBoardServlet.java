@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.BoardBiz;
@@ -49,12 +50,15 @@ public class FrontBoardServlet extends HttpServlet {
 		case "boardInput":
 			boardInput(request, response);
 			break;
-//		case "":
-//			(request,response);
-//			break;
-//		case "":
-//			(request,response);
-//			break;
+		case "boardUpdateForm":
+			boardUpdateForm(request,response);
+			break;
+		case "boardUpdate":
+			boardUpdate(request,response);
+			break;
+		case "boardDelete":
+			boardDelete(request,response);
+			break;
 //		case "":
 //			(request,response);
 //			break;
@@ -84,13 +88,13 @@ public class FrontBoardServlet extends HttpServlet {
 	/**게시글 전체 목록*/
 	protected void boardList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]게시글 전체 조회 요청");
-		String categoryNo = request.getParameter("board_category_no");
-		System.out.println("[debug]categoryNo:"+categoryNo);
+		String boardCategory = request.getParameter("boardCategory");
+		System.out.println("[debug]categoryNo:"+boardCategory);
 		
 		ArrayList<Board> boardList = new ArrayList<Board>();
 		BoardBiz bbiz = new BoardBiz();
 		try {
-			bbiz.getBoardList(categoryNo, boardList);
+			bbiz.getBoardList(boardCategory, boardList);
 			if(boardList != null) {
 				request.setAttribute("boardList", boardList);
 				request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
@@ -107,14 +111,14 @@ public class FrontBoardServlet extends HttpServlet {
 	private void boardDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]게시글 상세 조회 요청");
 		
-		String boardNo = request.getParameter("board_no");
-		String boardCategory = request.getParameter("board_category");
+		String boardNo = request.getParameter("boardNo");
+		String boardCategory = request.getParameter("boardCategory");
 		
 		BoardBiz bbiz = new BoardBiz();
 		Board board = new Board();
 		try {
 			bbiz.boardDetail(boardNo, boardCategory, board);
-			if(board != null) {
+			if(board.getBoardTitle() != null) {
 				request.setAttribute("board", board);
 				request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);
 			}
@@ -148,6 +152,10 @@ public class FrontBoardServlet extends HttpServlet {
 	private void boardInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]게시글 등록 요청");
 		
+		HttpSession session = request.getSession(false);
+		String boardWriter = (String)session.getAttribute("memberId");
+		boardWriter = boardWriter.trim();
+		
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContents = request.getParameter("boardContents");
 		String boardCategory = request.getParameter("boardCategory");
@@ -155,18 +163,17 @@ public class FrontBoardServlet extends HttpServlet {
 		boardItemNo = boardItemNo.trim();
 		boardTitle = boardTitle.trim();
 		boardContents = boardContents.trim();
-		boardCategory = boardContents.trim();
-		/*session적용 후 바뀔 내용*/
-		String boardWriter = request.getParameter("boardWriter");
-		boardWriter = boardWriter.trim();
+		boardCategory = boardCategory.trim();
+
 		
 		System.out.println("[debug] " + boardTitle + boardContents);
+		
 		BoardBiz bbiz = new BoardBiz();
 		Board notice = new Board(boardWriter, boardTitle, boardContents, boardCategory, boardItemNo);
 		
 		try {
 			bbiz.boardInput(notice);
-			request.getRequestDispatcher("/boardContrller?action=boardList").forward(request, response);;
+			request.getRequestDispatcher("/boardController?action=boardList&boardCategory="+boardCategory).forward(request, response);;
 		} catch (CommonException e) {
 			MessageEntity message = new MessageEntity("error", 13);
 			request.setAttribute("message", message);
@@ -174,4 +181,96 @@ public class FrontBoardServlet extends HttpServlet {
 		}
 	}
 	
+	/**게시글 수정 화면 요청*/
+	private void boardUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 수정 요청");
+		String boardNo = request.getParameter("boardNo");
+		String boardCategory = request.getParameter("boardCategory");
+		boardCategory = boardCategory.trim();
+		boardNo = boardNo.trim();
+		
+		HttpSession session = request.getSession(false);
+		String boardWriter = (String)session.getAttribute("memberId");
+		boardWriter = boardWriter.trim();
+		System.out.println("[debug] " + boardNo + ", " + boardCategory + ", " + boardWriter);
+		
+		BoardBiz bbiz = new BoardBiz();
+		ArrayList<Category> category = new ArrayList<Category>();
+		Board board = new Board();
+		try {
+			bbiz.getCategoryList(category);
+			if(category != null) {
+				bbiz.boardDetail(boardNo, boardCategory, boardWriter, board);
+				if(board.getBoardTitle() != null) {
+					request.setAttribute("category",category );
+					request.setAttribute("board", board);
+					request.getRequestDispatcher("/board/boardUpdate.jsp").forward(request, response);
+				}
+			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 14);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	}
+	
+	/**게시글 수정*/
+	private void boardUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 서블릿 수정 요청");
+		
+		String boardNo = request.getParameter("boardNo");
+		String boardTitle = request.getParameter("boardTitle");
+		String boardCategory = request.getParameter("boardCategory");
+		String boardItemNo = request.getParameter("itemNo");
+		String boardContents = request.getParameter("boardContents");
+	
+		boardNo = boardNo.trim();
+		boardTitle = boardTitle.trim();
+		boardCategory = boardCategory.trim();
+		boardItemNo = boardItemNo.trim();
+		boardContents = boardContents.trim();
+		
+		HttpSession session = request.getSession(false);
+		String boardWriter = (String)session.getAttribute("memberId");
+		boardWriter = boardWriter.trim();
+		
+		System.out.println("[debug] " + boardNo + ", " + boardTitle + ", " + boardContents + ", " + boardCategory + ", " + boardWriter);
+		BoardBiz bbiz = new BoardBiz();
+		Board board = new Board(boardWriter, boardTitle, boardContents, boardCategory, boardItemNo);
+		
+		try {
+			bbiz.boardUpdate(boardNo, board);
+//			response.sendRedirect("/takeit/boardController?action=boardList&boardCategory='"+boardCategory+"'");
+			request.getRequestDispatcher("/boardController?action=boardList&boardCategory="+boardCategory).forward(request, response);
+//			response.sendRedirect("/takeit/index.jsp");
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error",19);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+	}
+	
+	/**게시글 삭제*/
+	private void boardDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 삭제 요청");
+		String boardNo = request.getParameter("boardNo");
+		String boardCategory = request.getParameter("boardCategory");
+		boardNo = boardNo.trim();
+		boardCategory = boardCategory.trim();
+		
+		HttpSession session = request.getSession(false);
+		String boardWriter = (String)session.getAttribute("memberId");
+		boardWriter = boardWriter.trim();
+		
+		BoardBiz bbiz = new BoardBiz();
+		try {
+			bbiz.boardDelete(boardNo, boardWriter, boardCategory);
+			request.getRequestDispatcher("/boardController?action=boardList&boardCategory="+boardCategory).forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error",18);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+	}
 }

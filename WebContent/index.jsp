@@ -12,16 +12,14 @@
 <body>
 로그인세션  확인 : ${memberId }
 <!-- 상단 메뉴 -->
-<c:choose>
-	<c:when test="${empty memberId or empty grade}">
-		<!-- 로그인 전 메뉴 -->
-		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<!-- 로그인 후 메뉴 -->
-		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
-	</c:otherwise>
-</c:choose>
+<c:if test="${empty memberId }">
+	<!-- 로그인 전 메뉴 -->
+	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+</c:if>
+<c:if test="${not empty memberId }">
+	<!-- 로그인 후 메뉴 -->
+	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+</c:if>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->

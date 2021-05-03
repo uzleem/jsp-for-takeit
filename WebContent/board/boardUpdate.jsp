@@ -53,41 +53,48 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <br>
-<h1 style="width:fit-content; margin: 0 auto;">게시글 입력</h1>
+<h1 style="width:fit-content; margin: 0 auto;">게시글 수정</h1>
 <br>
-<form action="/takeit/boardController?action=boardInput" method="post">
+<%
+	Board dto = (Board)request.getAttribute("board");
+%>
+<form action="/takeit/boardController?action=boardUpdate&boardNo=<%= dto.getBoardNo() %>" method="post">
 <table>
 	<tr>
+		<th>글번호</th>
+		<td colspan="3"><%= dto.getBoardNo() %></td>
+	</tr>
+	<tr>
 		<th>글제목</th>
-		<td><input type="text" name="boardTitle" placeholder="제목을 입력하세요.."> </td>
+		<td><input type="text" name="boardTitle" value="<%= dto.getBoardTitle() %>"> </td>
 		<th>카테고리</th>
 		<td>
 			<select id="boardCategory" name="boardCategory">
 		<%
-			ArrayList<Category> categoryList =(ArrayList<Category>)request.getAttribute("category");
-			for(Category dto : categoryList){
+			ArrayList<Category> categoryList = (ArrayList<Category>)request.getAttribute("category");
+			for(Category category : categoryList){
 		%>
-			<option value="<%= dto.getCategoryNo() %>"><%= dto.getCategoryName() %></option>
+			<option value="<%= category.getCategoryNo() %>"><%= category.getCategoryName() %></option>
 		<% } %>
-		</select>
-	</td>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<th>작성자</th>
 		<td><input type="text" name="boardWriter" value="${memberId }" readonly="readonly"></td>
 		<th >상품번호</th>
-		<td><input type="text" id="itemNo" name="itemNo" placeholder="상품번호(예:FR0709)"></td>
+		<td><input type="text" id="itemNo" name="itemNo" value="<%= dto.getBoardItem() %>"></td>
 	</tr>
 	<tr>
 		<th colspan="4">내용</th>
 	</tr>
 	<tr>
 		<td colspan="4">
-			<textarea rows="30" cols="100" name="boardContents" placeholder="내용을 입력하세요.."></textarea>
+			<textarea rows="30" cols="100" name="boardContents"> <%= dto.getBoardContents() %> </textarea>
 		</td>
 	</tr>
 </table>
-<input type="submit" value="등록" class="link">
+<input type="submit" value="변경" class="link">
 </form>
 <div id="cancle" class="link">취소</div>
 </body>
