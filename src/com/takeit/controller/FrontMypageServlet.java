@@ -1,6 +1,7 @@
 package com.takeit.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.MypageBiz;
+import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
@@ -65,6 +67,9 @@ public class FrontMypageServlet extends HttpServlet {
 		case "setSellerPw":
 			setSellerPw(request,response);
 			break;
+		case "itemaddForm":
+			itemaddForm(request,response);
+			break;
 		}
 	}
 	
@@ -77,6 +82,89 @@ public class FrontMypageServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
 	}
+	
+	
+	//상품 등록 폼
+	protected void itemaddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("카테고리 리스트 요청 서블릿");
+		
+		HttpSession session = request.getSession();
+		
+		MessageEntity message = null;
+		
+		
+		
+		ArrayList<Item> categoryList = new ArrayList<Item>();
+		MypageBiz biz = new MypageBiz();
+		ArrayList<Item> packTypeList = new ArrayList<Item>();
+		
+		
+		try {
+			biz.getCategoryList(categoryList);
+			biz.getpackTypeList(packTypeList);
+			
+			System.out.println(categoryList);
+			System.out.println(packTypeList);
+			
+			session.getAttribute("seller");
+			session.setAttribute("categoryList", categoryList);
+			session.setAttribute("packTypeList", packTypeList);
+			request.getRequestDispatcher("/member/itemadd.jsp").forward(request, response);
+		}catch (CommonException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			
+		}
+	}
+	
+//	//상품 등록
+//	protected void itemadd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		System.out.println("상품 등록 요청 폼");
+//		
+////		HttpSession session = request.getSession();
+//		
+//		MessageEntity message = null;
+//		
+//		String sellerId = "seller01";
+//		
+//		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+//
+//
+//			message = new MessageEntity("validation",0);
+//			message.setLinkTitle("마이페이지로 이동");
+//			message.setUrl("/takeit/member/myPage.jsp");
+//			
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
+//			return;
+//		}
+//		
+//		sellerId = sellerId.trim();
+//		
+//		MypageBiz biz = new MypageBiz();
+//		
+//		Member dto = new Member();
+//		
+//		
+//		
+//		try {
+//			biz.memberDetail(dto);
+//			session.setAttribute("member", dto);
+//			request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
+//		}catch (CommonException e) {
+//			System.out.println(e.getMessage());
+//			e.printStackTrace();
+//			message = e.getMessageEntity();
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
+//			
+//		}
+//	}
+	
+	
 	
 	
 	/**
@@ -116,7 +204,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		
 		try {
-			biz.getMember(dto);
+			biz.memberDetail(dto);
 			session.setAttribute("member", dto);
 			request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
 		}catch (CommonException e) {
@@ -168,7 +256,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		
 		try {
-			biz.getSeller(dto);	
+			biz.sellerDetail(dto);	
 			session.setAttribute("seller", dto);
 			request.getRequestDispatcher("/member/sellerInfo.jsp").forward(request, response);
 		}catch (CommonException e) {
@@ -328,7 +416,7 @@ public class FrontMypageServlet extends HttpServlet {
 		dto.setBirth(birth);
 		
 		try {
-			biz.setMember(dto);
+			biz.memberInfoUpdate(dto);
 			
 			if(session != null) {
 				if(session.getAttribute("member") != null) {
@@ -561,7 +649,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		try {
 			
-			biz.setSeller(dto);
+			biz.sellerInfoUpdate(dto);
 			
 			request.setAttribute("dto", dto);
 			if(session.getAttribute("seller") != null) {

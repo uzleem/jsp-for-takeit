@@ -145,7 +145,7 @@
 				<tr>
 					<th>상점구역코드</th>	
 					<td>
-						<input type="text" id="shopLocCode" name="shopLocCode" value="${seller.shopLocCode}" readonly="readonly">
+						<input type="text" id="shopLocCode" name="shopLocCode" readonly="readonly">
 					</td>	
 				</tr>
 				<tr>
