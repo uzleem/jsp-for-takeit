@@ -5,7 +5,7 @@
 	<div id="navi">
 		<a href="#" id="category-wrap">전체카테고리</a>
 		<span id="pipe">|</span>
-		<a href="#">신상품</a>
+		<a href="/takeit/item/itemController?action=itemList">신상품</a>
 		<span id="pipe">|</span>
 		<a href="#">베스트</a>
 		<span id="pipe">|</span>

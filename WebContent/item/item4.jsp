@@ -37,7 +37,7 @@
 					<h2>[매그넘]부드러운 클래식라인 아이스크림 바 3종 (4입팩)</h2>
 					<div>
 						<span style="color: red"> 3,271원</span> <span> (59%할인) </span>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <span>
+						&emsp;&emsp;&emsp; <span>
 							소비자 권장소매가: </span> <span>7,980원</span>
 					</div>
 					<hr class="line1">

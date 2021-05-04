@@ -200,10 +200,10 @@ public class FrontReviewServlet extends HttpServlet {
 			rbiz.enrollReview(dto);
 
 			MessageEntity message = new MessageEntity("success", 12);
-			message.setUrl("takeit/review/review.jsp");
+			message.setUrl("takeit/review/reviewList.jsp");
 			message.setLinkTitle("후기등록");
 			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.getRequestDispatcher("/takeit/message.jsp").forward(request, response);
 		} catch (CommonException e) {
 			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();

@@ -38,7 +38,7 @@
 					<h1>[미자언니네]프리미엄 맛간장</h1>
 					<div>
 						<span style="color: red"> 12,000원 </span> <span> (0%할인) </span>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <span>
+						&emsp;&emsp;&emsp; <span>
 							소비자 권장소매가: </span> <span>12,000원 </span>
 					</div>
 					<hr class="line1">

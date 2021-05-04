@@ -38,7 +38,7 @@
 					<h1>[일상味소]불고기 200g(냉장)</h1>
 					<div>
 						<span style="color: red"> 5,525원 </span> <span> (35%할인) </span>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span> 소비자
+						&emsp;&emsp;&emsp; <span> 소비자
 							권장소매가: </span> <span> 8,500원 </span>
 					</div>
 					<hr class="line1">
