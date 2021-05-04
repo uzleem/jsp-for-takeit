@@ -102,7 +102,7 @@ public class FrontItemServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/takeit/message.jsp");
 		
 		if (itemCategoryName == null || itemCategoryName.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 0);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 			messageEntity.setLinkTitle("상품등록");
 			messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 			request.setAttribute("messageEntity", messageEntity);
@@ -112,7 +112,7 @@ public class FrontItemServlet extends HttpServlet {
 
 		
 		if (sellerId == null || sellerId.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 1);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 			messageEntity.setLinkTitle("상품등록");
 			messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 			request.setAttribute("messageEntity", messageEntity);
@@ -122,7 +122,7 @@ public class FrontItemServlet extends HttpServlet {
 
 		
 		if (itemName == null || itemName.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 1);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 			messageEntity.setLinkTitle("상품등록");
 			messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 			request.setAttribute("messageEntity", messageEntity);
@@ -131,7 +131,7 @@ public class FrontItemServlet extends HttpServlet {
 		} 
 		
 		if (itemPrice == null || itemPrice.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 1);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 			messageEntity.setLinkTitle("상품등록");
 			messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 			request.setAttribute("messageEntity", messageEntity);
@@ -140,7 +140,7 @@ public class FrontItemServlet extends HttpServlet {
 		} 
 		
 		if (itemOrigin == null || itemOrigin.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 1);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 			messageEntity.setLinkTitle("상품등록");
 			messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 			request.setAttribute("messageEntity", messageEntity);
@@ -149,7 +149,7 @@ public class FrontItemServlet extends HttpServlet {
 	        
 		}
 	  		if (itemStock == null || itemStock.trim().length() == 0) {
-			MessageEntity messageEntity = new MessageEntity("", 1);
+			MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -158,7 +158,7 @@ public class FrontItemServlet extends HttpServlet {
 	          
 	  		}
 	  		if (itemImg == null ) {
-				MessageEntity messageEntity = new MessageEntity("", 1);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 					messageEntity.setLinkTitle("상품등록");
 					messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 					request.setAttribute("messageEntity", messageEntity);
@@ -166,7 +166,7 @@ public class FrontItemServlet extends HttpServlet {
 					return;
 	  		} 
 			if (itemTakeIt == null || itemTakeIt.trim().length() == 0) {
-				MessageEntity messageEntity = new MessageEntity("", 0);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -174,7 +174,7 @@ public class FrontItemServlet extends HttpServlet {
 				return;
 			}	
 			if (packTypeName == null || packTypeName.trim().length() == 0) {
-				MessageEntity messageEntity = new MessageEntity("", 0);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -182,7 +182,7 @@ public class FrontItemServlet extends HttpServlet {
 				return;
 			}    
 			if (expirationDate == null || expirationDate.trim().length() == 0) {
-				MessageEntity messageEntity = new MessageEntity("", 0);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -190,7 +190,7 @@ public class FrontItemServlet extends HttpServlet {
 				return;
 			}    
 			if (notice == null || notice.trim().length() == 0) {
-				MessageEntity messageEntity = new MessageEntity("", 0);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -198,7 +198,7 @@ public class FrontItemServlet extends HttpServlet {
 				return;
 			}    
 			if (freshPercent == null || freshPercent.trim().length() == 0) {
-				MessageEntity messageEntity = new MessageEntity("", 0);
+				MessageEntity messageEntity = new MessageEntity("validation", 6);
 				messageEntity.setLinkTitle("상품등록");
 				messageEntity.setUrl(CONTEXT_PATH + "/item/itemEnrollForm");
 				request.setAttribute("messageEntity", messageEntity);
@@ -255,15 +255,31 @@ public class FrontItemServlet extends HttpServlet {
 				biz.getItemList(itemList);
 				if(itemList != null) {
 					request.setAttribute("itemList",itemList);
-					request.getRequestDispatcher("/item/itemList.jsp").forward(request, response);
+					request.getRequestDispatcher("/item/newItem.jsp").forward(request, response);
 				}
 			} catch (CommonException e) {
-				MessageEntity message = new MessageEntity("error", 13);
+				MessageEntity message = new MessageEntity("error", 24);
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
 		
 }
+//		
+//		
+//		protected void itemList1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//			ArrayList<Item> itemList = new ArrayList<Item>();
+//			ItemBiz biz = new ItemBiz();
+//			try {
+//				biz.getItemList(itemList);
+//			} catch (CommonException e) {
+//				e.printStackTrace();
+//			}
+//			request.setAttribute("itemList", itemList);
+//			request.getRequestDispatcher("/takeit/item/itemList.jsp").forward(request, response);
+//		}		
+	
+
 		/**
 		 * 상품삭제
 		 * @param conn
