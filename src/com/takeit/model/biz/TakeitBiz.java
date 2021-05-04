@@ -4,23 +4,53 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Member;
+import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.ShopLoc;
+import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
 import com.takeit.util.Utility;
 
 public class TakeitBiz {
 	
 	/**
+	 * @param takeitPrice 
+	 * @param shopLocCode 
+	 * @throws CommonException 
 	 * 
 	 */
-	public void addTakeit() {
+	public void addTakeit(Takeit takeit) throws CommonException {
 		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
 		
-		//dao.insertTakeit();
+		boolean result = existTakeit(takeit.getShopLocCode());
+		
+		if (result) {
+			System.out.println("이미 등록되어있습니다");
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		}
+		
+		dao.insertTakeit(conn, takeit);
+		JdbcTemplate.close(conn);
 			
+	}
+	
+	public boolean existTakeit(String shopLocCode) {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		int row = dao.searchExistTakeit(conn, shopLocCode);
+		JdbcTemplate.close(conn);
+		
+		if( row == 1) {
+			
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -126,5 +156,71 @@ public class TakeitBiz {
 		}
 		
 		JdbcTemplate.close(conn);
+	}
+	
+	public void addShopLoc(String address, ShopLoc shopLoc) throws CommonException {
+		HashMap<String, String> latLng = new HashMap<String, String>();
+		latLng = Utility.getLatlng(address);
+		
+		String _lat = latLng.get("lat");
+		String _lng = latLng.get("lng");
+		
+		if ( _lat == null || _lng == null) { 
+			System.out.println("주소가 잘못되었습니다");
+			return ;
+		}
+		Double lat = Double.valueOf(_lat);
+		Double lng = Double.valueOf(_lng);
+		
+		System.out.println("[debug] 위도 :" + lat);
+		System.out.println("[debug] 경도 :" + lng);
+		
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		ArrayList<ShopLoc> shopLocList = new ArrayList<ShopLoc>();
+		dao.searchShopLocList(conn, shopLocList);
+		JdbcTemplate.close(conn);
+		
+		double locLat = 0;
+		double locLng = 0;
+		
+		for (ShopLoc shopLocaion : shopLocList) {
+			Double shopLat = Double.valueOf(shopLocaion.getShopLocLat());
+			Double shopLng = Double.valueOf(shopLocaion.getShopLocLng());
+			System.out.println("[debug]상점위도 :" + shopLat);
+			System.out.println("[debug]상점경도 :" + shopLng);
+			
+			locLat = shopLat-lat;
+			locLng = shopLng-lng;
+			
+			//지역에 포함된다면
+			if (Math.abs(locLat) <= 0.05 && Math.abs(locLng) <= 0.05) {
+				throw new CommonException();
+			}
+		}
+		shopLoc.setShopLocLat(_lat);
+		shopLoc.setShopLocLng(_lng);
+		
+		conn = JdbcTemplate.getConnection();
+		try {
+			dao.addShopLoc(conn, shopLoc);
+			dao.addMemberLoc(conn, shopLoc);
+			
+			JdbcTemplate.commit(conn);
+		} catch(CommonException e) {
+			JdbcTemplate.rollback(conn);
+			throw e;
+		} finally {
+			
+			JdbcTemplate.close(conn);
+		}
+	}
+
+	public void getShopLocList(ArrayList<ShopLoc> shopLocList) {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+
+		dao.searchShopLocList(conn, shopLocList);
 	}
 }

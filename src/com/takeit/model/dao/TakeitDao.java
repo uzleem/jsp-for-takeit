@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Member;
+import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.ShopLoc;
+import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
 
 public class TakeitDao {
@@ -209,6 +212,114 @@ public class TakeitDao {
 			JdbcTemplate.close(stmt);
 		}	
 	}
-
 	
+	public void addMemberLoc(Connection conn, ShopLoc shopLoc) throws CommonException {
+		String sql = 
+				"BEGIN "
+				+ "FOR i IN 0 .. 99 LOOP "
+				+ "INSERT INTO MEMBER_LOC VALUES (i, ?, ?||'-'||i); "
+				+ "END LOOP; "
+				+ "END; ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shopLoc.getShopLocCode());
+			stmt.setString(2, shopLoc.getShopLocCode());
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}
+	}
+
+	public void addShopLoc(Connection conn, ShopLoc shopLoc) throws CommonException {
+		String sql = 
+				"INSERT INTO SHOP_LOC VALUES(?,?,?,?) ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shopLoc.getShopLocCode());
+			stmt.setString(2, shopLoc.getShopLocName());
+			stmt.setString(3, shopLoc.getShopLocLat());
+			stmt.setString(4, shopLoc.getShopLocLng());
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
+
+	public int searchExistTakeit(Connection conn, String shopLocCode) {
+		String sql = 
+				"SELECT 1 "
+				+ "FROM TAKEIT "
+				+ "WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "; 
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shopLocCode);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+		return 0;
+	}
+	
+	public void insertTakeit(Connection conn, Takeit takeit) {
+		String sql = 
+				"BEGIN "
+				+ "FOR i IN 0 .. 99 LOOP "
+				+ "INSERT INTO TAKEIT "
+				+ "VALUES ('TAKE' || TO_CHAR(SYSDATE,'YYYYMMDD') || LPAD(TAKEIT_SEQ.NEXTVAL, 6, '0') "
+				+ ", ?, 0, SYSDATE, 0.0, 'T', i, ?); "
+				+ "END LOOP; "
+				+ "END; ";
+		
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeit.getTakeitPrice());
+			stmt.setString(2, takeit.getTakeitPrice());
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			//throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}
+	}	
 }

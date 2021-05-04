@@ -1,17 +1,21 @@
 package com.takeit.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.takeit.common.CommonException;
 import com.takeit.model.biz.TakeitBiz;
 import com.takeit.model.dto.Member;
+import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.ShopLoc;
+import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
 
 /**
@@ -20,7 +24,15 @@ import com.takeit.model.dto.TakeitItem;
 @WebServlet("/takeit/takeitController")
 public class FrontTakeitController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	public ServletContext application;
+	public String CONTEXT_PATH;
+	
+	public void init() {
+		application = getServletContext();
+		CONTEXT_PATH = application.getContextPath();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
@@ -40,10 +52,72 @@ public class FrontTakeitController extends HttpServlet {
 		case "takeitItemDetail":
 			takeitItemDetail(request, response);
 			break;
+		case "shopLocInputForm":
+			shopLocInputForm(request, response);
+			break;
+		case "shopLocInput":
+			shopLocInput(request, response);
+			break;
+		case "takeitInputForm":
+			takeitInputForm(request, response);
+			break;
+		case "takeitInput":
+			takeitInput(request, response);
+			break;
+			
 		case "test":
 			test(request, response);
 			break;
 		}
+	}
+	protected void takeitInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String shopLocCode = request.getParameter("shopLocCode");
+		String takeitPrice = request.getParameter("takeitPrice");
+		
+		Takeit dto = new Takeit();
+		dto.setShopLocCode(shopLocCode);
+		dto.setTakeitPrice(takeitPrice);
+		TakeitBiz biz = new TakeitBiz();
+		
+		//biz.addTakeit(dto);
+		
+	}
+	
+	protected void takeitInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		TakeitBiz biz = new TakeitBiz();
+		
+		ArrayList<ShopLoc> shopLocList = new ArrayList<ShopLoc>();
+		
+		biz.getShopLocList(shopLocList);
+		
+		request.setAttribute("shopLocList", shopLocList);
+		request.getRequestDispatcher("/takeit/takeitInput.jsp").forward(request, response);
+		
+	}
+	
+	protected void shopLocInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String address = request.getParameter("address");
+		String shopLocCode = request.getParameter("shopLocCode");
+		String shopLocName = request.getParameter("shopLocName");
+		
+		System.out.println("[debug]shopLocName:"+shopLocName);
+		ShopLoc shopLoc = new ShopLoc();
+		shopLoc.setShopLocCode(shopLocCode);
+		shopLoc.setShopLocName(shopLocName);
+		
+		TakeitBiz biz = new TakeitBiz();
+		try {
+			biz.addShopLoc(address, shopLoc);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("");
+			message.setUrl("");
+		}
+		
+	}
+	protected void shopLocInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/takeit/shopLocInput.jsp").forward(request, response);
 	}
 	
 	protected void test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
