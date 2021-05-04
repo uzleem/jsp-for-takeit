@@ -100,14 +100,17 @@ public class FrontCartServlet extends HttpServlet {
 		protected void addCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("[dubug]장바구니 등록 요청");
 			HttpSession session  = request.getSession(false);
+
 			if(session.getAttribute("memberId") == null) {
 				MessageEntity message = new MessageEntity("message" , 0);
+
 				message.setLinkTitle("로그인");
 				message.setUrl("/takeit/member/memberLogin.jsp");
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				return;
 			}
+
 			String memberId = (String)session.getAttribute("memberId");
 			String itemNo = request.getParameter("itemNo");
 			int cartItemQty = Integer.parseInt(request.getParameter("cart-itemQty"));
@@ -123,12 +126,14 @@ public class FrontCartServlet extends HttpServlet {
 			try {
 				cbiz.addCart(cart);
 				cbiz.getCartList(memberId, cartList);
+
 				session.setAttribute("cartList", cartList);
 				request.getRequestDispatcher("/item/cartList.jsp").forward(request, response);
 			} catch (CommonException e) {
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
 		}
+
 
 		/**장바구니 삭제*/
 		protected void removeCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -162,5 +167,6 @@ public class FrontCartServlet extends HttpServlet {
 			}
 			
 		}
+
 
 }

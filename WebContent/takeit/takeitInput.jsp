@@ -11,7 +11,7 @@
 <h3>잇거래 등록</h3>
 
 
-<form action="${CONTEXT_PATH}/takeit/takeitInput" method="post">
+<form action="${CONTEXT_PATH}/takeit/takeitController?action=takeitInput" method="post">
 	<table>
 		<td>상점구역선택</td>
 		<td>
