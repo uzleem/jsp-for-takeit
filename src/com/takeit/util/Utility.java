@@ -27,9 +27,7 @@ import org.json.simple.parser.ParseException;
 public class Utility {
 
 	/**
-	 * 
-	 * @param address
-	 * @return Map 
+	 * argument로 전달받은 주소의 위도, 경도를 반환
 	 */
 	public static HashMap<String, String> getLatlng(String address) {
 		/** 클라이언트 아이디*/
@@ -119,7 +117,7 @@ public class Utility {
 	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
 	 */
 	public static String getCurrentDate() {
-		return getCurrentDate("yyyy.MM.dd HH:mm:ss", Locale.KOREA);
+		return getCurrentDate("yyyy/MM/dd HH:mm:ss", Locale.KOREA);
 	}
 	
 	public static String getCurrentDate(String pattern) {
@@ -128,6 +126,18 @@ public class Utility {
 	
 	public static String getCurrentDate(String pattern, Locale locale) {
 		return new SimpleDateFormat(pattern, locale).format(new Date());
+	}
+	
+	public static Date convertStringToDate(String date) throws java.text.ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return new Date(format.parse(date).getTime());
+	}
+	
+	public static int getDayBetweenAandB(Date firstDdate, Date secondDate) {
+		long calDate = firstDdate.getTime() - secondDate.getTime(); 
+		int calDateDays = (int)Math.abs(calDate);
+
+		return calDateDays;
 	}
 	
 	/**

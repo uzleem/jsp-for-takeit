@@ -29,7 +29,56 @@ function getTakeitTime() {
 		takeitTimeElement.innerHTML = d1 + "일 "+ h1+"시간 "+m1+"분 "+s1 + "초"
 	}
 }
+
+function getTakeitExpDate() {
+	var inputDate = new Date("${takeitItem.itemInputDate}");
+	console.log("inputDate = " + inputDate);
+	var expDate = document.getElementById("takeitExpDate").dataset.takeitexpdate;
+	
+	console.log("expDate = " +expDate);
+	var experDate = new Date(inputDate.setDate(inputDate.getDate() + parseInt(expDate)));
+	
+	var year = experDate.getFullYear();
+	var month = experDate.getMonth() + 1;
+	month = month < 10 ? "0" + month : month;
+	var day =  experDate.getDate();
+	day = day < 10 ? "0" + day : day;
+	
+	var html = year +"-" + month + "-" + day
+	document.getElementById("takeitExpDate").innerHTML = html;
+}
+
+function getTakeitFresh() {
+	var expDateElement = document.getElementById("takeitExpDate");
+	var expDate = expDateElement.dataset.takeitexpdate;
+	var inputDate = new Date("${takeitItem.itemInputDate}");
+	var date = new Date();
+	
+	console.log(date);
+	console.log(inputDate);
+	var result = date - inputDate;
+	var day = parseInt(result / 86400000);
+	
+	
+	
+	var freshPercent = parseInt((expDate - day) / expDate * 100);
+	if (freshPercent > 80) {
+		$("#takeitFresh").css("color","green");
+	} else if (freshPercent > 50) {
+		$("#takeitFresh").css("color","blue");
+	} else {
+		$("#takeitFresh").css("color","red");
+	}
+	if (freshPercent < 0) {
+		freshPercent = 0;
+	}
+	
+	document.getElementById("takeitFresh").innerHTML = "신선도 " + freshPercent + "%";
+}
+
 $(document).ready(function (){
+	getTakeitFresh();
+	getTakeitExpDate();
 	getTakeitTime();
 	setInterval(getTakeitTime, 1000);
 	
@@ -61,6 +110,7 @@ $(document).ready(function (){
 	<div class="takeit_item-content takeit_detail_wrap">
 		<div class="takeitImg-wrap" >
 			<img id="takeitImg" style="width:330px; height: 400px; " src="/takeit/img/item/${takeitItem.itemImg}">
+			
 		</div>
 		<div class="desc takeit_detail_wrap">
 			<fmt:formatNumber var="itemPrice" value="${takeitItem.itemPrice}" type="number"/>
@@ -70,7 +120,7 @@ $(document).ready(function (){
 			<fmt:formatNumber var="itemDiscRate" value="${takeitItem.discRate / 100}" type="percent"/>
 			<fmt:formatNumber var="takeitDisc" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100) - intPrice*1000 }" type="number"/>
 			<ul class="takeit_info">
-				<h2>${takeitItem.itemName}</h2>
+				<h2>${takeitItem.itemName} (<span id="takeitFresh" data-takeitexpdate="${takeitItem.freshPercent}"></span>)</h2>
 				<li style="list-style: none">
 					<span style="color: grey; text-decoration: line-through;">${itemPrice}원</span>
 					<span style="color: black; font-weight: 700;">${discPrice}원</span>
@@ -82,11 +132,11 @@ $(document).ready(function (){
 				<span class="it_info"><b>남은시간</b>&emsp;<span class="takeitTime takeit-detailTime blink" data-takeittime="${takeitItem.takeitDate}"></span></span><br>
 				<span class="it_info"><b>원산지</b>&emsp;&emsp;${takeitItem.itemOrigin}</span><br>
 				<span class="it_info"><b>포장타입</b>&emsp;${takeitItem.packTypeName}</span><br>
-				<span class="it_info"><b>판매자</b>&emsp;&emsp;[Item 도메인에 sellerName, shopName 추가할것]</span><br>
+				<span class="it_info"><b>판매자</b>&emsp;&emsp;${takeitItem.shopName}(${takeitItem.sellerName})</span><br>
 				<span class="it_info"><b>고객평점</b>&emsp;${takeitItem.itemCustScore}</span><br>
-				<span class="it_info"><b>유통기한</b>&emsp;${takeitItem.expirationDate}</span><br>
-				<span class="it_info"><b>등록일자</b>&emsp;${takeitItem.itemInputDate}</span><br>
-				<span class="it_info"><b>구역번호</b>&emsp;<span style="font-weight: 600;">${takeitItem.shopLocCode}-${takeitItem.memberLocNo }</span> ([구역이름을 takeitItem 도메인에 추가하기])</span><br>
+				<span class="it_info"><b>유통기한</b>&emsp;<span id="takeitExpDate" data-takeitexpdate="${takeitItem.expirationDate}"></span> 이내</span><br>
+				<span class="it_info"><b>등록일자</b>&emsp;${(takeitItem.itemInputDate).substring(0,10)}</span><br>
+				<span class="it_info"><b>구역번호</b>&emsp;<span style="font-weight: 600;">${takeitItem.shopLocCode}-${takeitItem.memberLocNo }</span></span><br>
 				<fmt:formatNumber var="takeitRate" type="percent" value="${takeitItem.takeitCurrPrice/takeitItem.takeitPrice}" />
 				<fmt:formatNumber var="takeitCurrPrice" type="number" value="${takeitItem.takeitCurrPrice}" />
 				<fmt:formatNumber var="takeitPrice" type="number" value="${takeitItem.takeitPrice}" />

@@ -33,10 +33,14 @@ public class TakeitBiz {
 			MessageEntity message = new MessageEntity("error", 11);
 			throw new CommonException(message);
 		}
-		
-		dao.insertTakeit(conn, takeit);
-		JdbcTemplate.close(conn);
-			
+		try {
+			dao.insertTakeit(conn, takeit);
+			JdbcTemplate.commit(conn);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
+		} finally {
+			JdbcTemplate.close(conn);
+		}
 	}
 	
 	public boolean existTakeit(String shopLocCode) {
@@ -47,7 +51,6 @@ public class TakeitBiz {
 		JdbcTemplate.close(conn);
 		
 		if( row == 1) {
-			
 			return true;
 		}
 		return false;
@@ -74,13 +77,19 @@ public class TakeitBiz {
 	 * 상품번호를 받아와서 조회후 
 	 * 
 	 * 필요한것 : 잇거래여부, 판매자 위치, 
+	 * @throws CommonException 
 	 * 
 	 */
-	public void getTakeitItem(TakeitItem takeitItem) {
+	public void getTakeitItem(TakeitItem takeitItem) throws CommonException {
 		TakeitDao dao = TakeitDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
-		dao.searchTakeitItem(conn, takeitItem);
+		try {
+			dao.searchTakeitItem(conn, takeitItem);
+		} catch (CommonException e) {
+			throw e;
+		}
+
 		
 		JdbcTemplate.close(conn);
 	}

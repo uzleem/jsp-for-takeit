@@ -64,7 +64,6 @@ public class FrontTakeitController extends HttpServlet {
 		case "takeitInput":
 			takeitInput(request, response);
 			break;
-			
 		case "test":
 			test(request, response);
 			break;
@@ -79,8 +78,11 @@ public class FrontTakeitController extends HttpServlet {
 		dto.setTakeitPrice(takeitPrice);
 		TakeitBiz biz = new TakeitBiz();
 		
-		//biz.addTakeit(dto);
-		
+		try { 
+			biz.addTakeit(dto);
+		} catch (Exception e) {
+			System.out.println("Takeit 등록 실패");
+		}
 	}
 	
 	protected void takeitInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -135,11 +137,15 @@ public class FrontTakeitController extends HttpServlet {
 		
 		TakeitItem takeitItem = new TakeitItem();
 		takeitItem.setItemNo(itemNo);
+		try {
+			biz.getTakeitItem(takeitItem);
+			
+			request.setAttribute("takeitItem", takeitItem);
+			request.getRequestDispatcher("/takeit/takeitItemDetail.jsp").forward(request, response);
+		} catch (CommonException e) {
+			e.printStackTrace();
+		}
 		
-		biz.getTakeitItem(takeitItem);
-		
-		request.setAttribute("takeitItem", takeitItem);
-		request.getRequestDispatcher("/takeit/takeitItemDetail.jsp").forward(request, response);
 		
 	}
 	
@@ -160,9 +166,10 @@ public class FrontTakeitController extends HttpServlet {
 	protected void takeitItemList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//그렇다면, 셀러일때는 어떻게해야하나?
 		//세션으로 받아온 유저아이디, 구역번호, 상점구역번호  // 구역번호 상점번호 디폴트값 :필요할듯!
-		String memberId = "user01";
-		String memberLocNo = "29";
-		String shopLocCode = "AA";
+		
+		String memberId = "user01"; // 세션으로 받아오기!
+		String memberLocNo = "29";  //세션으로 받아오기!
+		String shopLocCode = "AA";  //세션으로 받아오기
 
 		Member member = new Member();
 		

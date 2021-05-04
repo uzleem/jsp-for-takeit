@@ -3,7 +3,9 @@ package com.takeit.model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
@@ -12,6 +14,7 @@ import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.ShopLoc;
 import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
+import com.takeit.util.Utility;
 
 public class TakeitDao {
 	private static TakeitDao instance = new TakeitDao();
@@ -80,7 +83,7 @@ public class TakeitDao {
 		}		
 	}
 
-	public void searchTakeitItem(Connection conn, TakeitItem takeitItem) {
+	public void searchTakeitItem(Connection conn, TakeitItem takeitItem) throws CommonException {
 		String sql = 
 				"SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
@@ -114,7 +117,11 @@ public class TakeitDao {
 				takeitItem.setItemImg(rs.getString("item_Img"));
 				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
+				
 				takeitItem.setDiscRate(rs.getInt("disc_Rate")); //int
+				//int expDate = Utility.getDayBetweenAandB(Utility.convertStringToDate(Utility.getCurrentDate()), Utility.convertStringToDate(rs.getString("item_input_date")));
+				//System.out.println(expDate);
+				//takeitItem.setDiscRate();
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
 				//잇거래
 				takeitItem.setTakeitNo(rs.getString("takeit_No"));
@@ -131,6 +138,8 @@ public class TakeitDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -292,7 +301,7 @@ public class TakeitDao {
 		return 0;
 	}
 	
-	public void insertTakeit(Connection conn, Takeit takeit) {
+	public void insertTakeit(Connection conn, Takeit takeit) throws CommonException {
 		String sql = 
 				"BEGIN "
 				+ "FOR i IN 0 .. 99 LOOP "
@@ -307,17 +316,14 @@ public class TakeitDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, takeit.getTakeitPrice());
-			stmt.setString(2, takeit.getTakeitPrice());
+			stmt.setString(2, takeit.getShopLocCode());
 			
 			int row = stmt.executeUpdate();
-			if (row == 0) {
-				throw new Exception();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 			MessageEntity message = new MessageEntity("error", 11);
-			//throw new CommonException(message);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}
