@@ -28,7 +28,6 @@
 }
 #top-menu, #navi{
 	text-align: right;
-	margin-right: 10px; 
 }
 
 #top-menu>a, #navi>a {
@@ -53,35 +52,36 @@
 }
 
 /*search*/
+#search-wrap{
+	width: fit-content;
+	
+}
 #mainSearch{
 	height: 36px;
-	width: 150px;
 	color: #4c4c4c;
     font-size: 12px;
-    background-color: #f7f7f7;
+    background-color: white;
     display: flex;
     justify-content: center;
     border-radius: 7px;
 }
 #searchInput {
-	width: 238px;
+	width: 210px;
     height: 36px;
-    padding: 0 50px 0 20px;
     border: 1px solid #f7f7f6;
-    background-color: #f7f7f7;
-    font-family: 'Noto Sans';
+    background-color: white;
     font-weight: 400;
     font-size: 12px;
     color: #666;
     line-height: 16px;
     outline: none;
 }
-#search-btn {
-	background-color: #f7f7f7;
+#search-btn-wrap {
+	background-color: white;
 	border: 0;
 	height: 36px;
 }
-#search-btn img{
+#search-btn{
 	width: 30px;
 	height: 30px;
 	cursor: pointer;

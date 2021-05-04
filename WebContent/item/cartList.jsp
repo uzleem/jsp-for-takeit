@@ -47,15 +47,17 @@
 			<b>판매자</b>&emsp;
 			<span id="cart-itemSeller"><%= cart.getSellerName() %></span><br>
 			<b>배송비</b>&emsp;
-			<span id="cart-shippingFee">3500원</span><br>
+			<span id="cart-shippingFee">3,500원</span><br>
 			<b>판매가</b>&emsp;
-			<span id="cart-itemPrice"><%= cart.getItemPrice()  %>원</span><br>
+			<span id="cart-itemPrice"><fmt:formatNumber value="<%= cart.getItemPrice()  %>" pattern="###,###"/>원</span><br>
 			<b>수량</b>&emsp;&emsp;
 			<span id="cart-itemQty"><%= cart.getCartItemQty() %></span><br>
 		</div>
 		<div id="cart-btn-wrap">
 			<div>
-				<b>결제금액</b>&emsp;<span id="cart-totPrice">&#8361;<%= cart.getTotalPrice()+3500 %></span>
+				<b>결제금액</b>&emsp;<span id="cart-totPrice">
+				&#8361;<fmt:formatNumber value="<%= cart.getTotalPrice()+3500 %>" pattern="###,###"/>
+				</span>
 			</div><br>
 			<form action="#">
 				<input type="submit" value="구매" class="small-btn">

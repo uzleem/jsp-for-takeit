@@ -13,12 +13,12 @@
 		<span id="pipe">|</span>
 		<a href="/takeit/boardController?action=boardList&boardCategory=1">공지사항</a>
 	</div>
-	<form action="#" id="mainSearch">
+	<div id="search-wrap">
+	<form action="/takeit/searchController?searchList" id="mainSearch">
 		<input type="text" id="searchInput" name="searchInput"  placeholder="검색어를 입력하세요..">
-		<button id="search-btn" name="search-btn">
-		<img alt="검색" src="/takeit/img/icon/ico_search_x2.png">
-		</button>
+		<button type="submit" id="search-btn-wrap"><img id="search-btn" alt="검색" src="/takeit/img/icon/ico_search_x2.png"></button>
 	</form>
+	</div>
 </div>
 <div id="drop-menu">
 	<ul class="sub-nav">
