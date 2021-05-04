@@ -1,3 +1,4 @@
+<%@page import="com.takeit.model.dto.TakeitItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib_menu.jsp" %>
@@ -8,6 +9,7 @@
 <title>잇거래 상품 상세조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/takeit.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/cart.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
 function getTakeitTime() {
@@ -30,7 +32,14 @@ function getTakeitTime() {
 $(document).ready(function (){
 	getTakeitTime();
 	setInterval(getTakeitTime, 1000);
+	
+	$("#addCart-area").hide();
+	
+	$("#addCart").on("click",function(){
+		$("#addCart-area").slideToggle(300);
+	});
 });
+
 </script>
 </head>
 <!-- 상단 메뉴 -->
@@ -86,10 +95,40 @@ $(document).ready(function (){
 		</div>
 	</div>
 	<div class="btn-area">
-	<input type="button" class="link"  style="display: inline-block;" value="장바구니"/>
+	<input type="button" class="link" id="addCart"  style="display: inline-block;" value="장바구니"/>
+	<form action="#" method="post" style="display: inline-block;">
 	<input type="button" class="link" style="display: inline-block;" value="구매"/>
+	</form>
 	</div>
-</div>	
+	<!-- 장바구니 등록 -->
+	<div id="addCart-area">
+	<%-- <form action="/takeit/cartController?action=addCart&itemNo=${takeitItem.itemNo }" method="post"> --%>
+	<form action="/takeit/cartController?action=addCart" method="post">
+	<br><hr>
+		<div id="addCart-info">
+			<div id="cart-info">
+				<span id="cart-itemName"><b>상품명</b>&emsp;${takeitItem.itemName }</span><br>
+				<span id="cart-itemSeller"><b>판매자</b>&emsp;${takeitItem.sellerName }</span><br>
+				<span id="cart-shippingFee"><b>배송비</b>&emsp;3500원</span><br>
+				<b>수량</b>&emsp;&emsp;&emsp;
+				<select id="cart-itemQty" name="cart-itemQty">
+				<%
+					for(int i=1; i<20; i++){
+				%>
+					<option value="i"><%= i %></option>
+				<%
+					}
+				%>
+				</select>
+			</div>
+		</div>
+		<div id="addCart-btn-area">
+			<input type="submit" class="link" value="장바구니 추가"/>
+		</div>
+	</form>
+	</div>
+</div>
+
 <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->

@@ -25,8 +25,8 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <!-- 메인배너 -->
-<section id="main-visual">
-	<div class="container">
+<section id="main-visual" class="view-width">
+	<div class="container" class="view-width">
 		<div class="inner">
 		<img alt="메인배너" src="/takeit/img/main/main1.jpg">
 		</div>
@@ -43,14 +43,14 @@
 		<img alt="메인배너" src="/takeit/img/main/main5.jpg">
 		</div>
 	</div>
-</secion>
-<div id="btn-wrap" class="view-width">
+<div id="btn-wrap">
 <button class="btn1">1</button>
 <button class="btn2">2</button>
 <button class="btn3">3</button>
 <button class="btn4">4</button>
 <button class="btn5">5</button>
 </div>
+</secion>
 <script type="text/javascript">
 document.querySelector(".btn2").addEventListener('click', function(){
 	document.querySelector('.container').style.transform = 'translate(-100vw)';
@@ -71,6 +71,9 @@ document.querySelector(".btn1").addEventListener('click', function(){
 </section>
 <!-- 상품추천 구역-->
 <h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">이 상품 어때요?</h3>
+<div id="shortcut" class="view-width">
+<a href="/takeit/item/itemController?action=itemList">바로가기>></a>
+</div>
 <div id="item-recomm" class="view-width">
 <ul>
 	<li>
@@ -115,9 +118,11 @@ document.querySelector(".btn1").addEventListener('click', function(){
 	<li id="price">7,980원</li>
 </ul>
 </div>
-
 <!-- 후기 구역 -->
-<h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">베스트후기</h3>
+<h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">구매후기</h3>
+<div id="shortcut" class="view-width">
+<a href="/takeit/item/reviewController?action=reviewList">바로가기>></a>
+</div>
 <div id="best-review" class="view-width">
 <ul>
 	<li>

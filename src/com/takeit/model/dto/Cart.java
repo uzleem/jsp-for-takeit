@@ -5,6 +5,7 @@ public class Cart {
 	private String memberId;
 	private String itemNo;
 	private String itemName;
+	private String itemImg;
 	private String sellerId;
 	private String sellerName;
 	private int cartItemQty;
@@ -14,9 +15,16 @@ public class Cart {
 
 	/**장바구니 등록*/
 	public Cart(String memberId, String itemNo, int cartItemQty) {
+		this.memberId = memberId;
+		this.itemNo = itemNo;
+		this.cartItemQty = cartItemQty;
+	}
+
+	public Cart(String memberId, String itemNo, String itemImg, int cartItemQty) {
 		super();
 		this.memberId = memberId;
 		this.itemNo = itemNo;
+		this.itemImg = itemImg;
 		this.cartItemQty = cartItemQty;
 	}
 
@@ -83,6 +91,14 @@ public class Cart {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	public String getItemImg() {
+		return itemImg;
+	}
+
+	public void setItemImg(String itemImg) {
+		this.itemImg = itemImg;
+	}
 
 	@Override
 	public String toString() {
@@ -93,6 +109,8 @@ public class Cart {
 		builder.append(", ");
 		builder.append(itemName);
 		builder.append(", ");
+		builder.append(itemImg);
+		builder.append(", ");
 		builder.append(sellerId);
 		builder.append(", ");
 		builder.append(sellerName);
@@ -102,7 +120,7 @@ public class Cart {
 		builder.append(totalPrice);
 		return builder.toString();
 	}
-	
+
 	
 	
 	
