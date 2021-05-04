@@ -42,20 +42,28 @@
 			<img id="cart-img" alt="" src="/takeit/img/item/<%= cart.getItemImg() %>">
 		</div>
 		<div id="cart-info">
-			<span id="cart-itemName"><b>상품명</b>&emsp;<%= cart.getItemName() %></span><br>
-			<span id="cart-itemSeller"><b>판매자</b>&emsp;<%= cart.getSellerName() %></span><br>
-			<span id="cart-shippingFee"><b>배송비</b>&emsp;3500원</span><br>
-			<b>수량</b>&emsp;&emsp;&emsp;
-			<select id="cart-itemQty">
-				<option></option>
-			</select>
+			<b>상품명</b>&emsp;
+			<span id="cart-itemName"><a href="#"><%= cart.getItemName() %></a></span><br><br>
+			<b>판매자</b>&emsp;
+			<span id="cart-itemSeller"><%= cart.getSellerName() %></span><br>
+			<b>배송비</b>&emsp;
+			<span id="cart-shippingFee">3500원</span><br>
+			<b>판매가</b>&emsp;
+			<span id="cart-itemPrice"><%= cart.getItemPrice()  %>원</span><br>
+			<b>수량</b>&emsp;&emsp;
+			<span id="cart-itemQty"><%= cart.getCartItemQty() %></span><br>
 		</div>
-		<div>
-			<span id="cart-totPrice"><b>결제금액</b>&emsp;<span><%= cart.getTotalPrice()+3500 %>원</span></span>
+		<div id="cart-btn-wrap">
+			<div>
+				<b>결제금액</b>&emsp;<span id="cart-totPrice">&#8361;<%= cart.getTotalPrice()+3500 %></span>
+			</div><br>
+			<form action="#">
+				<input type="submit" value="구매" class="small-btn">
+			</form>
+			<form action="/takeit/cartController?action=removeCart&itemNo=<%= cart.getItemNo() %>" method="post">
+				<input type="submit" value="삭제" class="small-btn">
+			</form>
 		</div>
-		<form action="#">
-			<input type="submit" value="구매" class="small-btn">
-		</form>
 	</div>
 	<hr style="width: 1050px;">
 <%
