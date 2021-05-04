@@ -24,6 +24,26 @@ public class MypageBiz {
 	private MypageDao dao = MypageDao.getInstance();
 	
 	
+	
+	public void addItem(Item dto) throws CommonException{
+		
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.addItem(conn, dto);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			JdbcTemplate.close(conn);
+		}
+		
+		
+		
+	}
+	
+	
 	//포장타입 목록 조회
 		public void getpackTypeList(ArrayList<Item> packTypeList) throws CommonException{
 			
