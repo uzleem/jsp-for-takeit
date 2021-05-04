@@ -21,22 +21,25 @@
 
 	<h3 align="center">판매상품 등록</h3>
 	<div align='center'>
-	  <form name="form1" method="post" enctype="multipart/form-data"> 
+	  <form action="/takeit/member/mypageController?action=itemadd" method="post" enctype="multipart/form-data"> 
 		<table class="enroll_table" id="enroll_table">
 	
 			<tr>
 				<td>상품</td>
-				<td><input type="text" name="itemName" placeholder="상품명">
+				<td><input type="text" id="itemName" name="itemName"  placeholder="상품명">
 				</td>
 			</tr>
 			
 			<tr>
 				<td>판매가</td>
-				<td><input type="text" name="itemPrice" placeholder="판매가">
+				<td><input type="text" id="itemPrice"  name="itemPrice"  placeholder="판매가">
 				</td>
 			</tr>
-			
-			
+			<tr>
+				<td>판매단위</td>
+				<td><input type="text" id="salesUnit" name="salesUnit"  placeholder="판매단위">
+				</td>
+			</tr>
 			<tr>
 				<td>상품카테고리이름</td>
 				<td>
@@ -50,33 +53,16 @@
 					</select>
 				</td>
 			</tr>
-				
-			<tr>
-				<td>포장타입</td>
-				<td>
-				
-				<select id="packTypeName" style="width: 100px;">
-						
-					<c:if test="${packTypeList != null}"> 	
-				<c:forEach items="${packTypeList }" var="packTypeList">
-							<option value ="${packTypeList.packTypeNo }">${packTypeList.packTypeName }</option>
-					</c:forEach>
-					</c:if>
-					</select>
-				
-				</td>
-			</tr>
-			
 			<tr>
 				<td>재고량</td>
-				<td><input type="text" name="itemStock" placeholder="재고량" value="">
+				<td><input type="text" id="itemStock" name="itemStock"  placeholder="재고량" value="">
 				</td>
 			</tr>
           
 
 			<tr>
 				<td>원산지</td>
-				<td><input type="text" name="itemOrigin" placeholder="원산지">
+				<td><input type="text" id="itemOrigin" name="itemOrigin"  placeholder="원산지">
 				</td>
 			</tr>
 
@@ -90,29 +76,29 @@
 
 			<tr>
 				<td>잇거래여부</td>
-				<td><select onchange="takeIt">
+				<td><select  id ="itemTakeit">
 						<option value="">==잇거래 여부==</option>
-						<option value="">True(등록)</option>
-						<option value="">False(등록안함)</option>
+						<option value="T">True(등록)</option>
+						<option value="F">False(등록안함)</option>
 				</select></td>
 			</tr>
 			
 				
 			<tr>
 				<td>판매자</td>
-				<td><input type="text" name="sellerId" placeholder="판매자" value="${seller.sellerId }">
+				<td><input type="text" id="sellerId" name="sellerId"  placeholder="판매자" value="${seller.sellerId }">
 				</td>
 			</tr>
 
-		
+		<tr>
+				<td><input type="submit" value="상품등록"></td>
+				<td><input type="reset" value="취소"></td>
+			</tr>
 		</table>
 	<br></form>
 		<div id="signup" align='center'>
 		
-			<tr>
-				<td><input type="submit" value="상품등록"></td>
-				<td><input type="reset" value="취소"></td>
-			</tr>
+			
 		</div>
 	</div>
 	<!-- scroll function -->

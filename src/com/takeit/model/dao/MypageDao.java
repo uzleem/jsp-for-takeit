@@ -1,11 +1,14 @@
 package com.takeit.model.dao;
-
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.oreilly.servlet.MultipartRequest;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Item;
@@ -123,13 +126,18 @@ public class MypageDao {
 	
 	//상품등록
 		public void addItem(Connection conn, Item dto) throws CommonException {
-			String sql = "insert into item values( lpad((ITEM_SEQ.nextval),8,'0'),"
+			String sql = "insert into item values(lpad((ITEM_SEQ.nextval),8,'0'),"
 					+ "?, ?, ?, null, ?, ?, ?, ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
 			try {
+				
+				String uploadDir = "C:/student_ucamp33/workspace_takeit/img/item/";
+				HttpServletRequest request = null;
+				MultipartRequest multi = new MultipartRequest(request, uploadDir, 5 * 1024 * 1024 , "UTF-8" , new DefaultFileRenamePolicy());
+				
 				conn = JdbcTemplate.getConnection();
 			
 				stmt = conn.prepareStatement(sql);
@@ -144,20 +152,22 @@ public class MypageDao {
 				
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
-				stmt.setString(7, dto.getItemImg());
+				stmt.setString(7, multi.getFilesystemName("itemImg"));
 				stmt.setDouble(8, 0.0);
 				stmt.setString(9, dto.getItemInputDate());
 				stmt.setInt(10, 0);
 				stmt.setString(11, dto.getItemTakeit());
 				stmt.setString(12, dto.getItemCategoryNo());
 				
-				stmt.executeUpdate();
+				int result = stmt.executeUpdate();
 				
-				
+				if(result == 0) {
+					throw new Exception();
+				}
 				
 				
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 
 				System.out.println(e.getMessage());
 				e.printStackTrace();

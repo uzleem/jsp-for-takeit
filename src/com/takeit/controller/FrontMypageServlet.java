@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.takeit.common.CommonException;
+import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.biz.MypageBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
@@ -70,6 +71,12 @@ public class FrontMypageServlet extends HttpServlet {
 		case "itemaddForm":
 			itemaddForm(request,response);
 			break;
+		case "itemList":
+			itemList(request,response);
+			break;
+		case "itemadd":
+			itemadd(request,response);
+			break;
 		}
 	}
 	
@@ -91,8 +98,6 @@ public class FrontMypageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		MessageEntity message = null;
-		
-		
 		
 		ArrayList<Item> categoryList = new ArrayList<Item>();
 		MypageBiz biz = new MypageBiz();
@@ -120,49 +125,108 @@ public class FrontMypageServlet extends HttpServlet {
 		}
 	}
 	
-//	//상품 등록
-//	protected void itemadd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("상품 등록 요청 폼");
-//		
-////		HttpSession session = request.getSession();
-//		
-//		MessageEntity message = null;
-//		
-//		String sellerId = "seller01";
-//		
-//		if(sellerId == null || sellerId.trim().length()  == 0 ) {
-//
-//
-//			message = new MessageEntity("validation",0);
-//			message.setLinkTitle("마이페이지로 이동");
-//			message.setUrl("/takeit/member/myPage.jsp");
-//			
-//			request.setAttribute("message", message);
-//			request.getRequestDispatcher("/message.jsp").forward(request, response);
-//			return;
-//		}
-//		
-//		sellerId = sellerId.trim();
-//		
-//		MypageBiz biz = new MypageBiz();
-//		
-//		Member dto = new Member();
-//		
-//		
-//		
-//		try {
-//			biz.memberDetail(dto);
-//			session.setAttribute("member", dto);
-//			request.getRequestDispatcher("/member/memberInfo.jsp").forward(request, response);
-//		}catch (CommonException e) {
-//			System.out.println(e.getMessage());
-//			e.printStackTrace();
-//			message = e.getMessageEntity();
-//			request.setAttribute("message", message);
-//			request.getRequestDispatcher("/message.jsp").forward(request, response);
-//			
-//		}
-//	}
+	//상품 등록
+	
+	protected void itemadd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("상품 등록 요청 폼");
+		
+		String sellerId = request.getParameter("sellerId");
+		System.out.println("sellerId" + sellerId);
+		String itemName = request.getParameter("itemName");
+		System.out.println("itemName" + itemName);
+		int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
+		System.out.println("itemPrice" + itemPrice);
+		String salesUnit = request.getParameter("salesUnit");
+		
+		String itemOrigin = request.getParameter("itemOrigin");
+		int itemStock = Integer.parseInt(request.getParameter("itemStock"));
+//		String itemImg = request.getParameter("itemImg");
+		String itemTakeit = request.getParameter("itemTakeit");
+		String itemCategoryNo = request.getParameter("itemCategoryNo");
+		
+		System.out.println(itemCategoryNo +sellerId +itemName+ itemPrice +salesUnit+ itemOrigin+ itemStock+ itemTakeit);
+		MessageEntity message = null;
+		MypageBiz biz = new MypageBiz();
+		
+		Item dto = new Item();
+		dto.setSellerId(sellerId);
+		dto.setItemName(itemName);
+		dto.setItemPrice(itemPrice);
+		dto.setSalesUnit(salesUnit);
+		dto.setItemOrigin(itemOrigin);
+		dto.setItemStock(itemStock);
+//		dto.setItemImg(itemImg);
+		dto.setItemTakeit(itemTakeit);
+		dto.setItemCategoryNo(itemCategoryNo);
+		
+		
+		try {
+			biz.addItem(dto);
+			
+			if(dto.getItemNo() != null) {
+				
+				message = new MessageEntity("success", 0);
+				message.setUrl("/takeit/member/mypageController?action=itemList");
+				message.setLinkTitle("상품 리스트로");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);;
+			} else {
+				
+				message = new MessageEntity("error", 0);
+				message.setLinkTitle("뒤로가기");
+				message.setUrl("/takeit/member/memberInput.jsp");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+			}
+			
+			
+			
+			
+		}catch (Exception e) {
+			//등록 실패
+			message = new MessageEntity("error", 0);
+			message.setLinkTitle("뒤로가기");
+			message.setUrl("/takeit/member/memberInput.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);;
+			
+		}
+		
+		}
+	
+	
+	
+	/**
+	 * 상품전체조회
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void itemList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		ArrayList<Item> itemList = new ArrayList<Item>();
+		ItemBiz biz = new ItemBiz();
+		try {
+			biz.getItemList(itemList);
+			if(itemList != null) {
+				request.setAttribute("itemList",itemList);
+				request.getRequestDispatcher("/item/newItem.jsp").forward(request, response);
+			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 24);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+	
+}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -294,6 +358,8 @@ public class FrontMypageServlet extends HttpServlet {
 		String addressDetail = request.getParameter("addressDetail");
 		String birth = request.getParameter("birth");
 		
+		System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth);
+		
 		if(memberId == null || memberId.trim().length()  == 0 ) {
 
 
@@ -360,9 +426,7 @@ public class FrontMypageServlet extends HttpServlet {
 			return;
 		}
 		
-		if(mobile == null || mobile.trim().length() > 10
-				|| email == null || email.trim().length() == 0
-				|| birth == null || birth.trim().length() == 0) {
+		if(mobile == null || mobile.trim().length() == 10) {
 
 
 			message = new MessageEntity("validation",4);
@@ -391,6 +455,7 @@ public class FrontMypageServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
+		System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth);
 		
 		memberId = memberId.trim();
 		memberPw = memberPw.trim();
@@ -538,7 +603,7 @@ public class FrontMypageServlet extends HttpServlet {
 //			request.getRequestDispatcher("/message.jsp").forward(request, response);
 //			return;
 //		}
-		if(mobile == null || mobile.trim().length() > 10) {
+		if(mobile == null || mobile.trim().length() == 10) {
 
 
 			message = new MessageEntity("validation",4);
