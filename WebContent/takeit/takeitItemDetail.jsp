@@ -123,7 +123,7 @@ $(document).ready(function (){
 				<h2>${takeitItem.itemName} (<span id="takeitFresh" data-takeitexpdate="${takeitItem.freshPercent}"></span>)</h2>
 				<li style="list-style: none">
 					<span style="color: grey; text-decoration: line-through;">${itemPrice}원</span>
-					<span style="color: black; font-weight: 700;">${discPrice}원</span>
+					<span style="color: black; font-weight: 700; text-decoration: line-through;">${discPrice}원</span>
 					<span>(할인 ${itemDiscRate})</span>
 					<span style="color: red; font-size:20px; font-weight: 700;">${takeitItemPrice}원</span>
 					<span style="color: grey;">(잔돈할인 ${takeitDisc}원)</span>

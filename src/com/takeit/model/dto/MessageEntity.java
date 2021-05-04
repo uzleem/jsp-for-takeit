@@ -52,6 +52,10 @@ public class MessageEntity {
 		
 		
 		
+		error.add("[주문 등록 오류]"); //28
+		error.add("[주문 조회 오류]");
+		error.add("[주문 삭제 오류]");
+		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");	
 		validation.add("[비밀번호 정보 오류]");	
