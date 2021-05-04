@@ -152,20 +152,23 @@ $(document).ready(function (){
 	</div>
 	<!-- 장바구니 등록 -->
 	<div id="addCart-area">
-	<%-- <form action="/takeit/cartController?action=addCart&itemNo=${takeitItem.itemNo }" method="post"> --%>
-	<form action="/takeit/cartController?action=addCart" method="post">
+	<form action="/takeit/cartController?action=addCart&itemNo=${takeitItem.itemNo }" method="post">
+	<!-- <form action="/takeit/cartController?action=addCart" method="post"> -->
 	<br><hr>
 		<div id="addCart-info">
 			<div id="cart-info">
-				<span id="cart-itemName"><b>상품명</b>&emsp;${takeitItem.itemName }</span><br>
-				<span id="cart-itemSeller"><b>판매자</b>&emsp;${takeitItem.sellerName }</span><br>
-				<span id="cart-shippingFee"><b>배송비</b>&emsp;3500원</span><br>
-				<b>수량</b>&emsp;&emsp;&emsp;
-				<select id="cart-itemQty" name="cart-itemQty">
+				<b>상품명</b>&emsp;
+				<span id="addcart-itemName">${takeitItem.itemName }</span><br>
+				<b>판매자</b>&emsp;
+				<span id="addcart-itemSeller">${takeitItem.sellerName }</span><br>
+				<b>배송비</b>&emsp;
+				<span id="addcart-shippingFee">3500원</span><br>
+				<b>수량</b>&emsp;&emsp;
+				<select id="addcart-itemQty" name="cart-itemQty">
 				<%
-					for(int i=1; i<20; i++){
+					for(int i=1; i<10; i++){
 				%>
-					<option value="i"><%= i %></option>
+					<option value="<%= i %>"><%= i %></option>
 				<%
 					}
 				%>

@@ -39,4 +39,18 @@ public class CartBiz {
 		
 	}
 
+	/**장바구니 삭제*/
+	public void removeCart(String memberId, String itemNo) throws CommonException{
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.removeCart(con, memberId, itemNo);
+			JdbcTemplate.commit(con);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+
 }
