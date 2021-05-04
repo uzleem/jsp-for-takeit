@@ -21,7 +21,7 @@ public class CartDao {
 	/**장바구니 전체 목록 조회*/
 	public void getCartList(Connection con, String memberId, ArrayList<Cart> cart) throws CommonException {
 		System.out.println("[debug] 장바구니 전체 목록 dao 요청");
-		String sql = "SELECT I.ITEM_NAME AS ITEM_NAME, S.NAME AS SELLER_NAME, "
+		String sql = "SELECT I.ITEM_NAME AS ITEM_NAME, S.NAME AS SELLER_NAME, I.ITEM_IMG AS ITEM_IMG, "
 				+ "C.CART_ITEM_QTY AS CART_ITEM_QTY, (I.ITEM_PRICE * C.CART_ITEM_QTY) AS TOTAL_PRICE "
 				+ "FROM CART C, ITEM I, SELLER S "
 				+ "WHERE C.ITEM_NO = I.ITEM_NO "
@@ -41,7 +41,7 @@ public class CartDao {
 				dto.setSellerName(rs.getString("SELLER_NAME"));
 				dto.setCartItemQty(rs.getInt("CART_ITEM_QTY"));
 				dto.setTotalPrice(rs.getInt("TOTAL_PRICE"));
-				
+				dto.setItemImg(rs.getString("ITEM_IMG"));
 				cart.add(dto);
 			}
 			System.out.println("[debug] 장바구니 전체 목록 dao 요청 완료");
@@ -58,6 +58,34 @@ public class CartDao {
 		}
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(pstmt);
+		
+	}
+	
+	/**장바구니 등록*/
+	public void addCart(Connection con, Cart cart) throws CommonException {
+		System.out.println("[debug] 장바구니 등록 dao 요청");
+		String sql = "INSERT INTO CART VALUES(?,?,?)";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cart.getMemberId());
+			pstmt.setString(2, cart.getItemNo());
+			pstmt.setInt(3, cart.getCartItemQty());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",20);
+			message.setLinkTitle("장바구니");
+			message.setUrl("/takeit/item/cartList.jsp");
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
 		
 	}
 

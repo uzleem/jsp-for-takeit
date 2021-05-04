@@ -24,4 +24,19 @@ public class CartBiz {
 		
 	}
 
+	/**장바구니 등록*/
+	public void addCart(Cart cart) throws CommonException{
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.addCart(con, cart);
+			JdbcTemplate.commit(con);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
 }

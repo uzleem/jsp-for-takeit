@@ -36,13 +36,14 @@ public class FrontCartServlet extends HttpServlet {
 		protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String action = request.getParameter("action");
 			request.setCharacterEncoding("utf-8");
+			response.getWriter().write("debug");
 			switch(action) {
 			case "cartList":
 				cartList(request,response);
 				break;
-//			case "":
-//				(request,response);
-//				break;
+			case "addCart":
+				addCart(request,response);
+				break;
 //			case "":
 //				(request,response);
 //				break;
@@ -51,8 +52,6 @@ public class FrontCartServlet extends HttpServlet {
 //				break;
 			}
 		}
-
-
 
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
@@ -64,11 +63,21 @@ public class FrontCartServlet extends HttpServlet {
 		}
 		
 		/**장바구니 전체 목록 조회*/
-		private void cartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		protected void cartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("[dubug]장바구니 전체 목록 요청");
 			HttpSession session = request.getSession(false);
+			if(session.getAttribute("memberId") == null) {
+				MessageEntity message = new MessageEntity("message", 0);
+				message.setLinkTitle("로그인");
+				message.setUrl("/takeit/member/memberLogin.jsp");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
+			}
 			String memberId = (String)session.getAttribute("memberId");
 			memberId = memberId.trim();
+			System.out.println("[debug]" + memberId);
+			
 			
 			CartBiz cbiz = new CartBiz();
 			ArrayList<Cart> cartList = new ArrayList<Cart>(); 
@@ -84,5 +93,46 @@ public class FrontCartServlet extends HttpServlet {
 			}
 			
 		}
+		
+		protected void addCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			System.out.println("[dubug]장바구니 등록 요청");
+			
+		}
+		
+		/**장바구니 등록*/
+//		protected void addCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//			System.out.println("[dubug]장바구니 등록 요청");
+//			HttpSession session  = request.getSession(false);
+//			String memberId = (String)session.getAttribute("memberId");
+//			String itemNo = request.getParameter("itemNo");
+//			int cartItemQty = Integer.parseInt(request.getParameter("cart-itemQty"));
+//			
+//			memberId = memberId.trim();
+//			itemNo = itemNo.trim();
+//			System.out.println("[debug]" + memberId + ", " + itemNo + ", " + cartItemQty );
+//			if(session.getAttribute("memberId") == null) {
+//				MessageEntity message = new MessageEntity("message", 0);
+//				message.setLinkTitle("로그인");
+//				message.setUrl("/takeit/member/memberLogin.jsp");
+//				request.setAttribute("message", message);
+//				request.getRequestDispatcher("/message.jsp").forward(request, response);
+//				return;
+//			}
+//			
+//			Cart cart = new Cart(memberId, itemNo, cartItemQty);
+//			CartBiz cbiz = new CartBiz();
+//			ArrayList<Cart> cartList = new ArrayList<Cart>();
+//			
+//			try {
+//				cbiz.addCart(cart); //카트등록
+//				cbiz.getCartList(memberId, cartList); //카트조회
+//				session.setAttribute("cartList", cartList);
+//				request.getRequestDispatcher("/item/cartList.jsp").forward(request, response);
+//			} catch (CommonException e) {
+//				request.getRequestDispatcher("/message.jsp").forward(request, response);
+//			}
+//		}
+
 
 }

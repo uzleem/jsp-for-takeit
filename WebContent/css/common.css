@@ -8,6 +8,7 @@
 .view-width{
 	width: 1050px;
 	margin: 0 auto; 
+	overflow: hidden;
 }
 /* 가로정렬 css */
 .row-align{

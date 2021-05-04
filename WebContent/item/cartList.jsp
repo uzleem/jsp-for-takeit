@@ -8,15 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>takeit::장바구니</title>
+<link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
 <%
 	if(session.getAttribute("memberId")== null){
 		MessageEntity message = new MessageEntity("message" , 0);
-		message.setLinkTitle("처음으로");
-		message.setUrl("/takeit/index.jsp");
+		message.setLinkTitle("로그인");
+		message.setUrl("/takeit/member/memberLogin.jsp");
 		request.setAttribute("message", message);
-		request.getRequestDispatcher("/takeit/message.jsp").forward(request, response);
+		request.getRequestDispatcher("/message.jsp").forward(request, response);
 		return;
 	}
 %>
@@ -29,29 +31,37 @@
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <br>
 <h1 style="width:fit-content; margin: 0 auto;">${memberId }님의 장바구니</h1>
+<br><br>
+<div id="cart-wrap">
 <%
 	ArrayList<Cart> cartList = (ArrayList<Cart>)session.getAttribute("cartList");
 	for(Cart cart : cartList){
 %>
-<div>
-	<img alt="" src="">
-</div>
-<div>
-	<span id="cart-itemName"><b>상품명</b>&emsp;<%= cart.getItemName() %></span><br>
-	<span id="cart-itemSeller"><b>판매자</b>&emsp;<%= cart.getSellerName() %></span><br>
-	<span id="cart-shippingFee"><b>배송비</b>&emsp;3500원</span><br>
-	<b>수량</b>&emsp;
-	<select id="cart-itemQty">
-		<option></option>
-	</select>
-</div>
-<div>
-	<span id="cart-totPrice"><b>결제금액</b>&emsp;<%= cart.getTotalPrice()+3500 %></span>
-</div>
-<hr>
+	<div id="cart">
+		<div>
+			<img id="cart-img" alt="" src="/takeit/img/item/<%= cart.getItemImg() %>">
+		</div>
+		<div id="cart-info">
+			<span id="cart-itemName"><b>상품명</b>&emsp;<%= cart.getItemName() %></span><br>
+			<span id="cart-itemSeller"><b>판매자</b>&emsp;<%= cart.getSellerName() %></span><br>
+			<span id="cart-shippingFee"><b>배송비</b>&emsp;3500원</span><br>
+			<b>수량</b>&emsp;&emsp;&emsp;
+			<select id="cart-itemQty">
+				<option></option>
+			</select>
+		</div>
+		<div>
+			<span id="cart-totPrice"><b>결제금액</b>&emsp;<span><%= cart.getTotalPrice()+3500 %>원</span></span>
+		</div>
+		<form action="#">
+			<input type="submit" value="구매" class="small-btn">
+		</form>
+	</div>
+	<hr style="width: 1050px;">
 <%
 	}
 %>
+</div>
 <br>
 </body>
 </html>
