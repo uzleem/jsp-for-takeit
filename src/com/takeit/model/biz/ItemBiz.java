@@ -1,19 +1,26 @@
 
 package com.takeit.model.biz;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ItemDao;
+import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Review;
+import com.takeit.model.dto.TakeitItem;
 
 
 
 /** 
- * 등록상품 조회
+ * 등록상품전체 조회
  * @return ArrayList<Item>
  */
 
@@ -71,6 +78,22 @@ public void deleteItem(Item dto){
 	
 }
 
+/**상품상세조회*/
+public void getItem(Item item) throws CommonException {
+	ItemDao dao = ItemDao.getInstance();
+	Connection conn = JdbcTemplate.getConnection();
+	
+	try {
+		dao.searchItem(conn, item);
+	} catch (CommonException e) {
+		throw e;
+	}
+
+	
+	JdbcTemplate.close(conn);
+}
+
+
 /**
  * 판매자 등록 상품보기
  * @param dto 상품 
@@ -87,8 +110,8 @@ public void getSellItem(Item dto){
 	}
 }
 /**
- * 작성후기내용 수정
- * @param dto 후기
+ * 판매상품변경
+ * @param dto item
  */
 public void setSellItem(Item dto) throws CommonException{
 	Connection conn = JdbcTemplate.getConnection();
@@ -104,6 +127,7 @@ public void setSellItem(Item dto) throws CommonException{
 		
 	}
 	}
+
 
 }
 

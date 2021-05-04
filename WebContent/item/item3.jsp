@@ -38,7 +38,7 @@
 					<h2>[상하목장]마이리틀 유기농 짜먹는 요거트 3종</h2>
 					<div>
 						<span style="color: red"> 2575원 </span> <span> (26%할인) </span>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <span>
+						&emsp;&emsp;&emsp; <span>
 							소비자 권장소매가: </span> <span> 3480원 </span>
 					</div>
 					<hr class="line1">

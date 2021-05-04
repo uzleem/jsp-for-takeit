@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>잇거래 상품 상세조회</title>
+<title>상품 상세조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/takeit.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -51,11 +51,11 @@
 				<span class="it_info"><b>재고량</b>&emsp;${item.salesUnit}</span><br>
 				<span class="it_info"><b>원산지</b>&emsp;&emsp;${item.itemOrigin}</span><br>
 				<span class="it_info"><b>포장타입</b>&emsp;${item.packTypeName}</span><br>
-				<span class="it_info"><b>판매자</b>&emsp;&emsp;${item.sellerId}</span><br>
-				<span class="it_info"><b>고객평점</b>&emsp;${item.itemCustScore}</span><br>
+		        <span class="it_info"><b>고객평점</b>&emsp;${item.itemCustScore}</span><br>
 				<span class="it_info"><b>유통기한</b>&emsp;${item.expirationDate}</span><br>
 				<span class="it_info"><b>등록일자</b>&emsp;${item.itemInputDate}</span><br>
 				<span class="it_info"><b>판매상점</b>&emsp;${takeitItem.shopName}</span><br>
+				<span class="it_info"><b>판매자</b>&emsp;&emsp;${item.sellerName}</span><br>
 				<span class="it_info"><b>안내사항</b>&emsp;${itemCategory.notice}</span><br>
 			
 			</ul>

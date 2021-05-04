@@ -20,9 +20,11 @@ import com.takeit.common.JdbcTemplate;
 import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.biz.MypageBiz;
 import com.takeit.model.biz.ReviewBiz;
+import com.takeit.model.biz.TakeitBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Review;
+import com.takeit.model.dto.TakeitItem;
 
 
 /**
@@ -326,6 +328,35 @@ public class FrontItemServlet extends HttpServlet {
 				
 			}
 		}	
+		
+		/**
+		 * 상품상세조회
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String itemNo = request.getParameter("itemNo");
+		
+			
+			ItemBiz biz = new ItemBiz();
+			
+			Item item = new Item();
+			item.setItemNo(itemNo);
+			try {
+				biz.getItem(item);
+				
+				request.setAttribute("item", item);
+				request.getRequestDispatcher("/takeit/itemDetail.jsp").forward(request, response);
+			} catch (CommonException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}		
+		
+		
 //		/**
 //		 *등록 상품수정
 //		 * @param request

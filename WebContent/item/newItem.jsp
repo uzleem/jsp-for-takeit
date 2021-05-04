@@ -38,6 +38,7 @@
 	<c:forEach var="dto" items="${itemList}">
 		<ul class="item_list" >
 			<li>
+			<a href="/takeit/item/itemController?action=itemDetail&itemNo=${dto.itemNo}">
 				<img id="itemImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
 			
 				</a>

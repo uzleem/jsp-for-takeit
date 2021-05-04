@@ -46,6 +46,11 @@ public class MessageEntity {
 		error.add("[후기전체조회 오류]"); 
 		error.add("[후기정보 변경오류]"); 
 		error.add("[후기 삭제오류]"); 
+		error.add("[상품 조회오류]"); 
+		
+		
+		
+		
 		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");	
