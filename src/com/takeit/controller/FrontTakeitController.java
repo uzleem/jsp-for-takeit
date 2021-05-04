@@ -188,10 +188,3 @@ public class FrontTakeitController extends HttpServlet {
 }
 
 
-
-
-
-
-
-
-

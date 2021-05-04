@@ -57,7 +57,16 @@ public class TakeitDao {
 				takeitItem.setItemImg(rs.getString("item_Img"));
 				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
-				takeitItem.setDiscRate(rs.getInt("disc_Rate")); //int
+				
+				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
+				Date secondDate = Utility.convertStringToDate(rs.getString("item_input_date"), "yyyy-MM-dd HH:mm:ss");
+				int a = Utility.getDayBetweenAandB(firstDate, secondDate);
+				int b = Integer.valueOf(rs.getString("expiration_date"));
+				int c = 100 - (int)(( (double)(b - a) / b) * 100);
+				if (c > 100 ) {
+					c = 100;
+				}
+				takeitItem.setDiscRate(c);
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
 				//잇거래
 				takeitItem.setTakeitNo(rs.getString("takeit_No"));
@@ -117,11 +126,17 @@ public class TakeitDao {
 				takeitItem.setItemImg(rs.getString("item_Img"));
 				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
+				System.out.println(rs.getString("item_Input_date"));
 				
-				takeitItem.setDiscRate(rs.getInt("disc_Rate")); //int
-				//int expDate = Utility.getDayBetweenAandB(Utility.convertStringToDate(Utility.getCurrentDate()), Utility.convertStringToDate(rs.getString("item_input_date")));
-				//System.out.println(expDate);
-				//takeitItem.setDiscRate();
+				Date secondDate = Utility.convertStringToDate(rs.getString("item_input_date"), "yyyy-MM-dd HH:mm:ss");
+				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
+				int a= Utility.getDayBetweenAandB(firstDate, secondDate);
+				int b = Integer.valueOf(rs.getString("expiration_date"));
+				int c = 100 - (int)(( (double)(b - a) / b) * 100);
+				if (c > 100 ) {
+					c = 100;
+				}
+				takeitItem.setDiscRate(c);
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
 				//잇거래
 				takeitItem.setTakeitNo(rs.getString("takeit_No"));
@@ -212,8 +227,8 @@ public class TakeitDao {
 			stmt.setString(3, member.getShopLocCode() + member.getMemberLocNo());
 			
 			int row = stmt.executeUpdate();
-			if (row == 1) {
-				
+			if (row == 0) {
+				throw new Exception();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
