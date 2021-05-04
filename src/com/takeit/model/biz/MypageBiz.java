@@ -1,10 +1,12 @@
 package com.takeit.model.biz;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.MypageDao;
+import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.Seller;
 
@@ -21,16 +23,50 @@ public class MypageBiz {
 	
 	private MypageDao dao = MypageDao.getInstance();
 	
+	
+	//포장타입 목록 조회
+		public void getpackTypeList(ArrayList<Item> packTypeList) throws CommonException{
+			
+			Connection conn = JdbcTemplate.getConnection(); 
+			try {
+				dao.getpackTypeList(conn, packTypeList);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}finally {
+				JdbcTemplate.close(conn);
+			}
+			
+		} 
+	
+	//카테고리 목록 조회
+	public void getCategoryList(ArrayList<Item> categoryList) throws CommonException{
+		
+		Connection conn = JdbcTemplate.getConnection(); 
+		try {
+			dao.getCategotyList(conn, categoryList);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			JdbcTemplate.close(conn);
+		}
+		
+	} 
+	
+	
 	/**
 	 * 내 정보 상세 조회 > 일반회원
 	 * @param dto 일반회원 객체
 	 */
-	public void getMember(Member dto) throws CommonException{
+	public void memberDetail(Member dto) throws CommonException{
 		System.out.println("비즈 내 정보 조회 메서드");
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-			dao.getMemberDetail(conn, dto);
+			dao.selectMemberDetail(conn, dto);
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -45,11 +81,11 @@ public class MypageBiz {
 	 * @param dto
 	 * @throws CommonException
 	 */
-	public void getSeller(Seller dto) throws CommonException{
+	public void sellerDetail(Seller dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-			dao.getSellerDetail(conn, dto);
+			dao.searchSellerDetail(conn, dto);
 		}catch (CommonException e) {
 			e.printStackTrace();
 			throw e;
@@ -63,10 +99,10 @@ public class MypageBiz {
 	 * 내 정보 수정 > 일반회원
 	 * @param dto 일반회원 객체
 	 */
-	public void setMember(Member dto) throws CommonException{
+	public void memberInfoUpdate(Member dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		try {
-			dao.setMemberInfo(conn,dto);
+			dao.memberInfoUpdate(conn,dto);
 			JdbcTemplate.commit(conn);
 		
 		} catch (Exception e) {
@@ -83,10 +119,10 @@ public class MypageBiz {
 	 * 내 정보 수정 > 판매자
 	 * @param dto 일반회원 객체
 	 */
-	public void setSeller(Seller dto) throws CommonException{
+	public void sellerInfoUpdate(Seller dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		try {
-			dao.setSeller(conn,dto);
+			dao.sellerInfoUpdate(conn, dto);
 			JdbcTemplate.commit(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,7 +145,7 @@ public class MypageBiz {
 		
 		Connection conn = JdbcTemplate.getConnection();
 		try {
-			dao.setMemberPw(conn, memberPw2, dto);
+			dao.memberPwUpdate(conn, memberPw2, dto);
 			JdbcTemplate.commit(conn);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -127,11 +163,11 @@ public class MypageBiz {
 	 * @param dto 판매자 객체
 	 * @throws CommonException
 	 */
-		public void setSellerPw(String SellerPw2, Seller dto) throws CommonException{
+		public void setSellerPw(String sellerPw2, Seller dto) throws CommonException{
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
-				dao.setSellerPw(conn, SellerPw2, dto);
+				dao.sellerPwUpdate(conn, sellerPw2, dto);
 				JdbcTemplate.commit(conn);
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -153,7 +189,7 @@ public class MypageBiz {
 			
 			Connection conn = JdbcTemplate.getConnection();
 			try {
-				dao.removeMember(conn, memberId, memberPw);
+				dao.memberDelete(conn, memberId, memberPw);
 				JdbcTemplate.commit(conn);
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -176,7 +212,7 @@ public class MypageBiz {
 			Connection conn = JdbcTemplate.getConnection();
 			try {
 				
-				dao.removeSeller(conn,sellerId, sellerPw);
+				dao.sellerDelete(conn,sellerId, sellerPw);
 				JdbcTemplate.commit(conn);
 			}catch (Exception e) {
 				e.printStackTrace();

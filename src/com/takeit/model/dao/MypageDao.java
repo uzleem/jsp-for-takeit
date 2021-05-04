@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
+import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
@@ -25,12 +27,158 @@ public class MypageDao {
 	}
 	
 	
+	
+	
+	//상품 포장타입 리스트 가져오기 
+		public void getpackTypeList(Connection conn , ArrayList<Item> packTypeList) throws CommonException{
+			String sql = "select * from PACKING";
+			
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				
+				while(rs.next()) {
+					Item dto = new Item();
+					
+					
+					dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
+					dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
+					
+					packTypeList.add(dto);
+					System.out.println("포장타입 목록 리스트 가져오기");
+				}
+				
+				
+				
+			}catch (Exception e) {
+				System.out.println("포장타입 목록 가져오기 실패");
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error", 2);
+				message.setUrl("/takeit/member/test.jsp");
+				message.setLinkTitle("포장타입 목록 가져오기 실패 링크페이지로");
+
+				throw new CommonException(message);
+				
+			}
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			
+		}
+	
+	
+	
+	//상품 카테고리 리스트 가져오기 
+	public void getCategotyList(Connection conn , ArrayList<Item> categoryList) throws CommonException{
+		String sql = "select * from ITEM_CATEGORY";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				Item dto = new Item();
+				
+				
+				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
+				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
+				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
+				dto.setNotice(rs.getString("NOTICE"));
+				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
+				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
+				
+				categoryList.add(dto);
+				System.out.println("카테고리 목록 리스트 가져오기");
+			}
+			
+			
+			
+		}catch (Exception e) {
+			System.out.println("카테고리 목록 가져오기 실패");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 2);
+			message.setUrl("/takeit/member/test.jsp");
+			message.setLinkTitle("카테고리 목록 가져오기 실패 링크페이지로");
+
+			throw new CommonException(message);
+			
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+		
+	}
+	
+	
+	
+	//상품등록
+		public void addItem(Connection conn, Item dto) throws CommonException {
+			String sql = "insert into item values( lpad((ITEM_SEQ.nextval),8,'0'),"
+					+ "?, ?, ?, null, ?, ?, ?, ?, sysdate, ?, ?,?)";
+
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				conn = JdbcTemplate.getConnection();
+			
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				
+				if(rs.next()) {	
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, dto.getSellerId());
+				stmt.setString(2, dto.getItemName());
+				stmt.setInt(3, dto.getItemPrice ());
+				
+				stmt.setString(5, dto.getItemOrigin());
+				stmt.setInt(6, dto.getItemStock());
+				stmt.setString(7, dto.getItemImg());
+				stmt.setDouble(8, 0.0);
+				stmt.setString(9, dto.getItemInputDate());
+				stmt.setInt(10, 0);
+				stmt.setString(11, dto.getItemTakeit());
+				stmt.setString(12, dto.getItemCategoryNo());
+				
+				stmt.executeUpdate();
+				
+				
+				
+				
+				}
+			} catch (SQLException e) {
+
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			
+				MessageEntity message = new MessageEntity("error", 2);
+				message.setUrl("/takeit/item/login?action=itemEnrollForm");
+				message.setLinkTitle("상품등록");
+
+				throw new CommonException(message);
+			}
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+	
+	
 	/**
 	 * 일반 회원 내 정보 상세 조회
 	 * @param conn
 	 * @param dto 회원 객체
 	 */
-	public void getMemberDetail(Connection conn, Member dto) throws CommonException{
+	public void selectMemberDetail(Connection conn, Member dto) throws CommonException{
 		String sql = "select * from member where member_id=?";
 		
 		PreparedStatement stmt = null;
@@ -80,7 +228,7 @@ public class MypageDao {
 	 * @param conn
 	 * @param dto 일반회원 객체
 	 */
-	public void setMemberInfo (Connection conn, Member dto) throws CommonException{
+	public void memberInfoUpdate (Connection conn, Member dto) throws CommonException{
 		String sql = "update member set member_pw=? ,name=?,mobile=?,"
 					 + "email=?, postno=?, address=?, address_detail=?, birth=? where member_id=? ";
 		
@@ -126,7 +274,7 @@ public class MypageDao {
 	 * @param dto	판매자 객체
 	 * @throws CommonException
 	 */
-	public void getSellerDetail(Connection conn, Seller dto) throws CommonException {
+	public void searchSellerDetail(Connection conn, Seller dto) throws CommonException {
 		
 		String sql = "select * from seller where seller_id=?";
 		
@@ -159,7 +307,7 @@ public class MypageDao {
 				dto.setShopKakaoId(rs.getString("shop_kakao_id"));
 				dto.setShopImg(rs.getString("shop_img"));
 				dto.setShopCategoryNo(rs.getString("shop_category_no"));
-				dto.setShopLocCode(rs.getString("shop_loc_code"));
+//				dto.setShopLocCode(rs.getString("shop_loc_code"));
 			}
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -182,7 +330,7 @@ public class MypageDao {
 	 * @param dto 판매자 객체
 	 * @throws CommonException
 	 */
-	public void setSeller(Connection conn, Seller dto) throws CommonException{
+	public void sellerInfoUpdate(Connection conn, Seller dto) throws CommonException{
 		String sql = "update seller set seller_pw=? ,name=?,mobile=?,"
 				 + "email=?, postno=?, address=?, address_detail=?, seller_no=? ,"
 				 + " shop_mobile=? , shop_name=?, shop_kakao_id=?, "
@@ -233,7 +381,7 @@ public class MypageDao {
 	 * @param dto 		일반회원 객체
 	 * @throws CommonException
 	 */
-	public void setMemberPw(Connection conn , String memberPw2, Member dto) throws CommonException{
+	public void memberPwUpdate(Connection conn , String memberPw2, Member dto) throws CommonException{
 		String sql = "update member set member_pw=? where member_id=? and member_pw=?";
 		
 		PreparedStatement stmt = null;
@@ -272,7 +420,7 @@ public class MypageDao {
 	 * @param dto		판매자 객체
 	 * @throws CommonException
 	 */
-		public void setSellerPw(Connection conn , String sellerPw2, Seller dto) throws CommonException{
+		public void sellerPwUpdate(Connection conn , String sellerPw2, Seller dto) throws CommonException{
 			String sql = "update seller set seller_pw=? where seller_id=? and seller_pw=?";
 			
 			PreparedStatement stmt = null;
@@ -312,7 +460,7 @@ public class MypageDao {
 		 * @param memberPw 탈퇴할 비밀번호
 		 * @throws CommonException
 		 */
-		public void removeMember(Connection conn, String memberId, String memberPw) throws CommonException {
+		public void memberDelete(Connection conn, String memberId, String memberPw) throws CommonException {
 			String sql = "delete from member where member_id=? and member_pw=?";
 			
 			PreparedStatement stmt = null;
@@ -358,7 +506,7 @@ public class MypageDao {
 		 * @param sellerPw	탈퇴할 비밀번호
 		 * @throws CommonException
 		 */
-		public void removeSeller(Connection conn, String sellerId, String sellerPw) throws CommonException{
+		public void sellerDelete(Connection conn, String sellerId, String sellerPw) throws CommonException{
 			
 			String sql = "delete from seller where seller_id=? and seller_pw=?";
 			
