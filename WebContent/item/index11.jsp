@@ -15,13 +15,17 @@
 <body>
           <a href="/takeit/item/itemController?action=enrollItemForm">상품등록</a>
       
-		<a href="/takeit/item/itemController?action=itemList">상품전체조회</a>
+		 <a href="/takeit/item/itemController?action=itemList">상품전체조회</a>
 
 		<a href="/takeit/item/reviewController?action=enrollReviewForm">후기등록</a>
-	
-		<a href="/takeit/item/reviewController?action=reviewList">후기전체조회</a>
+	 
+		 <a href="/takeit/item/reviewController?action=reviewList">후기전체조회</a>
 		
-		<a href="/takeit/item/reviewController?action=updateReviewForm">내가쓴 후기조회</a>
+		 <a href="/takeit/item/reviewController?action=updateReviewForm">내가 쓴 후기조회</a>
+		
+			<a href="/takeit/item/itemController?action=updateItemForm">판매자 등록 상품보기/a>
+			
+	
 		
 		
 </body>

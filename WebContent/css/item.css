@@ -111,3 +111,20 @@ table {
 #meat_div {
 	margin-left: 50px;
 }
+.item_list>li{
+	list-style: none;
+ 
+}
+.item_Li{ display: flex;
+          flex-wrap:wrap;
+           gap:2em;
+           margin:20px;
+           align:'center';
+}
+ul  {list-style-type: none; float: left;
+}
+.itemLI{
+	font-family: 굴림;
+	font-weight:bold;
+ 
+}

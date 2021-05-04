@@ -8,9 +8,9 @@
 <title>Take it</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/item.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
-<body>
+<body><body>
 	<!-- 상단 메뉴 -->
 	<c:if test="${empty memberId }">
 		<!-- 로그인 전 메뉴 -->

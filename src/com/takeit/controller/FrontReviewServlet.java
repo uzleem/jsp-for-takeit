@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
@@ -58,15 +59,16 @@ public class FrontReviewServlet extends HttpServlet {
 		case "enrollReview":
 			enrollReview(request, response);
 			break;
-			//		case "deleteReview":
-			//			deleteReview(request, response);
-			//			break;
+
 		case "updateReviewForm":
-			updateReviewForm(request,response);
+		//	updateReviewForm(request,response);
 			break;
-			//	case "setReviewInfo":
-			//		setReviewInfo(request,response);
-			//		break;
+		case "setReviewInfo":
+			setReviewInfo(request,response);
+			break;
+		//		case "deleteReview":
+		//			deleteReview(request, response);
+		//			break;
 		}
 	}
 
@@ -99,7 +101,7 @@ public class FrontReviewServlet extends HttpServlet {
 				request.getRequestDispatcher("/review/reviewList.jsp").forward(request, response);
 			}
 		} catch (CommonException e) {
-			MessageEntity message = new MessageEntity("error", 13);
+			MessageEntity message = new MessageEntity("error", 25);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
@@ -122,187 +124,215 @@ public class FrontReviewServlet extends HttpServlet {
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContents = request.getParameter("reviewContents");
 		String reviewScore_ = request.getParameter("reviewScore");
-		
-		
+
+
 		int reviewScore = 0;
 		if (reviewScore_!= null) {
 			reviewScore = Integer.parseInt(reviewScore_);
 		}
 		String reviewImg = request.getParameter("reviewImg");
-		
-		
+
+
 		System.out.println("memberId"+memberId);
 		System.out.println("itemNo"+itemNo);
 		System.out.println("reviewTitle"+reviewTitle);
 		System.out.println("reviewContents"+reviewContents);
 		System.out.println("reviewScore"+reviewScore);
-//		Part filePart= request.getPart("file");
-//		filePart.getInputStream();
+		//		Part filePart= request.getPart("file");
+		//		filePart.getInputStream();
+		//
+		//		String realPath =request.getServletContext().getRealPath("/upload");
+
+		if (memberId == null || memberId.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 7);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;   
+		}
+
+		if (itemNo == null || itemNo.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 7);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+
+		}
+		if (reviewTitle   == null || reviewTitle.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 7);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+		}
+
+		if (reviewContents == null || reviewContents.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 7);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+		}
+
+		if (reviewScore == 0 ){
+			MessageEntity message = new MessageEntity("validation", 7);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+		}
+
+		ReviewBiz rbiz = new ReviewBiz();
+		Review dto = new Review(itemNo, memberId, reviewTitle, reviewContents, reviewScore,reviewImg);
+
+		try {
+			rbiz.enrollReview(dto);
+
+			MessageEntity message = new MessageEntity("success", 12);
+			message.setUrl("takeit/review/review.jsp");
+			message.setLinkTitle("후기등록");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		} catch (CommonException e) {
+			e.printStackTrace();
+			MessageEntity message = e.getMessageEntity();
+			System.out.println(message);
+		}
+	}
+
+
+	/**
+	 * 작성 후기조회요청
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+//	protected void updateReviewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, CommonException {
 //
-//		String realPath =request.getServletContext().getRealPath("/upload");
+//		HttpSession session = request.getSession();
+//		MessageEntity message = null;
+//
+//		String memberId = (String)session.getAttribute("memberId");
+//		//		String memberId = request.getParameter("memberId");
+//		//String memberId = "user01";
+//		if(memberId == null || memberId.trim().length()  == 0 ) {
+//
+//
+//			message = new MessageEntity("validation",0);
+//			message.setLinkTitle("마이페이지로 이동");
+//			message.setUrl("/takeit/member/myPage.jsp");
+//
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
+//			return;
+//		}
+//
+//		ReviewBiz biz = new ReviewBiz();
+//
+//		Review dto = new Review();
+//		dto.setMemberId(memberId);
+//
+//		try {
+//			biz.getReview(dto);
+//			session.setAttribute("review", dto);
+//			request.getRequestDispatcher("/review/reviewInfo.jsp").forward(request, response);
+//
+//		}catch (CommonException e) {
+//			System.out.println(e.getMessage());
+//			e.printStackTrace();
+//			message = e.getMessageEntity();
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
+//
+//		}
+//	}
 
-	if (memberId == null || memberId.trim().length() == 0){
-		MessageEntity message = new MessageEntity("validation", 1);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
+	/**  
+	 * 작성후기 수정
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void setReviewInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		return;   
-	}
-
-	if (itemNo == null || itemNo.trim().length() == 0){
-		MessageEntity message = new MessageEntity("validation", 0);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
-
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		return;  
-
-	}
-	if (reviewTitle   == null || reviewTitle.trim().length() == 0){
-		MessageEntity message = new MessageEntity("validation", 0);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
-
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		return;  
-	}
-
-	if (reviewContents == null || reviewContents.trim().length() == 0){
-		MessageEntity message = new MessageEntity("validation", 0);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
-
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		return;  
-	}
-
-	if (reviewScore == 0 ){
-		MessageEntity message = new MessageEntity("validation", 0);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
-
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-		return;  
-	}
-
-	ReviewBiz rbiz = new ReviewBiz();
-	Review dto = new Review(itemNo, memberId, reviewTitle, reviewContents, reviewScore,reviewImg);
-	
-	try {
-		rbiz.enrollReview(dto);
 		
-		MessageEntity message = new MessageEntity("success", 0);
-		message.setUrl("takeit/review/review.jsp");
-		message.setLinkTitle("후기등록");
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/message.jsp").forward(request, response);
-	} catch (CommonException e) {
-		e.printStackTrace();
-		MessageEntity message = e.getMessageEntity();
-		System.out.println(message);
-	}
-}
+      HttpSession session = request.getSession();
+    	MessageEntity message = null;
+    	
+    	String memberId = (String)session.getAttribute("memberId");
+		String reviewTitle = request.getParameter("reviewTitle");
+		String reviewContents = request.getParameter("reviewContents");
+		String reviewScore_ = request.getParameter("reviewScore");
+
+		int reviewScore = 0;
+		if (reviewScore_!= null) {
+			reviewScore = Integer.parseInt(reviewScore_);
+		}
+		String reviewImg = request.getParameter("reviewImg");
 
 
-/**
- * 후기삭제
- * @param conn
- * @param dto
- */
-public void deleteReview(Connection conn, Review dto) {
 
-	String sql = "delete from Review where member_id=? and review_title=?";
+		ReviewBiz biz = new ReviewBiz();
 
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
+		Review dto = new Review();
+		dto.setReviewTitle(reviewTitle);
+		dto.setReviewContents(reviewContents);
+		//dto.setReviewScore(reviewScore);
+		dto.setReviewImg(reviewImg);
 
-	try {
-		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, dto.getMemberId());
-		stmt.setString(2, dto.getReviewTitle());
 
-		stmt.executeUpdate();
-	}catch (Exception e) {
-		System.out.println(e.getMessage());
-		e.printStackTrace();
-	}finally {
-		JdbcTemplate.close(rs);
-		JdbcTemplate.close(stmt);
-	}		
-}	
-/**
- * 작성 후기조회요청
- * @param request
- * @param response
- * @throws ServletException
- * @throws IOException
- */
-protected void updateReviewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			biz.setReview(dto);
+			request.setAttribute("dto", dto);
+			request.getRequestDispatcher("/review/reviewController?action=updateReviewForm").forward(request, response);
 
-	//		HttpSession session = request.getSession(false);
-
-	//		String memberId = (String)session.getAttribute("memberId");
-	//		String memberId = request.getParameter("memberId");
-	String memberId = "user01";
-	ReviewBiz biz = new ReviewBiz();
-
-	Review dto = new Review();
-	dto.setMemberId(memberId);
-	try {
-		biz.getReview(dto);
-		request.setAttribute("review", dto);
-		request.getRequestDispatcher("/review/reviewInfo.jsp").forward(request, response);
-
-	}catch (Exception e) {
-		System.out.println(e.getMessage());
-		e.printStackTrace();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
-}
-/**
- * 작성후기 수정
- * @param request
- * @param response
- * @throws ServletException
- * @throws IOException
- */
-protected void setReviewInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	String reviewTitle = request.getParameter("reviewTitle");
-	String reviewContents = request.getParameter("reviewContents");
-	String reviewScore = request.getParameter("reviewScore");
-	String reviewImg = request.getParameter("reviewImg");
 
 
+	/**
+	 * 후기삭제
+	 * @param conn
+	 * @param dto
+	 */
+	public void deleteReview(Connection conn, Review dto) {
 
-	ReviewBiz biz = new ReviewBiz();
+		String sql = "delete from Review where member_id=? and review_title=?";
 
-	Review dto = new Review();
-	dto.setReviewTitle(reviewTitle);
-	dto.setReviewContents(reviewContents);
-	//dto.setReviewScore(reviewScore);
-	dto.setReviewImg(reviewImg);
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dto.getMemberId());
+			stmt.setString(2, dto.getReviewTitle());
 
-	try {
-		biz.setReview(dto);
-		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("/review/reviewController?action=updateReviewForm").forward(request, response);
-
-	}catch (Exception e) {
-		System.out.println(e.getMessage());
-		e.printStackTrace();
-	}
-
-}
-
-
+			stmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}		
+	}	
 }		
 
 

@@ -13,9 +13,9 @@
 <meta charset="UTF-8">
 <title>상품조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
-<link type="text/css" rel="stylesheet" href="/takeit/css/board.css">
+<!--<link type="text/css" rel="stylesheet" href="/takeit/css/board.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
-
 <body>
 <c:choose>
 	<c:when test="${empty memberId}">

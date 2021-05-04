@@ -75,6 +75,9 @@ public class Item implements Serializable{
 		this.shopName = shopName;
 	}
 
+	//상품 전체데이터
+
+	
 	public String getSellerName() {
 		return sellerName;
 	}
