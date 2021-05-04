@@ -9,6 +9,7 @@ public class Cart {
 	private String sellerId;
 	private String sellerName;
 	private int cartItemQty;
+	private int itemPrice;
 	private int totalPrice;
 	
 	public Cart() {}
@@ -100,6 +101,14 @@ public class Cart {
 		this.itemImg = itemImg;
 	}
 
+	public int getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -117,10 +126,14 @@ public class Cart {
 		builder.append(", ");
 		builder.append(cartItemQty);
 		builder.append(", ");
+		builder.append(itemPrice);
+		builder.append(", ");
 		builder.append(totalPrice);
 		return builder.toString();
 	}
 
+	
+	
 	
 	
 	
