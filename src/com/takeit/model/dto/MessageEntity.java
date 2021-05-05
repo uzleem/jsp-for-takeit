@@ -48,12 +48,12 @@ public class MessageEntity {
 		error.add("[후기 삭제오류]"); 
 		error.add("[상품 조회오류]"); 
 		
-		error.add("[주문 등록 오류]"); //28
+		error.add("[주문 등록 오류]"); //29
 		error.add("[주문 조회 오류]");
 		error.add("[주문 삭제 오류]");
 		error.add("[후기 상세조회 오류]");
 	
-		error.add("[회원가입 오류]"); //32
+		error.add("[회원가입 오류]"); //33
 		error.add("[로그인 오류]"); 
 		error.add("[아이디찾기 오류]"); 
 		error.add("[비밀번호찾기 오류]"); 

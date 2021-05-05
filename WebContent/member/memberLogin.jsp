@@ -71,7 +71,7 @@ function kakaoLogin() {
 		</td>
 	</tr>
 </table>
-<form action="${CONTEXT_PATH}/member/controller?action=memberLogin" method="post">
+<form action="/takeit/member/controller?action=memberLogin" method="post">
 <table>
 	<tr>
 		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId" required="required"/></td>
