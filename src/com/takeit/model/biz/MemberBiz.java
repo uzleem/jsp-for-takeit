@@ -29,7 +29,6 @@ public class MemberBiz {
 			JdbcTemplate.commit(con);
 			TakeitBiz takeitBiz = new TakeitBiz();
 			takeitBiz.addMemberLocNo(member); 
-			
 		} catch (CommonException e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(con);
@@ -84,16 +83,27 @@ public class MemberBiz {
 	}
 
 	/**
-	 * 중복체크
+	 * 아이디 중복체크
 	 * @throws CommonException 
 	 */
 	public int idCheck(String memberId) throws CommonException{
 		Connection con = JdbcTemplate.getConnection();
-		
 		boolean result = dao.memberIdChk(con, memberId);
-		
 		JdbcTemplate.close(con);
-		
+		if (result) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
+	 * 이메일 중복체크
+	 * @throws CommonException 
+	 */
+	public int emailCheck(String email) throws CommonException{
+		Connection con = JdbcTemplate.getConnection();
+		boolean result = dao.memberEmailChk(con, email);
+		JdbcTemplate.close(con);
 		if (result) {
 			return 1;
 		}

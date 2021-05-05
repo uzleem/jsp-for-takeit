@@ -10,6 +10,7 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/find.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="${CONTEXT_PATH}/js/member/find.js"></script>
+<!-- 인증번호 -->
 <script type="text/javascript">
 function mobilePopup() {
      // window.name = "부모창 이름"; 

@@ -10,6 +10,7 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="${CONTEXT_PATH}/js/member/input.js"></script>
+<!-- 비밀번호 표시 --> 
 <script type="text/javascript">
 function pwCheckbox_onclick() {
 	
@@ -26,6 +27,7 @@ function pwCheckbox_onclick() {
 	}
 }
 </script>
+<!-- 우편번호 api -->
 <script type="text/javascript">
 var goPopup = function() {
 	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
@@ -40,6 +42,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 	} 
 }
 </script>
+<!-- 인증번호 팝업 -->
 <script type="text/javascript">
 function mobilePopup() {
      // window.name = "부모창 이름"; 
@@ -49,14 +52,52 @@ function mobilePopup() {
              "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
 }
 </script>
+<!-- 아이디, 이메일 중복체크 -->
 <script type="text/javascript">
-function shopImgPopup() {
-    // window.name = "부모창 이름"; 
-    window.name = "parentForm";
- 	// window.open("open할 window", "자식창 이름", "팝업창 옵션");
-    window.open("${CONTEXT_PATH}/seller/shopImgPopup.jsp",
-            "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
-}
+function idCheck(){
+	 $.ajax({	
+		 	// 서블릿으로 보낸다
+			url:"/takeit/seller/controller?action=sellerIdChk",
+			type:"get",	
+			// name값
+			data:{
+				"sellerId" : $("#sellerId").val()  
+			},	
+		
+			success:function(data){
+				
+				if(data == "1"){
+					
+					alert("사용가능한 아이디입니다.");
+				}else {					
+					
+					alert("해당 아이디는 사용중입니다.");	
+				}			
+			}
+	});	 
+};
+function emailCheck(){
+	 $.ajax({	
+		 	// 서블릿으로 보낸다
+			url:"/takeit/seller/controller?action=sellerEmailChk",
+			type:"get",	
+			// name값
+			data:{
+				"email" : $("#email").val()  
+			},	
+		
+			success:function(data){
+				
+				if(data == "1"){
+					
+					alert("사용가능한 이메일입니다.");
+				}else {					
+					
+					alert("해당 이메일은 사용중입니다.");	
+				}			
+			}
+	});	 
+};
 </script>
 </head>
 
@@ -82,14 +123,22 @@ function shopImgPopup() {
 
 <!-- 내용 -->
 <div id="contents_box" align="center">
-<h3>판매자 회원가입</h3>
-<form action="${CONTEXT_PATH}/seller/controller?action=sellerInput" method="post">
+
+<table>
+		<tr>
+			<td align="center">
+				일반 <input type="radio" id="normalInputFrom" name="normalInputFrom" />
+				판매자 <input type="radio" id="sellerInputForm" name="sellerInputForm" checked="checked"/>
+			</td>
+		</tr>
+</table>
+<form action="${CONTEXT_PATH}/seller/controller?action=sellerInput" method="post" enctype="multipart/form-data">
 <table>
 		<tr>
 			<td>아이디</td>
 			<td>
 				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="sellerId" name="sellerId" required="required"/>
-				<input type="button" value="중복확인" id="id_button"/>
+				<input type="button" value="중복확인" id="id_button" onclick="idCheck()"/>
 			</td>
 		</tr>
 		<tr>
@@ -124,7 +173,7 @@ function shopImgPopup() {
 			<td>이메일</td>
 			<td>
 				<input type="text" placeholder="예:takeit@take.com" id="email" name ="email" required="required"/>
-				<input type="button" value="중복확인" id="email_button" name="email_button"/>
+				<input type="button" value="중복확인" id="email_button" name="email_button" onclick="emailCheck()"/>
 			</td>
 		</tr>
 		<tr>
@@ -178,14 +227,15 @@ function shopImgPopup() {
 		<tr>
 			<td>상점이미지</td>
 			<td>
-				<input type="file" placeholder="상점 이미지를 등록해주세요." id="shopImg" name="shopImg" />
-				<input type="button" value="등록" onclick="shopImgPopup;" id="imgBtn" name="imgBtn"/>
+				<input type="file" placeholder="상점 이미지를 등록해주세요." id="shopImg" name="shopImg" />			
+					
 			</td>
 		</tr>
 		<tr>
 			<td>카테고리</td>
 			<td>
 				<select name="shopCategoryNo" id="shopCategoryNo">
+					<option value="none">:::선택:::</option>
 					<option value="1">야채</option>
 					<option value="2">과일</option>
 					<option value="3">정육</option>
