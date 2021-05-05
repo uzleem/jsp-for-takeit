@@ -14,7 +14,7 @@
 		<a href="/takeit/boardController?action=boardList&boardCategory=1">공지사항</a>
 	</div>
 	<div id="search-wrap">
-	<form action="/takeit/searchController?searchList" id="mainSearch">
+	<form action="/takeit/searchController?action=searchList" id="mainSearch" method="post">
 		<input type="text" id="searchInput" name="searchInput"  placeholder="검색어를 입력하세요..">
 		<button type="submit" id="search-btn-wrap"><img id="search-btn" alt="검색" src="/takeit/img/icon/ico_search_x2.png"></button>
 	</form>
