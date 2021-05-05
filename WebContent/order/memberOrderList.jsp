@@ -5,10 +5,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 판매목록 조회</title>
+<title>내 주문목록 조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+function orderCancelRequest(orderNo) {
+	$.ajax({
+		url:"/takeit/order/orderController?action=orderCancelRequest",
+		type:"post",
+		data:{
+			"orderNo" : orderNo
+		},
+		success : function(data) {
+			if (data == "1") {
+				alert("성공");
+			} else {
+				alert("실패");
+			}
+		}
+	})
+}
+</script>
 </head>
 <body>
 
@@ -37,33 +55,37 @@
 		<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
 	</c:otherwise>
 </c:choose>
-
-<div>
-	<h3>주문내역</h3>
-	<c:forEach var="order" items="${orderList}">
+	
 	<div>
-		주문번호 : ${order.orderNo} <br>
-		주문자 : ${order.memberId}<br>
-		배송상태 : ${order.shipStatus}
-		<input type="button" value="배송상태변경"/>
-		<br>
-		요청사항 : ${order.shipRequest}<br>
-		
-		<c:forEach var="orderDetail" items="${order.orderDetails}">
-		<br>
-		<img src="/takeit/img/item/${orderDetail.itemImg}" style="width:100px; height:150px;">
-		<div style="display:inline-block;">
-			상품명 : ${orderDetail.itemName} <br>
-			상품개수 : ${orderDetail.itemQty}개 <br>
-			상품결제금액 : ${orderDetail.itemPayPrice}원 <br> 
-		</div><br>
+	<h3>주문내역</h3>
+		<c:forEach var="order" items="${orderList}">
+			<hr>
+			<div>
+				<div>
+					주문번호 : ${order.orderNo} &emsp; 주문 상태 : ${order.shipStatus}
+					<input type="button" value="취소요청" onclick="orderCancelRequest(${order.orderNo})"> 
+				</div>
+				<c:forEach var="orderDetail" items="${order.orderDetails}">
+				<div>
+					<img src="/takeit/img/item/${orderDetail.itemImg}" alt="${orderDetail.itemImg}" title="${orderDetail.itemImg}" style="width:100px; height:150px;">	
+					<div style="display:inline-block;">
+						<div>상품명 : ${orderDetail.itemName}</div>
+						<div>상품 수량 : ${orderDetail.itemQty}개</div>
+						<div>결제금액 : ${orderDetail.itemPayPrice * orderDetail.itemQty}원</div>
+						<div>수령 방법 : ${order.receiveMethod}</div>
+					</div>
+					<div style="display:inline-block;">
+						<input type="button" value="상품 후기" >
+						<input type="button" value="상품 문의" onclick="location.href='/takeit/boardController?action=boardList&boardCategory=3'">
+					</div>
+				</div>
+				</c:forEach>
+			</div>
 		</c:forEach>
 		<hr>
-	</div><br>
-	</c:forEach>
+	</div>
 </div>
 
-</div>
  <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
  

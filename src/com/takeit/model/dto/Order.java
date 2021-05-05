@@ -20,16 +20,17 @@ public class Order implements Serializable {
 	private int orderPrice;
 	private String shipStatusCode;
 	private String memberId;
+	private String orderCancelReq;
+	private String orderCancel;
+
 	// 주문상세
 	private ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
-	
-	
+
 	public Order() {
 	}
 
 	/**
 	 * 전체 데이터 초기화 생성자
-	 * 
 	 * @param itemTakeit      잇거래여부
 	 * @param shipStatus      배송상태
 	 * @param orderNo         주문번호
@@ -42,17 +43,14 @@ public class Order implements Serializable {
 	 * @param orderPrice      총주문금액
 	 * @param shipStatusCode  배송상태코드
 	 * @param memberId        주문자 아이디
-	 * @param itemNos         상품번호
-	 * @param itemQtys        상품수량
-	 * @param itemPayPrices   상품결제가격
+	 * @param orderCancelReq  주문취소요청여부
+	 * @param orderCancel     주문취소여부
+	 * @param orderDetails    주문상세
 	 */
-	public String getItemTakeit() {
-		return itemTakeit;
-	}
-
 	public Order(String itemTakeit, String shipStatus, String orderNo, String receiveMethod, String recipientName,
 			String recipientPostNo, String recipientAddr, String recipientMobile, String shipRequest, int orderPrice,
-			String shipStatusCode, String memberId, ArrayList<OrderDetail> orderDetails) {
+			String shipStatusCode, String memberId, String orderCancelReq, String orderCancel,
+			ArrayList<OrderDetail> orderDetails) {
 		super();
 		this.itemTakeit = itemTakeit;
 		this.shipStatus = shipStatus;
@@ -66,7 +64,29 @@ public class Order implements Serializable {
 		this.orderPrice = orderPrice;
 		this.shipStatusCode = shipStatusCode;
 		this.memberId = memberId;
+		this.orderCancelReq = orderCancelReq;
+		this.orderCancel = orderCancel;
 		this.orderDetails = orderDetails;
+	}
+
+	public String getOrderCancelReq() {
+		return orderCancelReq;
+	}
+
+	public void setOrderCancelReq(String orderCancelReq) {
+		this.orderCancelReq = orderCancelReq;
+	}
+
+	public String getOrderCancel() {
+		return orderCancel;
+	}
+
+	public void setOrderCancel(String orderCancel) {
+		this.orderCancel = orderCancel;
+	}
+
+	public String getItemTakeit() {
+		return itemTakeit;
 	}
 
 	public String getShipStatus() {
@@ -168,7 +188,5 @@ public class Order implements Serializable {
 	public void setItemTakeit(String itemTakeit) {
 		this.itemTakeit = itemTakeit;
 	}
-	
-	
 
 }

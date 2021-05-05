@@ -21,7 +21,7 @@ public class OrderDao {
 	public void insertOrder(Connection conn, Order order) throws CommonException {
 		String sql = 
 				"INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yyyymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
-				+ ", ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+				+ ", ?, ?, ?, ?, ?, ?, ?, 'F', 'F', ?, ?) ";
 		
 		PreparedStatement stmt = null;
 		try {
@@ -125,26 +125,37 @@ public class OrderDao {
 				orderDetail = new OrderDetail();
 				for (Order dto : orderList) {
 					if (dto.getOrderNo().equals(rs.getString("order_no"))) {
-						order = dto;
 						orderDetails = dto.getOrderDetails();
+						
+						orderDetail.setItemNo(rs.getString("item_no"));
+						orderDetail.setItemName(rs.getString("item_name"));
+						orderDetail.setItemQty(rs.getInt("Item_Qty"));
+						orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
+						orderDetail.setItemImg(rs.getString("item_img"));
+						orderDetails.add(orderDetail);
 						break;
 					}
 				}
+				if (orderDetails.isEmpty()) {
+					orderDetail.setItemNo(rs.getString("item_no"));
+					orderDetail.setItemName(rs.getString("item_name"));
+					orderDetail.setItemQty(rs.getInt("Item_Qty"));
+					orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
+					orderDetail.setItemImg(rs.getString("item_img"));
+					orderDetails.add(orderDetail);
+					
+					order.setOrderDetails(orderDetails);
+	
+					order.setOrderNo(rs.getString("order_No"));
+					order.setShipStatus(rs.getString("ship_Status"));
+					order.setShipRequest(rs.getString("ship_Request"));
+					order.setMemberId(rs.getString("member_Id"));
+					order.setOrderCancelReq(rs.getString("order_Cancel_Req"));
+					order.setOrderCancel(rs.getString("order_Cancel"));
+					
+					orderList.add(order);
 				
-				orderDetail.setItemNo(rs.getString("item_no"));
-				orderDetail.setItemName(rs.getString("item_name"));
-				orderDetail.setItemQty(rs.getInt("Item_Qty"));
-				orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
-				orderDetails.add(orderDetail);
-				
-				order.setOrderDetails(orderDetails);
-
-				order.setOrderNo(rs.getString("order_No"));
-				order.setShipStatus(rs.getString("ship_Status"));
-				order.setShipRequest(rs.getString("ship_Request"));
-				order.setMemberId(rs.getString("member_Id"));
-				
-				orderList.add(order);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,5 +167,96 @@ public class OrderDao {
 			JdbcTemplate.close(stmt);
 		}	
 		
+	}
+
+	public void selectMemberOrderList(Connection conn, String memberId, ArrayList<Order> orderList) throws CommonException {
+		String sql = "SELECT * "
+				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) "
+				+ "WHERE ORDERS.MEMBER_ID = ? ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			rs = stmt.executeQuery();
+			
+			Order order = null;
+			ArrayList<OrderDetail> orderDetails = null;
+			OrderDetail orderDetail = null;
+			while (rs.next()) {
+				order = new Order();
+				orderDetails = new ArrayList<OrderDetail>();
+				orderDetail = new OrderDetail();
+				for (Order dto : orderList) {
+					if (dto.getOrderNo().equals(rs.getString("order_no"))) {
+						orderDetails = dto.getOrderDetails();
+						
+						orderDetail.setItemNo(rs.getString("item_no"));
+						orderDetail.setItemName(rs.getString("item_name"));
+						orderDetail.setItemQty(rs.getInt("Item_Qty"));
+						orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
+						orderDetail.setItemImg(rs.getString("item_img"));
+						orderDetails.add(orderDetail);
+						
+						break;
+					}
+				}
+				if (orderDetails.isEmpty()) {
+					orderDetail.setItemNo(rs.getString("item_no"));
+					orderDetail.setItemName(rs.getString("item_name"));
+					orderDetail.setItemQty(rs.getInt("Item_Qty"));
+					orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
+					orderDetail.setItemImg(rs.getString("item_img"));
+					orderDetails.add(orderDetail);
+					
+					order.setOrderDetails(orderDetails);
+	
+					order.setOrderNo(rs.getString("order_No"));
+					order.setShipStatus(rs.getString("ship_Status"));
+					order.setShipRequest(rs.getString("ship_Request"));
+					order.setMemberId(rs.getString("member_Id"));
+					order.setReceiveMethod(rs.getString("receive_Method"));
+					order.setOrderCancelReq(rs.getString("order_Cancel_Req"));
+					order.setOrderCancel(rs.getString("order_Cancel"));
+					
+					orderList.add(order);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 28);
+			
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+		
+	}
+
+	public boolean updateOrderCancelReq(Connection conn, String orderNo) throws CommonException {
+		String sql = "UPDATE FROM ORDERS "
+				+ "SET ORDER_CANCEL_REQ = 'T' "
+				+ "WHERE ORDER_NO = ? ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,  orderNo);
+			int row = stmt.executeUpdate();
+			
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 28);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+		return false;
 	}
 }

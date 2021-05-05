@@ -39,4 +39,35 @@ public class OrderBiz {
 		
 		
 	}
+
+	public void getMemberOrderList(String memberId, ArrayList<Order> orderList) throws CommonException {
+		OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.selectMemberOrderList(conn, memberId, orderList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
+
+	public boolean orderCancelRequest(String orderNo) throws CommonException {
+		OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			boolean result = dao.updateOrderCancelReq(conn, orderNo);
+			JdbcTemplate.commit(conn);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
+			e.printStackTrace();
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+		
+		return false;
+	}
 }

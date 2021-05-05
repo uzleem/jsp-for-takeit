@@ -37,14 +37,51 @@ public class FrontOrderServlet extends HttpServlet {
 		case "order":
 			order(request, response);
 			break;
-		case "orderList":
-			orderList(request, response);
-			break;
 		case "sellerOrderList":
 			sellerOrderList(request, response);
 			break;
+		case "memberOrderList":
+			memberOrderList(request, response);
+			break;
+		case "orderCancelRequest":
+			orderCancelRequest(request, response);
+			break;
 		}
 	}
+	protected void orderCancelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String orderNo = request.getParameter("orderNo");
+		
+		OrderBiz biz = new OrderBiz();
+		try {
+			boolean result = biz.orderCancelRequest(orderNo);
+			response.getWriter().write("1");
+		} catch (CommonException e) {
+			e.printStackTrace();
+			response.getWriter().write("0");
+		}
+	}
+	
+	
+	protected void memberOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String memberId = "user03";
+		
+		OrderBiz biz = new OrderBiz();
+		
+		ArrayList<Order> orderList = new ArrayList<>();
+		
+		try {
+			biz.getMemberOrderList(memberId, orderList);
+			
+			request.setAttribute("orderList", orderList);
+			request.getRequestDispatcher("/order/memberOrderList.jsp").forward(request, response);
+			
+			
+		} catch (CommonException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	protected void sellerOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sellerId = "seller01";
 		
@@ -60,12 +97,6 @@ public class FrontOrderServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	protected void orderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-	
-	
 	protected void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = (String)request.getSession(false).getAttribute("memberId"); 
 		memberId = "user01";

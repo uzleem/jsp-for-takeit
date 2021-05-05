@@ -5,16 +5,19 @@ public class OrderDetail {
 	private String itemName;
 	private int itemQty;
 	private int itemPayPrice;
+	private String itemImg;
 	
+
 	public OrderDetail() {
 	}
-	
-	public OrderDetail(String itemNo, String itemName, int itemQty, int itemPayPrice) {
+
+	public OrderDetail(String itemNo, String itemName, int itemQty, int itemPayPrice, String itemImg) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
 		this.itemQty = itemQty;
 		this.itemPayPrice = itemPayPrice;
+		this.itemImg = itemImg;
 	}
 
 	public String getItemNo() {
@@ -49,6 +52,13 @@ public class OrderDetail {
 		this.itemPayPrice = itemPayPrice;
 	}
 	
+	public String getItemImg() {
+		return itemImg;
+	}
+
+	public void setItemImg(String itemImg) {
+		this.itemImg = itemImg;
+	}
 	
 	
 }
