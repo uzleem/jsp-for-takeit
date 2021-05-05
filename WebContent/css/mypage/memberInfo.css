@@ -23,9 +23,7 @@
 }
 
 #container{
-	height: 700px;
-	display: flex;
-	    justify-content: space-between;
+	height: 800px;
 }
 .myPage_menu_aside {
 	width: 200px;
@@ -136,4 +134,15 @@ margin-right: 20px;}
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+#addressDetail{
+	
+	width:250px;
+	
+}
+#address{
+	
+	width:250px;
+	
 }

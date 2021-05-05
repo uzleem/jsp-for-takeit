@@ -82,6 +82,7 @@ public class MessageEntity {
 		success.add("[상품 삭제완료]");
 		success.add("[후기 등록완료]");
 		success.add("[후기 변경완료]");
+		success.add("[상품 등록 성공]");
 	
 		
 		

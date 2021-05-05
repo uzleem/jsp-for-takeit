@@ -41,25 +41,23 @@ function mobilePopup() {
 
 <body>
 <!-- 상단 메뉴 -->
-<c:choose>
-	<c:when test="${empty member.memberId or empty member.grade}">
-		<!-- 로그인 전 메뉴 -->
-		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<!-- 로그인 후 메뉴 -->
-		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
-	</c:otherwise>
-</c:choose>
+<c:if test="${empty memberId and empty sellerId}">
+	<!-- 로그인 전 메뉴 -->
+	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+</c:if>
+<c:if test="${not empty memberId or not empty sellerId}">
+	<!-- 로그인 후 메뉴 -->
+	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+</c:if>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <h3 id ="title" align="center">내 정보 조회</h3>
 
-<div id="container" class="view-width">
+<div id="container">
 	<c:choose>
-		<c:when test ="${member.grade == 'S' }">
+		<c:when test ="${dto.grade == 'S' }">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
 		</c:when>
@@ -156,6 +154,7 @@ function mobilePopup() {
 			<input type="text" id="grade" name="grade" value="${member.grade}" readonly="readonly">
 			</td>	
 		</tr>
+		
 		<tr>
 			<td colspan="2" align="center">
 				<input class="updateBtn" type="submit" value="내 정보 수정">
@@ -164,7 +163,7 @@ function mobilePopup() {
 	</table>
 </form>
 	<div id="myInfo_btn">
-			<input id = "mypage_btn" class="inline" type="button" value="홈으로 이동" onclick="location.href='/takeit/index.jsp'">
+			<input id = "mypage_btn" class="inline" type="button" value="홈으로 이동" onclick="location.href='/takeit/index'">
 	</div>
 </div>
 </div>
