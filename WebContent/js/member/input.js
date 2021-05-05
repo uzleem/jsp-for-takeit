@@ -1,5 +1,15 @@
 $(document).ready(function() {
-		
+	
+	/* 일반 회원가입 버튼 이벤트 */
+	$("#normalInputFrom").click(function() {
+		 location.href = "/takeit/member/memberInput.jsp"
+	});
+	
+	/* 판매자 회원가입 버튼 이벤트 */
+	$("#sellerInputForm").click(function() {
+		location.href = "/takeit/seller/controller?action=sellerInputForm"
+	});
+	
 	/* 일반회원 시작 */
 	/* 아이디 포커스 */
 	$("#memberId").focus();
@@ -206,6 +216,19 @@ $(document).ready(function() {
 	/* 비밀번호확인 포커스 아웃*/
 	$("#sellerPw_chk").on('focusout', function() {
 		$("#sellerPw_chk").css({
+			'background' : "white"
+		});
+	});
+	
+	/* 상점구역 포커스 */
+	$("#shopLocCode").on('focus', function() {
+		$("#shopLocCode").css({
+			'background' : "#E8F0FE"
+		});
+	});
+	/* 상점구역 포커스 */
+	$("#shopLocCode").on('focusout', function() {
+		$("#shopLocCode").css({
 			'background' : "white"
 		});
 	});

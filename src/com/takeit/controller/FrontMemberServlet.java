@@ -22,6 +22,7 @@ import com.takeit.model.dto.MessageEntity;
  */
 @WebServlet(urlPatterns = {"/member/controller"}, loadOnStartup = 1)
 public class FrontMemberServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
 	public ServletContext application;
@@ -60,6 +61,9 @@ public class FrontMemberServlet extends HttpServlet {
 		case "memberIdChk":
 			memberIdChk(request, response);
 			break;
+		case "memberEmailChk":
+			memberEmailChk(request, response);
+			break;
 		}
 	}
 	
@@ -72,7 +76,7 @@ public class FrontMemberServlet extends HttpServlet {
 	}
 
 	/**
-	 * 일반 회원가입 
+	 * 회원가입 
 	 */
 	protected void memberInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -90,15 +94,7 @@ public class FrontMemberServlet extends HttpServlet {
 		String addressDetail = request.getParameter("addressDetail");
 		String birth = request.getParameter("birth");
 				
-		System.out.println(memberId);
-		System.out.println(memberPw);
-		System.out.println(name);
-		System.out.println(mobile);
-		System.out.println(email);
-		System.out.println(postNo);
-		System.out.println(address);
-		System.out.println(addressDetail);
-		System.out.println(birth);
+		System.out.println(memberId + memberId + name + mobile + email + postNo + address + addressDetail + birth);
 		
 		Member dto = new Member(memberId, memberPw, name, mobile, email, postNo, address, addressDetail, birth);
 		
@@ -106,18 +102,13 @@ public class FrontMemberServlet extends HttpServlet {
 				
 		try {
 			biz.addMember(dto);
-		
 			MessageEntity message = new MessageEntity("success", 0);
 			message.setUrl("/takeit/member/memberLogin.jsp");
 			message.setLinkTitle("로그인");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
-		
 		} catch (CommonException e) {
-			
 			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("뒤로가기");
-			message.setUrl(CONTEXT_PATH + "/member/memberInput.jsp");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		}
@@ -131,7 +122,6 @@ public class FrontMemberServlet extends HttpServlet {
 		System.out.println("작동확인 : memberLogin");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
-		RequestDispatcher rdIndex = request.getRequestDispatcher("/index.jsp");
 		
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
@@ -152,21 +142,17 @@ public class FrontMemberServlet extends HttpServlet {
 			if(dto.getAddress() != null) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("memberId", memberId); 
-				session.setAttribute("dto", dto); 			
-				rdIndex.forward(request, response);
+				session.setAttribute("dto", dto); 	
+				request.getRequestDispatcher("/index").forward(request, response);
 			}else {
-				MessageEntity message = new MessageEntity("error", 5);
+				MessageEntity message = new MessageEntity("error", 33);
 				message.setLinkTitle("뒤로가기");
-				message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+				message.setUrl("/takeit/member/memberLogin.jsp");
 				request.setAttribute("message", message);
 				rd.forward(request, response);
 			}
 		} catch (CommonException e) {
-			//e.printStackTrace();
-			//MessageEntity message = e.getMessageEntity();
-			MessageEntity message = new MessageEntity("error", 5);
-			message.setLinkTitle("뒤로가기");
-			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			MessageEntity message = e.getMessageEntity();
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		}
@@ -188,7 +174,7 @@ public class FrontMemberServlet extends HttpServlet {
 		session.invalidate();
 	
 		MessageEntity message = new MessageEntity("success", 2);
-		message.setUrl("/takeit/index.jsp");
+		message.setUrl("/takeit/index");
 		message.setLinkTitle("처음으로");
 		request.setAttribute("message", message);
 		rd.forward(request, response);
@@ -206,8 +192,7 @@ public class FrontMemberServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		
-		System.out.println(name);
-		System.out.println(email);
+		System.out.println(name + email);
 		
 		MemberBiz biz = new MemberBiz();
 		Member dto = new Member();
@@ -216,24 +201,20 @@ public class FrontMemberServlet extends HttpServlet {
 		dto.setEmail(email);
 		
 		try {
-			System.out.println("확인");
 			biz.idFind(dto);
-			//if(dto.getMemberId() != null){
+			if(dto.getMemberId() != null){
 				request.setAttribute("idInfo", dto.getMemberId());
 				request.setAttribute("entryDate", dto.getEntryDate());
 				request.getRequestDispatcher("/member/idFindMessage.jsp").forward(request, response);;
-//			}else {
-//				MessageEntity message = new MessageEntity("error", 6);
-//				message.setLinkTitle("뒤로가기");
-//				message.setUrl("memberFindId.jsp");
-//				request.setAttribute("message", message);
-//				rd.forward(request, response);
-//			}
+			}else {
+				MessageEntity message = new MessageEntity("error", 34);
+				message.setLinkTitle("뒤로가기");
+				message.setUrl("/takeit/member/memberFindId.jsp");
+				request.setAttribute("message", message);
+				rd.forward(request, response);
+			}
 		}catch (CommonException e) {
-			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("뒤로가기");
-			message.setUrl("memberFindId.jsp");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		}
@@ -264,23 +245,19 @@ public class FrontMemberServlet extends HttpServlet {
 		dto.setEmail(email);
 		
 		try {
-			System.out.println("확인");
 			biz.pwFind("dto", dto);
 			if(dto.getMemberPw() != null) {
 				request.setAttribute("pwInfo", dto.getMemberPw());
 				request.getRequestDispatcher("/member/pwFindMessage.jsp").forward(request, response);
 			}else {
-				MessageEntity message = new MessageEntity("error", 6);
+				MessageEntity message = new MessageEntity("error", 35);
 				message.setLinkTitle("뒤로가기");
-				message.setUrl("memberFindPw.jsp");
+				message.setUrl("/takeit/member/memberFindPw.jsp");
 				request.setAttribute("message", message);
 				rd.forward(request, response);
 			}
 		} catch (CommonException e) {
-			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("뒤로가기");
-			message.setUrl("memberFindPw.jsp");
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		}
@@ -303,13 +280,34 @@ public class FrontMemberServlet extends HttpServlet {
 				response.getWriter().write("0");
 			}
 		} catch (CommonException e) {
-			e.printStackTrace();
-			
+			MessageEntity message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
-		
-		
-		
 	}
-	
-	
+
+	/**
+	 * 이메일 중복체크
+	 */
+	protected void memberEmailChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		String email = request.getParameter("email");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		
+		MemberBiz biz = new MemberBiz();
+		
+		try {
+			int result = biz.emailCheck(email);
+			if(result == 1) {
+				response.getWriter().write("1");
+			}else {
+				response.getWriter().write("0");
+			}
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		}
+	}
 }

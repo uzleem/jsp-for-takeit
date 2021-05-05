@@ -212,6 +212,14 @@
 	border: 1px solid #7B977A;
 }
 
+#shopLocCode{
+	width:290px;
+	height:37px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+
 #sellerNo{
 	width:250px;
 	height:35px; 

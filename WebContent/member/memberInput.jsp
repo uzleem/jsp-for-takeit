@@ -10,6 +10,7 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="${CONTEXT_PATH}/js/member/input.js"></script>
+<!-- 비밀번호 표시 --> 
 <script type="text/javascript">
 function pwCheckbox_onclick() {
 	
@@ -26,6 +27,7 @@ function pwCheckbox_onclick() {
 	}
 }
 </script>
+<!-- 우편번호 api -->
 <script type="text/javascript">
 var goPopup = function() {
 	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
@@ -40,6 +42,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 	} 
 }
 </script>
+<!-- 인증번호 팝업 -->
 <script type="text/javascript">
 function mobilePopup() {
      // window.name = "부모창 이름"; 
@@ -49,6 +52,7 @@ function mobilePopup() {
              "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
 }
 </script>
+<!-- 아이디, 이메일 중복체크 -->
 <script type="text/javascript">
 function idCheck(){
 	 $.ajax({	
@@ -68,6 +72,28 @@ function idCheck(){
 				}else {					
 					
 					alert("해당 아이디는 사용중입니다.");	
+				}			
+			}
+	});	 
+};
+function emailCheck(){
+	 $.ajax({	
+		 	// 서블릿으로 보낸다
+			url:"/takeit/member/controller?action=memberEmailChk",
+			type:"get",	
+			// name값
+			data:{
+				"email" : $("#email").val()  
+			},	
+		
+			success:function(data){
+				
+				if(data == "1"){
+					
+					alert("사용가능한 이메일입니다.");
+				}else {					
+					
+					alert("해당 이메일은 사용중입니다.");	
 				}			
 			}
 	});	 
@@ -96,7 +122,14 @@ function idCheck(){
 
 <!-- 내용 -->
 <div id="contents_box" align="center">
-<h1>일반 회원가입</h1>
+<table>
+		<tr>
+			<td align="center">
+				일반 <input type="radio" id="normalInputFrom" name="normalInputFrom" checked="checked"/>
+				판매자 <input type="radio" id="sellerInputForm" name="sellerInputForm" />
+			</td>
+		</tr>
+</table>
 <form action="${CONTEXT_PATH}/member/controller?action=memberInput" method="post">
 <table>
 		<tr>
@@ -138,7 +171,7 @@ function idCheck(){
 			<td>이메일</td>
 			<td>
 				<input type="text" placeholder="예:takeit@take.com" id="email" name="email" required="required"/>
-				<input type="button" value="중복확인" id="email_button"/>
+				<input type="button" value="중복확인" id="email_button" onclick="emailCheck()"/>
 			</td>
 		</tr>
 		<tr>

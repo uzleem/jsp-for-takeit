@@ -50,17 +50,18 @@ public class SellerDao {
 		stmt.setString(15, seller.getShopKakaoId());
 		stmt.setString(16, seller.getShopImg());
 		stmt.setString(17, seller.getShopCategoryNo());
-		stmt.setString(18, "AA");
-		//throw new SQLException();
-		stmt.executeUpdate();
+		stmt.setString(18, seller.getShopLocCode());
+		int rows = stmt.executeUpdate();
 		
-	} catch (SQLException e) {
-		System.out.println(e.getMessage());
-		e.printStackTrace();
+		if(rows == 0) {
+			throw new Exception();
+		}
 		
-		MessageEntity message = new MessageEntity("error",0);
-		message.setUrl("/sellerInput.jsp");
-		message.setLinkTitle("로그인");
+	} catch (Exception e) {
+		e.printStackTrace();		
+		MessageEntity message = new MessageEntity("error",32);
+		message.setUrl("/takeit/seller/sellerInput.jsp");
+		message.setLinkTitle("뒤로가기");
 		throw new CommonException(message);
 	}finally {
 		JdbcTemplate.close(stmt);
@@ -103,13 +104,10 @@ public class SellerDao {
 				seller.setShopImg(rs.getString("shop_img"));
 				seller.setShopCategoryNo("shop_category_no");
 				seller.setShopLocCode("shop_loc_code");
-				
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",0);
+			MessageEntity message = new MessageEntity("error",33);
 			message.setUrl("/takeit/seller/sellerLogin.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -137,14 +135,12 @@ public class SellerDao {
 			rs = stmt.executeQuery();
 
 			if(rs.next()) {
-				seller.getSellerId();
-				seller.getEntryDate();
+				seller.setSellerId(rs.getString("seller_id"));
+				seller.setEntryDate(rs.getString("entry_date"));
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
-			
-			MessageEntity message = new MessageEntity("error",6);
+			MessageEntity message = new MessageEntity("error",34);
 			message.setUrl("/takeit/seller/sellerFindId.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -182,10 +178,8 @@ public class SellerDao {
 				seller.setSellerPw(temporaryPw);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
-
-			MessageEntity message = new MessageEntity("error",6);
+			MessageEntity message = new MessageEntity("error",35);
 			message.setUrl("/takeit/seller/sellerFindPw.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -195,5 +189,69 @@ public class SellerDao {
 		}
 	}
 	
-	
+	/**
+	 * 아이디 중복체크
+	 * @throws CommonException 
+	 */
+	public boolean sellerIdChk(Connection con, String seller) throws CommonException {
+
+		String sql = "select seller_Id from seller where seller_Id= ?";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, seller);
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error",36);
+			message.setUrl("/takeit/seller/sellerInput.jsp");
+			message.setLinkTitle("뒤로가기");
+			throw new CommonException(message);
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return true;
+	}
+
+	/**
+	 * 이메일 중복체크
+	 * @throws CommonException 
+	 */
+	public boolean sellerEmailChk(Connection con, String email) throws CommonException {
+		
+		String sql = "select email from seller where email= ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, email);
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error",37);
+			message.setUrl("/takeit/seller/sellerInput.jsp");
+			message.setLinkTitle("뒤로가기");
+			throw new CommonException(message);
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return true;
+	}
 }
