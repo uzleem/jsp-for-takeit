@@ -78,8 +78,8 @@ public class ReviewDao {
 	 */
 
 	public void enrollReview(Connection conn, Review dto) throws CommonException {
-		String sql = "insert into review values(?,?,?,?,?,?)";
-
+		String sql = "insert into review values(REVIEW_SEQ.NEXTVAL,?,?,sysdate,?,?,?,?)";
+		
 		PreparedStatement stmt = null;
 
 		try {

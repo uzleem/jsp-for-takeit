@@ -1,9 +1,6 @@
 package com.takeit.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -16,15 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
-import com.takeit.common.JdbcTemplate;
 import com.takeit.model.biz.ItemBiz;
-import com.takeit.model.biz.MypageBiz;
-import com.takeit.model.biz.ReviewBiz;
-import com.takeit.model.biz.TakeitBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
-import com.takeit.model.dto.Review;
-import com.takeit.model.dto.TakeitItem;
 
 
 /**
@@ -45,32 +36,35 @@ public class FrontItemServlet extends HttpServlet {
 			application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
 		}
 		
-		
-	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		request.setCharacterEncoding("utf-8");
-		switch(action) {
-		case "itemEnrollForm":
-			itemEnrollForm(request, response);
-			break;
-		case "itemEnroll":
-			itemEnroll(request, response);
-		break;
-		case "itemList":
-		itemList(request, response);
-			break;
-		case "deleteItem":
-			deleteItem(request, response);
-			break;
-		case "SellerItemForm":
-		SellerItemForm(request,response);
-			break;
-//		case "SellerItemForm":
-//			SellerItemForm(request,response);
-//				break;
-//		case "SellerItemForm":
-//			SellerItemForm(request,response);
-//				break;
+
+		protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String action = request.getParameter("action");
+			request.setCharacterEncoding("utf-8");
+			switch(action) {
+			case "itemEnrollForm":
+				itemEnrollForm(request, response);
+				break;
+			case "itemEnroll":
+				itemEnroll(request, response);
+				break;
+			case "itemList":
+				itemList(request, response);
+				break;
+			case "itemDetail":
+				itemDetail(request, response);
+				break;
+			case "deleteItem":
+				deleteItem(request, response);
+				break;
+			case "SellerItemForm":
+				SellerItemForm(request,response);
+				break;
+				//		case "SellerItemForm":
+				//			SellerItemForm(request,response);
+				//				break;
+				//		case "SellerItemForm":
+				//			SellerItemForm(request,response);
+				//				break;
 		}
 	}
 	
@@ -338,17 +332,18 @@ public class FrontItemServlet extends HttpServlet {
 		 */
 		protected void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String itemNo = request.getParameter("itemNo");
+			System.out.println("itemNo = "+itemNo);
 		
 			
 			ItemBiz biz = new ItemBiz();
 			
-			Item item = new Item();
-			item.setItemNo(itemNo);
+			Item dto = new Item();
+			dto.setItemNo(itemNo);
 			try {
-				biz.getItem(item);
+				biz.getItem(dto);
 				
-				request.setAttribute("item", item);
-				request.getRequestDispatcher("/takeit/itemDetail.jsp").forward(request, response);
+				request.setAttribute("item", dto);
+				request.getRequestDispatcher("/item/itemDetail.jsp").forward(request, response);
 			} catch (CommonException e) {
 				e.printStackTrace();
 			}

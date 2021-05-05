@@ -49,7 +49,10 @@ public class ReviewBiz {
 		Connection conn = JdbcTemplate.getConnection();
 		try {
 			dao.enrollReview(conn, dto);
+			JdbcTemplate.commit(conn);
+
 		} catch(CommonException e) {
+			JdbcTemplate.rollback(conn);
 			throw e; 
 		} finally {
 			JdbcTemplate.close(conn);
