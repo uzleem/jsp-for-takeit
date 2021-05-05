@@ -41,14 +41,14 @@
 	<table id="review_tbl" class="review_">
 		<!-- 제목행 -->
 		<tr>
-			<th>후기번호</th>
-			<th>회원아이디</th>
-			<th>상품번호</th>
-			<th>후기등록일자</th>
-			<th>후기제목</th>
-			<th>후기내용</th>
+			<th>후기NO</th>
+			<th>작성자</th>
+            <th>상품번호</th>
+            <th>후기제목</th>
+		    <th>조회수</th>
 			<th>후기평점</th>
-			<th>후기사진</th>
+			<th>작성일자</th>
+		
 
 
 		</tr>
@@ -59,13 +59,16 @@
 		%>
 		<tr>
 			<td><%=dto.getReviewNo()%></td>
+		<!--	<td>
+          <a  id="reviewLink" href="/takeit/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"></a>
+		</td>-->
 			<td><%=dto.getMemberId()%></td>
-			<td><%=dto.getItemNo()%></td>
-			<td><%=dto.getReviewDate()%></td>
-			<td><%=dto.getReviewTitle()%></td>
-			<td><%=dto.getReviewContents()%></td>
-			<td><%=dto.getReviewScore()%></td>
-			<td><%=dto.getReviewImg()%></td>
+	        <td><%=dto.getItemNo()%></td>
+	        <td><%=dto.getReviewTitle()%></td>
+			<td><%=dto.getReviewViews()%></td>
+		    <td><%=dto.getReviewScore()%></td>
+		    <td><%=dto.getReviewDate()%></td>
+	
 		</tr>
 		<%
 			}
@@ -73,7 +76,7 @@
 
 	</table>
 	<br>
-	<a href="/takeit/index.jsp" class="link">홈으로이동</a>
+	<a href="/takeit/index" class="link">홈으로이동</a>
 
 
 	<!-- footer 구역 -->

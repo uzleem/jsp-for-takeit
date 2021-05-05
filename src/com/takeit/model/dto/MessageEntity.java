@@ -51,6 +51,7 @@ public class MessageEntity {
 		error.add("[주문 등록 오류]"); //28
 		error.add("[주문 조회 오류]");
 		error.add("[주문 삭제 오류]");
+		error.add("[후기 상세조회 오류]");
 	
 		
 		

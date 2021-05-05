@@ -129,7 +129,7 @@ public class ItemDao {
 			
 			MessageEntity message = new MessageEntity("error",7);
 			message.setLinkTitle("메인으로");
-			message.setUrl("/takeit/index.jsp");
+			message.setUrl("/takeit/index");
 			throw new CommonException(message);
 		}
 		JdbcTemplate.close(rs);
