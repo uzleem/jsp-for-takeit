@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.biz.MypageBiz;
@@ -91,7 +94,13 @@ public class FrontMypageServlet extends HttpServlet {
 	}
 	
 	
-	//상품 등록 폼
+	/**
+	 * 상품 등록 페이지 요청 폼
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void itemaddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("카테고리 리스트 요청 서블릿");
 		
@@ -125,24 +134,37 @@ public class FrontMypageServlet extends HttpServlet {
 		}
 	}
 	
-	//상품 등록
-	
+	/**
+	 * 상품 등록
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void itemadd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("상품 등록 요청 폼");
+		String directory = "C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item";
+		int maxSize = 1024 * 1024 * 100;
+		String encoding = "UTF-8";
+		System.out.println(directory);
+		MultipartRequest multi
+		= new MultipartRequest(request, directory, maxSize, encoding,
+				new DefaultFileRenamePolicy());
 		
-		String sellerId = request.getParameter("sellerId");
+		
+		String sellerId = multi.getParameter("sellerId");
 		System.out.println("sellerId" + sellerId);
-		String itemName = request.getParameter("itemName");
+		String itemName = multi.getParameter("itemName");
 		System.out.println("itemName" + itemName);
-		int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
+		int itemPrice = Integer.parseInt(multi.getParameter("itemPrice"));
 		System.out.println("itemPrice" + itemPrice);
-		String salesUnit = request.getParameter("salesUnit");
+		String salesUnit = multi.getParameter("salesUnit");
 		
-		String itemOrigin = request.getParameter("itemOrigin");
-		int itemStock = Integer.parseInt(request.getParameter("itemStock"));
-//		String itemImg = request.getParameter("itemImg");
-		String itemTakeit = request.getParameter("itemTakeit");
-		String itemCategoryNo = request.getParameter("itemCategoryNo");
+		String itemOrigin = multi.getParameter("itemOrigin");
+		int itemStock = Integer.parseInt(multi.getParameter("itemStock"));
+		String itemImg = multi.getFilesystemName("itemImg");
+		String itemTakeit = multi.getParameter("itemTakeit");
+		String itemCategoryNo = multi.getParameter("itemCategoryNo");
 		
 		System.out.println(itemCategoryNo +sellerId +itemName+ itemPrice +salesUnit+ itemOrigin+ itemStock+ itemTakeit);
 		MessageEntity message = null;
@@ -155,15 +177,15 @@ public class FrontMypageServlet extends HttpServlet {
 		dto.setSalesUnit(salesUnit);
 		dto.setItemOrigin(itemOrigin);
 		dto.setItemStock(itemStock);
-//		dto.setItemImg(itemImg);
+		dto.setItemImg(itemImg);
 		dto.setItemTakeit(itemTakeit);
 		dto.setItemCategoryNo(itemCategoryNo);
 		
 		
 		try {
 			biz.addItem(dto);
-			
-			if(dto.getItemNo() != null) {
+			System.out.println("상품 등록 성공 서블릿");
+			if(dto.getItemName() != null) {
 				
 				message = new MessageEntity("success", 0);
 				message.setUrl("/takeit/member/mypageController?action=itemList");
@@ -174,7 +196,7 @@ public class FrontMypageServlet extends HttpServlet {
 				
 				message = new MessageEntity("error", 0);
 				message.setLinkTitle("뒤로가기");
-				message.setUrl("/takeit/member/memberInput.jsp");
+				message.setUrl("/takeit/member/mypageController?action=itemaddForm");
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
@@ -183,18 +205,15 @@ public class FrontMypageServlet extends HttpServlet {
 			
 			
 		}catch (Exception e) {
-			//등록 실패
 			message = new MessageEntity("error", 0);
 			message.setLinkTitle("뒤로가기");
-			message.setUrl("/takeit/member/memberInput.jsp");
+			message.setUrl("/takeit/member/mypageController?action=itemaddForm");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);;
 			
 		}
 		
-		}
-	
-	
+	}
 	
 	/**
 	 * 상품전체조회
@@ -220,14 +239,6 @@ public class FrontMypageServlet extends HttpServlet {
 		}
 	
 }
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -26,14 +26,16 @@ public class MypageBiz {
 	
 	
 	public void addItem(Item dto) throws CommonException{
-		
+		System.out.println("상품 등록 요청 biz");
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
 			dao.addItem(conn, dto);
+			JdbcTemplate.commit(conn);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
+			JdbcTemplate.rollback(conn);
 			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
