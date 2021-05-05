@@ -9,13 +9,6 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/memberPwUpdate.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<style type="text/css">
-
-
-
-
-
-</style>
 </head>
 <body>
 	<!-- 상단 메뉴 -->
@@ -33,7 +26,7 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-<h3 align="center">비밀번호 변경</h3>
+<h3 id ="title" align="center">비밀번호 변경</h3>
 
 <div id="container">
 	<c:choose>
@@ -55,19 +48,19 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-					<input type="text" id="sellerPw" name="sellerPw">
+					<input type="password" id="sellerPw" name="sellerPw">
 					</td>		
 				</tr>
 				<tr>
 					<th>변경할 비밀번호</th>
 					<td>
-					<input type="text" id="sellerPw2" name="sellerPw2">
+					<input type="password" id="sellerPw2" name="sellerPw2">
 					</td>		
 				</tr>
 				
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="비밀번호 변경">
+					<input type="submit" class="updateBtn" value="비밀번호 변경">
 				</tr>
 			
 			</table>
@@ -105,7 +98,7 @@
 						
 						<tr>
 							<td colspan="2" align="center">
-							<input type="submit" value="비밀번호 변경">
+							<input type="submit" class="updateBtn"  value="비밀번호 변경">
 						</tr>
 					
 					</table>

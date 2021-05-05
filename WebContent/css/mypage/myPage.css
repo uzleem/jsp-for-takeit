@@ -23,7 +23,7 @@
 }
 
 #container{
-	height: 700px;
+	height: 600px;
 	display: flex;
 }
 .myPage_menu_aside {
@@ -44,22 +44,22 @@
 }
 
 .order_img{
-	width: 106px;
-	height: 149px;
+	width: 180px;
+	height: 250px;
 	float:left;
 }
 
 #itemInfo{
-	width:160px;
+	width:220px;
 	height: 174px;
 	float:left;
 	margin-left: 50px;
-	margin-top: auto;
+	margin-top: -50px;
 }
 
 #order_Info{
 	width:700px;
-	height:222px;
+	height:350px;
 	margin-left: 30px;
 
 }
@@ -69,7 +69,7 @@
 	width:150px;
 	margin-left: 100px;
 	font-size: 19px;
-
+    margin-top: -20px;
 }
 
 #item_review_btn{
@@ -77,4 +77,30 @@
 }
 #shipping_ask_btn{
 	margin-bottom: 20px;
+}
+
+.linkBtn{
+	text-align: center;
+	display: block;
+	margin: 5px auto 0 auto;
+	width: 200px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	
+}
+
+.linkBtn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+#orderState{
+	width: 200px;
+	margin-left: 20px;
 }

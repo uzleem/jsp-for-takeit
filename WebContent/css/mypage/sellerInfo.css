@@ -46,6 +46,33 @@
 		cursor: pointer;
 }
 
+
+#mypage_btn{
+	text-align: center;
+	display: block;
+	margin: 5px auto 0 auto;
+	width: 300px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+}
+#mypage_btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
 #sellerInfo{
 	display: inline-block;
     padding: 0;
@@ -66,18 +93,59 @@
     margin-left: 130px;
 }
 
-#myInfo_table table, #myInfo_table tr, #myInfo_table th, #myInfo_table td{
-	width: 300px;
+#myInfo_table table, #myInfo_table tr,  #myInfo_table td{
+	width: 350px;
 	border: solid 1px #8D959C;
+	border-collapse: collapse;
+	margin: 0 auto;
+	padding: 5px;
+}
+#myInfo_table th{
+	
+	width: 170px;
+	border: solid 1px #8D959C;
+	
+	
+}
+#infoUpdateBtn {
+	text-align: center;
+	margin: 0px 19px;
+	width: 110px;
+	height: 40px;
+	line-height: 45px;
+	font-size:15px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
 }
 
-#infoUpdateBtn {
-		height:35px; 
-		padding: 0px 19px;
-		font-size: 9px;
-		border: 1px solid #7B977A;
-		color: white;
-		background: #7B977A;
-		cursor: pointer;
+#infoUpdateBtn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
 
+.updateBtn{
+	
+	text-align: center;
+	display: block;
+	margin: 5px auto 0 auto;
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	font-size:15px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	
+}
+
+.updateBtn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
 }

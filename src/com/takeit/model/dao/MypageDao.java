@@ -1,5 +1,7 @@
 package com.takeit.model.dao;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,11 +32,58 @@ public class MypageDao {
 	}
 	
 	
+	/**
+	 * 상점 카테고리 리스트
+	 */
+	public void getShopCategoryList(Connection conn, ArrayList<Seller> shopCategoryList) throws CommonException{
+		
+		String sql = "SELECT * FROM SHOP_CATEGORY";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				Seller dto = new Seller();
+				
+				
+				dto.setShopCategoryNo(rs.getString("SHOP_CATEGORY_NO"));
+//				dto.setShopCategoryName(rs.getString("SHOP_CATEGORY"));
+				
+				shopCategoryList.add(dto);
+			}
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 1);
+			message.setUrl("/takeit/member/myPage.jsp");
+			message.setLinkTitle("마이페이지로 이동");
+
+			throw new CommonException(message);
+			
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+		
+	}
 	
 	
-	//상품 포장타입 리스트 가져오기 
+	
+	
+	/**
+	 * 상품 포장 타입 리스트 가져오기
+	 * @param conn
+	 * @param packTypeList
+	 * @throws CommonException
+	 */
 		public void getpackTypeList(Connection conn , ArrayList<Item> packTypeList) throws CommonException{
-			String sql = "select * from PACKING";
+			String sql = "SELECT * FROM PACKING";
 			
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
@@ -52,19 +101,15 @@ public class MypageDao {
 					dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
 					
 					packTypeList.add(dto);
-					System.out.println("포장타입 목록 리스트 가져오기");
 				}
 				
-				
-				
 			}catch (Exception e) {
-				System.out.println("포장타입 목록 가져오기 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				
-				MessageEntity message = new MessageEntity("error", 2);
-				message.setUrl("/takeit/member/test.jsp");
-				message.setLinkTitle("포장타입 목록 가져오기 실패 링크페이지로");
+				MessageEntity message = new MessageEntity("error", 8);
+				message.setUrl("/takeit/member/myPage.jsp");
+				message.setLinkTitle("마이페이지로 이동");
 
 				throw new CommonException(message);
 				
@@ -76,9 +121,14 @@ public class MypageDao {
 	
 	
 	
-	//상품 카테고리 리스트 가져오기 
+	/**
+	 * 상품 카테고리 리스트 가져오기
+	 * @param conn
+	 * @param categoryList
+	 * @throws CommonException
+	 */
 	public void getCategotyList(Connection conn , ArrayList<Item> categoryList) throws CommonException{
-		String sql = "select * from ITEM_CATEGORY";
+		String sql = "SELECT * FROM ITEM_CATEGORY";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -91,7 +141,6 @@ public class MypageDao {
 			while(rs.next()) {
 				Item dto = new Item();
 				
-				
 				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
 				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
 				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
@@ -100,7 +149,6 @@ public class MypageDao {
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
 				
 				categoryList.add(dto);
-				System.out.println("카테고리 목록 리스트 가져오기");
 			}
 			
 			
@@ -110,9 +158,9 @@ public class MypageDao {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 2);
-			message.setUrl("/takeit/member/test.jsp");
-			message.setLinkTitle("카테고리 목록 가져오기 실패 링크페이지로");
+			MessageEntity message = new MessageEntity("error", 8);
+			message.setUrl("/takeit/member/myPage.jsp");
+			message.setLinkTitle("마이페이지로 이동");
 
 			throw new CommonException(message);
 			
@@ -124,10 +172,15 @@ public class MypageDao {
 	
 	
 	
-	//상품등록
+	/**
+	 * 상품 등록 
+	 * @param conn
+	 * @param dto
+	 * @throws CommonException
+	 */
 		public void addItem(Connection conn, Item dto) throws CommonException {
 			System.out.println("상품 등록 dao 입장");
-			String sql = "insert into item values(?||lpad((ITEM_SEQ.nextval),6,'0'),"
+			String sql = "INSERT INTO ITEM VALUES (? || lpad((ITEM_SEQ.nextval),6,'0'),"
 					+ "?, ?, ?, null, ?, ?, ?, ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
@@ -140,7 +193,6 @@ public class MypageDao {
 				stmt.setString(2, dto.getSellerId());
 				stmt.setString(3, dto.getItemName());
 				stmt.setInt(4, dto.getItemPrice ());
-				
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
 				stmt.setString(7, dto.getItemImg());
@@ -154,15 +206,13 @@ public class MypageDao {
 				if(result == 0) {
 					throw new Exception();
 				}
-				System.out.println("상품 등록 성공 dao");
 				
 			} catch (Exception e) {
-				System.out.println("상품등록 실팬");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			
-				MessageEntity message = new MessageEntity("error", 2);
-				message.setUrl("/takeit/item/login?action=itemEnrollForm");
+				MessageEntity message = new MessageEntity("error", 7);
+				message.setUrl("/takeit/item/login?action=itemaddForm");
 				message.setLinkTitle("상품등록");
 
 				throw new CommonException(message);
@@ -178,7 +228,7 @@ public class MypageDao {
 	 * @param dto 회원 객체
 	 */
 	public void selectMemberDetail(Connection conn, Member dto) throws CommonException{
-		String sql = "select * from member where member_id=?";
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID=?";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -205,8 +255,6 @@ public class MypageDao {
 				dto.setShopLocCode(rs.getString("shop_loc_code"));
 				System.out.println(dto);
 			}
-			
-			
 			
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -275,7 +323,9 @@ public class MypageDao {
 	 */
 	public void searchSellerDetail(Connection conn, Seller dto) throws CommonException {
 		
-		String sql = "select * from seller where seller_id=?";
+		String sql = "SELECT * FROM SELLER S JOIN SHOP_CATEGORY SP_CG "
+					+ "USING(SHOP_CATEGORY_NO) " + 
+					"WHERE SELLER_ID=?";
 		
 		
 		PreparedStatement stmt = null;
@@ -297,7 +347,7 @@ public class MypageDao {
 				dto.setEntryDate(rs.getString("entry_date"));
 				dto.setPostNo(rs.getString("postno"));
 				dto.setAddress(rs.getString("address"));
-				//dto.setAddressDetail(rs.getString("address_detail"));
+				dto.setAddressDetail(rs.getString("address_detail"));
 				dto.setGrade(rs.getString("grade"));
 				dto.setSellerNo(rs.getString("seller_no"));
 				dto.setShopMobile(rs.getString("shop_mobile"));
@@ -306,6 +356,8 @@ public class MypageDao {
 				dto.setShopKakaoId(rs.getString("shop_kakao_id"));
 				dto.setShopImg(rs.getString("shop_img"));
 				dto.setShopCategoryNo(rs.getString("shop_category_no"));
+//				dto.setShopCategoryName(rs.getString("shop_category"));
+				
 //				dto.setShopLocCode(rs.getString("shop_loc_code"));
 			}
 		}catch (SQLException e) {
@@ -345,7 +397,7 @@ public class MypageDao {
 			stmt.setString(4, dto.getEmail());
 			stmt.setString(5, dto.getPostNo());
 			stmt.setString(6, dto.getAddress());
-			//stmt.setString(7, dto.getAddressDetail());
+			stmt.setString(7, dto.getAddressDetail());
 			stmt.setString(8, dto.getSellerNo());
 			stmt.setString(9, dto.getShopMobile());
 			stmt.setString(10, dto.getShopName());

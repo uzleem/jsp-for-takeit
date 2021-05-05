@@ -28,7 +28,7 @@
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 	
 	
-<h3 align="center">마이페이지</h3>
+<h3 id ="title" align="center">마이페이지</h3>
 
 <div id="container">
 
@@ -52,15 +52,15 @@
 			<div >
 				<img class="order_img" src="/takeit/img/item/item1.jpg">	
 					<div id="itemInfo">
-						<h6>상품명 : 1등급 마블링 한우</h6>
-						<h6>상품 수량 : 1개</h6>
-						<h6>결제금액 : 4000원</h6>
-						<h6>수령 방법 : 배송</h6>
+						<h6 style="font-size: 20px;">상품명 : 1등급 마블링 한우</h6>
+						<h6 style="font-size: 16px;">상품 수량 : 1개</h6>
+						<h6 style="font-size: 16px;">결제금액 : 4000원</h6>
+						<h6 style="font-size: 16px;">수령 방법 : 배송</h6>
 					</div>
 						<div id="order_item">
-							<h6 id="orderState">주문 상태 : 배송중</h6>
-							<input id="item_review_btn" type="button" value="상품 후기" >
-							<input type="button" value="상품 문의" onclick="location.href='/takeit/boardController?action=boardList&boardCategory=3'">
+							<h6 id="orderState" style="font-size: 20px;">주문 상태 : 배송중</h6>
+							<input id="item_review_btn" class="linkBtn" type="button" value="상품 후기" >
+							<input type="button" class="linkBtn" value="상품 문의" onclick="location.href='/takeit/boardController?action=boardList&boardCategory=3'">
 						</div>
 			</div>
 			
