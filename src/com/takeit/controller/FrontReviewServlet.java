@@ -195,15 +195,15 @@ public class FrontReviewServlet extends HttpServlet {
 
 		ReviewBiz rbiz = new ReviewBiz();
 		Review dto = new Review(itemNo, memberId, reviewTitle, reviewContents, reviewScore,reviewImg);
-
+	
 		try {
 			rbiz.enrollReview(dto);
 
 			MessageEntity message = new MessageEntity("success", 12);
-			message.setUrl("takeit/review/reviewList.jsp");
-			message.setLinkTitle("후기등록");
+			message.setUrl("/takeit/item/reviewController?action=reviewList");
+			message.setLinkTitle("후기조회");
 			request.setAttribute("message", message);
-			request.getRequestDispatcher("/takeit/message.jsp").forward(request, response);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		} catch (CommonException e) {
 			e.printStackTrace();
 			MessageEntity message = e.getMessageEntity();

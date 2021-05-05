@@ -1,21 +1,13 @@
 
 package com.takeit.model.biz;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ItemDao;
-import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Item;
-import com.takeit.model.dto.Review;
-import com.takeit.model.dto.TakeitItem;
 
 
 
@@ -79,12 +71,12 @@ public void deleteItem(Item dto){
 }
 
 /**상품상세조회*/
-public void getItem(Item item) throws CommonException {
+public void getItem(Item dto) throws CommonException {
 	ItemDao dao = ItemDao.getInstance();
 	Connection conn = JdbcTemplate.getConnection();
-	
+	System.out.println("dto = "+dto.getItemNo());
 	try {
-		dao.searchItem(conn, item);
+		dao.searchItem(conn, dto);
 	} catch (CommonException e) {
 		throw e;
 	}
