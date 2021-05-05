@@ -47,6 +47,7 @@ public class Seller implements Serializable{
 	private String shopKakaoId;
 	private String shopImg;
 	private String shopCategoryNo;
+	private String shopCategoryName;
 	private String shopLocCode;
 	
 	/* 기본 생성자 */
@@ -233,13 +234,32 @@ public class Seller implements Serializable{
 		this.shopCategoryNo = shopCategoryNo;
 	}
 
+	public String getShopLocCode() {
+		return shopLocCode;
+	}
+
+	public void setShopLocCode(String shopLocCode) {
+		this.shopLocCode = shopLocCode;
+	}
+
+	public String getShopCategoryName() {
+		return shopCategoryName;
+	}
+
+	public void setShopCategoryName(String shopCategoryName) {
+		this.shopCategoryName = shopCategoryName;
+	}
+
 	@Override
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerPw=" + sellerPw + ", name=" + name + ", mobile=" + mobile
 				+ ", email=" + email + ", entryDate=" + entryDate + ", postNo=" + postNo + ", address=" + address
 				+ ", addressDetail=" + addressDetail + ", grade=" + grade + ", sellerNo=" + sellerNo + ", shopMobile="
 				+ shopMobile + ", shopName=" + shopName + ", custScore=" + custScore + ", shopKakaoId=" + shopKakaoId
-				+ ", shopImg=" + shopImg + ", shopCategoryNo=" + shopCategoryNo + ", shopLocCode=" + shopLocCode + "]";
+				+ ", shopImg=" + shopImg + ", shopCategoryNo=" + shopCategoryNo + ", shopCategoryName="
+				+ shopCategoryName + ", shopLocCode=" + shopLocCode + "]";
 	}
+
+	
 }
 

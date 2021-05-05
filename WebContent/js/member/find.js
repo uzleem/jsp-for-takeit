@@ -13,6 +13,18 @@ $(document).ready(function() {
 		});
 	});
 
+	$("#sellerId").focus();
+	$("#sellerId").on('focus', function() {
+		$("#sellerId").css({
+			'background' : "#E8F0FE"
+		});
+	});
+	$("#sellerId").on('focusout', function() {
+		$("#sellerId").css({
+			'background' : "white"
+		});
+	});
+
 	/* 이름 포커스 */
 	$("#name").on('focus', function() {
 		$("#name").css({

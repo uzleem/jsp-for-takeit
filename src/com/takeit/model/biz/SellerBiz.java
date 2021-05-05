@@ -36,4 +36,48 @@ public class SellerBiz {
 			JdbcTemplate.close(con);
 		}
 	}
+	
+	/**
+	 * 로그인
+	 */
+	public void login(Seller seller) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.login(con, seller);
+		} catch(CommonException e) {
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	
+	/**
+	 * 아이디 찾기
+	 */
+	public void idFind(Seller seller) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.idFind(con, seller);
+		} catch(CommonException e) {
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	
+	/**
+	 * 비밀번호 찾기
+	 */
+	public void pwFind(String temporaryPw, Seller seller) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.pwFind(con, temporaryPw, seller);
+			JdbcTemplate.commit(con);
+		} catch(CommonException e) {
+			JdbcTemplate.rollback(con);
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
 }

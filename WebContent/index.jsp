@@ -10,7 +10,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
-로그인세션  확인 : ${memberId }
+일반로그인세션  확인 : ${memberId }<br>
+판매자로그인세션  확인 : ${sellerId }
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId }">
 	<!-- 로그인 전 메뉴 -->

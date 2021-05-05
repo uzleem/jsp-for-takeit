@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기</title>
+<title>비밀번호찾기</title>
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/find.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -20,8 +20,8 @@ function mobilePopup() {
 }
 </script>
 </head>
-  
-  
+
+
 <body>
 <!-- 상단 메뉴 -->
 <c:choose>
@@ -34,16 +34,24 @@ function mobilePopup() {
 		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 	</c:otherwise>
 </c:choose>
-  
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
+
+<!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-<!-- 내용 -->
+<!--내용 -->
 <div id="contents_box" align="center">
-<h1 align="center">아이디 찾기</h1>
-<form action="${CONTEXT_PATH}/member/controller?action=memberFindId" method="post">
+<h1>비밀번호 찾기</h1>
+<form action="${CONTEXT_PATH}/seller/controller?action=sellerFindPw" method="post">
 <table>
+	<tr>
+		<td>아이디</td>
+	</tr>
+	<tr>
+		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="sellerId" name="sellerId" required="required"/></td>
+	</tr>
 	<tr>
 		<td>이름</td>
 	</tr>
@@ -64,11 +72,11 @@ function mobilePopup() {
 	</tr>
 	<tr>
 		<td>
-			<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum" readonly="readonly" required="required"/>
+			<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum"  required="required" readonly="readonly"/>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="찾기" id="check_submit"/></td>
+		<td><input type="submit" value="찾기	" id="check_submit"/></td>
 	</tr>
 </table>
 </form>

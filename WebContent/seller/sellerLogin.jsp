@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반 로그인</title>
+<title>판매자 로그인</title>
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/login.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -64,31 +64,31 @@ function kakaoLogin() {
 
 <!-- 내용 -->
 <div id="contents_box" align="center">
-<form action="${CONTEXT_PATH}/member/controller?action=memberLogin" method="post">
+<form action="${CONTEXT_PATH}/seller/controller?action=sellerLogin" method="post">
 <table>
 	<tr>
 		<td align="center">
-			일반 <input type="radio" id="normalLoginFrom" name="normalLoginFrom" checked="checked"/>
-			판매자 <input type="radio" id="sellerLoginFrom" name="sellerLoginFrom"/>
+			일반 <input type="radio" id="normalLoginFrom" name="normalLoginFrom" />
+			판매자 <input type="radio" id="sellerLoginFrom" name="sellerLoginFrom" checked="checked"/>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="memberId" name="memberId" required="required"/></td>
+		<td><input type="text" placeholder="고객님의 아이디를 입력해주세요" id="sellerId" name="sellerId" required="required"/></td>
 	</tr>
 	<tr>
-		<td><input type="password" placeholder="고객님의 비밀번호를 입력해주세요" id="memberPw" name="memberPw" required="required"/></td>
+		<td><input type="password" placeholder="고객님의 비밀번호를 입력해주세요" id="sellerPw" name="sellerPw" required="required"/></td>
 	</tr>
 	<tr>
 		<td id="find" align="right">
-			<a href="memberFindId.jsp">아이디찾기</a>
-			<a href="memberFindPw.jsp">비밀번호찾기</a>
+			<a href="sellerFindId.jsp">아이디찾기</a>
+			<a href="sellerFindPw.jsp">비밀번호찾기</a>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="로그인" id="normalLogin"/></td>
+		<td><input type="submit" value="로그인" id="sellerLogin"/></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="일반 회원가입" id="inputNormal" name="inputNormal"/></td>
+		<td><input type="button" value="판매자 회원가입" id="inputSeller" name="inputSeller"/></td>
 	</tr>
 	<tr>
 		<td align="center" onclick="kakaoLogin();">
