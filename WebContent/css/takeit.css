@@ -5,29 +5,41 @@
 	width: fit-content;
 }
 #takeitImg{
-	margin-top: 35px;
-	width: 250px;
-	height: 320px;
+	position:relative;
+	width: 230px;
+    height: 300px;
 }
 #takeitImg:hover{
-	-webkit-transform: scale(1.05);
-	transform: scale(1.05);
+	-webkit-transform: scale(1.005);
+	transform: scale(1.005);
 	box-shadow: 3px 3px grey;
-}
+} 
 /**takeit list*/
 .takeit_item_wrap{
 	width: 1050px;
 	justify-content: space-between;
 }
-.takeit-listTime{
-	padding-left: 20px;
-	margin-top: 40px;
+.item-fresh{
+	display: block;
     position: absolute;
-    margin-left: 40px;
+    margin-top: -35px;
+    margin-left: 139px;
+    font-weight: 700;
+    height: 31px;
+    width: 91px;
     text-align: center;
-    margin-left: 40spx;
+    line-height: 31px;
+    vertical-align: middle;
+    background-color: #a7a370;
+}
+.takeit-listTime{
+	margin-top: 15px;
+	padding: 0 5.5px;
+    position: absolute;
+    text-align: center;
 	font-weight: 700;
-	background-color: #a7a384;
+	background-color: #a7a370;
+	z-index:1;
 }
 .takeit_item>li{
 	list-style: none;

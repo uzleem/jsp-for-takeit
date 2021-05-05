@@ -39,17 +39,17 @@
 <%
 	String category = boardList.get(0).getBoardCategory();
 	String memberId = (String)session.getAttribute("memberId");
-	if(category == "1" || category == "2" ){
-		if(memberId == "admin" ){
+	if(memberId == null){ memberId = "";}
+	if(category.equals("1") || category.equals("2") ){
+		if(memberId.equals("admin") && memberId != null){
 %>
 <div id="small-btn">
 	<a href="/takeit/boardController?action=boardInputForm">등록</a>
 </div>
 <%
-		}
-	} 
-	if(category == "3") {
-		if(memberId != null){
+		} 
+	} else if(category.equals("3")) {
+		if(memberId != null && memberId.trim().length() > 0 ){
 %>
 <div id="small-btn">
 	<a href="/takeit/boardController?action=boardInputForm">등록</a>
@@ -58,10 +58,6 @@
 		} 
 	}
 %>
-<!-- 임시버튼  -->
-<div id="small-btn">
-	<a href="/takeit/boardController?action=boardInputForm">등록</a>
-</div>
 <table id="notice-tbl" class="notice-table">
 	<tr>
 		<th>번호</th>

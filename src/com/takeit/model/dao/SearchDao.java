@@ -52,7 +52,7 @@ public class SearchDao {
 				dto.setItemName(rs.getString("item_name"));					// 상품이름
 				dto.setItemCategoryName(rs.getString("item_category_name"));// 상품 카테고리이름
 				dto.setItemCustScore(rs.getDouble("item_cust_score"));		// 상품 평점
-				dto.setName(rs.getString("seller_name"));				// 판매자 이름
+				dto.setName(rs.getString("seller_name"));					// 판매자 이름
 				dto.setShopName(rs.getString("shop_name"));					// 상점 이름
 				dto.setItemImg(rs.getString("item_img"));					// 상품 이미지
 				dto.setItemPrice(rs.getInt("item_price"));					// 상품 가격	

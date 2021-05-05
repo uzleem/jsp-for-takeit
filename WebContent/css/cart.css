@@ -34,12 +34,43 @@
 #cart-itemPrice{
 	font-weight: 600;
 }
-/**장바구니 구매,삭제 버튼*/
+#shipfee-info{
+	width: 1050px;
+	margin: 0 auto;
+}
+#shipfee-free{
+	float: right;
+	text-align: right;
+	font-size: 12px;
+	color: grey;
+}
+#change-cart-itemQty{
+	width: 50px;
+	line-height: 15px; 
+	font-size: 15px;
+}
+/**장바구니 변경, 구매,삭제 버튼*/
+.cart-change-btn{
+    width: 42px;
+    height: 25px;
+    font-size: 14px;
+    background-color: white;
+    border-radius: 30px;
+}
+.cart-change-btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
 #cart-btn-wrap{
     place-self: flex-end;
 }
 #cart-btn{
-	
+	border: solid 1px #8D959C;
+	color: #000;
+	text-decoration: none;
+	padding: 7px 25px 7px 25px;
 }
 .small-btn{
 	border: solid 1px #8D959C;
@@ -61,7 +92,26 @@
     vertical-align: middle;
     margin-top: auto;
 }
-
+/**장바구니 전체금액*/
+#cart-final-area{
+	width: 1050px;
+	margin: 0 auto;
+}
+#cart-final-price-area{
+	width: fit-content;
+	margin: 0 auto;
+}
+#cartTotalPrice{
+	text-align: center;
+	font-size: 30px;
+	font-weight: 700;
+	color: red;
+}
+#cart-fainal-btn-area{
+	width: fit-content;
+	margin: 0 auto;
+	display: flex;
+}
 /**장바구니 등록 */
 #addCart-area{
 	display: inline-block;
