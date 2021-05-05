@@ -13,7 +13,7 @@ public class Item implements Serializable{
 	
 	private String packTypeNo;
 	private String packTypeName;
-	
+	//카테고
 	private String itemCategoryNo;
 	private String itemCategoryName;
 	private String expirationDate;
@@ -246,5 +246,55 @@ public class Item implements Serializable{
 
 		this.itemTakeit = itemTakeit;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(packTypeNo);
+		builder.append(", ");
+		builder.append(packTypeName);
+		builder.append(", ");
+		builder.append(itemCategoryNo);
+		builder.append(", ");
+		builder.append(itemCategoryName);
+		builder.append(", ");
+		builder.append(expirationDate);
+		builder.append(", ");
+		builder.append(notice);
+		builder.append(", ");
+		builder.append(freshPercent);
+		builder.append(", ");
+		builder.append(itemNo);
+		builder.append(", ");
+		builder.append(sellerId);
+		builder.append(", ");
+		builder.append(itemName);
+		builder.append(", ");
+		builder.append(itemPrice);
+		builder.append(", ");
+		builder.append(salesUnit);
+		builder.append(", ");
+		builder.append(itemOrigin);
+		builder.append(", ");
+		builder.append(itemStock);
+		builder.append(", ");
+		builder.append(itemImg);
+		builder.append(", ");
+		builder.append(itemCustScore);
+		builder.append(", ");
+		builder.append(itemInputDate);
+		builder.append(", ");
+		builder.append(discRate);
+		builder.append(", ");
+		builder.append(itemTakeit);
+		builder.append(", ");
+		builder.append(sellerName);
+		builder.append(", ");
+		builder.append(shopName);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }
 

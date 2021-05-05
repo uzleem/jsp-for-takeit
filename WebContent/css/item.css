@@ -128,3 +128,24 @@ ul  {list-style-type: none; float: left;
 	font-weight:bold;
  
 }
+.item_wrap{
+	margin: 0 auto;
+	
+}
+/**item detail*/
+.detail_div{
+	width: 1050px;
+	margin: 0 auto;
+}
+.takeit_detail_wrap{
+	width: 1050px;
+	display: flex;
+}
+.btn-area{
+	width: fit-content;
+	float: right;
+}
+
+.it_info{
+	line-height: 2;
+}

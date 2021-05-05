@@ -29,7 +29,7 @@
 
 	<h3 align="center">REVIEW</h3>
 	<form action="/takeit/item/reviewController?action=enrollReview"
-		method="post">
+		method="post" enctype="multipart/form-data">
 		<div align='center'>
 			<table id="review_table">
 				<tr>

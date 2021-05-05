@@ -43,7 +43,7 @@ public class MessageEntity {
 		error.add("[장바구니 삭제 오류]"); //23
 		
 		error.add("[상품전체조회 오류]"); 
-		error.add("[후기전체조회 오류]"); 
+		error.add("[후기조회 오류]"); 
 		error.add("[후기정보 변경오류]"); 
 		error.add("[후기 삭제오류]"); 
 		error.add("[상품 조회오류]"); 
@@ -51,6 +51,12 @@ public class MessageEntity {
 		error.add("[주문 등록 오류]"); //28
 		error.add("[주문 조회 오류]");
 		error.add("[주문 삭제 오류]");
+	
+		
+		
+		
+		
+		
 		
 		ArrayList<String> validation = new ArrayList<String>();
 		validation.add("[아이디 정보 오류]");	
@@ -72,9 +78,10 @@ public class MessageEntity {
 		success.add("[잇거래 등록 성공]");
 		success.add("[잇거래 갱신 성공]");
 		success.add("[공지사항/자주하는질문 등록 성공]");
-		success.add("[공지사항/자주하는질문 갱신 성공]");
+		success.add("[공지사항/자주하는질문 갱신 성공]");//10
 		success.add("[상품 삭제완료]");
 		success.add("[후기 등록완료]");
+		success.add("[후기 변경완료]");
 	
 		
 		

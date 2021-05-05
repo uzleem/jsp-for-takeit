@@ -8,6 +8,7 @@
 <title>내가 쓴 후기</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/review.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/button.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
@@ -31,8 +32,7 @@
 		<h3>작성 후기조회</h3>
 
 		<div id="review">
-			<form action="/takeit/review/reviewController?action=setReview"
-				method="post">
+			<form action="/takeit/review/reviewController?action=setReviewInfo"method="post">
 				<table id="review_table">
 					<tr>
 						<th>후기번호</th>
@@ -72,18 +72,21 @@
 					<tr>
 						<th>후기사진</th>
 						<td><input type="file" id="reviewImg" name="reviewImg"
-							value="${review.reviewImg }"></td>
+							value="${review.reviewImg }" readonly="readonly"></td>
 					</tr>
 
 
 					<tr>
-						<td colspan="2" align="center"><br> <input type="submit"
-							value="후기 수정"> <input type="submit" value="후기 삭제"></td>
+						<td colspan="2" align="center" id="small-btn"><br>
+						 <input type="submit"  value="후기 수정"> 
+						 <form action="/takeit/review/reviewController?action=deleteReview" method="post" style="display: inline-block;">
+						 <input type="submit" value="후기 삭제"> </form></td>
+						
 					</tr>
 				</table>
 			</form>
-			<div id="home_btn">
-				<br> <input id="home_btn" type="button" value="홈으로 이동"
+			<div id="small-btn">
+				<br> <input id="btn-area" type="button" value="홈으로 이동"
 					onclick="location.href='/takeit/index.jsp'">
 			</div>
 		</div>

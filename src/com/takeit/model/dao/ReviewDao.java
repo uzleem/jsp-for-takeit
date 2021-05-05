@@ -113,7 +113,7 @@ public class ReviewDao {
 	 * @param conn
 	 * @param dto 후기
 	 */
-	public void ReviewDetail(Connection conn, Review dto){
+	public void ReviewDetail(Connection conn, Review dto) throws CommonException{
 		String sql = "select * from review where member_id=?";
 
 		PreparedStatement stmt = null;
@@ -139,6 +139,11 @@ public class ReviewDao {
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",25);
+			message.setLinkTitle("마이페이지로 이동");
+			message.setUrl("/takeit/member/myPage.jsp");
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -151,8 +156,7 @@ public class ReviewDao {
 	 * @throws CommonException 
 	 */
 	public void updateReview (Connection conn, Review dto) throws CommonException{
-		String sql = "update review set  review_title=? ,review_contents=?,review_score=?,"
-				+ "review_img=? where member_id=? ";
+		String sql = "update review set  review_title=? ,review_contents=?,review_score=?where member_id=? ";
 
 		PreparedStatement stmt = null;
 
@@ -161,8 +165,7 @@ public class ReviewDao {
 			stmt.setString(1, dto.getReviewTitle());
 			stmt.setString(2, dto.getReviewContents());
 			stmt.setInt(3, dto.getReviewScore());
-			stmt.setString(4, dto.getReviewImg());
-
+			
 
 			int result =stmt.executeUpdate();
 
@@ -191,15 +194,15 @@ public class ReviewDao {
 	 * @param dto
 	 * @throws CommonException 
 	 */
-	public void deleteReview(Connection conn, String memberId,String reviewTitle) throws CommonException {
-		String sql = "delete from review where member_id=? and review_title=?";
+	public void deleteReview(Connection conn,String reviewNo,String memberId,String reviewTitle) throws CommonException {
+		String sql = "delete from review where member_id=? and reviewNo=?";
 
 		PreparedStatement stmt = null;
 
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, memberId);
-			stmt.setString(2, reviewTitle);
+			stmt.setString(1, reviewNo);
+			stmt.setString(2, memberId);
 
 			stmt.executeUpdate();
 
@@ -207,8 +210,8 @@ public class ReviewDao {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			MessageEntity message = new MessageEntity("error",27);
-			message.setLinkTitle("후기");
-			message.setUrl("/takeit/review/reviewList.jsp");
+			message.setLinkTitle("작성후기");
+			message.setUrl("/takeit/item/reviewController?action=updateReviewForm");
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
