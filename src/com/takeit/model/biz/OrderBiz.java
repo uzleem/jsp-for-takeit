@@ -1,6 +1,7 @@
 package com.takeit.model.biz;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
@@ -24,5 +25,18 @@ public class OrderBiz {
 			e.printStackTrace();
 		}
 		JdbcTemplate.close(conn);
+	}
+
+	public void getSellerOrderList(String sellerId, ArrayList<Order> orderList) throws CommonException {
+		OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.selectSellerOrderList(conn, sellerId, orderList);
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+		
+		
 	}
 }

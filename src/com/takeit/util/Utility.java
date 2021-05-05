@@ -22,17 +22,12 @@ import org.json.simple.parser.ParseException;
  * <pre>
  * 객체 생성없이 사용하기 위한 공통기능 유틸클래스
  * </pre>
-
  */
 public class Utility {
 
-	/**
-	 * argument로 전달받은 주소의 위도, 경도를 반환
-	 */
+	/** argument로 전달받은 주소의 위도, 경도를 반환 */
 	public static HashMap<String, String> getLatlng(String address) {
-		/** 클라이언트 아이디*/
 		String clientId = "5ta9sn0kog";
-		/** 클라이언트 비밀키*/
 		String clientSecret = "2uWwVDqXH2WqejM8bumlMLrjJXu9pPvLkRLgdQiT";
 		
 		StringBuffer response = new StringBuffer();
@@ -86,14 +81,13 @@ public class Utility {
 			e.printStackTrace();
 		}
 		
-		//System.out.println(x+" , "+y);
 		HashMap<String, String> latLng = new HashMap<String, String>();
 		latLng.put("lat", y);
 		latLng.put("lng", x);
 		return latLng;
 	}
 	
-	/* 랜덤값 반환 메서드 */
+	/** 랜덤값 반환 메서드 */
 	public static String getSecureString(int length, boolean isUpper) {
 		Random extractNo = new Random((long)(Math.random() * System.nanoTime()));
 		String secureCode = "";
@@ -128,15 +122,17 @@ public class Utility {
 		return new SimpleDateFormat(pattern, locale).format(new Date());
 	}
 	
+	/** 문자열 형식의 날짜를 Date객체로 반환 */
 	public static Date convertStringToDate(String date, String pattern) throws java.text.ParseException {
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		return new Date(format.parse(date).getTime());
 	}
 	
+	/** 두 Date객체의 날짜 간격 일 수를 반환 */
 	public static int getDayBetweenAandB(Date firstDate, Date secondDate) {
-		long calDate = firstDate.getTime() - secondDate.getTime(); 
-		long calDateDays = calDate / (24*60*60*1000);
-		return (int)calDateDays;
+		long date = firstDate.getTime() - secondDate.getTime(); 
+		long dateDays = date / (24*60*60*1000);
+		return (int)dateDays;
 	}
 	
 	/**

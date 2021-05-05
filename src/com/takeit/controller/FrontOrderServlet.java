@@ -1,6 +1,7 @@
 package com.takeit.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.takeit.common.CommonException;
 import com.takeit.model.biz.OrderBiz;
 import com.takeit.model.dto.Order;
+import com.takeit.model.dto.OrderDetail;
 
 /**
  * Servlet implementation class FrontOrderServlet
@@ -34,8 +37,34 @@ public class FrontOrderServlet extends HttpServlet {
 		case "order":
 			order(request, response);
 			break;
+		case "orderList":
+			orderList(request, response);
+			break;
+		case "sellerOrderList":
+			sellerOrderList(request, response);
+			break;
 		}
 	}
+	protected void sellerOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String sellerId = "seller01";
+		
+		OrderBiz biz = new OrderBiz();
+		ArrayList<Order> orderList = new ArrayList<>();
+		
+		try {
+			biz.getSellerOrderList(sellerId, orderList);
+			
+			request.setAttribute("orderList", orderList);
+			request.getRequestDispatcher("/order/sellerOrderList.jsp").forward(request, response);
+		} catch (CommonException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void orderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
 	
 	protected void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = (String)request.getSession(false).getAttribute("memberId"); 
@@ -63,7 +92,7 @@ public class FrontOrderServlet extends HttpServlet {
 		//주문
 		String _orderPrice = "21000";		
 		//주문상세
-		String[] itemNos= {"FR000002", "BF000003"};
+		String[] _itemNos= {"FR000002", "BF000003"};
 		
 		String[] _itemQtys = {"2", "3"};
 		String[] _itemPayPrices = {"3000", "5000"};	
@@ -77,20 +106,23 @@ public class FrontOrderServlet extends HttpServlet {
 		//배송
 		String shipStatusCode = "O-GET";
 		
-		int[] itemQtys = new int[itemNos.length];
-		int[] itemPayPrices = new int[itemNos.length];
-		for (int index = 0; index < itemNos.length; index++) {
-			itemQtys[index] = Integer.valueOf(_itemQtys[index]);
-			itemPayPrices[index] = Integer.valueOf(_itemPayPrices[index]);
+		
+		
+		Order order = new Order();
+		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+		OrderDetail orderDetail = null;
+		for (int index = 0; index < _itemNos.length; index++) {
+			orderDetail = new OrderDetail();
+			orderDetail.setItemNo(_itemNos[index]);
+			orderDetail.setItemQty(Integer.valueOf(_itemQtys[index]));
+			orderDetail.setItemPayPrice(Integer.valueOf(_itemPayPrices[index]));
+			orderDetails.add(orderDetail);
 		}
 		int orderPrice = Integer.valueOf(_orderPrice);
 		
-		Order order = new Order();
-		order.setItemTakeit(itemTakeit);
+		order.setOrderDetails(orderDetails);
 		
-		order.setItemNos(itemNos);
-		order.setItemQtys(itemQtys);
-		order.setItemPayPrices(itemPayPrices);
+		order.setItemTakeit(itemTakeit);
 		
 		order.setOrderPrice(orderPrice);
 		order.setMemberId(memberId);
