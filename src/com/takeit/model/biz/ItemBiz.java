@@ -74,7 +74,7 @@ public void deleteItem(Item dto){
 public void getItem(Item dto) throws CommonException {
 	ItemDao dao = ItemDao.getInstance();
 	Connection conn = JdbcTemplate.getConnection();
-	System.out.println("dto = "+dto.getItemNo());
+	System.out.println("dto = "+ dto.getItemNo());
 	try {
 		dao.searchItem(conn, dto);
 	} catch (CommonException e) {

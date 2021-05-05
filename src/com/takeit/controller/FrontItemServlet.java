@@ -341,6 +341,8 @@ public class FrontItemServlet extends HttpServlet {
 			dto.setItemNo(itemNo);
 			try {
 				biz.getItem(dto);
+				System.out.println("dto.판매자 = "+ dto.getSellerName());
+				System.out.println("dto= "+ dto);
 				
 				request.setAttribute("item", dto);
 				request.getRequestDispatcher("/item/itemDetail.jsp").forward(request, response);

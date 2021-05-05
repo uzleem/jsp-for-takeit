@@ -159,7 +159,7 @@ public class ItemDao {
 			while (rs.next()) {
 				//포장타입
 				System.out.println("PACK_TYPE_NO = "+rs.getString("PACK_TYPE_NO"));
-				dto = new Item();
+				//dto = new Item();
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
 				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
 				
@@ -196,7 +196,6 @@ public class ItemDao {
 	}	
 	
 
-//------------------------------------------------	
 /**
  * 상품삭제
  */

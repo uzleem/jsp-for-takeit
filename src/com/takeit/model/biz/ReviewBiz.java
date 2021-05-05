@@ -63,13 +63,14 @@ public class ReviewBiz {
 	 * 내가 작성한 후기보기
 	 * @param dto review
 	 */
-	public void getReview(Review dto){
+	public void getReview(Review dto)throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 
 		try {
 			dao.ReviewDetail(conn, dto);
 		}catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
 		}
@@ -94,10 +95,10 @@ public class ReviewBiz {
 		}
 	}
 	/**후기삭제*/
-	public void reviewDelete(String memberId, String reviewTitle) throws CommonException {
+	public void reviewDelete(String reviewNo,String memberId,String reviewTitle) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			dao.deleteReview(con, memberId, reviewTitle);
+			dao.deleteReview(con,reviewNo, memberId, reviewTitle);
 			JdbcTemplate.commit(con);
 		} catch (CommonException e) {
 			JdbcTemplate.rollback(con);

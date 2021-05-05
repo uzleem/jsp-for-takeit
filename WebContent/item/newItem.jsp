@@ -36,6 +36,7 @@
 
 	
 	<c:forEach var="dto" items="${itemList}">
+		<div class="item_wrap">
 		<ul class="item_list" >
 			<li>
 			<a href="/takeit/item/itemController?action=itemDetail&itemNo=${dto.itemNo}">
@@ -52,7 +53,7 @@
 			  
 	       
 </ul>
-		
+</div>		
 	</c:forEach>	
 </table>
 
