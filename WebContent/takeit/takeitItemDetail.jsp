@@ -110,7 +110,6 @@ $(document).ready(function (){
 	<div class="takeit_item-content takeit_detail_wrap">
 		<div class="takeitImg-wrap" >
 			<img id="takeitImg" style="width:330px; height: 400px; " src="/takeit/img/item/${takeitItem.itemImg}">
-			
 		</div>
 		<div class="desc takeit_detail_wrap">
 			<fmt:formatNumber var="itemPrice" value="${takeitItem.itemPrice}" type="number"/>

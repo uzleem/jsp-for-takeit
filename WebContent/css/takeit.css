@@ -6,8 +6,8 @@
 }
 #takeitImg{
 	position:relative;
-	width: 230px;
-    height: 300px;
+	width: 246px;
+    height: 316px;
 }
 #takeitImg:hover{
 	-webkit-transform: scale(1.005);
@@ -23,7 +23,7 @@
 	display: block;
     position: absolute;
     margin-top: -35px;
-    margin-left: 139px;
+    margin-left: 153px;
     font-weight: 700;
     height: 31px;
     width: 91px;
@@ -34,7 +34,10 @@
 }
 .takeit-listTime{
 	margin-top: 15px;
-	padding: 0 5.5px;
+	width:246px;
+	height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
     position: absolute;
     text-align: center;
 	font-weight: 700;
