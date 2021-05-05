@@ -22,7 +22,7 @@ import com.takeit.model.dto.TakeitItem;
  * 테이크잇
  */
 @WebServlet("/takeit/takeitController")
-public class FrontTakeitController extends HttpServlet {
+public class FrontTakeitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public ServletContext application;
