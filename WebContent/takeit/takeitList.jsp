@@ -58,13 +58,14 @@
 	<c:forEach items="${takeitItemList}" var="dto">
 	<div class="takeit_item_wrap">
 		
-		<span class="takeitTime takeit-listTime blink" data-takeittime="${dto.takeitDate}"></span><br>
 		
 		<ul class="takeit_item">
-			<li>
+			<li style="width: 250px;">
+				<span class="takeitTime takeit-listTime blink" data-takeittime="${dto.takeitDate}"></span><br>
 				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${dto.itemNo }">
-					<img id="itemImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
+					<img id="takeitImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
 				</a>
+				<span class="item-fresh">신선도${100-(dto.discRate)}%</span>
 			</li>
 			<fmt:formatNumber var="itemPrice" value="${dto.itemPrice}" type="number"/>
 			<fmt:formatNumber var="discPrice" value="${dto.itemPrice * (100-dto.discRate) / 100}" type="number"/>

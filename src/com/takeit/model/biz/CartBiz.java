@@ -12,10 +12,10 @@ public class CartBiz {
 	private CartDao dao = CartDao.getInstance();
 
 	/**장바구니 리스트*/
-	public void getCartList(String memberId, ArrayList<Cart> cart) throws CommonException {
+	public void getCartList(String memberId, int cartTotalPrice, ArrayList<Cart> cart) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			dao.getCartList(con, memberId, cart);
+			dao.getCartList(con, memberId, cartTotalPrice, cart);
 		} catch (CommonException e) {
 			throw e;
 		} finally {
@@ -51,6 +51,39 @@ public class CartBiz {
 		} finally {
 			JdbcTemplate.close(con);
 		}
+	}
+
+	/**장바구니 전체 삭제*/
+	public void removeAllCart(String memberId) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.removeAllCart(con, memberId);
+			JdbcTemplate.commit(con);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
+	
+	/**장바구니 변경*/
+	public void changeCartQty(Cart cart) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.changeCartQty(con, cart);
+			JdbcTemplate.commit(con);
+			System.out.println("[debug] 장바구니 수량변경 dao 요청 완료");
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(con);
+			System.out.println("[debug] 장바구니 수량변경 dao 요청 실패");
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
 	}
 
 }

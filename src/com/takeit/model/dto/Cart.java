@@ -11,6 +11,7 @@ public class Cart {
 	private int cartItemQty;
 	private int itemPrice;
 	private int totalPrice;
+	private int cartTotalPrice; //전체 구매 금액
 	
 	public Cart() {}
 
@@ -109,6 +110,14 @@ public class Cart {
 		this.itemPrice = itemPrice;
 	}
 
+	public int getCartTotalPrice() {
+		return cartTotalPrice;
+	}
+
+	public void setCartTotalPrice(int cartTotalPrice) {
+		this.cartTotalPrice = cartTotalPrice;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -129,6 +138,8 @@ public class Cart {
 		builder.append(itemPrice);
 		builder.append(", ");
 		builder.append(totalPrice);
+		builder.append(", ");
+		builder.append(cartTotalPrice);
 		return builder.toString();
 	}
 

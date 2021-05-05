@@ -37,7 +37,7 @@ public class MessageEntity {
 		error.add("[공지사항/자주하는질문 삭제 오류]");		
 		error.add("[공지사항/자주하는질문 변경 오류]"); //19
 		
-		error.add("[장바구니 등록 오류]");
+		error.add("[장바구니 등록/변경 오류]");
 		error.add("[장바구니 조회 오류]");
 		error.add("[장바구니 검색 오류]");
 		error.add("[장바구니 삭제 오류]"); //23
