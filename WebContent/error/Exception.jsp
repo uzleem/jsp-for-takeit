@@ -19,6 +19,6 @@
 서버에서 오류가 발생했습니다.
 문의사항을 남겨주시면 빠르게 처리하겠습니다.
 </pre>
-<a href="/takeit/index.jsp" class="link">홈으로 이동</a>
+<a href="/takeit/index" class="link">홈으로 이동</a>
 </body>
 </html>
