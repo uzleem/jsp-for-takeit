@@ -126,49 +126,38 @@ public class MypageDao {
 	
 	//상품등록
 		public void addItem(Connection conn, Item dto) throws CommonException {
-			String sql = "insert into item values(lpad((ITEM_SEQ.nextval),8,'0'),"
+			System.out.println("상품 등록 dao 입장");
+			String sql = "insert into item values(?||lpad((ITEM_SEQ.nextval),6,'0'),"
 					+ "?, ?, ?, null, ?, ?, ?, ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
 			try {
-				
-				String uploadDir = "C:/student_ucamp33/workspace_takeit/img/item/";
-				HttpServletRequest request = null;
-				MultipartRequest multi = new MultipartRequest(request, uploadDir, 5 * 1024 * 1024 , "UTF-8" , new DefaultFileRenamePolicy());
-				
-				conn = JdbcTemplate.getConnection();
-			
 				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery();
 				
-				
-				if(rs.next()) {	
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, dto.getSellerId());
-				stmt.setString(2, dto.getItemName());
-				stmt.setInt(3, dto.getItemPrice ());
+				stmt.setString(1, dto.getItemCategoryNo());
+				stmt.setString(2, dto.getSellerId());
+				stmt.setString(3, dto.getItemName());
+				stmt.setInt(4, dto.getItemPrice ());
 				
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
-				stmt.setString(7, multi.getFilesystemName("itemImg"));
+				stmt.setString(7, dto.getItemImg());
 				stmt.setDouble(8, 0.0);
-				stmt.setString(9, dto.getItemInputDate());
-				stmt.setInt(10, 0);
-				stmt.setString(11, dto.getItemTakeit());
-				stmt.setString(12, dto.getItemCategoryNo());
+				stmt.setInt(9, 0);
+				stmt.setString(10, dto.getItemTakeit());
+				stmt.setString(11, dto.getItemCategoryNo());
 				
 				int result = stmt.executeUpdate();
 				
 				if(result == 0) {
 					throw new Exception();
 				}
+				System.out.println("상품 등록 성공 dao");
 				
-				
-				}
 			} catch (Exception e) {
-
+				System.out.println("상품등록 실팬");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			

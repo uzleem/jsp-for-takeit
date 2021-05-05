@@ -43,7 +43,7 @@
 			<tr>
 				<td>상품카테고리이름</td>
 				<td>
-					<select id="itemCategoryNo" style="width: 100px;">
+					<select id="itemCategoryNo" name="itemCategoryNo" style="width: 100px;">
 						
 					<c:if test="${categoryList != null}"> 	
 				<c:forEach items="${categoryList }" var="list">
@@ -76,7 +76,7 @@
 
 			<tr>
 				<td>잇거래여부</td>
-				<td><select  id ="itemTakeit">
+				<td><select  id ="itemTakeit" name ="itemTakeit">
 						<option value="">==잇거래 여부==</option>
 						<option value="T">True(등록)</option>
 						<option value="F">False(등록안함)</option>
