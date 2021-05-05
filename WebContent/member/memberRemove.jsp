@@ -63,11 +63,11 @@ function sellerRemoveCheck(){
 </head>
 <body>
 <!-- 상단 메뉴 -->
-<c:if test="${empty memberId }">
+<c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->
 	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
 </c:if>
-<c:if test="${not empty memberId }">
+<c:if test="${not empty memberId or not empty sellerId}">
 	<!-- 로그인 후 메뉴 -->
 	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 </c:if>
@@ -79,7 +79,7 @@ function sellerRemoveCheck(){
 
 <div id="container">
 	<c:choose>
-		<c:when test ="${member.grade == 'S' or seller.grade== 'S'}">
+		<c:when test ="${dto.grade == 'S' }">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
 	 		<div id="mypage_remove">
@@ -91,7 +91,7 @@ function sellerRemoveCheck(){
 				<tr>
 					<th>아이디</th>
 					<td>
-					<input type="text" id="sellerId" name="sellerId">
+					<input type="text" id="sellerId" name="sellerId" value="${sellerId }" readonly="readonly">
 					</td>
 				</tr>
 				<tr>
@@ -130,7 +130,7 @@ function sellerRemoveCheck(){
 						<tr>
 							<th>아이디</th>
 							<td>
-							<input type="text" id="memberId" name="memberId">
+							<input type="text" id="memberId" name="memberId" value="${memberId }">
 							</td>
 						</tr>
 						<tr>

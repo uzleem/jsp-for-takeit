@@ -34,23 +34,20 @@ function mobilePopup() {
 </script>
 </head>
 <body>
-	<!-- 상단 메뉴 -->
-<c:choose>
-	<c:when test="${empty seller.sellerId or empty seller.grade}">
-		<!-- 로그인 전 메뉴 -->
-		<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<!-- 로그인 후 메뉴 -->
-		<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
-	</c:otherwise>
-</c:choose>
+<!-- 상단 메뉴 -->
+<c:if test="${empty memberId and empty sellerId}">
+	<!-- 로그인 전 메뉴 -->
+	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+</c:if>
+<c:if test="${not empty memberId or not empty sellerId}">
+	<!-- 로그인 후 메뉴 -->
+	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+</c:if>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <h3 id ="title" align="center">내 정보 조회</h3>
-
 <div id="container">
 	<c:choose>
 		<c:when test ="${seller.grade == 'S' }">
@@ -68,7 +65,7 @@ function mobilePopup() {
 			<h3>내 정보 조회</h3>
 			<hr>
 	<div id="sellerInfo">
-		<form action="/takeit/member/mypageController?action=setMemberSeller" method="post">
+		<form action="/takeit/member/mypageController?action=setSellerInfo" method="post">
 			<table id="myInfo_table">
 				<tr>
 					<th>아이디</th>
@@ -79,7 +76,7 @@ function mobilePopup() {
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="text" id="sellerPw" name="sellerPw" value="${seller.sellerPw} ">
+						<input type="password" id="sellerPw" name="sellerPw" value="${seller.sellerPw}">
 						<input id="infoUpdateBtn" type="button" value="비밀번호 변경" onclick="location.href='/takeit/member/mypageController?action=memberPwUpdateForm'">
 					</td>		
 				</tr>
@@ -126,7 +123,12 @@ function mobilePopup() {
 					</td>	
 				</tr>
 				
-				
+				<tr>
+			<th>상점이미지</th>	
+			<td>
+			<img id="shopImg" alt="${seller.shopImg}" src="/takeit/img/${seller.shopImg}">
+			</td>	
+				</tr>
 				<tr>
 					<th>우편번호</th>
 					<td>
@@ -167,7 +169,7 @@ function mobilePopup() {
 				<tr>
 					<th>상점구역코드</th>	
 					<td>
-						<input type="text" id="shopLocCode" name="shopLocCode" readonly="readonly">
+						<input type="text" id="shopLocCode" name="shopLocCode" readonly="readonly" value="${seller.shopLocCode }">
 					</td>	
 				</tr>
 				<tr>
@@ -178,7 +180,7 @@ function mobilePopup() {
 			</table>
 		</form>
 		<div id="myInfo_btn">
-			<input id = "mypage_btn" type="button" value="홈으로 이동" onclick="location.href='/takeit/index.jsp'">
+			<input id = "mypage_btn" type="button" value="홈으로 이동" onclick="location.href='/takeit/index'">
 	</div>
 	</div>
 
@@ -188,7 +190,6 @@ function mobilePopup() {
 
 
 </div>
- 
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>

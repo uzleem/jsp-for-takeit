@@ -34,11 +34,11 @@ public class MypageBiz {
 		
 		try {
 			dao.getShopCategoryList(conn, shopCategoryList);
-			JdbcTemplate.commit(conn);
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			JdbcTemplate.rollback(conn);
+			
 			throw e;
 		}finally {
 			JdbcTemplate.close(conn);
@@ -57,9 +57,10 @@ public class MypageBiz {
 		
 		try {
 			dao.addItem(conn, dto);
-			
+			JdbcTemplate.commit(conn);
 		}catch (Exception e) {
 			e.printStackTrace();
+			JdbcTemplate.rollback(conn);
 			throw e;
 		}finally {
 			JdbcTemplate.close(conn);

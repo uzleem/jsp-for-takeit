@@ -181,7 +181,7 @@ public class MypageDao {
 		public void addItem(Connection conn, Item dto) throws CommonException {
 			System.out.println("상품 등록 dao 입장");
 			String sql = "INSERT INTO ITEM VALUES (? || lpad((ITEM_SEQ.nextval),6,'0'),"
-					+ "?, ?, ?, null, ?, ?, ?, ?, sysdate, ?, ?,?)";
+					+ "?, ?, ?, null, ?, ?,? , ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
@@ -196,6 +196,7 @@ public class MypageDao {
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
 				stmt.setString(7, dto.getItemImg());
+				
 				stmt.setDouble(8, 0.0);
 				stmt.setInt(9, 0);
 				stmt.setString(10, dto.getItemTakeit());
@@ -323,9 +324,7 @@ public class MypageDao {
 	 */
 	public void searchSellerDetail(Connection conn, Seller dto) throws CommonException {
 		
-		String sql = "SELECT * FROM SELLER S JOIN SHOP_CATEGORY SP_CG "
-					+ "USING(SHOP_CATEGORY_NO) " + 
-					"WHERE SELLER_ID=?";
+		String sql = "SELECT * FROM SELLER WHERE SELLER_ID=?";
 		
 		
 		PreparedStatement stmt = null;
@@ -356,9 +355,7 @@ public class MypageDao {
 				dto.setShopKakaoId(rs.getString("shop_kakao_id"));
 				dto.setShopImg(rs.getString("shop_img"));
 				dto.setShopCategoryNo(rs.getString("shop_category_no"));
-//				dto.setShopCategoryName(rs.getString("shop_category"));
-				
-//				dto.setShopLocCode(rs.getString("shop_loc_code"));
+				dto.setShopLocCode(rs.getString("shop_loc_code"));
 			}
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -515,7 +512,6 @@ public class MypageDao {
 			String sql = "delete from member where member_id=? and member_pw=?";
 			
 			PreparedStatement stmt = null;
-			ResultSet rs = null;
 			
 			System.out.println("회원 탈퇴 요청--dao");
 			
@@ -543,7 +539,6 @@ public class MypageDao {
 				
 				
 			}finally {
-				JdbcTemplate.close(rs);
 				JdbcTemplate.close(stmt);
 			}
 			
@@ -562,7 +557,6 @@ public class MypageDao {
 			String sql = "delete from seller where seller_id=? and seller_pw=?";
 			
 			PreparedStatement stmt = null;
-			ResultSet rs = null;
 			
 			try {
 				stmt = conn.prepareStatement(sql);
@@ -586,7 +580,6 @@ public class MypageDao {
 				message.setUrl("/takeit/member/myPage.jsp");
 				throw new CommonException(message);
 			}finally {
-				JdbcTemplate.close(rs);
 				JdbcTemplate.close(stmt);
 			}
 		}

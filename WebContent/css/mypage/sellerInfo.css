@@ -68,16 +68,11 @@
 }
 
 
-
-
-
-
-
 #sellerInfo{
 	display: inline-block;
     padding: 0;
     width: 800px;
-    height: 700px;
+    height: 900px;
     float: left;
     margin-left: 50px;
 	text-align: -webkit-center;
@@ -90,7 +85,7 @@
     width: 1000px;
     height: 700px;
     float: left;
-    margin-left: 130px;
+    margin-left: 100px;
 }
 
 #myInfo_table table, #myInfo_table tr,  #myInfo_table td{
@@ -98,7 +93,7 @@
 	border: solid 1px #8D959C;
 	border-collapse: collapse;
 	margin: 0 auto;
-	padding: 5px;
+	
 }
 #myInfo_table th{
 	
@@ -148,4 +143,20 @@
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
+}
+
+#addressDetail{
+	
+	width:250px;
+	
+}
+#address{
+	
+	width:250px;
+	
+}
+
+#shopImg{
+	width: 50px;
+	height: 50px;
 }

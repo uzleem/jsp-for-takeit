@@ -32,17 +32,14 @@
 <div id="container">
 
 		<c:choose>
-		<c:when test ="${grade == 'S' }">
+		<c:when test ="${sellerId != null}">
 	 		<!-- 판매자 마이페이지 메뉴 -->
 	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
 		</c:when>
 		<c:otherwise>
 			<!-- 일반회원 마이페이지 메뉴 -->
 			<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
-		</c:otherwise>
-	</c:choose>
-		
-	<div id="mypage_order">
+			<div id="mypage_order">
 	<h3>주문내역</h3>
 	<hr>
 		<div id="order_Info">
@@ -66,6 +63,14 @@
 		</div>
 		<hr>
 	</div>
+			
+			
+			
+			
+		</c:otherwise>
+	</c:choose>
+		
+	
 
  </div>
  

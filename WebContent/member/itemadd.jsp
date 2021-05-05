@@ -98,7 +98,7 @@
 				
 			<tr>
 				<th>판매자</th>
-				<td><input type="text" id="sellerId" name="sellerId"  placeholder="판매자" value="${seller.sellerId }">
+				<td><input type="text" id="sellerId" name="sellerId"  placeholder="판매자" value="${sellerId }">
 				</td>
 			</tr>
 
@@ -110,7 +110,9 @@
 			</tr>
 		</table>
 	<br></form>
-		
+		<div id="myInfo_btn">
+			<input id = "mypage_btn" class="inline" type="button" value="등록 취소" onclick="location.href='/takeit/member/myPage.jsp'">
+	</div>
 	</div>
 	<!-- scroll function -->
 	<jsp:include page="/common/back_to_top.jsp"></jsp:include>
