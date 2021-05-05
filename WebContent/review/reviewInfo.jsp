@@ -32,7 +32,7 @@
 		<h3>작성 후기조회</h3>
 
 		<div id="review">
-			<form action="/takeit/review/reviewController?action=setReviewInfo"method="post">
+			<form action="/takeit/item/reviewController?action=setReviewInfo" method="post">
 				<table id="review_table">
 					<tr>
 						<th>후기번호</th>
@@ -61,7 +61,7 @@
 					</tr>
 					<tr>
 						<th>후기내용</th>
-						<td><textarea name="contents" rows="7" cols="50">${review.reviewContents}</textarea>
+						<td><textarea name="reviewContents" rows="7" cols="50">${review.reviewContents}</textarea>
 						</td>
 					</tr>
 					<tr>
@@ -78,16 +78,15 @@
 
 					<tr>
 						<td colspan="2" align="center" id="small-btn"><br>
-						 <input type="submit"  value="후기 수정"> 
-						 <form action="/takeit/review/reviewController?action=deleteReview" method="post" style="display: inline-block;">
-						 <input type="submit" value="후기 삭제"> </form></td>
+						 <input type="submit"  value="후기 수정"></td>
+					
 						
 					</tr>
 				</table>
 			</form>
 			<div id="small-btn">
 				<br> <input id="btn-area" type="button" value="홈으로 이동"
-					onclick="location.href='/takeit/index.jsp'">
+					onclick="location.href='/takeit/index'">
 			</div>
 		</div>
 	</div>

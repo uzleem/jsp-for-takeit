@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
+import com.takeit.model.dao.ItemDao;
 import com.takeit.model.dao.ReviewDao;
+import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Review;
 
 /**
@@ -94,6 +96,22 @@ public class ReviewBiz {
 
 		}
 	}
+
+	/**후기상세조회*/
+	public void searchReview(Review dto) throws CommonException {
+		ReviewDao dao = ReviewDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		System.out.println("dto = "+ dto.getItemNo());
+		try {
+			dao.lookReview(conn, dto);
+		} catch (CommonException e) {
+			throw e;
+		}
+
+
+		JdbcTemplate.close(conn);
+	}
+
 	/**후기삭제*/
 	public void reviewDelete(String reviewNo,String memberId,String reviewTitle) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
@@ -106,7 +124,7 @@ public class ReviewBiz {
 		} finally {
 			JdbcTemplate.close(con);
 		}
-		
+
 	}
 }
 

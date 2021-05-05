@@ -85,8 +85,7 @@
 		<br>
 		<div id="signup" align='center'>
 
-			<input type="submit" value="상품등록"> <input type="reset"
-				value="취소">
+			<input type="submit" value="상품등록"> <input type="reset" value="취소">
 
 		</div>
 	</form>
