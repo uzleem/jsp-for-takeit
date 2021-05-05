@@ -111,6 +111,7 @@ public class ItemDao {
 				dto.setSellerId(rs.getString("SELLER_ID"));
 				dto.setItemName(rs.getString("ITEM_NAME"));
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
+				dto.setSalesUnit(rs.getString("SALES_UNIT"));
 				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));
 				dto.setItemStock(rs.getInt("ITEM_STOCK"));
 				dto.setItemImg(rs.getString("ITEM_IMG"));
@@ -173,6 +174,7 @@ public class ItemDao {
 				dto.setSellerId(rs.getString("SELLER_ID"));
 				dto.setItemName(rs.getString("ITEM_NAME"));
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
+				dto.setSalesUnit(rs.getString("SALES_UNIT"));
 				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));
 				dto.setItemStock(rs.getInt("ITEM_STOCK"));
 				dto.setItemImg(rs.getString("ITEM_IMG"));
@@ -248,7 +250,7 @@ public class ItemDao {
 				dto.setItemNo(rs.getString("ITEM_NO "));			
 				dto.setSellerId(rs.getString("SELLER_ID"));			
 				dto.setItemName(rs.getString("ITEM_NAME"));			
-				dto.setItemPrice(rs.getInt("ITEM_PRICE"));			
+				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
 				dto.setSalesUnit(rs.getString("SALES_UNIT"));			
 				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));			
 				dto.setItemStock(rs.getInt("ITEM_STOCK"));			
