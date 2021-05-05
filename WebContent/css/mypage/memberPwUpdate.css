@@ -54,6 +54,38 @@ display: inline-block;
 }
 
 #myInfo_table table, #myInfo_table tr, #myInfo_table th, #myInfo_table td{
-	width: 500px;
+	width: 300px;
 	border: solid 1px #8D959C;
+	border-collapse: collapse;
+	margin: 0 auto;
+	padding: 5px;
+}
+#myInfo_table th{
+	
+	width: 150px;
+	border: solid 1px #8D959C;
+	
+}
+
+.updateBtn{
+	
+	text-align: center;
+	display: block;
+	margin: 5px auto 0 auto;
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	font-size:15px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	
+}
+
+.updateBtn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
 }

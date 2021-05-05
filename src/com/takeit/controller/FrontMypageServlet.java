@@ -94,6 +94,8 @@ public class FrontMypageServlet extends HttpServlet {
 	}
 	
 	
+	
+	
 	/**
 	 * 상품 등록 페이지 요청 폼
 	 * @param request
@@ -153,11 +155,8 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		
 		String sellerId = multi.getParameter("sellerId");
-		System.out.println("sellerId" + sellerId);
 		String itemName = multi.getParameter("itemName");
-		System.out.println("itemName" + itemName);
 		int itemPrice = Integer.parseInt(multi.getParameter("itemPrice"));
-		System.out.println("itemPrice" + itemPrice);
 		String salesUnit = multi.getParameter("salesUnit");
 		
 		String itemOrigin = multi.getParameter("itemOrigin");
@@ -200,10 +199,6 @@ public class FrontMypageServlet extends HttpServlet {
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
-			
-			
-			
-			
 		}catch (Exception e) {
 			message = new MessageEntity("error", 0);
 			message.setLinkTitle("뒤로가기");
@@ -212,7 +207,6 @@ public class FrontMypageServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);;
 			
 		}
-		
 	}
 	
 	/**
@@ -329,9 +323,11 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		MypageBiz biz = new MypageBiz();
 		
+		ArrayList<Seller> shopCategoryList = new ArrayList<Seller>();
 		
 		try {
 			biz.sellerDetail(dto);	
+			biz.getshopCategoryList(shopCategoryList);
 			session.setAttribute("seller", dto);
 			request.getRequestDispatcher("/member/sellerInfo.jsp").forward(request, response);
 		}catch (CommonException e) {
@@ -541,9 +537,9 @@ public class FrontMypageServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String shopCategoryNo = request.getParameter("shopCategoryNo");
 		String shopKakaoId = request.getParameter("shopKakaoId");
-		String postNo = request.getParameter("postno");
+		String postNo = request.getParameter("postNo");
 		String address = request.getParameter("address");
-//		String addressDetail = request.getParameter("addressDetail");
+		String addressDetail = request.getParameter("addressDetail");
 		
 		
 		if(sellerId == null || sellerId.trim().length()  == 0 ) {
@@ -584,7 +580,7 @@ public class FrontMypageServlet extends HttpServlet {
 		if(postNo == null || postNo.trim().length() == 0) {
 
 			message = new MessageEntity("validation",3);
-			message.setLinkTitle("내 정보 보러가기");
+			message.setLinkTitle("내 정보 보러가기 우편번호");
 			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
 			
 			request.setAttribute("message", message);
@@ -595,7 +591,7 @@ public class FrontMypageServlet extends HttpServlet {
 		if(address == null || address.trim().length() ==0) {
 
 			message = new MessageEntity("validation",3);
-			message.setLinkTitle("내 정보 보러가기");
+			message.setLinkTitle("내 정보 보러가기 주소");
 			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
 			
 			request.setAttribute("message", message);
@@ -603,17 +599,17 @@ public class FrontMypageServlet extends HttpServlet {
 			return;
 		}
 		
-//		if(addressDetail == null || addressDetail.trim().length() ==0) {
-//				
-//
-//			message = new MessageEntity("validation",3);
-//			message.setLinkTitle("내 정보 보러가기");
-//			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
-//			
-//			request.setAttribute("message", message);
-//			request.getRequestDispatcher("/message.jsp").forward(request, response);
-//			return;
-//		}
+		if(addressDetail == null || addressDetail.trim().length() ==0) {
+				
+
+			message = new MessageEntity("validation",3);
+			message.setLinkTitle("내 정보 보러가기 상세주소");
+			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
 		if(mobile == null || mobile.trim().length() == 10) {
 
 
@@ -680,16 +676,6 @@ public class FrontMypageServlet extends HttpServlet {
 			return;
 		}
 		
-		if(shopKakaoId == null || shopKakaoId.trim().length() ==0) {
-
-			message = new MessageEntity("validation",4);
-			message.setLinkTitle("내 정보 보러가기");
-			message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
-			
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			return;
-		}
 		
 		sellerId = sellerId.trim();
 		sellerPw = sellerPw.trim();
@@ -698,8 +684,7 @@ public class FrontMypageServlet extends HttpServlet {
 		email = email.trim();
 		postNo = postNo.trim();
 		address = address.trim();
-//		addressDetail = addressDetail.trim();
-		shopKakaoId = shopKakaoId.trim();
+		addressDetail = addressDetail.trim();
 		shopCategoryNo = shopCategoryNo.trim();
 		shopMobile = shopMobile.trim();
 		shopName = shopName.trim();
@@ -721,7 +706,7 @@ public class FrontMypageServlet extends HttpServlet {
 		dto.setShopKakaoId(shopKakaoId);
 		dto.setPostNo(postNo);
 		dto.setAddress(address);
-//		dto.setaddressDetail(addressDetail");
+		dto.setAddressDetail(addressDetail);
 		
 		try {
 			
@@ -929,31 +914,30 @@ public class FrontMypageServlet extends HttpServlet {
 		
 	} 
 	
-		/**
-		 * 비밀번호 변경 요청 페이지
-		 * @param request
-		 * @param response
-		 * @throws ServletException
-		 * @throws IOException
-		 */
-		protected void memberPwUpdateForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("비밀번호 변경 요청 페이지 ");
-			
-			HttpSession session = request.getSession(false);
+	/**
+	 * 비밀번호 변경 요청 페이지
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void memberPwUpdateForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("비밀번호 변경 요청 페이지 ");
+		
+		HttpSession session = request.getSession(false);
 
-			try {
-				session.getAttribute("member");
-				session.getAttribute("seller");
-				request.getRequestDispatcher("/member/memberPwUpdate.jsp").forward(request, response);
-			}catch (Exception e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}
-			
-		} 
+		try {
+			session.getAttribute("member");
+			session.getAttribute("seller");
+			request.getRequestDispatcher("/member/memberPwUpdate.jsp").forward(request, response);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+	} 
 	
 	
-	//비밀번호 변경  > 일반회원
 	/**
 	 * 비밀번호 변경 일반회원
 	 * @param request
@@ -1103,7 +1087,6 @@ public class FrontMypageServlet extends HttpServlet {
 			try {
 				biz.setMemberPw(memberPw2, dto);
 				
-				
 				message = new MessageEntity("success", 3);
 				message.setLinkTitle("내 정보 보러가기");
 				message.setUrl("/takeit/member/mypageController?action=sellerInfoForm");
@@ -1120,7 +1103,6 @@ public class FrontMypageServlet extends HttpServlet {
 			}
 			
 		} 
-	
 	
 	
 	
