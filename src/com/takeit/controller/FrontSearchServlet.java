@@ -9,15 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
-import com.takeit.model.biz.BoardBiz;
 import com.takeit.model.biz.SearchBiz;
-import com.takeit.model.dto.Board;
-import com.takeit.model.dto.Category;
-import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Search;
 
 /**
  * 게시판 관리 컨트롤러
@@ -56,7 +52,6 @@ public class FrontSearchServlet extends HttpServlet {
 		}
 	}
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
@@ -71,18 +66,20 @@ public class FrontSearchServlet extends HttpServlet {
 		System.out.println("[debug]검색결과 조회 요청");
 		String searchInput = request.getParameter("searchInput");
 		searchInput = searchInput.trim();
-		
 		System.out.println("[debug] " + searchInput);
 		
-		ArrayList<Item> searchList = new ArrayList<Item>();
+		ArrayList<Search> searchList = new ArrayList<Search>();
 		SearchBiz sbiz = new SearchBiz();
 		
 		try {
-			sbiz.getSearchList(searchList, searchInput);
+			sbiz.getSearchList(searchList, "%"+searchInput+"%");
 			request.setAttribute("searchList", searchList);
-			request.getRequestDispatcher("/searchList.jsp").forward(request, response);
+			request.setAttribute("searchInput", searchInput);
+			request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
 		} catch (CommonException e) {
-			// TODO: handle exception
+			MessageEntity message = new MessageEntity("error", 9);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
 	

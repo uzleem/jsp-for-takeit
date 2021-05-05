@@ -86,7 +86,9 @@
 	height: 30px;
 	cursor: pointer;
 }
-
+input[type="submit"]{
+	font-family: FontAwesome;
+}
 /*warning*/
 .warningMessage {
 	text-align: center;
@@ -104,6 +106,12 @@
     padding: 10px;
     margin: 20px auto;
 }
+
+/**검색결과*/
+#result-error{
+	
+}
+
 
 #title {
 	width: fit-content;
