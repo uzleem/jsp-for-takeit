@@ -18,6 +18,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
+
 /** 
  * <pre>
  * 객체 생성없이 사용하기 위한 공통기능 유틸클래스

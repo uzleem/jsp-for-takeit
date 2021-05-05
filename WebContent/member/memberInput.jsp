@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>회원가입</title>	
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -49,6 +49,30 @@ function mobilePopup() {
              "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
 }
 </script>
+<script type="text/javascript">
+function idCheck(){
+	 $.ajax({	
+		 	// 서블릿으로 보낸다
+			url:"/takeit/member/controller?action=memberIdChk",
+			type:"get",	
+			// name값
+			data:{
+				"memberId" : $("#memberId").val()  
+			},	
+		
+			success:function(data){
+				
+				if(data == "1"){
+					
+					alert("사용가능한 아이디입니다.");
+				}else {					
+					
+					alert("해당 아이디는 사용중입니다.");	
+				}			
+			}
+	});	 
+};
+</script>
 </head>
 
 
@@ -80,7 +104,7 @@ function mobilePopup() {
 			<td>아이디</td>
 			<td>
 				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId"  name="memberId" required="required"/>
-				<input type="button" value="중복확인" id="id_button"/>
+				<input type="button" value="중복확인" id="id_button" onclick="idCheck()"/>
 			</td>
 		</tr>
 		<tr>

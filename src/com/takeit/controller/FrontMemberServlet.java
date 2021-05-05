@@ -37,6 +37,7 @@ public class FrontMemberServlet extends HttpServlet {
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		String action = request.getParameter("action");
 		
@@ -56,7 +57,9 @@ public class FrontMemberServlet extends HttpServlet {
 		case "memberFindPw":
 			memberFindPw(request, response);
 			break;
-			
+		case "memberIdChk":
+			memberIdChk(request, response);
+			break;
 		}
 	}
 	
@@ -103,23 +106,16 @@ public class FrontMemberServlet extends HttpServlet {
 				
 		try {
 			biz.addMember(dto);
-			if(dto.getMemberId() != null) {
-				MessageEntity message = new MessageEntity("success", 0);
-				message.setUrl("/takeit/member/memberLogin.jsp");
-				message.setLinkTitle("로그인");
-				request.setAttribute("message", message);
-				rd.forward(request, response);
-			}else {
-				MessageEntity message = new MessageEntity("error", 0);
-				message.setLinkTitle("뒤로가기");
-				message.setUrl(CONTEXT_PATH + "/member/memberInput.jsp");
-				request.setAttribute("message", message);
-				rd.forward(request, response);
-			}
+		
+			MessageEntity message = new MessageEntity("success", 0);
+			message.setUrl("/takeit/member/memberLogin.jsp");
+			message.setLinkTitle("로그인");
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		
 		} catch (CommonException e) {
-			//e.printStackTrace();
-			//MessageEntity message = e.getMessageEntity();
-			MessageEntity message = new MessageEntity("error", 0);
+			
+			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("뒤로가기");
 			message.setUrl(CONTEXT_PATH + "/member/memberInput.jsp");
 			request.setAttribute("message", message);
@@ -290,6 +286,30 @@ public class FrontMemberServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * 아이디 중복체크
+	 */
+	protected void memberIdChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String memberId = request.getParameter("memberId");
+		
+		MemberBiz biz = new MemberBiz();
+
+		try {
+			int result = biz.idCheck(memberId);
+			if(result == 1) {
+				response.getWriter().write("1");
+			}else {
+				response.getWriter().write("0");
+			}
+		} catch (CommonException e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		
+	}
 	
 	
 }

@@ -147,9 +147,22 @@ function shopImgPopup() {
 			</td>
 		</tr>
 		<tr>
+			<td>상점구역</td>
+			<td>
+				<select name="shopLocCode" id="shopLocCode">
+					<option value="none">:::선택:::</option>
+					<c:forEach var="shopLoc" items="${shopLocList}">
+						<option value="${shopLoc.shopLocCode}">${shopLoc.shopLocName }</option>
+					</c:forEach>
+					
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td>사업자등록번호</td>
 			<td><input type="text" placeholder="-포함 12자리를 입력해주세요" id="sellerNo" name="sellerNo" required="required"/></td>
 		</tr>
+		
 		<tr>
 			<td>상점연락처</td>
 			<td><input type="text" placeholder="상점 연락처를 입력해주세요" id="shopMobile" name="shopMobile" required="required"/></td>

@@ -42,7 +42,7 @@ function mobilePopup() {
 <!-- 내용 -->
 <div id="contents_box" align="center">
 <h1 align="center">아이디 찾기</h1>
-<form action="${CONTEXT_PATH}/member/controller?action=memberFindId" method="post">
+<form action="${CONTEXT_PATH}/seller/controller?action=sellerFindId" method="post">
 <table>
 	<tr>
 		<td>이름</td>
@@ -64,7 +64,7 @@ function mobilePopup() {
 	</tr>
 	<tr>
 		<td>
-			<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum" readonly="readonly" required="required"/>
+			<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum" required="required" readonly="readonly"/>
 		</td>
 	</tr>
 	<tr>

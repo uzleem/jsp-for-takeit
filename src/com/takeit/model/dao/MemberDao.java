@@ -25,7 +25,8 @@ public class MemberDao {
 	 */
 	public void addMember(Connection con, Member member) throws CommonException {
 		
-		String sql = "insert into member values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into member "
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, null)";
 
 		PreparedStatement stmt = null;
 		
@@ -45,14 +46,15 @@ public class MemberDao {
 			stmt.setString(9, member.getAddressDetail());
 			stmt.setString(10, "G");
 			stmt.setInt(11, 1000); 
-			stmt.setString(12, "1995-12-12");
-			stmt.setString(13, "29");
-			stmt.setString(14, "AA");
+			stmt.setString(12, member.getBirth());
 			//throw new SQLException();
-			stmt.executeUpdate();
+			int row = stmt.executeUpdate();
 			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			if (row == 0) {
+				throw new Exception();
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			
 			MessageEntity message = new MessageEntity("error",1);
@@ -130,8 +132,8 @@ public class MemberDao {
 			rs = stmt.executeQuery();
 
 			if(rs.next()) {
-				member.getMemberId();
-				member.getEntryDate();
+				member.setMemberId(rs.getString("member_id"));
+				member.setEntryDate(rs.getString("entry_date"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -188,7 +190,36 @@ public class MemberDao {
 		}
 	}
 	
-	
-	
+	/**
+	 * 아이디 중복체크
+	 * @throws CommonException 
+	 */
+	public boolean memberIdChk(Connection con, String memberId) throws CommonException {
+		String sql = "select member_id from member where member_Id= ?";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 6);
+			
+			throw new CommonException(message);
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return true;
+	}
 	
 }
