@@ -1,6 +1,7 @@
 package com.takeit.model.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Order implements Serializable {
 	// 상품
@@ -20,10 +21,9 @@ public class Order implements Serializable {
 	private String shipStatusCode;
 	private String memberId;
 	// 주문상세
-	private String[] itemNos;
-	private int[] itemQtys;
-	private int[] itemPayPrices;
-
+	private ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+	
+	
 	public Order() {
 	}
 
@@ -46,9 +46,13 @@ public class Order implements Serializable {
 	 * @param itemQtys        상품수량
 	 * @param itemPayPrices   상품결제가격
 	 */
+	public String getItemTakeit() {
+		return itemTakeit;
+	}
+
 	public Order(String itemTakeit, String shipStatus, String orderNo, String receiveMethod, String recipientName,
 			String recipientPostNo, String recipientAddr, String recipientMobile, String shipRequest, int orderPrice,
-			String shipStatusCode, String memberId, String[] itemNos, int[] itemQtys, int[] itemPayPrices) {
+			String shipStatusCode, String memberId, ArrayList<OrderDetail> orderDetails) {
 		super();
 		this.itemTakeit = itemTakeit;
 		this.shipStatus = shipStatus;
@@ -62,17 +66,7 @@ public class Order implements Serializable {
 		this.orderPrice = orderPrice;
 		this.shipStatusCode = shipStatusCode;
 		this.memberId = memberId;
-		this.itemNos = itemNos;
-		this.itemQtys = itemQtys;
-		this.itemPayPrices = itemPayPrices;
-	}
-
-	public String getItemTakeit() {
-		return itemTakeit;
-	}
-
-	public void setItemTakeit(String itemTakeit) {
-		this.itemTakeit = itemTakeit;
+		this.orderDetails = orderDetails;
 	}
 
 	public String getShipStatus() {
@@ -163,29 +157,18 @@ public class Order implements Serializable {
 		this.memberId = memberId;
 	}
 
-	public String[] getItemNos() {
-		return itemNos;
+	public ArrayList<OrderDetail> getOrderDetails() {
+		return orderDetails;
 	}
 
-	public void setItemNos(String[] itemNos) {
-		this.itemNos = itemNos;
+	public void setOrderDetails(ArrayList<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
-	public int[] getItemQtys() {
-		return itemQtys;
-	}
-
-	public void setItemQtys(int[] itemQtys) {
-		this.itemQtys = itemQtys;
-	}
-
-	public int[] getItemPayPrices() {
-		return itemPayPrices;
-	}
-
-	public void setItemPayPrices(int[] itemPayPrices) {
-		this.itemPayPrices = itemPayPrices;
+	public void setItemTakeit(String itemTakeit) {
+		this.itemTakeit = itemTakeit;
 	}
 	
 	
+
 }

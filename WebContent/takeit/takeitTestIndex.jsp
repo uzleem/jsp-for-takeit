@@ -15,6 +15,7 @@
 	<a href="/takeit/takeit/takeitController?action=shopLocInputForm">3. 관리자용 상점구역 등록</a><br>
 	<a href="/takeit/takeit/takeitController?action=takeitInputForm">4. 관리자용 잇거래 등록</a><br>
 	<a href="/takeit/order/order.jsp">5. 결제하기</a><br>
+	<a href="/takeit/order/orderController?action=sellerOrderList">6. 판매자 판매내역조회</a><br>
 </h3>
 </div>
 </body>

@@ -104,7 +104,7 @@ public class TakeitBiz {
 	 * 
 	 * 
 	 */
-	public void getMemberLocNo(Member member) {
+	public void addMemberLocNo(Member member) {
 		HashMap<String, String> latLng = Utility.getLatlng(member.getAddress());
 		String _lat = latLng.get("lat");
 		String _lng = latLng.get("lng");
