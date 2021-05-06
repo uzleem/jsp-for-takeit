@@ -23,6 +23,28 @@ public class MypageBiz {
 	
 	private MypageDao dao = MypageDao.getInstance();
 	
+	/**
+	 * 상점 카테고리 목록 조회
+	 * @param dto
+	 * @throws CommonException
+	 */
+	public void itemget(Item dto) throws CommonException{
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.itemget(conn, dto);
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			throw e;
+		}finally {
+			JdbcTemplate.close(conn);
+		}
+		
+	}
+	
 	
 	/**
 	 * 상점 카테고리 목록 조회

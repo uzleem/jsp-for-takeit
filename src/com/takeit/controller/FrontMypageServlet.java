@@ -1,5 +1,6 @@
 package com.takeit.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
+import com.takeit.model.dto.ShopLoc;
 
 /**
  * 마이페이지 관리 컨트롤러
@@ -36,6 +38,11 @@ public class FrontMypageServlet extends HttpServlet {
 		application = getServletContext();
 		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");	
 	}	
+	
+	
+//	public void renameFile(Stirng filename, String newFilename) {
+//		File file = new File()
+//	}
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -161,9 +168,12 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		String itemOrigin = multi.getParameter("itemOrigin");
 		int itemStock = Integer.parseInt(multi.getParameter("itemStock"));
+		String itemCategoryNo = multi.getParameter("itemCategoryNo");
 		String itemImg = multi.getFilesystemName(("itemImg"));
 		String itemTakeit = multi.getParameter("itemTakeit");
-		String itemCategoryNo = multi.getParameter("itemCategoryNo");
+		
+		
+		
 		
 		System.out.println(itemCategoryNo +sellerId +itemName+ itemPrice +salesUnit+ itemOrigin+ itemStock+ itemTakeit);
 		System.out.println("상품 이미지 : " +itemImg );
@@ -181,10 +191,26 @@ public class FrontMypageServlet extends HttpServlet {
 		dto.setItemTakeit(itemTakeit);
 		dto.setItemCategoryNo(itemCategoryNo);
 		
+		Item dto2 = new Item();
+		
+		
 		
 		try {
+			File file = new File("C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item/"+dto.getItemImg());
+			if(file.exists() == false) {
+				System.out.println("이미지가 없음");
+				return;
+			}
+			
+			
 			biz.addItem(dto);
+			biz.itemget(dto2);
+			System.out.println("biz다녀온 후 상품 이미지 이름 은?  ; " + dto2.getItemImg());
+			File newFile = new File("C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item/"+dto2.getItemImg());
+			file.renameTo(newFile);
+			
 			System.out.println("상품 등록 성공 서블릿");
+			
 			if(dto.getItemName() != null) {
 				
 				message = new MessageEntity("success", 14);
