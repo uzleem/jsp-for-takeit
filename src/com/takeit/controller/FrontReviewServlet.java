@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.takeit.common.CommonException;
-import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.biz.ReviewBiz;
-import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Review;
 
@@ -40,7 +38,6 @@ public class FrontReviewServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		request.setCharacterEncoding("utf-8");
 
-		System.out.println("action [" +action+"]");
 		switch(action) {
 		case "reviewList":
 			reviewList(request, response);
@@ -64,9 +61,7 @@ public class FrontReviewServlet extends HttpServlet {
 		case "reviewDetail":
 			reviewDetail(request, response);
 			break;
-			//		case "":
-			//	          (request, response);
-			//		    break;
+	
 		}
 	}
 
@@ -128,7 +123,7 @@ public class FrontReviewServlet extends HttpServlet {
 		String reviewTitle = multi.getParameter("reviewTitle");
 		String reviewContents = multi.getParameter("reviewContents");
 		String reviewScore_ = multi.getParameter("reviewScore");
-		int reviewViews = Integer.parseInt(request.getParameter("reviewViews"));
+	//	int reviewViews = Integer.parseInt(request.getParameter("reviewViews"));
 
 		int reviewScore = 0;
 		if (reviewScore_!= null) {
@@ -317,12 +312,10 @@ public class FrontReviewServlet extends HttpServlet {
 
 		String reviewNo = request.getParameter("reviewNo");
 		String reviewTitle = request.getParameter("reviewTitle");
-		String reviewContents = request.getParameter("reviewContents");
-
 
 		reviewNo = reviewNo.trim();
 		reviewTitle = reviewTitle.trim();
-		reviewContents = reviewContents.trim();
+		
 
 		HttpSession session = request.getSession(false);
 		String memberId = (String)session.getAttribute("memberId");
@@ -330,13 +323,15 @@ public class FrontReviewServlet extends HttpServlet {
 
 		ReviewBiz bbiz = new ReviewBiz();
 		MessageEntity message = null;
+
 		try {
-			bbiz.reviewDelete(reviewNo, memberId, reviewTitle);
+			bbiz.reviewDelete(reviewNo, memberId);
 			message = new MessageEntity("success", 13); 
-			message.setLinkTitle("내 후기보기");
-			message.setUrl("/takeit/review/reviewController?action=updateReviewForm");
+			message.setLinkTitle("후기목록보기");
+			message.setUrl("/takeit/item/reviewController?action=reviewList");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
+
 		} catch (CommonException e) {
 			message = e.getMessageEntity();
 			message.setLinkTitle("후기 목록조회");
@@ -346,35 +341,33 @@ public class FrontReviewServlet extends HttpServlet {
 		}
 	}
 
+
 	/**
-	 * 후기상 세조회
+	 * 후기상세조회
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+
 	protected void reviewDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String reviewNo = request.getParameter("reviewNo");
-
 		ReviewBiz biz = new ReviewBiz();
-		
+
 		Review dto = new Review();
-		dto.setReviewNo(reviewNo);
+		//dto.setReviewNo(reviewNo);
+
 		try {
-			biz.searchReview(dto);
-//			System.out.println("dto.판매자 = "+ dto.getSellerName());
-//			System.out.println("dto= "+ dto);
-			
-			request.setAttribute("review", dto);
-			request.getRequestDispatcher("/review/reviewDetail.jsp").forward(request, response);
+			biz.searchReview(dto,reviewNo);
+			if(dto.getReviewTitle() != null) {
+				request.setAttribute("item", dto);
+				request.getRequestDispatcher("/review/reviewDetail.jsp").forward(request, response);
+			}
 		} catch (CommonException e) {
-			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 25);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
-		
-		
-	}		
-}			
 
-
-
-
+	}
+}

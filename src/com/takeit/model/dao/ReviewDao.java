@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
-import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Review;
 
@@ -197,11 +196,11 @@ public class ReviewDao {
 	 * @param dto
 	 * @throws CommonException 
 	 */
-	public void deleteReview(Connection conn,String reviewNo,String memberId,String reviewTitle) throws CommonException {
+	public void deleteReview(Connection conn,String reviewNo,String memberId) throws CommonException {
 		String sql = "delete from review where member_id=? and reviewNo=?";
 
 		PreparedStatement stmt = null;
-
+	
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, reviewNo);
@@ -212,6 +211,7 @@ public class ReviewDao {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			
 			MessageEntity message = new MessageEntity("error",27);
 			message.setLinkTitle("작성후기");
 			message.setUrl("/takeit/item/reviewController?action=updateReviewForm");
@@ -224,7 +224,7 @@ public class ReviewDao {
 	/**
 	 * 후기상세조회	
 	 */
-	public void lookReview(Connection conn, Review dto) throws CommonException {
+	public void lookReview(Connection conn, Review dto, String reviewNo) throws CommonException {
 		String sql = "select * from review where review_no=?";
 
 
@@ -232,10 +232,10 @@ public class ReviewDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, dto.getItemNo());
+			stmt.setString(1, reviewNo);
+			
 			rs = stmt.executeQuery();
-
-
+			System.out.println("rs"+ rs);
 			while (rs.next()) {
 
 				dto.setReviewNo(rs.getString("REVIEW_NO"));
@@ -248,7 +248,7 @@ public class ReviewDao {
 				dto.setReviewContents(rs.getString("REVIEW_CONTENTS"));
 				dto.setReviewImg(rs.getString("REVIEW_IMG"));
 
-
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -258,6 +258,31 @@ public class ReviewDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
-	}	
-
+	}
+	/**후기조회수 증가*/
+	public int hits(Connection conn, String reviewNo) {
+		String sql = "UPDATE REVIEW SET REVIEW_VIEWS = REVIEW_VIEWS+1 WHERE REVIEW_NO=?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, reviewNo);
+			int hits = stmt.executeUpdate();
+			
+			return hits;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",25);
+			message.setLinkTitle("후기 목록");
+			message.setUrl("/takeit/item/reviewController?action=reviewList");
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return 0;
+	}
 }

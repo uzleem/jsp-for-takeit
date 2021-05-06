@@ -109,14 +109,15 @@ document.querySelector(".btn1").addEventListener('click', function(){
 %>
 <ul>
 	<li>
-		<a href="#<%-- /takeit/review/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo() %> --%>">
+		<a href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo()%>>">
 		<img id="review-img" src="/takeit/img/review/<%= reviewList.get(i).getReviewImg() %>">
 		</a>
 	</li>
 	<li id="reviewTitle"><%= reviewList.get(i).getReviewTitle() %></li>
 	<li id="reviewWriter"><%= reviewList.get(i).getMemberId() %></li>
 	<li id="review"> 
-		<a href="/takeit/review/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo() %>">
+		<a href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo() %>">
+
 		<% 
 			if((reviewList.get(i).getReviewContents()).length() > 10){
 		%>

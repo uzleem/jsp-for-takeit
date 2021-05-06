@@ -316,7 +316,7 @@ public class FrontItemServlet extends HttpServlet {
 				
 			}
 		}	
-		
+
 		/**
 		 * 상품상세조회
 		 * @param request
@@ -327,26 +327,24 @@ public class FrontItemServlet extends HttpServlet {
 		protected void itemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String itemNo = request.getParameter("itemNo");
 			System.out.println("itemNo = "+itemNo);
-		
-			
 			ItemBiz biz = new ItemBiz();
-			
+
 			Item dto = new Item();
 			dto.setItemNo(itemNo);
 			try {
 				biz.getItem(dto);
 				System.out.println("dto.판매자 = "+ dto.getSellerName());
 				System.out.println("dto= "+ dto);
-				
+
 				request.setAttribute("item", dto);
 				request.getRequestDispatcher("/item/itemDetail.jsp").forward(request, response);
 			} catch (CommonException e) {
 				e.printStackTrace();
 			}
-			
-			
+
+
 		}		
-		
+
 		
 //		/**
 //		 *등록 상품수정
