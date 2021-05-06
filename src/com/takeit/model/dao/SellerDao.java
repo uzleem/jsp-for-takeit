@@ -102,8 +102,8 @@ public class SellerDao {
 				seller.setCustScore(rs.getDouble("cust_score"));
 				seller.setShopKakaoId(rs.getString("shop_kakao_id"));
 				seller.setShopImg(rs.getString("shop_img"));
-				seller.setShopCategoryNo("shop_category_no");
-				seller.setShopLocCode("shop_loc_code");
+				seller.setShopCategoryNo(rs.getString("shop_category_no"));
+				seller.setShopLocCode(rs.getString("shop_loc_code"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

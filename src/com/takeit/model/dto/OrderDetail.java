@@ -12,6 +12,19 @@ public class OrderDetail implements Serializable {
 	private int itemQty;
 	private int itemPayPrice;
 	private String itemImg;
+	private String itemTakeit;
+
+
+	public String getItemTakeit() {
+		return itemTakeit;
+	}
+
+
+
+	public void setItemTakeit(String itemTakeit) {
+		this.itemTakeit = itemTakeit;
+	}
+
 
 
 	public OrderDetail() {

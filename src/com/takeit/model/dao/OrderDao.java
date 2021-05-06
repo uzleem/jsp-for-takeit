@@ -384,4 +384,33 @@ public class OrderDao {
 			JdbcTemplate.close(stmt);
 		}	
 	}
+
+	/** 주문 정보 조회 */
+	public void selectOrderItem(Connection conn, Order order) throws CommonException {
+		String sql = "SELECT ITEM_TAKEIT "
+				+ "FROM ITEM "
+				+ "WHERE ITEM_NO = ? ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			for (OrderDetail orderDetail : order.getOrderDetails()) {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, orderDetail.getItemNo());
+				rs = stmt.executeQuery();
+				while (rs.next()) {
+					orderDetail.setItemTakeit(rs.getString("item_takeit"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 29);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+	}
+
 }

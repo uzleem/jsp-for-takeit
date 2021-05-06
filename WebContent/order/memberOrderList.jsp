@@ -86,7 +86,7 @@ $(document).ready(function() {
 					<span><b>주문 상태 :</b></span>
 					<c:choose>
 						<c:when test="${order.orderCancel == 'F' and order.orderCancelReq == 'T'}">
-							<span>${order.shipStatus}(취소요청)</span>
+							<span>${order.shipStatus} (취소요청)</span>
 						</c:when>
 						<c:when test="${order.orderCancel == 'T'}">
 							<span>주문취소완료</span>
