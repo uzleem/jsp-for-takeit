@@ -103,6 +103,7 @@
 		</form>
 	</div>
 </div>
+
 <!-- 전체구매버튼 클릭시  -->
 <form id="buyAllItem" action="${CONTEXT_PATH}/order/orderController?action=orderForm" method="post">
 <c:forEach items="${cartList}" var="cart">
@@ -113,6 +114,11 @@
 </c:forEach>
 	<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 
 </form>
+
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
 
 </body>
 </html>

@@ -40,5 +40,9 @@
 		<a href="/takeit/index" class="link" style="margin-top: 30px;">홈으로 이동</a>
 	</div>
 </div>
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
 </body>
 </html>

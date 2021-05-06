@@ -54,7 +54,9 @@ for(Search dto : searchList) {
 %>
 </div>
 <a href="/takeit/index" class="link">홈으로이동</a>
-	<!-- scroll function -->
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
