@@ -125,10 +125,14 @@
 					<input type="text" id="grade" name="grade" value="${member.grade}" readonly="readonly">
 				</td>	
 			</tr>
-			
+			<tr>
+				<td colspan="2" align="center">
+				<input class="updateBtn" type="submit" value="내 정보 수정">
+				</td>
+			</tr>
 		</table>
 		<br>
-		<input class="link" type="submit" value="내 정보 수정">
+		
 	</form>
 
 

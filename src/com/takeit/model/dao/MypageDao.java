@@ -305,7 +305,7 @@ public class MypageDao {
 			e.printStackTrace();
 			
 			MessageEntity message = new MessageEntity("error",1);
-			message.setUrl("/takeit/member/sellerInfo.jsp");
+			message.setUrl("/takeit/member/myPage.jsp");
 			message.setLinkTitle("내 정보 보기");
 			throw new CommonException(message);
 		} finally {

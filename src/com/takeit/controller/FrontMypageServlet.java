@@ -473,7 +473,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		MessageEntity message = null;
 		
-		String sellerId = request.getParameter("sellerId");
+		String sellerId = (String)session.getAttribute("sellerId");
 		String sellerPw = request.getParameter("sellerPw");
 		String name = request.getParameter("name");
 		String sellerNo = request.getParameter("sellerNo");

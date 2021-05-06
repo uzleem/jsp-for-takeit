@@ -48,6 +48,7 @@ public class Seller implements Serializable{
 	private String shopImg;
 	private String shopCategoryNo;
 	private String shopLocCode;
+	private String shopCategoryName;
 	
 	/* 기본 생성자 */
 	public Seller() {}
@@ -240,6 +241,16 @@ public class Seller implements Serializable{
 
 	public void setShopLocCode(String shopLocCode) {
 		this.shopLocCode = shopLocCode;
+	}
+
+	
+	
+	public String getShopCategoryName() {
+		return shopCategoryName;
+	}
+
+	public void setShopCategoryName(String shopCategoryName) {
+		this.shopCategoryName = shopCategoryName;
 	}
 
 	@Override

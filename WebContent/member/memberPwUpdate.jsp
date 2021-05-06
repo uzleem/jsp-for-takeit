@@ -55,8 +55,13 @@
 						<input type="password" id="sellerPw2" name="sellerPw2">
 					</td>		
 				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" class="updateBtn" value="비밀번호 변경">
+					</td>
+				</tr>
 			</table>
-				<input type="submit" class="updateBtn" value="비밀번호 변경">
+				
 		</form>
 
 	</c:when>
@@ -85,8 +90,12 @@
 						<input type="password" id="memberPw2" name="memberPw2">
 					</td>		
 				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" class="updateBtn" value="비밀번호 변경">
+					</td>
+				</tr>
 			</table>
-				<input type="submit" class="updateBtn" value="비밀번호 변경">
 		</form>
 
 		</c:otherwise>

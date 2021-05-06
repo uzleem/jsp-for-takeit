@@ -121,7 +121,7 @@
 	border: 1px solid #7B977A;
 }
 
-.removeBtn{
+/* .removeBtn{
 	text-align: center;
     display: block;
     margin: 5px auto 0 auto;
@@ -140,11 +140,11 @@
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
-}
+} */
 
 
 
-.updateBtn{
+/* .updateBtn{
 	text-align: center;
     display: block;
     margin: 5px auto 0 auto;
@@ -157,10 +157,41 @@
     border: solid 1px #8D959C;
     background-color: #fff;
     
+} */
+
+
+.removeBtn{
+	width: 450px;
+	height:40px; 
+	padding: 0px 19px;
+	font-size: 15px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+	margin: auto 0 auto 50px;
+    
 }
-.updateBtn:hover{
+
+
+
+.updateBtn{
+	width: 450px;
+	height:40px; 
+	padding: 0px 19px;
+	font-size: 15px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+	margin: auto 0 auto 50px;
+    
+}
+
+
+/* .updateBtn:hover{
 	background-color: #5a7d59;
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
-}
+} */

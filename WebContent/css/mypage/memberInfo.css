@@ -44,6 +44,12 @@
 	background-color: #fff;
 	margin-top: 30px;
 }
+
+
+
+
+
+
 #mypage_Btn:hover{
 	background-color: #5a7d59;
 	color: #fff;
@@ -72,3 +78,14 @@
 }
 
 
+.updateBtn{
+	width: 450px;
+	height:40px; 
+	padding: 0px 19px;
+	font-size: 15px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+    
+}
