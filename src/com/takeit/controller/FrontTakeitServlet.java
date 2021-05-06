@@ -274,6 +274,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		if (dto instanceof Member) {
 			shopLocCode = ((Member)dto).getShopLocCode();
 			memberLocNo = ((Member)dto).getMemberLocNo();
+			
 			member = new Member();
 			member.setShopLocCode(shopLocCode);
 			member.setMemberLocNo(memberLocNo);
@@ -281,8 +282,10 @@ public class FrontTakeitServlet extends HttpServlet {
 			shopLocCode = ((Seller)dto).getShopLocCode();
 		}
 		
-		if (shopLocCode == null || memberLocNo == null) {
+		if (shopLocCode == null) {
 			shopLocCode = "none";
+		}
+		if (memberLocNo == null) {
 			memberLocNo = "none";
 		}
 		
@@ -295,9 +298,8 @@ public class FrontTakeitServlet extends HttpServlet {
 			} else if (dto instanceof Seller) {
 				biz.getTakeitItemList(shopLocCode, takeitItemList);
 			}
-			
 			request.setAttribute("takeitItemList", takeitItemList);
-			request.getRequestDispatcher("/takeit/takeitList.jsp").forward(request, response);
+			request.getRequestDispatcher("/takeit/takeitItemList.jsp").forward(request, response);
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");

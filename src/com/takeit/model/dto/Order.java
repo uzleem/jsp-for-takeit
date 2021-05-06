@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 /**
  * 주문 도메인 클래스
- * 
  * @author 김태경
- *
  */
 public class Order implements Serializable {
 	// 상품

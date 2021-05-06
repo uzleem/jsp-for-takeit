@@ -12,6 +12,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 function orderCancel(orderNo) {
+	var result = confirm("주문을 취소하시겠습니까?");
+	if (!result) {
+		return;
+	}
 	$.ajax({
 		url:"/takeit/order/orderController?action=orderCancel",
 		type:"post",
@@ -20,10 +24,12 @@ function orderCancel(orderNo) {
 		},
 		success : function(data) {
 			if (data == "success") {
-				alert("성공");
-				$("#"+orderNo).attr("disabled", true);
+				$("#"+orderNo+"btn").hide();
+				$("#"+orderNo+"message").html("주문취소완료");
+				$("#"+orderNo+"stat").html("주문취소");
+				$("#"+orderNo+"btn2").hide();
 			} else {
-				alert("실패");
+				alert("에러 실패");
 			}
 		}
 	});
@@ -87,13 +93,21 @@ function updateShipStatus(orderNo, shipStatusCode) {
 	<div>
 		<div class="order-info">
 			<span>주문번호 : ${order.orderNo}</span>
+			<c:if test="${order.orderCancel == 'T'}"> 주문취소완료</c:if>
+			 <span id="${order.orderNo}message"></span>
 			<c:if test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
-				<input type="button" class="small-btn" value="주문취소승인" id="${order.orderNo}" onclick="orderCancel(this.id)">
+				<input type="button" class="small-btn" value="주문취소승인" id="${order.orderNo}btn" onclick="orderCancel('${order.orderNo}')">
 			</c:if>
 			<br>
 			주문자 : ${order.memberId}<br>
-			<span>배송상태 : <span id="${order.orderNo}stat">${order.shipStatus}</span></span>
-			<span><input type="button" class="small-btn" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/></span>
+			<span>배송상태 :
+				<c:if test="${order.orderCancel == 'T'}">주문취소</c:if>
+				<c:if test="${order.orderCancel == 'F'}">
+					<span id="${order.orderNo}stat">${order.shipStatus}</span>
+					<span><input id="${order.orderNo}btn2" type="button" class="small-btn" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/></span>
+				</c:if>
+			</span>
+			
 			<br>
 			요청사항 : ${order.shipRequest}<br>
 		</div>

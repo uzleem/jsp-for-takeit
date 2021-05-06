@@ -130,4 +130,18 @@ public class OrderBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
+
+	/** 주문 정보 조회 */
+	public void getOrderItem(Order order) throws CommonException {
+		OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.selectOrderItem(conn, order);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
 }
