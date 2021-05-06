@@ -109,7 +109,7 @@ document.querySelector(".btn1").addEventListener('click', function(){
 %>
 <ul>
 	<li>
-		<a href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo()%>>">
+		<a href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= reviewList.get(i).getReviewNo()%>">
 		<img id="review-img" src="/takeit/img/review/<%= reviewList.get(i).getReviewImg() %>">
 		</a>
 	</li>

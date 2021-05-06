@@ -44,7 +44,7 @@ public class ReviewDao {
 
 			while(rs.next()) {
 				Review dto = new Review();
-				System.out.println(dto);
+				
 				dto.setReviewNo(rs.getString("REVIEW_NO"));
 				dto.setItemNo(rs.getString("ITEM_NO"));
 				dto.setReviewTitle(rs.getString("REVIEW_TITLE"));
@@ -52,8 +52,9 @@ public class ReviewDao {
 				dto.setReviewScore(rs.getInt("REVIEW_SCORE"));
 				dto.setReviewDate(rs.getString("REVIEW_DATE"));
 				dto.setReviewViews(rs.getInt("REVIEW_VIEWS"));
-				//dto.setReviewContents(rs.getString("REVIEW_CONTENTS"));
-				//dto.setReviewImg(rs.getString("REVIEW_IMG"));
+				dto.setReviewContents(rs.getString("REVIEW_CONTENTS"));
+				dto.setReviewImg(rs.getString("REVIEW_IMG"));
+				System.out.println(dto);
 
 				reviewList.add(dto);
 			}
@@ -70,7 +71,51 @@ public class ReviewDao {
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(stmt);
 	}
+	/**
+	 * 내작성후기 전체목록
+	 * @param con
+	 * @param ReviewList
+	 * @throws CommonException
+	 */
+	public void getMyReviewList(Connection con, ArrayList<Review> reviewList, String memberId) throws CommonException {
+		String sql = "SELECT * FROM Review WHERE MEMBER_ID = ? ORDER BY REVIEW_NO ASC";
 
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = con.prepareStatement(sql);			
+			stmt.setString(1, memberId);
+			rs= stmt.executeQuery();
+			
+			while(rs.next()) {
+				Review dto = new Review();
+				
+				dto.setReviewNo(rs.getString("REVIEW_NO"));
+				dto.setItemNo(rs.getString("ITEM_NO"));
+				dto.setReviewTitle(rs.getString("REVIEW_TITLE"));
+				dto.setMemberId(rs.getString("MEMBER_ID"));
+				dto.setReviewScore(rs.getInt("REVIEW_SCORE"));
+				dto.setReviewDate(rs.getString("REVIEW_DATE"));
+				dto.setReviewViews(rs.getInt("REVIEW_VIEWS"));
+				dto.setReviewContents(rs.getString("REVIEW_CONTENTS"));
+				dto.setReviewImg(rs.getString("REVIEW_IMG"));
+				System.out.println(dto);
+
+				reviewList.add(dto);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+
+			MessageEntity message = new MessageEntity("error",7);
+			message.setLinkTitle("메인으로");
+			message.setUrl("/takeit/index");
+			throw new CommonException(message);
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+	}
 	/**
 	 * 후기등록
 	 * @param con
@@ -235,7 +280,7 @@ public class ReviewDao {
 			stmt.setString(1, reviewNo);
 			
 			rs = stmt.executeQuery();
-			System.out.println("rs"+ rs);
+			
 			while (rs.next()) {
 
 				dto.setReviewNo(rs.getString("REVIEW_NO"));

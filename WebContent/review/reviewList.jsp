@@ -79,7 +79,7 @@
 	</table>
 	<br>
 	<a href="/takeit/index" class="link">홈으로이동</a>
-	<!--  <a href="/takeit/item/reviewController?action=deleteReview&reviewNo=<%=dto.getReviewNo() %>">후기삭제</a>-->
+	
 	
 
 
