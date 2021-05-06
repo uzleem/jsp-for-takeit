@@ -15,8 +15,9 @@
 </head>
 <body>
 <%
-	if(request.getAttribute("categoryItemList") == null){
+	if(((ArrayList<Item>)request.getAttribute("categoryItemList")).isEmpty()){
 		response.sendRedirect("/takeit/item/noItemList.jsp");
+		return;
 	}
 %>
 <c:if test="${empty memberId }">
