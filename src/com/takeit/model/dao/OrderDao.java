@@ -235,15 +235,15 @@ public class OrderDao {
 		
 	}
 
-	public boolean updateOrderCancelReq(Connection conn, String orderNo) throws CommonException {
-		String sql = "UPDATE FROM ORDERS "
+	public void updateOrderCancelReq(Connection conn, String orderNo) throws CommonException {
+		String sql = "UPDATE ORDERS "
 				+ "SET ORDER_CANCEL_REQ = 'T' "
-				+ "WHERE ORDER_NO = ? ";
+				+ "WHERE ORDER_NO = ? AND ORDER_CANCEL_REQ = 'F' ";
 		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1,  orderNo);
+			stmt.setString(1, orderNo);
 			int row = stmt.executeUpdate();
 			
 			if (row == 0) {
@@ -257,6 +257,29 @@ public class OrderDao {
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
-		return false;
+	}
+
+	public void updateOrderCancel(Connection conn, String orderNo) throws CommonException {
+		String sql = "UPDATE ORDERS "
+				+ "SET ORDER_CANCEL = 'T' "
+				+ "WHERE ORDER_NO = ? AND ORDER_CANCEL_REQ = 'T' AND ORDER_CANCEL = 'F' ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, orderNo);
+			int row = stmt.executeUpdate();
+			
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 28);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
 	}
 }
