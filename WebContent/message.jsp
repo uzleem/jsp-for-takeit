@@ -28,6 +28,10 @@
 <h3 style="text-align: center;">${message.message}</h3>
 <h3><a href="${message.url}" class="link">${message.linkTitle}</a></h3>
 
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>

@@ -297,7 +297,7 @@ public class FrontTakeitServlet extends HttpServlet {
 			}
 			
 			request.setAttribute("takeitItemList", takeitItemList);
-			request.getRequestDispatcher("/takeit/takeitList.jsp").forward(request, response);
+			request.getRequestDispatcher("/takeit/takeitItemList.jsp").forward(request, response);
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");

@@ -4,6 +4,12 @@
 #takeitImg-wrap{
 	width: fit-content;
 }
+#takeit-detailImg{
+	position:relative;
+	width: 246px;
+    height: 316px;
+    margin-top: 45px;
+}
 #takeitImg{
 	position:relative;
 	width: 246px;

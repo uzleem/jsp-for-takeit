@@ -45,11 +45,9 @@ String categoryName = categoryItemList.get(0).getItemCategoryName();
 
 <div class="item_wrap">
 <%
-	int i = 0;	
 	for(Item dto : categoryItemList){
-		i++;
 %>
-	<div class="item_list" >
+	<div class="item_list" style="white-space: nowrap;">
 		<div>
 		<a href="/takeit/item/itemController?action=itemDetail&itemNo=<%= dto.getItemNo() %>">
 			<img id="itemListImg" src="/takeit/img/item/<%= dto.getItemImg() %>">
@@ -64,18 +62,13 @@ String categoryName = categoryItemList.get(0).getItemCategoryName();
 		<span id="itemDc" style="color: red">(<%= dto.getDiscRate()%>%할인)</span>
 		<span id="itemDiscPrice"><fmt:formatNumber value="<%= (dto.getItemPrice())*(100-(dto.getDiscRate()))/100 %>" pattern="###,###"/>원</span>
 	</div>
-	<%
-	if(i > 3){
-	%>
-	<br>
-	<%
-	}	
-	%>
 <%
 	}
 %>
 </div>		
 
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
 <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->
