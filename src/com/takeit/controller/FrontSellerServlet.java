@@ -287,7 +287,7 @@ public class FrontSellerServlet extends HttpServlet {
 		dto.setSellerId(sellerId);
 		dto.setName(name);
 		dto.setEmail(email);
-		
+
 		try {
 			biz.pwFind("dto", dto);
 			if(dto.getSellerPw() != null) {
