@@ -143,9 +143,9 @@ public class FrontMemberServlet extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("memberId", memberId); 
 				session.setAttribute("dto", dto); 	
-				request.getRequestDispatcher("/index").forward(request, response);
+				response.sendRedirect("/takeit/index");
 			}else {
-				MessageEntity message = new MessageEntity("error", 33);
+				MessageEntity message = new MessageEntity("error", 34);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/member/memberLogin.jsp");
 				request.setAttribute("message", message);
@@ -207,7 +207,7 @@ public class FrontMemberServlet extends HttpServlet {
 				request.setAttribute("entryDate", dto.getEntryDate());
 				request.getRequestDispatcher("/member/idFindMessage.jsp").forward(request, response);;
 			}else {
-				MessageEntity message = new MessageEntity("error", 34);
+				MessageEntity message = new MessageEntity("error", 35);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/member/memberFindId.jsp");
 				request.setAttribute("message", message);
@@ -250,7 +250,7 @@ public class FrontMemberServlet extends HttpServlet {
 				request.setAttribute("pwInfo", dto.getMemberPw());
 				request.getRequestDispatcher("/member/pwFindMessage.jsp").forward(request, response);
 			}else {
-				MessageEntity message = new MessageEntity("error", 35);
+				MessageEntity message = new MessageEntity("error", 36);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/member/memberFindPw.jsp");
 				request.setAttribute("message", message);

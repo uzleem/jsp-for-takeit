@@ -59,7 +59,14 @@ public class MessageEntity {
 		error.add("[비밀번호찾기 오류]"); 
 		error.add("[아이디 중복체크 오류]"); 
 		error.add("[이메일 중복체크 오류]"); 
+
+    error.add("[배송상태 조회 오류]"); //39
+    
 		error.add("[등록상품 변경오류]"); 
+
+		
+		
+
 		
 		
 		
@@ -71,9 +78,9 @@ public class MessageEntity {
 		validation.add("[비밀번호 정보 오류]");	
 		validation.add("[이름 정보 오류]");	
 		validation.add("[주소 정보 오류]");		
-		validation.add("[필수 정보 미기입 오류"); 
-		validation.add("[상품등록 데이터 미입력"); 
-		validation.add("[후기등록 데이터 미입력"); 
+		validation.add("[필수 정보 미기입 오류]"); //4
+		validation.add("[상품등록 데이터 미입력]"); 
+		validation.add("[후기등록 데이터 미입력]"); 
 		
 		ArrayList<String> success = new ArrayList<String>();
 		success.add("[회원가입 성공]");	

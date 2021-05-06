@@ -24,11 +24,11 @@ public class MemberBiz {
 	 */
 	public void addMember(Member member) throws CommonException{
 		Connection con = JdbcTemplate.getConnection();
+		TakeitBiz takeitBiz = new TakeitBiz();
 		 try {
 			dao.addMember(con, member);
-			JdbcTemplate.commit(con);
-			TakeitBiz takeitBiz = new TakeitBiz();
 			takeitBiz.addMemberLocNo(member); 
+			JdbcTemplate.commit(con);
 		} catch (CommonException e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(con);

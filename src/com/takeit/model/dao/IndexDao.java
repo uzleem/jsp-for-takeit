@@ -53,8 +53,8 @@ public class IndexDao {
 				dto.setItemCustScore(rs.getDouble("ITEM_CUST_SCORE"));
 				
 				itemList.add(dto);
-				System.out.println("[debug] index 신상품 dao 리스트 요청 완료");
 			}
+			System.out.println("[debug] index 신상품 dao 리스트 요청 완료");
 			
 		} catch (SQLException e) {
 			System.out.println("[debug] index 신상품 dao 리스트 요청 실패");
@@ -92,8 +92,8 @@ public class IndexDao {
 				dto.setMemberId(rs.getString("MEMBER_ID"));
 				
 				reviewList.add(dto);
-				System.out.println("[debug] index 베스트후기 dao 리스트 요청 완료");
 			}
+			System.out.println("[debug] index 베스트후기 dao 리스트 요청 완료");
 			
 		} catch (SQLException e) {
 			System.out.println("[debug] index 베스트후기 dao 리스트 요청 실패");

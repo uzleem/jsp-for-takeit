@@ -55,7 +55,7 @@ public class MemberDao {
 			}		
 		} catch (Exception e) {
 			e.printStackTrace();		
-			MessageEntity message = new MessageEntity("error",32);
+			MessageEntity message = new MessageEntity("error",33);
 			message.setUrl("/takeit/member/memberInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -100,7 +100,7 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {		
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",33);
+			MessageEntity message = new MessageEntity("error",34);
 			message.setUrl("/takeit/member/memberLogin.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -133,7 +133,7 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",34);
+			MessageEntity message = new MessageEntity("error",35);
 			message.setUrl("/takeit/member/memberFindId.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -172,7 +172,7 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",35);
+			MessageEntity message = new MessageEntity("error",36);
 			message.setUrl("/takeit/member/memberFindPw.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -204,7 +204,7 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",36);
+			MessageEntity message = new MessageEntity("error",37);
 			message.setUrl("/takeit/member/memberInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -236,7 +236,7 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",37);
+			MessageEntity message = new MessageEntity("error",38);
 			message.setUrl("/takeit/member/memberInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);

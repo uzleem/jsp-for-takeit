@@ -59,7 +59,7 @@ public class SellerDao {
 		
 	} catch (Exception e) {
 		e.printStackTrace();		
-		MessageEntity message = new MessageEntity("error",32);
+		MessageEntity message = new MessageEntity("error",33);
 		message.setUrl("/takeit/seller/sellerInput.jsp");
 		message.setLinkTitle("뒤로가기");
 		throw new CommonException(message);
@@ -107,7 +107,7 @@ public class SellerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",33);
+			MessageEntity message = new MessageEntity("error",34);
 			message.setUrl("/takeit/seller/sellerLogin.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -140,7 +140,7 @@ public class SellerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",34);
+			MessageEntity message = new MessageEntity("error",35);
 			message.setUrl("/takeit/seller/sellerFindId.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -179,7 +179,7 @@ public class SellerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",35);
+			MessageEntity message = new MessageEntity("error",36);
 			message.setUrl("/takeit/seller/sellerFindPw.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -211,7 +211,7 @@ public class SellerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",36);
+			MessageEntity message = new MessageEntity("error",37);
 			message.setUrl("/takeit/seller/sellerInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
@@ -244,7 +244,7 @@ public class SellerDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error",37);
+			MessageEntity message = new MessageEntity("error",38);
 			message.setUrl("/takeit/seller/sellerInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);

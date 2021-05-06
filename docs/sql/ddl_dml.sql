@@ -180,7 +180,9 @@ CREATE TABLE ORDERS (
   ,	RECIPIENT_ADDR VARCHAR2(500) NULL -- 수령인 상세주소,
   ,	RECIPIENT_MOBILE CHAR(13) NOT NULL -- 수령인 연락처,
   ,	SHIP_REQUEST VARCHAR2(100) NULL -- 배송요청사항,
-  , ORDER_PRICE NUMBER(10) NOT NULL -- 총주문금액  
+  , ORDER_PRICE NUMBER(10) NOT NULL -- 총주문금액
+  , ORDER_CANCEL_REQ CHAR(1) DEFAULT 'F' -- 주문취소요청
+  , ORDER_CANCEL CHAR(1) DEFAULT 'F' --주문취소
   ,	SHIP_STATUS_CODE VARCHAR2(10) NULL -- 배송상태코드,
   ,	MEMBER_ID varchar2(50) NULL -- 일반회원아이디
 
@@ -351,7 +353,7 @@ INSERT INTO ITEM_CATEGORY  VALUES ('me','고기류','7','냉장 보관해주세�
 INSERT INTO ITEM_CATEGORY  VALUES ('sd','반찬류','14','냉장 보관해주세요',96,'re789');
 
 --상품 초기화데이터--
-SELECT * FROM ITEM;
+--SELECT * FROM ITEM;
 INSERT INTO  item  VALUES ('SD'||LPAD(ITEM_SEQ.NEXTVAL,6,'0'),'seller04', '맛있는 깻잎장아찌', 4000, '300g', '국산', 5, 'SD'||LPAD(ITEM_SEQ.CURRVAL,6,'0')||'.jpg', 9.5, '2021-05-01', 5, 'F','sd');
 INSERT INTO  item  VALUES ('FR'||LPAD(ITEM_SEQ.NEXTVAL,6,'0'),'seller02', '상큼한 낑깡', 4000, '500g', '국산', 3, 'FR'||LPAD(ITEM_SEQ.CURRVAL,6,'0')||'.jpg', 9.3, '2021-04-30', 7, 'T','fr');
 INSERT INTO  item  VALUES ('BF'||LPAD(ITEM_SEQ.NEXTVAL,6,'0'),'seller03', '1등급 마블링 한우', 30000, '300g', '국산', 6, 'BF'||LPAD(ITEM_SEQ.CURRVAL,6,'0')||'.jpg', 8.7, '2021-04-28', 5, 'F','me');
@@ -368,12 +370,12 @@ INSERT INTO SHIPPING VALUES('S-GO','배달출발');
 INSERT INTO SHIPPING VALUES('DONE','배달완료');
 
 --주문 초기화데이터--
-INSERT INTO ORDERS VALUES ('F210305000001', '방문수령', '홍길동', null, null, '010-1111-1111', null, 7440, null, 'user01');
-INSERT INTO ORDERS VALUES ('T210501000004', '배송', '늦가을', '57689', '인천시 부평구', '010-1234-4444', '경비실에 맡겨주세요', 4000, 'O-GET', 'user01');
-INSERT INTO ORDERS VALUES ('T210501000001', '배송', '한겨울', '12345', '인천시 부평구', '010-1515-1515', '문 앞', 32000, 'O-GET', 'user02');
-INSERT INTO ORDERS VALUES ('T210501000002', '배송', '초가을', '13451', '인천시 부평구', '010-1234-2222', '제일 신선한 것으로 챙겨주세요', 10000, 'O-GET', 'user02');
-INSERT INTO ORDERS VALUES ('T210501000003', '배송', '늦여름', '12365', '인천시 부평구', '010-1234-3333', '문 앞에 두고 가세요', 8000, 'O-GET', 'user03');
-INSERT INTO ORDERS VALUES ('T210501000005', '배송', '초여름', '14151', '인천시 부평구', '010-1234-5555', '오후 4시에 챙겨갈게요', 6000, 'O-GET', 'user03');
+INSERT INTO ORDERS VALUES ('F210305000001', '방문수령', '홍길동', null, null, '010-1111-1111', null, 7440, 'F', 'F', null, 'user01');
+INSERT INTO ORDERS VALUES ('T210501000004', '배송', '늦가을', '57689', '인천시 부평구', '010-1234-4444', '경비실에 맡겨주세요', 4000, 'F', 'F', 'O-GET', 'user01');
+INSERT INTO ORDERS VALUES ('T210501000001', '배송', '한겨울', '12345', '인천시 부평구', '010-1515-1515', '문 앞', 32000, 'F', 'F', 'O-GET', 'user02');
+INSERT INTO ORDERS VALUES ('T210501000002', '배송', '초가을', '13451', '인천시 부평구', '010-1234-2222', '제일 신선한 것으로 챙겨주세요', 10000, 'F', 'F', 'O-GET', 'user02');
+INSERT INTO ORDERS VALUES ('T210501000003', '배송', '늦여름', '12365', '인천시 부평구', '010-1234-3333', '문 앞에 두고 가세요', 8000, 'F', 'F', 'O-GET', 'user03');
+INSERT INTO ORDERS VALUES ('T210501000005', '배송', '초여름', '14151', '인천시 부평구', '010-1234-5555', '오후 4시에 챙겨갈게요', 6000, 'F', 'F', 'O-GET', 'user03');
 
 --주문상세 초기화데이터--
 INSERT INTO ORDER_DETAIL VALUES('SD000001', 'F210305000001', 2, 3720);
@@ -406,14 +408,14 @@ INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, 'admin', '서버 업데이트 관련
 INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, 'admin', '비밀번호를 재설정하고 싶어요', '마이페이지 >> 내정보조회 >> 비밀번호 변경 과정을 완료하십시오.-끝-', null, null, '2020-05-30', '2', null);
 INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, 'user01', '태경이네 과일가게 낑깡 문의 드려요', '100g단위로 사고싶은데 가능하나요?', 2, null, '2021-05-01', '3', 'FR000002');
 INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, 'seller02', '[답변]태경이네 과일가게 귤 문의 드려요', '네, 가능합니다. 자세한 사항은 가게로 연락주세요. 상호명:태경이네 과일가게, 연락처: 010-1111-1234', 5, null, '2021-05-02', '3', 'FR000002');
-SELECT * FROM ITEM;
+--SELECT * FROM ITEM;
 --후기
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user01', 'SD000001', '2021-05-03', '소희네 장아찌 맛있어요', '입맛 없을 때 생각나는 반찬이에요.', 338, 10.0, 'review/SD000001.jpg');
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user01', 'VG000004', '2021-05-03', '선경이네 야채가게는 믿고 사도 됩니다', '워낙 민감한데 선경이네 상품은 묻지도 따지지도 않고 사도 돼서 애용하고 있어요.', 127, 10.0, 'review/VG000004.jpg');
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user02', 'FR000002', '2021-05-03', '태경이네 낑깡 추천해요!', '알도 실하고 상큼해서 질리지 않더라구요 다음에는 1키로 살래요 ㅎㅎ', 110, 10.0, 'review/FR000002.jpg');
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user02', 'FR000002', '2021-05-03', '자꾸 생각나는 태경이네 낑깡!', '시킨 거 다 먹자마자 또 시켰어요 굿굿입니다', 523, 10.0, 'review/FR000002.jpg');
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user03', 'BF000003', '2021-05-03', '우진이네 정육점 마블링 예술이네요', '가족식사 때 먹으려고 주문했는데 200%만족이요', 240, 10.0, 'review/BF000003.jpg');
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user03', 'RC000005', '2021-05-03', '효원이네 찹쌀 좋아요', '갓 지은 밥이 정말 고소해요. 퀄리티 신경쓰신듯요. 근데 배송이 좀 늦어서 1점 뺄게요', 107, 9.0, 'review/RC000005.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user01', 'SD000001', '2021-05-03', '소희네 장아찌 맛있어요', '입맛 없을 때 생각나는 반찬이에요.', 338, 10.0, 'SD000001.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user01', 'VG000004', '2021-05-03', '선경이네 야채가게는 믿고 사도 됩니다', '워낙 민감한데 선경이네 상품은 묻지도 따지지도 않고 사도 돼서 애용하고 있어요.', 127, 10.0, 'VG000004.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user02', 'FR000002', '2021-05-03', '태경이네 낑깡 추천해요!', '알도 실하고 상큼해서 질리지 않더라구요 다음에는 1키로 살래요 ㅎㅎ', 110, 10.0, 'FR000002.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user02', 'FR000002', '2021-05-03', '자꾸 생각나는 태경이네 낑깡!', '시킨 거 다 먹자마자 또 시켰어요 굿굿입니다', 523, 10.0, 'FR000002.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user03', 'BF000003', '2021-05-03', '우진이네 정육점 마블링 예술이네요', '가족식사 때 먹으려고 주문했는데 200%만족이요', 240, 10.0, 'BF000003.jpg');
+INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, 'user03', 'RC000005', '2021-05-03', '효원이네 찹쌀 좋아요', '갓 지은 밥이 정말 고소해요. 퀄리티 신경쓰신듯요. 근데 배송이 좀 늦어서 1점 뺄게요', 107, 9.0, 'RC000005.jpg');
 --------------------------------------------------------------------------------
 -- 장바구니
 INSERT INTO CART VALUES('user02','SD000001',3);

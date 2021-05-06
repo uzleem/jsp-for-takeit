@@ -86,23 +86,22 @@ public class FrontSellerServlet extends HttpServlet {
 	 * 회원가입 폼
 	 */
 	protected void sellerInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		TakeitBiz takeitBiz = new TakeitBiz();
-		
 		ArrayList<ShopLoc> shopLocList = new ArrayList<>();
-		takeitBiz.getShopLocList(shopLocList);
-		System.out.println(shopLocList.get(0).getShopLocName());
-		request.setAttribute("shopLocList", shopLocList);
 		
-//		ItemBiz itemBiz = new ItemBiz();
-//		
-//		ArrayList<ItemCategory> itemCategoryList = new ArrayList<>();
-//		itemBiz.getItemCategoryList(itemCategoryList);
-//		request.setAttribute("itemCategoryList", itemCategoryList);
-//		
-		request.getRequestDispatcher("/seller/sellerInput.jsp").forward(request, response);
+		try {
+			takeitBiz.getShopLocList(shopLocList);
+			
+			request.setAttribute("shopLocList", shopLocList);
+			request.getRequestDispatcher("/seller/sellerInput.jsp").forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
 	}
-	
 	
 	/**
 	 * 회원가입
@@ -186,10 +185,10 @@ public class FrontSellerServlet extends HttpServlet {
 			if(dto.getAddress() != null) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("sellerId", sellerId); 
-				session.setAttribute("dto", dto); 			
-				request.getRequestDispatcher("/index").forward(request, response);
+				session.setAttribute("dto", dto);
+				response.sendRedirect("/takeit/index");
 			}else {
-				MessageEntity message = new MessageEntity("error", 33);
+				MessageEntity message = new MessageEntity("error", 34);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/seller/sellerLogin.jsp");
 				request.setAttribute("message", message);
@@ -251,7 +250,7 @@ public class FrontSellerServlet extends HttpServlet {
 				request.setAttribute("entryDate", dto.getEntryDate());
 				request.getRequestDispatcher("/member/idFindMessage.jsp").forward(request, response);;
 			}else {
-				MessageEntity message = new MessageEntity("error", 34);
+				MessageEntity message = new MessageEntity("error", 35);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/seller/sellerFindId.jsp");
 				request.setAttribute("message", message);
@@ -287,14 +286,14 @@ public class FrontSellerServlet extends HttpServlet {
 		dto.setSellerId(sellerId);
 		dto.setName(name);
 		dto.setEmail(email);
-		
+
 		try {
 			biz.pwFind("dto", dto);
 			if(dto.getSellerPw() != null) {
 				request.setAttribute("pwInfo", dto.getSellerPw());
 				request.getRequestDispatcher("/member/pwFindMessage.jsp").forward(request, response);
 			}else {
-				MessageEntity message = new MessageEntity("error", 35);
+				MessageEntity message = new MessageEntity("error", 36);
 				message.setLinkTitle("뒤로가기");
 				message.setUrl("/takeit/seller/sellerFindPw.jsp");
 				request.setAttribute("message", message);

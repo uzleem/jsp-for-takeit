@@ -1,16 +1,12 @@
 package com.takeit.model.dao;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import java.net.ConnectException;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.oreilly.servlet.MultipartRequest;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Item;
@@ -33,95 +29,6 @@ public class MypageDao {
 	
 	
 	/**
-	 * 상점 카테고리 리스트
-	 */
-	public void getShopCategoryList(Connection conn, ArrayList<Seller> shopCategoryList) throws CommonException{
-		
-		String sql = "SELECT * FROM SHOP_CATEGORY";
-		
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			
-			
-			while(rs.next()) {
-				Seller dto = new Seller();
-				
-				
-				dto.setShopCategoryNo(rs.getString("SHOP_CATEGORY_NO"));
-//				dto.setShopCategoryName(rs.getString("SHOP_CATEGORY"));
-				
-				shopCategoryList.add(dto);
-			}
-			
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			
-			MessageEntity message = new MessageEntity("error", 1);
-			message.setUrl("/takeit/member/myPage.jsp");
-			message.setLinkTitle("마이페이지로 이동");
-
-			throw new CommonException(message);
-			
-		}
-		JdbcTemplate.close(rs);
-		JdbcTemplate.close(stmt);
-		
-	}
-	
-	
-	
-	
-	/**
-	 * 상품 포장 타입 리스트 가져오기
-	 * @param conn
-	 * @param packTypeList
-	 * @throws CommonException
-	 */
-		public void getpackTypeList(Connection conn , ArrayList<Item> packTypeList) throws CommonException{
-			String sql = "SELECT * FROM PACKING";
-			
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			
-			try {
-				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery();
-				
-				
-				while(rs.next()) {
-					Item dto = new Item();
-					
-					
-					dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
-					dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
-					
-					packTypeList.add(dto);
-				}
-				
-			}catch (Exception e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				
-				MessageEntity message = new MessageEntity("error", 8);
-				message.setUrl("/takeit/member/myPage.jsp");
-				message.setLinkTitle("마이페이지로 이동");
-
-				throw new CommonException(message);
-				
-			}
-			JdbcTemplate.close(rs);
-			JdbcTemplate.close(stmt);
-			
-		}
-	
-	
-	
-	/**
 	 * 상품 카테고리 리스트 가져오기
 	 * @param conn
 	 * @param categoryList
@@ -137,7 +44,6 @@ public class MypageDao {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
-			
 			while(rs.next()) {
 				Item dto = new Item();
 				
@@ -151,8 +57,6 @@ public class MypageDao {
 				categoryList.add(dto);
 			}
 			
-			
-			
 		}catch (Exception e) {
 			System.out.println("카테고리 목록 가져오기 실패");
 			System.out.println(e.getMessage());
@@ -163,13 +67,49 @@ public class MypageDao {
 			message.setLinkTitle("마이페이지로 이동");
 
 			throw new CommonException(message);
-			
 		}
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(stmt);
 		
 	}
-	
+	/**
+	 * 상품 이미지 파일 명 변경
+	 * @param conn
+	 * @param dto
+	 * @throws CommonException
+	 */
+	public void itemget(Connection conn, Item dto) throws CommonException {
+		System.out.println("상품 이미지 파일명 변경 dao");
+		String sql = "SELECT ITEM_IMG" + 
+					 " FROM ( SELECT ITEM_IMG" + 
+					 " FROM ITEM" + 
+				     " ORDER BY ROWNUM DESC)" + 
+				     " WHERE ROWNUM = 1";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setItemImg(rs.getString("item_img"));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		
+			MessageEntity message = new MessageEntity("error", 8);
+			message.setUrl("/takeit/item/login?action=itemaddForm");
+			message.setLinkTitle("상품등록");
+
+			throw new CommonException(message);
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+	}
+
 	
 	
 	/**
@@ -181,11 +121,13 @@ public class MypageDao {
 		public void addItem(Connection conn, Item dto) throws CommonException {
 			System.out.println("상품 등록 dao 입장");
 			String sql = "INSERT INTO ITEM VALUES (? || lpad((ITEM_SEQ.nextval),6,'0'),"
-					+ "?, ?, ?, null, ?, ?,? , ?, sysdate, ?, ?,?)";
+					+ "?, ?, ?, null, ?, ?,"
+					+ " ? || lpad((ITEM_SEQ.currval),6,'0')||substr(?,-4), ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
+		
 			try {
 				stmt = conn.prepareStatement(sql);
 				
@@ -195,12 +137,12 @@ public class MypageDao {
 				stmt.setInt(4, dto.getItemPrice ());
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
-				stmt.setString(7, dto.getItemImg());
-				
-				stmt.setDouble(8, 0.0);
-				stmt.setInt(9, 0);
-				stmt.setString(10, dto.getItemTakeit());
-				stmt.setString(11, dto.getItemCategoryNo());
+				stmt.setString(7, dto.getItemCategoryNo());
+				stmt.setString(8, dto.getItemImg());
+				stmt.setDouble(9, 0.0);
+				stmt.setInt(10, 0);
+				stmt.setString(11, dto.getItemTakeit());
+				stmt.setString(12, dto.getItemCategoryNo());
 				
 				int result = stmt.executeUpdate();
 				
@@ -277,8 +219,9 @@ public class MypageDao {
 	 * @param dto 일반회원 객체
 	 */
 	public void memberInfoUpdate (Connection conn, Member dto) throws CommonException{
-		String sql = "update member set member_pw=? ,name=?,mobile=?,"
-					 + "email=?, postno=?, address=?, address_detail=?, birth=? where member_id=? ";
+		String sql = "UPDATE MEMBER SET MEMBER_PW=?, NAME=?, MOBILE=?,"
+					 + "EMAIL=?, POSTNO=?, ADDRESS=?, ADDRESS_DETAIL=?,"
+					 + " BIRTH=? WHERE MEMBER_ID=?";
 		
 		PreparedStatement stmt = null;
 		

@@ -3,12 +3,16 @@ package com.takeit.model.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 주문 도메인 클래스
+ * @author 김태경
+ *
+ */
 public class Order implements Serializable {
 	// 상품
 	private String itemTakeit;
 	// 배송
 	private String shipStatus;
-
 	// 주문
 	private String orderNo;
 	private String receiveMethod;
@@ -22,12 +26,11 @@ public class Order implements Serializable {
 	private String memberId;
 	private String orderCancelReq;
 	private String orderCancel;
-
 	// 주문상세
 	private ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
 
-	public Order() {
-	}
+	/** 기본 생성자 */
+	public Order() {}
 
 	/**
 	 * 전체 데이터 초기화 생성자

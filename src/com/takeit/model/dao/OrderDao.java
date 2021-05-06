@@ -10,7 +10,12 @@ import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Order;
 import com.takeit.model.dto.OrderDetail;
+import com.takeit.model.dto.Shipping;
 
+/**
+ * 주문 테이블에 대한 OrderDao 클래스
+ * @author 김태경
+ */
 public class OrderDao {
 	private static OrderDao instance = new OrderDao();
 	
@@ -18,9 +23,12 @@ public class OrderDao {
 		return instance;
 	}
 	
+	/**
+	 * 주문 등록
+	 * @param order 주문 객체
+	 */
 	public void insertOrder(Connection conn, Order order) throws CommonException {
-		String sql = 
-				"INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yyyymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
+		String sql = "INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yyyymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
 				+ ", ?, ?, ?, ?, ?, ?, ?, 'F', 'F', ?, ?) ";
 		
 		PreparedStatement stmt = null;
@@ -43,17 +51,20 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
 			
+			MessageEntity message = new MessageEntity("error", 28);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
 	}
 	
+	/**
+	 * 최근 주문번호 조회
+	 * @param order 주문 객체
+	 */
 	public void selectOrderNo(Connection conn, Order order) throws CommonException {
-		String sql = 
-				"SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY 1 DESC ";
+		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY 1 DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -66,8 +77,8 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
 			
+			MessageEntity message = new MessageEntity("error", 28);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -75,9 +86,12 @@ public class OrderDao {
 		}	
 	}
 	
+	/**
+	 * 주문상세 등록
+	 * @param order 주문객체
+	 */
 	public void insertOrderDetail(Connection conn, Order order) throws CommonException {
-		String sql = 
-				"INSERT INTO Order_Detail VALUES(?, ?, ?, ?) ";
+		String sql = "INSERT INTO Order_Detail VALUES(?, ?, ?, ?) ";
 		
 		PreparedStatement stmt = null;
 		try {
@@ -96,14 +110,19 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
 			
+			MessageEntity message = new MessageEntity("error", 28);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
 	}
 
+	/**
+	 * 판매자 주문목록 조회
+	 * @param sellerId 판매자아이디
+	 * @param orderList 주문목록
+	 */
 	public void selectSellerOrderList(Connection conn, String sellerId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ORDER_DETAIL USING(ITEM_NO) JOIN ORDERS USING(ORDER_NO) JOIN SHIPPING USING(SHIP_STATUS_CODE) "
@@ -159,16 +178,20 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
 			
+			MessageEntity message = new MessageEntity("error", 28);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
-		
 	}
 
+	/**
+	 * 일반회원 주문목록 조회
+	 * @param memberId 회원아이디
+	 * @param orderList 주문목록
+	 */
 	public void selectMemberOrderList(Connection conn, String memberId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) "
@@ -225,25 +248,28 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
 			
+			MessageEntity message = new MessageEntity("error", 28);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
-		
 	}
 
-	public boolean updateOrderCancelReq(Connection conn, String orderNo) throws CommonException {
-		String sql = "UPDATE FROM ORDERS "
+	/**
+	 * 주문취소 요청
+	 * @param orderNo 주문번호
+	 */
+	public void updateOrderCancelReq(Connection conn, String orderNo) throws CommonException {
+		String sql = "UPDATE ORDERS "
 				+ "SET ORDER_CANCEL_REQ = 'T' "
-				+ "WHERE ORDER_NO = ? ";
+				+ "WHERE ORDER_NO = ? AND ORDER_CANCEL_REQ = 'F' ";
 		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1,  orderNo);
+			stmt.setString(1, orderNo);
 			int row = stmt.executeUpdate();
 			
 			if (row == 0) {
@@ -257,6 +283,62 @@ public class OrderDao {
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
-		return false;
+	}
+
+	/**
+	 * 주문 취소
+	 * @param orderNo 주문번호
+	 */
+	public void updateOrderCancel(Connection conn, String orderNo) throws CommonException {
+		String sql = "UPDATE ORDERS "
+				+ "SET ORDER_CANCEL = 'T' "
+				+ "WHERE ORDER_NO = ? AND ORDER_CANCEL_REQ = 'T' AND ORDER_CANCEL = 'F' ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, orderNo);
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 28);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
+
+	/**
+	 * 배송상태 목록 조회
+	 * @param shippingList 배송상태리스트
+	 */
+	public void selectShippingList(Connection conn, ArrayList<Shipping> shippingList) throws CommonException {
+		String sql = "SELECT * FROM SHIPPING";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			Shipping shipping = null;
+			while (rs.next()) {
+				shipping = new Shipping();
+				shipping.setShipStatusCode(rs.getString("ship_status_code"));
+				shipping.setShipStatus(rs.getString("ship_status"));
+				shippingList.add(shipping);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 39);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
 	}
 }

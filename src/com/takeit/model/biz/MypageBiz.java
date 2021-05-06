@@ -23,17 +23,16 @@ public class MypageBiz {
 	
 	private MypageDao dao = MypageDao.getInstance();
 	
-	
 	/**
 	 * 상점 카테고리 목록 조회
 	 * @param dto
 	 * @throws CommonException
 	 */
-	public void getshopCategoryList( ArrayList<Seller> shopCategoryList) throws CommonException{
+	public void itemget(Item dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-			dao.getShopCategoryList(conn, shopCategoryList);
+			dao.itemget(conn, dto);
 			
 			
 		}catch (Exception e) {
@@ -45,6 +44,8 @@ public class MypageBiz {
 		}
 		
 	}
+	
+	
 	
 	
 	/**
@@ -68,26 +69,6 @@ public class MypageBiz {
 		
 	}
 	
-	
-	/**
-	 * 상품 포장 타입 목록 조회
-	 * @param packTypeList
-	 * @throws CommonException
-	 */
-		public void getpackTypeList(ArrayList<Item> packTypeList) throws CommonException{
-			
-			Connection conn = JdbcTemplate.getConnection(); 
-			try {
-				dao.getpackTypeList(conn, packTypeList);
-				
-			}catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}finally {
-				JdbcTemplate.close(conn);
-			}
-			
-		} 
 	
 	/**
 	 * 카테고리 목록 조회

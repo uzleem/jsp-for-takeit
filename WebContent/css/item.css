@@ -1,11 +1,13 @@
 @charset "UTF-8";
 
+
 img[src$="item/.jpg/"] {
 	width: 30px;
 	height: 30px;
 }
 
 table{
+
 	width: 100%;
 	border:  solid 1px black;
 }
@@ -17,7 +19,7 @@ table{
 .itemTable th, .itemTable td {
 	border: 1px solid black;
 }
-
+/**상품등록*/
 #enroll_total {
 	border: 0px solid black;
 	width : 1700px;
@@ -28,26 +30,47 @@ table{
 #meat_div {
 	margin-left: 50px;
 }
-.item_list>li{
-	list-style: none;
- 
+/**상품리스트*/
+#itemListImg{
+	width: 250px;
+	height: 320px;
 }
-.item_Li{ display: flex;
-          flex-wrap:wrap;
-           gap:2em;
-           margin:20px;
-           align:'center';
+#itemListImg:hover{
+	-webkit-transform: scale(1.005);
+	transform: scale(1.005);
+	box-shadow: 3px 3px grey;
 }
-ul  {list-style-type: none; float: left;
+.item_list{
+	display: inline-block;
+	margin-bottom: 20px;
 }
-.itemLI{
-	font-family: 굴림;
-	font-weight:bold;
- 
+.item_list>a{
+	color: black;
+}
+.item_list>a:hover{
+	color: #5a7d59;
+	font-weight: 700;
+}
+#itemLI{
+	font-weight: 700;
+	font-size: 18px;
 }
 .item_wrap{
 	margin: 0 auto;
-	
+	width: 1050px;
+}
+#itemPr{
+	color: grey;
+	text-decoration: line-through;
+}
+#itemDc{
+	color: red;
+	font-size: 15px;
+}
+#itemDiscPrice{
+	font-weight: 700;
+	color: red;
+	font-size: 18px;
 }
 /**item detail*/
 #item_detail_wrap{
@@ -83,4 +106,18 @@ ul  {list-style-type: none; float: left;
 }
 .it_info{
 	line-height: 2;
+}
+/**no item list*/
+#noItemList-wrap{
+	width: fit-content;
+	margin: 20px auto;
+}
+#noItemList-title>h3{
+	font-size: 40px;
+	font-weight: 700;
+	text-align: center;
+}
+#noItemList-info{
+	margin-top: 30px;
+	font-size: 20px;
 }

@@ -84,8 +84,10 @@ public class ItemDao {
 			          ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
 			          ", a.item_input_date , a.disc_rate , a.item_takeit , a.item_category_no , b.item_category_name"+
 			          ", b.expiration_date, b.fresh_percent,b.notice, b.pack_type_no , c.pack_type_name"+
-			          " from item a, item_category b , packing c"+
+			          ", d.shop_name as shop_name"+
+			          " from item a, item_category b , packing c, seller d"+
 			          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
+			          " and a.seller_id = d.seller_id"+
 			          " order by a.item_input_date desc";
 
 		PreparedStatement stmt = null;
@@ -108,6 +110,7 @@ public class ItemDao {
 				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
 				dto.setItemNo(rs.getString("ITEM_NO"));
 				
+				dto.setShopName(rs.getString("SHOP_NAME"));
 				dto.setSellerId(rs.getString("SELLER_ID"));
 				dto.setItemName(rs.getString("ITEM_NAME"));
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
@@ -198,9 +201,9 @@ public class ItemDao {
 	}	
 	
 
-/**
- * 상품삭제
- */
+	/**
+	 * 상품삭제
+	 */
 	public void deleteItem(Connection conn, Item dto) {
 		
 		String sql = "delete from Item where seller_id=? and Item_no=?";
@@ -308,5 +311,57 @@ public class ItemDao {
 				JdbcTemplate.close(stmt);
 			}
 			
-	}
+		}
+		
+		/**카테고리별 상품 리스트*/
+		public void getCategoryItemList(Connection con, ArrayList<Item> categoryItemList, String categoryNo, String categoryName) throws CommonException{
+			System.out.println("[debug]카테고리 상품 목록 dao 요청");
+			String sql = "SELECT * "
+					+ "FROM ITEM I LEFT OUTER JOIN ITEM_CATEGORY IC "
+					+ "ON(I.ITEM_CATEGORY_NO=IC.ITEM_CATEGORY_NO) "
+					+ "LEFT OUTER JOIN SELLER S ON(I.SELLER_ID=S.SELLER_ID) "
+					+ "WHERE I.ITEM_CATEGORY_NO=?";
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, categoryNo);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					Item dto = new Item();
+					dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
+					dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
+					dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
+					dto.setItemNo(rs.getString("ITEM_NO"));
+					
+					dto.setShopName(rs.getString("SHOP_NAME"));
+					dto.setSellerId(rs.getString("SELLER_ID"));
+					dto.setItemName(rs.getString("ITEM_NAME"));
+					dto.setItemPrice(rs.getInt("ITEM_PRICE"));
+					dto.setItemImg(rs.getString("ITEM_IMG"));
+					dto.setItemCustScore(rs.getDouble("ITEM_CUST_SCORE"));
+					dto.setDiscRate(rs.getInt("DISC_RATE"));
+					
+					categoryItemList.add(dto);
+					categoryName = rs.getString("ITEM_CATEGORY_NAME");
+				}
+				System.out.println("[debug]카테고리: "+categoryName);
+				System.out.println("[debug]카테고리 상품 목록 dao 요청 완료");
+				
+			} catch (SQLException e) {
+				System.out.println("[debug]카테고리 상품 목록 dao 요청 실패");
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error",8);
+				message.setLinkTitle("메인으로");
+				message.setUrl("/takeit/index");
+				throw new CommonException(message);
+			}
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
 }
