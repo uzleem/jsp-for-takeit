@@ -112,7 +112,7 @@ function mobilePopup() {
 			<tr>
 				<th>상점이미지</th>	
 				<td>
-				<img id="shopImg" alt="${seller.shopImg}" src="/takeit/img/${seller.shopImg}">
+				<img id="shopImg" alt="${seller.shopImg}" src="/takeit/img/seller/${seller.shopImg}">
 				</td>	
 			</tr>
 			<tr>
@@ -158,9 +158,13 @@ function mobilePopup() {
 					<input type="text" id="shopLocCode" name="shopLocCode" readonly="readonly" value="${seller.shopLocCode }">
 				</td>	
 			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input class="updateBtn" type="submit" value="내 정보 수정">
+				</td>
+			</tr>
 		</table>
 		<br>
-		<input class="link" type="submit" value="내 정보 수정">
 	</form>
 		<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
 

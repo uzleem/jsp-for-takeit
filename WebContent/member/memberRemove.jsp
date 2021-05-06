@@ -104,9 +104,13 @@ function sellerRemoveCheck(){
 						<div id="memberPwMessage" class="error"></div>
 					</td>		
 				</tr>
-				
+				<tr>
+					<td colspan="2">
+					<input type="submit" class="removeBtn" value="탈퇴하기" onclick="return sellerRemoveCheck()">
+					</td>
+				</tr>
 			</table>
-			<input type="submit" class="removeBtn" value="탈퇴하기" onclick="return sellerRemoveCheck()">
+			
 		</form>
 		
 	</c:when>
@@ -137,10 +141,16 @@ function sellerRemoveCheck(){
 						<div id="memberPwMessage" class="error"></div>
 					</td>		
 				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" class="removeBtn" value="탈퇴하기" onclick="return removeCheck()">
+					</td>
+				</tr>
 			</table>
-			<input type="submit" class="removeBtn" value="탈퇴하기" onclick="return removeCheck()">
 		</form>
 	</c:otherwise>
 </c:choose>
+ <!-- footer 구역 -->
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>

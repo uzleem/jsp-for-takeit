@@ -15,11 +15,11 @@
 
 
 #sellerInfo_table th {
-	width:100px;
+	width:130px;
 }
 
 #sellerInfo_table td {
-	width: 90px;
+	width: 400px;
 }
 
 
@@ -70,4 +70,22 @@
 	
 	width:250px;
 	
+}
+
+
+.updateBtn{
+	width: 450px;
+	height:40px; 
+	padding: 0px 19px;
+	font-size: 15px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+    
+}
+
+#shopImg{
+	 width: 230px;
+    height: 300px;
 }
