@@ -130,4 +130,23 @@ public class OrderBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
+	
+	
+	public void updateShipStatusCode(String orderNo, String shipStatusCode) throws CommonException {
+		OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.updateShopStatusCode(conn, orderNo , shipStatusCode);
+			JdbcTemplate.commit(conn);
+			
+		}catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
+			throw e;
+		}finally {
+			JdbcTemplate.close(conn);
+		}
+		
+		
+	}
 }

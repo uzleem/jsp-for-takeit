@@ -318,6 +318,43 @@ public class OrderDao {
 			JdbcTemplate.close(stmt);
 		}	
 	}
+	
+	
+	/**
+	 * 배송 상태 변경
+	 * @param orderNo 주문번호
+	 * @param shipStatusCode 배송상태코드
+	 */
+	public void updateShopStatusCode(Connection conn, String orderNo, String shipStatusCode) throws CommonException {
+		String sql = "UPDATE ORDERS "
+				+ "SET SHIP_STATUS_CODE = ? " 
+				+ " WHERE ORDER_NO = ?";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shipStatusCode);
+			stmt.setString(2, orderNo);
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 28);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 배송상태 목록 조회
