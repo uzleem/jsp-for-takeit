@@ -12,6 +12,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 function orderCancelRequest(orderNo) {
+	var result = confirm("주문취소 요청을 하시겠습니까?");
+	if (!result) {
+		return;
+	}
 	$.ajax({
 		url:"/takeit/order/orderController?action=orderCancelRequest",
 		type:"post",
@@ -20,14 +24,17 @@ function orderCancelRequest(orderNo) {
 		},
 		success : function(data) {
 			if (data == "success") {
-				alert("성공");
-				$("#"+orderNo).attr("disabled", true);
+				$("#"+orderNo+"can").attr("disabled", true);
+				$("#"+orderNo+"message").html("(취소요청)");
 			} else {
-				alert("실패");
+				alert("취소요청 실패");
 			}
 		}
 	});
 }
+$(document).ready(function() {
+	
+});
 </script>
 </head>
 <body>
@@ -35,11 +42,11 @@ function orderCancelRequest(orderNo) {
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->
-	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
+	<jsp:include page="/common/before_login_menu.jsp"/>
 </c:if>
 <c:if test="${not empty memberId or not empty sellerId}">
 	<!-- 로그인 후 메뉴 -->
-	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
+	<jsp:include page="/common/after_login_menu.jsp"/>	
 </c:if>
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
@@ -66,27 +73,35 @@ function orderCancelRequest(orderNo) {
 		<h1>주문내역</h1>
 		<c:forEach var="order" items="${orderList}">
 			<hr>
+			<c:choose>
+			<c:when test="${order.orderCancel == 'T' and order.orderCancelReq == 'T'}">
+			<div style="opacity:0.3;">
+			</c:when>
+			<c:otherwise>
 			<div>
+			</c:otherwise>
+			</c:choose>
 				<div class="order-info">
 					<span><b>주문번호 :</b> ${order.orderNo}</span> &emsp;
 					<span><b>주문 상태 :</b></span>
 					<c:choose>
 						<c:when test="${order.orderCancel == 'F' and order.orderCancelReq == 'T'}">
-							<span> ${order.shipStatus}(취소요청)</span>
+							<span>${order.shipStatus}(취소요청)</span>
 						</c:when>
 						<c:when test="${order.orderCancel == 'T'}">
-							<span>주문취소완료</span>				
+							<span>주문취소완료</span>
 						</c:when>
 						<c:otherwise>
 							<span>${order.shipStatus}</span>
 						</c:otherwise>
 					</c:choose>
+					<span id="${order.orderNo}message"></span>
 					<c:choose>
 						<c:when test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
-							<input id="${order.orderNo}" class="cancle-btn" disabled="disabled" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">		
+							<input id="${order.orderNo}can" class="cancle-btn" disabled="disabled" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">		
 						</c:when>
 						<c:when test="${order.orderCancelReq == 'F' and order.orderCancel == 'F'}">
-							<input id="${order.orderNo}" class="cancle-btn" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">
+							<input id="${order.orderNo}can" class="cancle-btn" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">
 						</c:when>
 						<c:when test="${order.orderCancel == 'T' }"></c:when>
 					</c:choose>
@@ -100,8 +115,9 @@ function orderCancelRequest(orderNo) {
 					<div class="order-detail">
 						<span><b>상품명 :</b>&emsp;${orderDetail.itemName}</span><br>
 						<span><b>상품 수량 :</b> &emsp;${orderDetail.itemQty}개</span><br>
-						<span><b>결제금액 :</b> &emsp;${orderDetail.itemPayPrice * orderDetail.itemQty}원</span><br>
-						<span><b>수령 방법 :</b> &emsp;${order.receiveMethod}</span>
+						<span><b>결제금액 :</b> &emsp;<fmt:formatNumber type="number" value="${orderDetail.itemPayPrice * orderDetail.itemQty}"/>원</span><br>
+						<span><b>수령 방법 :</b> &emsp;${order.receiveMethod}</span><br>
+						<span>${order.shopName}(${order.sellerId})</span>
 					</div>
 					<div class="order-detail-btn">
 						<input type="button" value="상품 후기" class="order-btn"  style="margin-bottom: 5px;" >

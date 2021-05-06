@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * 주문 도메인 클래스
+ * 
  * @author 김태경
  *
  */
@@ -26,14 +27,20 @@ public class Order implements Serializable {
 	private String memberId;
 	private String orderCancelReq;
 	private String orderCancel;
+	// 판매자
+	private String sellerId;
+	private String shopName;
+
 	// 주문상세
 	private ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
 
 	/** 기본 생성자 */
-	public Order() {}
+	public Order() {
+	}
 
 	/**
 	 * 전체 데이터 초기화 생성자
+	 * 
 	 * @param itemTakeit      잇거래여부
 	 * @param shipStatus      배송상태
 	 * @param orderNo         주문번호
@@ -50,10 +57,11 @@ public class Order implements Serializable {
 	 * @param orderCancel     주문취소여부
 	 * @param orderDetails    주문상세
 	 */
+
 	public Order(String itemTakeit, String shipStatus, String orderNo, String receiveMethod, String recipientName,
 			String recipientPostNo, String recipientAddr, String recipientMobile, String shipRequest, int orderPrice,
-			String shipStatusCode, String memberId, String orderCancelReq, String orderCancel,
-			ArrayList<OrderDetail> orderDetails) {
+			String shipStatusCode, String memberId, String orderCancelReq, String orderCancel, String sellerId,
+			String shopName, ArrayList<OrderDetail> orderDetails) {
 		super();
 		this.itemTakeit = itemTakeit;
 		this.shipStatus = shipStatus;
@@ -69,7 +77,25 @@ public class Order implements Serializable {
 		this.memberId = memberId;
 		this.orderCancelReq = orderCancelReq;
 		this.orderCancel = orderCancel;
+		this.sellerId = sellerId;
+		this.shopName = shopName;
 		this.orderDetails = orderDetails;
+	}
+
+	public String getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
 	public String getOrderCancelReq() {
