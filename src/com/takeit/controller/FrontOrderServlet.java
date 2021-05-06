@@ -237,6 +237,22 @@ public class FrontOrderServlet extends HttpServlet {
 		orderNo = orderNo.trim();
 		shipStatusCode = shipStatusCode.trim();
 		
+		OrderBiz biz = new OrderBiz();
+		
+		try {
+			biz.updateShipStatusCode(orderNo,shipStatusCode);
+			response.getWriter().write("success");
+			
+		} catch (CommonException e) {
+			response.getWriter().write("failed");
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("마이페이지");
+			//message.setUrl(CONTEXT_PATH + "/");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
 		
 		
 		

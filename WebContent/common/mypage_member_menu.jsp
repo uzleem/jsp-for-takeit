@@ -10,6 +10,7 @@
 		<li><a href="/takeit/order/orderController?action=memberOrderList">내 주문내역 조회</a></li>
 		<li><a href="/takeit/member/mypageController?action=memberInfoForm">내 정보 조회</a></li>
 		<li><a href="/takeit/member/mypageController?action=removeMemberForm">회원 탈퇴</a></li>
+		<li><a href="/takeit/item/reviewController?action=myReviewList">내가 등록한 후기조회</a></li>
 	</ul>
 	
 	<c:if test="${not empty dto and dto.grade == 'A'}">

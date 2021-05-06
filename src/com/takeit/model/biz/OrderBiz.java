@@ -130,17 +130,36 @@ public class OrderBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
+  
+
 
 	/** 주문 정보 조회 */
 	public void getOrderItem(Order order) throws CommonException {
+  	OrderDao dao = OrderDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+  			dao.selectOrderItem(conn, order);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+  }
+
+	public void updateShipStatusCode(String orderNo, String shipStatusCode) throws CommonException {
+
 		OrderDao dao = OrderDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-			dao.selectOrderItem(conn, order);
-		} catch (CommonException e) {
+			dao.updateShopStatusCode(conn, orderNo , shipStatusCode);
+			JdbcTemplate.commit(conn);
+			
+		}catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
 			throw e;
-		} finally {
+		}finally {
 			JdbcTemplate.close(conn);
 		}
 	}
