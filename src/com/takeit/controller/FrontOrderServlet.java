@@ -3,24 +3,37 @@ package com.takeit.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.OrderBiz;
+import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Order;
 import com.takeit.model.dto.OrderDetail;
+import com.takeit.model.dto.Shipping;
 
 /**
- * Servlet implementation class FrontOrderServlet
+ * 주문 요청 컨트롤러
+ * @author 김태경
  */
 @WebServlet("/order/orderController")
 public class FrontOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	public ServletContext application;
+	public String CONTEXT_PATH;
+	
+	public void init() {
+		application = getServletContext();
+		CONTEXT_PATH = application.getContextPath();
+	}	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
@@ -49,41 +62,146 @@ public class FrontOrderServlet extends HttpServlet {
 		case "orderCancel":
 			orderCancel(request, response);
 			break;
+		case "updateShipStatusForm":
+			updateShipStatusForm(request, response);
+			break;
+		case "updateShipStatus":
+			updateShipStatus(request, response);
+			break;
 		}
 	}
+	
+	/** 배송상태변경 요청 서비스 */
+	protected void updateShipStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	/**	배송상태변경 화면 요청 서비스 */
+	protected void updateShipStatusForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		ArrayList<Shipping> shippingList = new ArrayList<Shipping>();
+		OrderBiz biz = new OrderBiz();
+		
+		try {
+			biz.getShippingList(shippingList);
+			
+			request.setAttribute("shippingList", shippingList);
+			request.getRequestDispatcher("/order/shipStatusUpdateForm.jsp").forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}	
+	}
+	
+	/** 판매자회원의 주문취소 요청 서비스 */
 	protected void orderCancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
 		String orderNo = request.getParameter("orderNo");
+		
+		if (orderNo == null || orderNo.trim().length() == 0) {
+			MessageEntity message = new MessageEntity("error", 12);
+			message.setLinkTitle("마이페이지");
+			//message.setUrl(CONTEXT_PATH + "/order/orderController?action=");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		orderNo = orderNo.trim();
 		
 		OrderBiz biz = new OrderBiz();
 		try {
 			biz.orderCancel(orderNo);
-			response.getWriter().write("1");
+			response.getWriter().write("success");
 			
 		} catch (CommonException e) {
-			response.getWriter().write("0");
+			response.getWriter().write("failed");
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("마이페이지");
+			//message.setUrl(CONTEXT_PATH + "/order");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
 		}
 	}
 	
+	/** 일반회원의 주문취소요청 요청 서비스 */
 	protected void orderCancelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
 		String orderNo = request.getParameter("orderNo");
-		System.out.println("ajax orderNo:"+orderNo);
+		
+		if (orderNo == null || orderNo.trim().length() == 0) {
+			MessageEntity message = new MessageEntity("error", 12);
+			message.setLinkTitle("마이페이지");
+			//message.setUrl(CONTEXT_PATH + "/order/orderController?action=");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		orderNo = orderNo.trim();
 		
 		OrderBiz biz = new OrderBiz();
 		try {
 			biz.orderCancelRequest(orderNo);
-			response.getWriter().write("1");
+			response.getWriter().write("success");
 		} catch (CommonException e) {
-			e.printStackTrace();
-			response.getWriter().write("0");
+			response.getWriter().write("failed");
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("마이페이지");
+			//message.setUrl(CONTEXT_PATH + "/");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
 		}
 	}
-	
-	
+
+	/** 일반회원의 주문목록 조회 */
 	protected void memberOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = "user03";
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		String memberId = (String)session.getAttribute("memberId");
 		
 		OrderBiz biz = new OrderBiz();
-		
 		ArrayList<Order> orderList = new ArrayList<>();
 		
 		try {
@@ -91,16 +209,28 @@ public class FrontOrderServlet extends HttpServlet {
 			
 			request.setAttribute("orderList", orderList);
 			request.getRequestDispatcher("/order/memberOrderList.jsp").forward(request, response);
-			
-			
 		} catch (CommonException e) {
-			e.printStackTrace();
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
-		
 	}
 	
+	/** 판매자회원의 주문 목록 조회 */
 	protected void sellerOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sellerId = "seller01";
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		String sellerId = (String)session.getAttribute("sellerId");
 		
 		OrderBiz biz = new OrderBiz();
 		ArrayList<Order> orderList = new ArrayList<>();
@@ -111,12 +241,27 @@ public class FrontOrderServlet extends HttpServlet {
 			request.setAttribute("orderList", orderList);
 			request.getRequestDispatcher("/order/sellerOrderList.jsp").forward(request, response);
 		} catch (CommonException e) {
-			e.printStackTrace();
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
+	
+	/** 일반회원 주문 요청 서비스 */
 	protected void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = (String)request.getSession(false).getAttribute("memberId"); 
-		memberId = "user01";
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		String memberId = (String)session.getAttribute("memberId"); 
 		//상품
 //		String itemTakeit = request.getParameter("itemTakeit");
 //		//주문상세
@@ -154,8 +299,6 @@ public class FrontOrderServlet extends HttpServlet {
 		//배송
 		String shipStatusCode = "O-GET";
 		
-		
-		
 		Order order = new Order();
 		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 		OrderDetail orderDetail = null;
@@ -184,7 +327,18 @@ public class FrontOrderServlet extends HttpServlet {
 		order.setShipStatusCode(shipStatusCode);		
 		
 		OrderBiz biz = new OrderBiz();
-		biz.addOrder(order);
+		try {
+			biz.addOrder(order);
+			
+			//response.sendRedirect(CONTEXT_PATH + ""); //마이페이지로
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
 		
 	}
 }

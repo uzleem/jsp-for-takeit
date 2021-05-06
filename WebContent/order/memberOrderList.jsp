@@ -18,7 +18,7 @@ function orderCancelRequest(orderNo) {
 			"orderNo" : orderNo
 		},
 		success : function(data) {
-			if (data == "1") {
+			if (data == "success") {
 				alert("성공");
 				$("#"+orderNo).attr("disabled", true);
 			} else {
@@ -47,13 +47,16 @@ function orderCancelRequest(orderNo) {
 
 <div id="container">
 <c:choose>
-	<c:when test ="${grade == 'S'}">
+	<c:when test ="${not empty sellerId}">
  		<!-- 판매자 마이페이지 메뉴 -->
- 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
+ 		<jsp:include page="/common/mypage_seller_menu.jsp"/>
+	</c:when>
+	<c:when test="${not empty memberId}">
+		<!-- 일반회원 마이페이지 메뉴 -->
+		<jsp:include page="/common/mypage_member_menu.jsp"/>
 	</c:when>
 	<c:otherwise>
-		<!-- 일반회원 마이페이지 메뉴 -->
-		<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
+		<jsp:include page="/member/memberLogin.jsp"/>
 	</c:otherwise>
 </c:choose>
 	

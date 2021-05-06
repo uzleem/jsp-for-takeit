@@ -16,16 +16,98 @@ import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
 import com.takeit.util.Utility;
 
+/**
+ * 잇거래 테이블에 대한 TakeitDao 클래스
+ * @author 김태경
+ */
 public class TakeitDao {
 	private static TakeitDao instance = new TakeitDao();
 	
 	public static TakeitDao getInstance() {
 		return instance;
 	}
-
-	public void searchTakeitItemList(Connection conn, Member member, ArrayList<TakeitItem> takeitItemList) {
-		String sql = 
-				"SELECT * "
+	
+	/**
+	 * 판매자회원 잇거래 상품 목록조회
+	 * @param shopLocCode 상점구역코드
+	 * @param takeitItemList 잇거래상품목록
+	 */
+	public void searchTakeitItemList(Connection conn, String shopLocCode, ArrayList<TakeitItem> takeitItemList) throws CommonException {
+		String sql = "SELECT * "
+				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
+				+ "WHERE SELLER_ID IN ( "
+				+ "		SELECT SELLER_ID "
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE = ( "
+				+ "			SELECT SHOP_LOC_CODE "
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
+				+ "			) "
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shopLocCode);
+			rs = stmt.executeQuery();
+			
+			TakeitItem takeitItem = null;
+			while (rs.next()) {
+				takeitItem = new TakeitItem();
+				
+				takeitItem.setItemNo(rs.getString("item_No"));
+				takeitItem.setSellerId(rs.getString("seller_Id"));
+				takeitItem.setItemName(rs.getString("item_Name"));
+				takeitItem.setItemPrice(rs.getInt("item_Price"));
+				takeitItem.setItemImg(rs.getString("item_Img"));
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score"));
+				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
+				
+				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
+				Date secondDate = Utility.convertStringToDate(rs.getString("item_input_date"), "yyyy-MM-dd HH:mm:ss");
+				int a = Utility.getDayBetweenAandB(firstDate, secondDate);
+				int b = Integer.valueOf(rs.getString("expiration_date"));
+				int c = 100 - (int)(( (double)(b - a) / b) * 100);
+				if (c > 100 ) {
+					c = 100;
+				}
+				takeitItem.setDiscRate(c);
+				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
+				
+				takeitItem.setTakeitNo(rs.getString("takeit_No"));
+				takeitItem.setTakeitPrice(rs.getInt("takeit_Price"));
+				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price"));
+				takeitItem.setTakeitDate(rs.getString("takeit_date"));
+				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score"));
+				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
+				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
+				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
+				
+				takeitItem.setSellerName(rs.getString("name"));
+				takeitItem.setShopName(rs.getString("Shop_name"));
+				
+				takeitItemList.add(takeitItem);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}		
+	}
+	
+	/**
+	 * 일반회원 잇거래상품목록 조회
+	 * @param member 회원객체
+	 * @param takeitItemList 잇거래상품목록
+	 */
+	public void searchTakeitItemList(Connection conn, Member member, ArrayList<TakeitItem> takeitItemList) throws CommonException {
+		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
 				+ "WHERE SELLER_ID IN ( "
 				+ "		SELECT SELLER_ID "
@@ -49,13 +131,13 @@ public class TakeitDao {
 			TakeitItem takeitItem = null;
 			while (rs.next()) {
 				takeitItem = new TakeitItem();
-				//상품
+				
 				takeitItem.setItemNo(rs.getString("item_No"));
 				takeitItem.setSellerId(rs.getString("seller_Id"));
 				takeitItem.setItemName(rs.getString("item_Name"));
-				takeitItem.setItemPrice(rs.getInt("item_Price")); //int
+				takeitItem.setItemPrice(rs.getInt("item_Price"));
 				takeitItem.setItemImg(rs.getString("item_Img"));
-				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score"));
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
 				
 				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
@@ -68,33 +150,38 @@ public class TakeitDao {
 				}
 				takeitItem.setDiscRate(c);
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
-				//잇거래
+				
 				takeitItem.setTakeitNo(rs.getString("takeit_No"));
-				takeitItem.setTakeitPrice(rs.getInt("takeit_Price")); //int
-				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price")); //int
+				takeitItem.setTakeitPrice(rs.getInt("takeit_Price"));
+				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price"));
 				takeitItem.setTakeitDate(rs.getString("takeit_date"));
-				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score")); //double
+				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score"));
 				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
 				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
 				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
-				//판매자
+				
 				takeitItem.setSellerName(rs.getString("name"));
 				takeitItem.setShopName(rs.getString("Shop_name"));
-				
 				
 				takeitItemList.add(takeitItem);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}		
 	}
 
+	/**
+	 * 잇거래상품 상세 조회
+	 * @param takeitItem 잇거래 상품
+	 */
 	public void searchTakeitItem(Connection conn, TakeitItem takeitItem) throws CommonException {
-		String sql = 
-				"SELECT * "
+		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
 				+ "WHERE ITEM_NO = ? ";
 		
@@ -106,27 +193,26 @@ public class TakeitDao {
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				//포장타입
+				
 				takeitItem.setPackTypeNo(rs.getString("pack_Type_No"));
 				takeitItem.setPackTypeName(rs.getString("pack_Type_Name"));
-				//카테고리
+				
 				takeitItem.setItemCategoryNo(rs.getString("item_Category_No"));
 				takeitItem.setItemCategoryName(rs.getString("item_Category_Name"));
 				takeitItem.setExpirationDate(rs.getString("expiration_Date"));
 				takeitItem.setNotice(rs.getString("notice"));
-				takeitItem.setFreshPercent(rs.getInt("fresh_Percent")); // int
-				//상품
+				takeitItem.setFreshPercent(rs.getInt("fresh_Percent"));
+				
 				takeitItem.setItemNo(rs.getString("item_No"));
 				takeitItem.setSellerId(rs.getString("seller_Id"));
 				takeitItem.setItemName(rs.getString("item_Name"));
-				takeitItem.setItemPrice(rs.getInt("item_Price")); //int
+				takeitItem.setItemPrice(rs.getInt("item_Price"));
 				takeitItem.setSalesUnit(rs.getString("sales_Unit"));
 				takeitItem.setItemOrigin(rs.getString("item_Origin"));
-				takeitItem.setItemStock(rs.getInt("item_Stock")); //int
+				takeitItem.setItemStock(rs.getInt("item_Stock"));
 				takeitItem.setItemImg(rs.getString("item_Img"));
-				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score")); //double
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score"));
 				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
-				System.out.println(rs.getString("item_Input_date"));
 				
 				Date secondDate = Utility.convertStringToDate(rs.getString("item_input_date"), "yyyy-MM-dd HH:mm:ss");
 				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
@@ -138,21 +224,22 @@ public class TakeitDao {
 				}
 				takeitItem.setDiscRate(c);
 				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
-				//잇거래
+				
 				takeitItem.setTakeitNo(rs.getString("takeit_No"));
-				takeitItem.setTakeitPrice(rs.getInt("takeit_Price")); //int
-				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price")); //int
+				takeitItem.setTakeitPrice(rs.getInt("takeit_Price"));
+				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price"));
 				takeitItem.setTakeitDate(rs.getString("takeit_date"));
-				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score")); //double
+				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score"));
 				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
 				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
 				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
-				//판매자
+				
 				takeitItem.setSellerName(rs.getString("name"));
 				takeitItem.setShopName(rs.getString("Shop_name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 			MessageEntity message = new MessageEntity("error", 12);
 			throw new CommonException(message);
 		} finally {
@@ -161,10 +248,9 @@ public class TakeitDao {
 		}	
 	}
 
-	public void searchShopLocList(Connection conn, ArrayList<ShopLoc> shopLocList) {
-		String sql = 
-				"SELECT * "
-				+ "FROM SHOP_LOC";
+	/** 상점구역목록 전체 조회 */
+	public void searchShopLocList(Connection conn, ArrayList<ShopLoc> shopLocList) throws CommonException {
+		String sql = "SELECT * FROM SHOP_LOC";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -183,15 +269,23 @@ public class TakeitDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
 	}
 	
-	public boolean isValidMemberLocNo(Connection conn, Member member) {
-		String sql = 
-				"SELECT 1 "
+	/**
+	 * 회원구역 존재여부
+	 * @param member 회원객체
+	 * @return 존재시 true, 미존재시 false
+	 * @throws CommonException 
+	 */
+	public boolean isValidMemberLocNo(Connection conn, Member member) throws CommonException {
+		String sql = "SELECT 1 "
 				+ "FROM MEMBER_LOC "
 				+ "WHERE MEMBER_LOC_NO = ? AND SHOP_LOC_CODE = ? "; 
 		
@@ -208,6 +302,8 @@ public class TakeitDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 13);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -215,9 +311,12 @@ public class TakeitDao {
 		return false;
 	}
 
-	public void addMemberLocNo(Connection conn, Member member) {
-		String sql = 
-				"INSERT INTO MEMBER_LOC VALUES(?,?,?) ";
+	/**
+	 * 회원구역 등록
+	 * @param member 회원객체
+	 */
+	public void addMemberLocNo(Connection conn, Member member) throws CommonException {
+		String sql = "INSERT INTO MEMBER_LOC VALUES(?,?,?) ";
 		
 		PreparedStatement stmt = null;
 		try {
@@ -232,14 +331,21 @@ public class TakeitDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
 	}
 	
+	/**
+	 * 회원구역 초기화 메서드
+	 * 상점구역등록에 따른 회원구역 초기화 등록
+	 * @param shopLoc 상점구역
+	 */
 	public void addMemberLoc(Connection conn, ShopLoc shopLoc) throws CommonException {
-		String sql = 
-				"BEGIN "
+		String sql = "BEGIN "
 				+ "FOR i IN 0 .. 99 LOOP "
 				+ "INSERT INTO MEMBER_LOC VALUES (i, ?, ?||'-'||i); "
 				+ "END LOOP; "
@@ -265,9 +371,9 @@ public class TakeitDao {
 		}
 	}
 
+	/** 상점구역 등록 */
 	public void addShopLoc(Connection conn, ShopLoc shopLoc) throws CommonException {
-		String sql = 
-				"INSERT INTO SHOP_LOC VALUES(?,?,?,?) ";
+		String sql = "INSERT INTO SHOP_LOC VALUES(?,?,?,?) ";
 		
 		PreparedStatement stmt = null;
 		try {
@@ -291,7 +397,12 @@ public class TakeitDao {
 		}	
 	}
 
-	public int searchExistTakeit(Connection conn, String shopLocCode) {
+	/**
+	 * 잇거래 존재여부 확인 메서드
+	 * @param shopLocCode 상점구역코드
+	 * @return 존재하면 1, 미존재시 0
+	 */
+	public int searchExistTakeit(Connection conn, String shopLocCode) throws CommonException {
 		String sql = 
 				"SELECT 1 "
 				+ "FROM TAKEIT "
@@ -309,6 +420,9 @@ public class TakeitDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 13);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
@@ -316,9 +430,12 @@ public class TakeitDao {
 		return 0;
 	}
 	
+	/**
+	 * 잇거래 등록
+	 * @param takeit 잇거래 객체
+	 */
 	public void insertTakeit(Connection conn, Takeit takeit) throws CommonException {
-		String sql = 
-				"BEGIN "
+		String sql = "BEGIN "
 				+ "FOR i IN 0 .. 99 LOOP "
 				+ "INSERT INTO TAKEIT "
 				+ "VALUES ('TAKE' || TO_CHAR(SYSDATE,'YYYYMMDD') || LPAD(TAKEIT_SEQ.NEXTVAL, 6, '0') "
@@ -326,14 +443,16 @@ public class TakeitDao {
 				+ "END LOOP; "
 				+ "END; ";
 		
-		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, takeit.getTakeitPrice());
 			stmt.setString(2, takeit.getShopLocCode());
 			
-			int row = stmt.executeUpdate();
+			int rows = stmt.executeUpdate();
+			if (rows == 0) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			
