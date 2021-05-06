@@ -68,9 +68,9 @@
 		</form>
 	</div>
 </div>
+
  <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
- 
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>

@@ -96,7 +96,6 @@ public class FrontOrderServlet extends HttpServlet {
 		
 		Order order = new Order();
 		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
-		
 		OrderDetail orderDetail = null;
 		for (int index = 0; index < itemNos.length; index++) {
 			orderDetail = new OrderDetail();
@@ -116,8 +115,9 @@ public class FrontOrderServlet extends HttpServlet {
 			biz.getOrderItem(order);
 			
 			request.setAttribute("order", order);
-			request.getRequestDispatcher(CONTEXT_PATH + "/order/orderController?action=order.jsp").forward(request, response);
-		} catch (CommonException e) {
+			request.getRequestDispatcher("/order/order.jsp").forward(request, response);
+		} 
+		catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");
 			message.setUrl(CONTEXT_PATH + "/index");

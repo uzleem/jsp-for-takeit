@@ -145,8 +145,9 @@ public class OrderBiz {
 		} finally {
 			JdbcTemplate.close(conn);
 		}
-  }
+	}
 
+	/** 배송상태 변경 */
 	public void updateShipStatusCode(String orderNo, String shipStatusCode) throws CommonException {
 
 		OrderDao dao = OrderDao.getInstance();
