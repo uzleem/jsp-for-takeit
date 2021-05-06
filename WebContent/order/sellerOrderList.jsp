@@ -8,6 +8,7 @@
 <title>판매자 판매목록 조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/order/order.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 function orderCancel(orderNo) {
@@ -63,7 +64,8 @@ function updateShipStatus(orderNo, shipStatusCode) {
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-<div id="container">
+<div id="container" class="view-width">
+<div class="side-menu">
 <c:choose>
 	<c:when test ="${not empty sellerId}">
  		<!-- 판매자 마이페이지 메뉴 -->
@@ -77,30 +79,35 @@ function updateShipStatus(orderNo, shipStatusCode) {
 		<jsp:include page="/member/memberLogin.jsp"/>
 	</c:otherwise>
 </c:choose>
+</div>
 
-<div>
+<div class="orderList-wrap">
 	<h3>주문내역</h3>
 	<c:forEach var="order" items="${orderList}">
 	<div>
-		주문번호 : ${order.orderNo}
-		<c:if test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
-			<input type="button" value="주문취소승인" id="${order.orderNo}" onclick="orderCancel(this.id)">
-		</c:if>
-		<br>
-		주문자 : ${order.memberId}<br>
-		배송상태 : ${order.shipStatus}
-		<input type="button" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/>
-		<br>
-		요청사항 : ${order.shipRequest}<br>
-		
+		<div class="order-info">
+			<span>주문번호 : ${order.orderNo}</span>
+			
+			<c:if test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
+				<input type="button" class="small-btn" value="주문취소승인" id="${order.orderNo}" onclick="orderCancel(this.id)">
+			</c:if>
+			<br>
+			주문자 : ${order.memberId}<br>
+			<span>배송상태 : ${order.shipStatus}</span>
+			<span><input type="button" class="small-btn" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/></span>
+			<br>
+			요청사항 : ${order.shipRequest}<br>
+		</div>
 		<c:forEach var="orderDetail" items="${order.orderDetails}">
 		<br>
-		<img src="/takeit/img/item/${orderDetail.itemImg}" style="width:100px; height:150px;">
-		<div style="display:inline-block;">
-			상품명 : ${orderDetail.itemName} <br>
-			상품개수 : ${orderDetail.itemQty}개 <br>
-			상품결제금액 : ${orderDetail.itemPayPrice}원 <br> 
-		</div><br>
+		<div class="order-detail">
+			<img src="/takeit/img/item/${orderDetail.itemImg}" style="width:100px; height:150px;">
+			<div  style="display:inline-block;">
+				상품명 : ${orderDetail.itemName} <br>
+				상품개수 : ${orderDetail.itemQty}개 <br>
+				상품결제금액 : ${orderDetail.itemPayPrice}원 <br> 
+			</div><br>
+		</div>
 		</c:forEach>
 		<hr>
 	</div><br>
