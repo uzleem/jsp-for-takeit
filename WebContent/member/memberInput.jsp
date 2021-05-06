@@ -9,29 +9,12 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/link.css">
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="${CONTEXT_PATH}/js/member/input.js"></script>
-<!-- 비밀번호 표시 --> 
+<script type="text/javascript" src="/takeit/js/member/input.js"></script>	
 <script type="text/javascript">
-function pwCheckbox_onclick() {
-	
-	var pwCheckboxElement = document.getElementById("pwCheckbox")
-	var memberPwElement = document.getElementById("memberPw")
-	var pwChk_Element = document.getElementById("pwChk")
-	
-	if(pwCheckboxElement.checked) {
-		memberPwElement.type = "text"
-		pwChk_Element.type = "text"
-	}else {
-		memberPwElement.type = "password"
-		pwChk_Element.type = "password"
-	}
-}
-</script>
-<!-- 우편번호 api -->
-<script type="text/javascript">
+/* 우편번호 api */
 var goPopup = function() {
 	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
- } 
+} 
 var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
 	 document.getElementById("postNo").value = zipNo; 
 	 document.getElementById("address").value = roadAddrPart1; 
@@ -41,63 +24,24 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 		return; 
 	} 
 }
-</script>
-<!-- 인증번호 팝업 -->
-<script type="text/javascript">
+
+/* 모바일 인증번호 팝업 */
 function mobilePopup() {
-     // window.name = "부모창 이름"; 
-     window.name = "parentForm";
-     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-     window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
-             "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
+    // window.name = "부모창 이름"; 
+    window.name = "parentForm";
+    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+    window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
+            "childForm", "width=570, height=350, resizable = no, scrollbars = no");  
+    
+/*      var mobileNum = $("#mobileNum").val();
+    if(mobileNum != null) {
+		$('#mobileNumResult1').show().html("o 인증번호를 받아주세요.");
+		$('#mobileNumResult1').css('color','#0F851A')
+    }else {
+		$('#mobileNumResult1').show().html("x 인증번호를 받아주세요.");
+		$('#mobileNumResult1').css('color','#B3575A')
+    } */
 }
-</script>
-<!-- 아이디, 이메일 중복체크 -->
-<script type="text/javascript">
-function idCheck(){
-	 $.ajax({	
-		 	// 서블릿으로 보낸다
-			url:"/takeit/member/controller?action=memberIdChk",
-			type:"get",	
-			// name값
-			data:{
-				"memberId" : $("#memberId").val()  
-			},	
-		
-			success:function(data){
-				
-				if(data == "1"){
-					
-					alert("사용가능한 아이디입니다.");
-				}else {					
-					
-					alert("해당 아이디는 사용중입니다.");	
-				}			
-			}
-	});	 
-};
-function emailCheck(){
-	 $.ajax({	
-		 	// 서블릿으로 보낸다
-			url:"/takeit/member/controller?action=memberEmailChk",
-			type:"get",	
-			// name값
-			data:{
-				"email" : $("#email").val()  
-			},	
-		
-			success:function(data){
-				
-				if(data == "1"){
-					
-					alert("사용가능한 이메일입니다.");
-				}else {					
-					
-					alert("해당 이메일은 사용중입니다.");	
-				}			
-			}
-	});	 
-};
 </script>
 </head>
 
@@ -135,45 +79,98 @@ function emailCheck(){
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId"  name="memberId" required="required"/>
+				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="memberId"  name="memberId" />
 				<input type="button" value="중복확인" id="id_button" onclick="idCheck()"/>
 			</td>
 		</tr>
 		<tr>
-			<td>비밀번호</td>
-			<td><input type="password" placeholder="비밀번호를 입력해주세요" id="memberPw" name="memberPw" required="required"/></td>
+			<td></td>
+			<td>
+				<span id="memberIdResult1" class="inputResult"></span>
+				<span id="memberIdResult2" class="inputResult"></span>
+			</td>
 		</tr>
+		<tr>
+		</tr>
+		
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" placeholder="비밀번호를 입력해주세요" id="memberPw" name="memberPw" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span id="memberPwResult1" class="inputResult"></span>
+			</td>
+		</tr>
+	
 		<tr>
 			<td>비밀번호 확인</td>
 			<td>
-				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요" id="pwChk" name="pwChk" required="required"/>
+				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요" id="pwChk" name="pwChk" />
 				<input type="checkbox" id="pwCheckbox" name="pwCheckbox" onclick="pwCheckbox_onclick()"/>
 			</td>
 		</tr>
 		<tr>
-			<td>이름</td>
-			<td><input type="text" placeholder="이름을 입력해주세요" id="name" name="name"required="required"/></td>
+			<td></td>
+			<td>
+				<span id="pwChkResult1" class="inputResult"></span>
+			</td>
 		</tr>
+		
+		<tr>
+			<td>이름</td>
+			<td><input type="text" placeholder="이름을 입력해주세요" id="name" name="name"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span id="nameResult1" class="inputResult"></span>
+			</td>
+		</tr>		
+
 		<tr>
 			<td>휴대폰</td>
 			<td>
-				<input type="text" id="mobile" placeholder="휴대폰번호를 입력하세요." id="mobile" name="mobile" required="required" />
+				<input type="text" id="mobile" placeholder="예:000-00-00000" id="mobile" name="mobile"  />
 				<input type="button" value="인증번호" id="mobile_button" name="mobile_button" onclick="mobilePopup();"/>
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<span id="mobileResult1" class="inputResult"></span>
+			</td>
+		</tr>
+			
+		<tr>
 			<td>인증번호</td>
 			<td>
-				<input type="text" placeholder="인증번호 선택" id="mobileNum" name="mobileNum" required="required" readonly="readonly"/>
+				<input type="text" placeholder="인증번호 선택" id="mobileNum" name="mobileNum"  readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<span id="mobileNumResult1" class="inputResult"></span>
+			</td>
+		</tr>
+		
+		<tr>
 			<td>이메일</td>
 			<td>
-				<input type="text" placeholder="예:takeit@take.com" id="email" name="email" required="required"/>
+				<input type="text" placeholder="예:takeit@take.com" id="email" name="email" />
 				<input type="button" value="중복확인" id="email_button" onclick="emailCheck()"/>
 			</td>
 		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span id="emailNumResult1" class="inputResult"></span>
+				<span id="emailNumResult2" class="inputResult"></span>
+			</td>
+		</tr>
+		
 		<tr>
 			<td>우편번호</td>
 			<td>
@@ -182,11 +179,25 @@ function emailCheck(){
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<span id="postNoResult1" class="inputResult"></span>
+			</td>
+		</tr>
+		
+		<tr>
 			<td>도로명주소</td>
 			<td>
 				<input type="text" placeholder="도로명주소" id="address" name="address" readonly="readonly"/>
 			</td>
 		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span id="addressResult1" class="inputResult"></span>
+			</td>
+		</tr>
+		
 		<tr>
 			<td>상세주소</td>
 			<td>
@@ -194,11 +205,25 @@ function emailCheck(){
 			</td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<span id="addressDetail1" class="inputResult"></span>
+			</td>
+		</tr>		
+		
+		<tr>
 			<td>생년월일</td>
 			<td><input type="text" placeholder="YYYY / MM / DD" id="brith" name="birth" /></td>
 		</tr>
 		<tr>
-			<td colspan="3" align="center"><input type="submit" value="가입하기" id="normal_submit" /></td>
+			<td></td>
+			<td>
+				<span id="addressResult1" class="inputResult"></span>
+			</td>
+		</tr>	
+		
+		<tr>
+			<td colspan="3" align="center"><input type="submit" value="가입하기" id="normalSubmit" name="normalSubmit" onclick="return inputCheck()"/></td>
 		</tr>
 	</table>
 </form>

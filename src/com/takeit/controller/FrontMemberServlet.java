@@ -95,6 +95,25 @@ public class FrontMemberServlet extends HttpServlet {
 		String birth = request.getParameter("birth");
 				
 		System.out.println(memberId + memberId + name + mobile + email + postNo + address + addressDetail + birth);
+
+		memberId = memberId.trim();
+		memberPw = memberPw.trim();
+		name = name.trim();
+		mobile = mobile.trim();
+		email = email.trim();
+		postNo = postNo.trim();
+		address = address.trim();
+		addressDetail = addressDetail.trim();
+		birth = birth.trim();				
+		
+		if(memberId == null || memberId.trim().length() == 0 || memberId.length() < 6 || memberId.length() > 20 ) {
+			MessageEntity message = new MessageEntity("error",33);
+			message.setLinkTitle("뒤로가기");
+			message.setUrl("/takeit/member/memberInput.jsp");
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+			return;
+		}
 		
 		Member dto = new Member(memberId, memberPw, name, mobile, email, postNo, address, addressDetail, birth);
 		
