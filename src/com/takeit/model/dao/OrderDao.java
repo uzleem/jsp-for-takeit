@@ -126,7 +126,8 @@ public class OrderDao {
 	public void selectSellerOrderList(Connection conn, String sellerId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ORDER_DETAIL USING(ITEM_NO) JOIN ORDERS USING(ORDER_NO) JOIN SHIPPING USING(SHIP_STATUS_CODE) "
-				+ "WHERE ITEM.SELLER_ID = ? ";
+				+ "WHERE ITEM.SELLER_ID = ? "
+				+ "ORDER BY ORDERS.ORDER_NO DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -164,7 +165,7 @@ public class OrderDao {
 					orderDetails.add(orderDetail);
 					
 					order.setOrderDetails(orderDetails);
-	
+					order.setShipStatusCode(rs.getString("ship_status_code"));
 					order.setOrderNo(rs.getString("order_No"));
 					order.setShipStatus(rs.getString("ship_Status"));
 					order.setShipRequest(rs.getString("ship_Request"));
@@ -194,8 +195,9 @@ public class OrderDao {
 	 */
 	public void selectMemberOrderList(Connection conn, String memberId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
-				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) "
-				+ "WHERE ORDERS.MEMBER_ID = ? ";
+				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) JOIN SELLER USING(SELLER_ID) "
+				+ "WHERE ORDERS.MEMBER_ID = ? "
+				+ "ORDER BY ORDERS.ORDER_NO DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -220,6 +222,7 @@ public class OrderDao {
 						orderDetail.setItemQty(rs.getInt("Item_Qty"));
 						orderDetail.setItemPayPrice(rs.getInt("item_pay_price"));
 						orderDetail.setItemImg(rs.getString("item_img"));
+
 						orderDetails.add(orderDetail);
 						
 						break;
@@ -236,7 +239,10 @@ public class OrderDao {
 					order.setOrderDetails(orderDetails);
 	
 					order.setOrderNo(rs.getString("order_No"));
+					order.setShipStatusCode(rs.getString("ship_status_code"));
 					order.setShipStatus(rs.getString("ship_Status"));
+					order.setSellerId(rs.getString("seller_id"));
+					order.setShopName(rs.getString("shop_name"));
 					order.setShipRequest(rs.getString("ship_Request"));
 					order.setMemberId(rs.getString("member_Id"));
 					order.setReceiveMethod(rs.getString("receive_Method"));

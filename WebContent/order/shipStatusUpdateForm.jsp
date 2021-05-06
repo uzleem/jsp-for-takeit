@@ -6,15 +6,37 @@
 <head>
 <meta charset="UTF-8">
 <title>배송상태 변경</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+function updateStatus() {
+	$.ajax({
+		url:"/takeit/order/orderController?action=updateShipStatus",
+		type:"post",
+		data:{
+			"orderNo" : "${param.orderNo}" , 
+			"shipStatusCode" : $("#shipStatusCode").val()
+		},
+		success : function(data) {
+			if (data == "success") {
+				opener.document.getElementById("${param.orderNo}stat").innerHTML = $("#shipStatusCode option:selected").text();
+				close();
+			} else {
+				alert("변경 실패");
+			}
+		}
+	});
+}
+	
+</script>
 </head>
 <body>
 <h2 align="center">배송상태 변경</h2>
 <form action="${CONTEXT_PATH}/order/orderController?action=updateShipStatus" method="post">
-<div align="center" style="width:content-fit;margin: 150px 0 0 auto;">
-	<div>
-		주문번호 : ${param.orderNo}, 배송상태코드:${param.shipStatusCode}
+<div align="center" style="width:fit-content;margin: 0 auto;margin-top:50px;">
+	<div style="margin-bottom: 20px;">
+		<span ><b>주문번호</b> : ${param.orderNo}</span><br><p/>
 	</div>
-	<select style="width:150px;height:50px; text-align: center; box-sizing: border-box;">
+	<select id="shipStatusCode" name="shipStatusCode" style="width:150px;height:50px; text-align: center; box-sizing: border-box;">
 		<c:forEach items="${shippingList}" var="shipping">
 			<c:choose>
 				<c:when test="${shipping.shipStatusCode == param.shipStatusCode}">
@@ -26,7 +48,7 @@
 			</c:choose>
 		</c:forEach>
 	</select>
-	<input type="submit" value="변경하기" style="height:47px;width:100px;box-sizing: border-box;">
+	<input onclick="updateStatus()" type="button" value="변경하기" style="height:47px;width:100px;box-sizing: border-box;" />
 </div>
 </form>
 </body>

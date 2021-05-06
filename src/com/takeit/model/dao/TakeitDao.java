@@ -44,7 +44,8 @@ public class TakeitDao {
 				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
 				+ "			) "
 				+ "		) "
-				+ "AND ITEM_TAKEIT = 'T' ";
+				+ "AND ITEM_TAKEIT = 'T' "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -118,7 +119,8 @@ public class TakeitDao {
 				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? AND MEMBER_LOC_NO = ? "
 				+ "			) "
 				+ "		) "
-				+ "AND ITEM_TAKEIT = 'T' ";
+				+ "AND ITEM_TAKEIT = 'T' "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

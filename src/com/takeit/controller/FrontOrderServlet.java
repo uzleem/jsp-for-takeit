@@ -73,6 +73,22 @@ public class FrontOrderServlet extends HttpServlet {
 	
 	/** 배송상태변경 요청 서비스 */
 	protected void updateShipStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		String orderNo = request.getParameter("orderNo");
+		String shipStatusCode = request.getParameter("shipStatusCode");
+		
+		orderNo = orderNo.trim();
+		shipStatusCode = shipStatusCode.trim();
+		
 		
 	}
 	
@@ -249,7 +265,7 @@ public class FrontOrderServlet extends HttpServlet {
 		}
 	}
 	
-	/** 일반회원 주문 요청 서비스 */
+	/** 일반회원 주문등록 요청 서비스 */
 	protected void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute("dto") == null) {

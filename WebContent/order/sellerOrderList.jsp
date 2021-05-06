@@ -30,11 +30,11 @@ function orderCancel(orderNo) {
 } 
 
 function updateShipStatus(orderNo, shipStatusCode) {
-	var popupX = ((document.body.offsetWidth) / 2) - ( 600 / 2);
-	var popupY= ((window.screen.height) / 2) - (400 / 2);
+	var popupX = ((document.body.offsetWidth) / 2) - ( 500 / 2);
+	var popupY= ((window.screen.height) / 2) - (300 / 2);
 	var url = "/takeit/order/orderController?action=updateShipStatusForm&orderNo=" + orderNo +"&shipStatusCode=" + shipStatusCode;
 	var name = "updateShipStatus";
-	var specs = "width=600px, height=400px, resizable=1, scrollbars=1, status=1, titlebar=1, left="+popupX +", top="+popupY;
+	var specs = "width=500px, height=300px, resizable=1, scrollbars=1, status=1, titlebar=1, left="+popupX +", top="+popupY;
 	open(url, name, specs);
 }
 </script>
@@ -87,13 +87,12 @@ function updateShipStatus(orderNo, shipStatusCode) {
 	<div>
 		<div class="order-info">
 			<span>주문번호 : ${order.orderNo}</span>
-			
 			<c:if test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
 				<input type="button" class="small-btn" value="주문취소승인" id="${order.orderNo}" onclick="orderCancel(this.id)">
 			</c:if>
 			<br>
 			주문자 : ${order.memberId}<br>
-			<span>배송상태 : ${order.shipStatus}</span>
+			<span>배송상태 : <span id="${order.orderNo}stat">${order.shipStatus}</span></span>
 			<span><input type="button" class="small-btn" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/></span>
 			<br>
 			요청사항 : ${order.shipRequest}<br>

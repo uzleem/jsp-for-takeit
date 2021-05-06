@@ -260,7 +260,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		if (session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
-			message.setUrl("/member/memberLogin.jsp");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
