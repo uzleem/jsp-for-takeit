@@ -31,11 +31,8 @@
 	<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 	<!-- contents menu -->
-	<h1 class="title" align='center'>REVIEW</h1>
+	<h1 class="title" align='center'>MY REVIEW</h1>
 
-	<div id="small-btn">
-		<a href="/takeit/item/reviewController?action=enrollReviewForm">후기작성</a>
-	</div>
 	<br>
 	<br>
 	<table id="review_tbl" class="review_">
@@ -64,7 +61,7 @@
 			<td><%=dto.getMemberId()%></td>
 	        <td><%=dto.getItemNo()%></td>
 	        <td>
-		<a id="reviewLink" href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"><%= dto.getReviewTitle()%></a>
+		<a id="reviewLink" href="/takeit/item/reviewController?action=updateReviewForm&reviewNo=<%= dto.getReviewNo() %>"><%= dto.getReviewTitle()%></a>
 		</td>
 	       <!--  <%=dto.getReviewTitle()%></td>-->
 			<td><%=dto.getReviewViews()%></td>

@@ -139,6 +139,75 @@ public class ItemDao {
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(stmt);
 	}
+	
+	
+	/**
+	 * 판매자 등록상품조회
+	 * @return ArrayList<Item>
+	 */
+	public void getMyReviewList(Connection conn, ArrayList<Item> itemList,String sellerId) throws CommonException {
+
+		String sql = "select a.item_no , a.seller_id , a.item_name , a.item_price"+
+			          ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
+			          ", a.item_input_date , a.disc_rate , a.item_takeit , a.item_category_no , b.item_category_name"+
+			          ", b.expiration_date, b.fresh_percent,b.notice, b.pack_type_no , c.pack_type_name"+
+			          ", d.shop_name as shop_name"+
+			          " from item a, item_category b , packing c, seller d"+
+			          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
+			          " and a.seller_id = d.seller_id"+
+			          " order by a.item_input_date desc";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, sellerId);
+			rs = stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				 Item dto = new Item();
+				
+				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
+				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
+				
+				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
+				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
+				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
+				dto.setNotice(rs.getString("NOTICE"));
+				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
+				dto.setItemNo(rs.getString("ITEM_NO"));
+				
+				dto.setShopName(rs.getString("SHOP_NAME"));
+				dto.setSellerId(rs.getString("SELLER_ID"));
+				dto.setItemName(rs.getString("ITEM_NAME"));
+				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
+				dto.setSalesUnit(rs.getString("SALES_UNIT"));
+				dto.setItemOrigin(rs.getString("ITEM_ORIGIN"));
+				dto.setItemStock(rs.getInt("ITEM_STOCK"));
+				dto.setItemImg(rs.getString("ITEM_IMG"));
+				dto.setItemCustScore(rs.getDouble("ITEM_CUST_SCORE"));
+				dto.setItemInputDate(rs.getString("ITEM_INPUT_DATE"));
+				dto.setDiscRate(rs.getInt("DISC_RATE"));
+				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));
+		
+                
+				itemList.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",7);
+			message.setLinkTitle("메인으로");
+			message.setUrl("/takeit/index");
+			throw new CommonException(message);
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+	}
 /**
  * 상품 상세조회	
  */

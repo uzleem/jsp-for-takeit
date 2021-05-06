@@ -8,6 +8,7 @@ import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ItemDao;
 import com.takeit.model.dto.Item;
+import com.takeit.model.dto.Review;
 
 
 
@@ -27,6 +28,22 @@ public class ItemBiz {
 		Connection con = JdbcTemplate.getConnection();
 		try {
 			dao.ItemList(con, ItemList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+	/**
+	 * 판매자 등록상품 Item
+
+	 * @param dto review
+	 * @return 성공시 등록 미입력시 오류처리
+	 */
+	public void getMySellList(ArrayList<Item> ItemList ,String sellerId) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.getMyReviewList(con, ItemList,sellerId);
 		} catch (CommonException e) {
 			throw e;
 		} finally {

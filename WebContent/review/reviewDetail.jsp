@@ -10,6 +10,7 @@
 <title>takeit::후기상세조회</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/board.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/review.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
@@ -72,7 +73,7 @@
 			<tr>
 				<th>후기이미지</th>
 
-				<td><img src="/takeit/img/review/${review.reviewImg}"></td>
+				<td><img alt='${review.reviewImg}'src="/takeit/img/review/${review.reviewImg}"></td>
 			</tr>
 			<!--<td><img alt='후기' src="/takeit/img/review/${review.reviewImg}"width="450" height="310"></td>-->
 
@@ -80,8 +81,9 @@
 		<div>
 			<div class="btn-area" align='center'>
 				<input type="button" class="link" style="display: inline-block;"
-					value="목록" /> <input type="button" class="link"
-					style="display: inline-block;" value="상품보러가기" />
+					value="목록" onclick="location.href='/takeit/item/reviewController?action=reviewList'"/> 
+				<input type="button" class="link"
+					style="display: inline-block;" value="상품보러가기" onclick="location.href='/takeit/index'"/>
 			</div>
 		</div>
 	</div>

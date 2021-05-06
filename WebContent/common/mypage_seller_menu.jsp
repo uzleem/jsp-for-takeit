@@ -9,6 +9,7 @@
 		<li><a href="/takeit/order/orderController?action=sellerOrderList">판매주문 목록</a></li>
 		<li><a href="/takeit/member/mypageController?action=itemaddForm">상품 등록</a></li>
 		<li><a href="/takeit/member/mypageController?action=removeMemberForm">회원 탈퇴</a></li>
+		<li><a href="">등록한 상품조회</a></li>
 	</ul>
 	
 	<c:if test="${not empty dto and dto.grade == 'A'}">
@@ -16,6 +17,7 @@
 		<ul>
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=shopLocInputForm">지역시장 등록</a></li>
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=takeitInputForm">잇거래 등록</a></li>
+			
 		</ul>
 	</c:if>
 </div>
