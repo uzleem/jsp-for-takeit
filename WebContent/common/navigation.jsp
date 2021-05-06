@@ -7,7 +7,7 @@
 		<span id="pipe">|</span>
 		<a href="/takeit/item/itemController?action=itemList">신상품</a>
 		<span id="pipe">|</span>
-		<a href="#">베스트</a>
+		<a href="/takeit/item/reviewController?action=reviewList">사용자리뷰</a>
 		<span id="pipe">|</span>
 		<a href="/takeit/takeit/takeitController?action=takeitItemList">잇거래</a>
 		<span id="pipe">|</span>

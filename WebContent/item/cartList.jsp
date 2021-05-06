@@ -97,5 +97,9 @@
 		</form>
 	</div>
 </div>
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
 </body>
 </html>
