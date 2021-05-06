@@ -46,14 +46,31 @@ public class FrontOrderServlet extends HttpServlet {
 		case "orderCancelRequest":
 			orderCancelRequest(request, response);
 			break;
+		case "orderCancel":
+			orderCancel(request, response);
+			break;
 		}
 	}
-	protected void orderCancelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void orderCancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String orderNo = request.getParameter("orderNo");
 		
 		OrderBiz biz = new OrderBiz();
 		try {
-			boolean result = biz.orderCancelRequest(orderNo);
+			biz.orderCancel(orderNo);
+			response.getWriter().write("1");
+			
+		} catch (CommonException e) {
+			response.getWriter().write("0");
+		}
+	}
+	
+	protected void orderCancelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String orderNo = request.getParameter("orderNo");
+		System.out.println("ajax orderNo:"+orderNo);
+		
+		OrderBiz biz = new OrderBiz();
+		try {
+			biz.orderCancelRequest(orderNo);
 			response.getWriter().write("1");
 		} catch (CommonException e) {
 			e.printStackTrace();

@@ -9,6 +9,31 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+function orderCancel(orderNo) {
+	$.ajax({
+		url:"/takeit/order/orderController?action=orderCancel",
+		type:"post",
+		data:{
+			"orderNo" : orderNo
+		},
+		success : function(data) {
+			if (data == "1") {
+				alert("성공");
+				$("#"+orderNo).attr("disabled", true);
+			} else {
+				alert("실패");
+			}
+		}
+	});
+} 
+
+function updateShipStatus(orderNo) {
+	open("/takeit/order/orderController?action=updateShipStatus");
+}
+
+
+</script>
 </head>
 <body>
 
@@ -42,10 +67,14 @@
 	<h3>주문내역</h3>
 	<c:forEach var="order" items="${orderList}">
 	<div>
-		주문번호 : ${order.orderNo} <br>
+		주문번호 : ${order.orderNo}
+		<c:if test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
+			<input type="button" value="주문취소승인" id="${order.orderNo}" onclick="orderCancel(this.id)">
+		</c:if>
+		<br>
 		주문자 : ${order.memberId}<br>
 		배송상태 : ${order.shipStatus}
-		<input type="button" value="배송상태변경"/>
+		<input type="button" value="배송상태변경" onclick="updateShipStatus(${order.orderNo})"/>
 		<br>
 		요청사항 : ${order.shipRequest}<br>
 		

@@ -20,11 +20,12 @@ function orderCancelRequest(orderNo) {
 		success : function(data) {
 			if (data == "1") {
 				alert("성공");
+				$("#"+orderNo).attr("disabled", true);
 			} else {
 				alert("실패");
 			}
 		}
-	})
+	});
 }
 </script>
 </head>
@@ -62,8 +63,29 @@ function orderCancelRequest(orderNo) {
 			<hr>
 			<div>
 				<div>
-					주문번호 : ${order.orderNo} &emsp; 주문 상태 : ${order.shipStatus}
-					<input type="button" value="취소요청" onclick="orderCancelRequest(${order.orderNo})"> 
+					주문번호 : ${order.orderNo} &emsp;
+					주문 상태 : 
+					<c:choose>
+						<c:when test="${order.orderCancel == 'F' and order.orderCancelReq == 'T'}">
+							${order.shipStatus}(취소요청)
+						</c:when>
+						<c:when test="${order.orderCancel == 'T'}">
+							주문취소완료					
+						</c:when>
+						<c:otherwise>
+							${order.shipStatus}
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${order.orderCancelReq == 'T' and order.orderCancel == 'F'}">
+							<input id="${order.orderNo}" disabled="disabled" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">		
+						</c:when>
+						<c:when test="${order.orderCancelReq == 'F' and order.orderCancel == 'F'}">
+							<input id="${order.orderNo}" type="button" value="취소요청" onclick="orderCancelRequest('${order.orderNo}')">
+						</c:when>
+						<c:when test="${order.orderCancel == 'T' }"></c:when>
+					</c:choose>
+					 
 				</div>
 				<c:forEach var="orderDetail" items="${order.orderDetails}">
 				<div>
