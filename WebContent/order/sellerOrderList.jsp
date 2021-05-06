@@ -18,7 +18,7 @@ function orderCancel(orderNo) {
 			"orderNo" : orderNo
 		},
 		success : function(data) {
-			if (data == "1") {
+			if (data == "success") {
 				alert("성공");
 				$("#"+orderNo).attr("disabled", true);
 			} else {
@@ -28,14 +28,25 @@ function orderCancel(orderNo) {
 	});
 } 
 
-function updateShipStatus(orderNo) {
-	open("/takeit/order/orderController?action=updateShipStatus");
+function updateShipStatus(orderNo, shipStatusCode) {
+	var popupX = ((document.body.offsetWidth) / 2) - ( 600 / 2);
+	var popupY= ((window.screen.height) / 2) - (400 / 2);
+	var url = "/takeit/order/orderController?action=updateShipStatusForm&orderNo=" + orderNo +"&shipStatusCode=" + shipStatusCode;
+	var name = "updateShipStatus";
+	var specs = "width=600px, height=400px, resizable=1, scrollbars=1, status=1, titlebar=1, left="+popupX +", top="+popupY;
+	open(url, name, specs);
 }
-
-
 </script>
 </head>
 <body>
+<c:if test="${empty dto}">
+	<jsp:useBean id="message" class="com.takeit.model.dto.MessageEntity" scope="request" />
+	<jsp:setProperty property="type" name="message" value="message"/>
+	<jsp:setProperty property="index" name="message" value="0"/>
+	<jsp:setProperty property="url" name="message" value="${CONTEXT_PATH}/index"/>
+	<jsp:setProperty property="linkTitle" name="message" value="처음으로"/>
+	<jsp:forward page="/exe02/teacher/message.jsp"/>
+</c:if>
 
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId and empty sellerId}">
@@ -46,6 +57,7 @@ function updateShipStatus(orderNo) {
 	<!-- 로그인 후 메뉴 -->
 	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 </c:if>
+
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
@@ -53,13 +65,16 @@ function updateShipStatus(orderNo) {
 
 <div id="container">
 <c:choose>
-	<c:when test ="${grade == 'S'}">
+	<c:when test ="${not empty sellerId}">
  		<!-- 판매자 마이페이지 메뉴 -->
- 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
+ 		<jsp:include page="/common/mypage_seller_menu.jsp"/>
+	</c:when>
+	<c:when test="${not empty memberId}">
+		<!-- 일반회원 마이페이지 메뉴 -->
+		<jsp:include page="/common/mypage_member_menu.jsp"/>
 	</c:when>
 	<c:otherwise>
-		<!-- 일반회원 마이페이지 메뉴 -->
-		<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
+		<jsp:include page="/member/memberLogin.jsp"/>
 	</c:otherwise>
 </c:choose>
 
@@ -74,7 +89,7 @@ function updateShipStatus(orderNo) {
 		<br>
 		주문자 : ${order.memberId}<br>
 		배송상태 : ${order.shipStatus}
-		<input type="button" value="배송상태변경" onclick="updateShipStatus(${order.orderNo})"/>
+		<input type="button" value="배송상태변경" onclick="updateShipStatus('${order.orderNo}','${order.shipStatusCode}')"/>
 		<br>
 		요청사항 : ${order.shipRequest}<br>
 		

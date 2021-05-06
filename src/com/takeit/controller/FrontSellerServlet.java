@@ -86,23 +86,22 @@ public class FrontSellerServlet extends HttpServlet {
 	 * 회원가입 폼
 	 */
 	protected void sellerInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		TakeitBiz takeitBiz = new TakeitBiz();
-		
 		ArrayList<ShopLoc> shopLocList = new ArrayList<>();
-		takeitBiz.getShopLocList(shopLocList);
-		System.out.println(shopLocList.get(0).getShopLocName());
-		request.setAttribute("shopLocList", shopLocList);
 		
-//		ItemBiz itemBiz = new ItemBiz();
-//		
-//		ArrayList<ItemCategory> itemCategoryList = new ArrayList<>();
-//		itemBiz.getItemCategoryList(itemCategoryList);
-//		request.setAttribute("itemCategoryList", itemCategoryList);
-//		
-		request.getRequestDispatcher("/seller/sellerInput.jsp").forward(request, response);
+		try {
+			takeitBiz.getShopLocList(shopLocList);
+			
+			request.setAttribute("shopLocList", shopLocList);
+			request.getRequestDispatcher("/seller/sellerInput.jsp").forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
 	}
-	
 	
 	/**
 	 * 회원가입
@@ -186,7 +185,7 @@ public class FrontSellerServlet extends HttpServlet {
 			if(dto.getAddress() != null) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("sellerId", sellerId); 
-				session.setAttribute("dto", dto); 			
+				session.setAttribute("dto", dto);
 				response.sendRedirect("/takeit/index");
 			}else {
 				MessageEntity message = new MessageEntity("error", 34);

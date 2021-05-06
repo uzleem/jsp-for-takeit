@@ -1,6 +1,12 @@
 package com.takeit.model.dto;
 
-public class OrderDetail {
+import java.io.Serializable;
+
+/**
+ * 주문상세 도메인 클래스
+ * @author 김태경
+ */
+public class OrderDetail implements Serializable {
 	private String itemNo;
 	private String itemName;
 	private int itemQty;
@@ -8,8 +14,7 @@ public class OrderDetail {
 	private String itemImg;
 	
 
-	public OrderDetail() {
-	}
+	public OrderDetail() {}
 
 	public OrderDetail(String itemNo, String itemName, int itemQty, int itemPayPrice, String itemImg) {
 		super();
@@ -19,6 +24,7 @@ public class OrderDetail {
 		this.itemPayPrice = itemPayPrice;
 		this.itemImg = itemImg;
 	}
+	
 
 	public String getItemNo() {
 		return itemNo;
