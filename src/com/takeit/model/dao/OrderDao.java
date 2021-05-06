@@ -127,7 +127,7 @@ public class OrderDao {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ORDER_DETAIL USING(ITEM_NO) JOIN ORDERS USING(ORDER_NO) JOIN SHIPPING USING(SHIP_STATUS_CODE) "
 				+ "WHERE ITEM.SELLER_ID = ? "
-				+ "ORDER BY ORDERS.ORDER_NO DESC ";
+				+ "ORDER BY ORDER_NO DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -197,7 +197,7 @@ public class OrderDao {
 		String sql = "SELECT * "
 				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) JOIN SELLER USING(SELLER_ID) "
 				+ "WHERE ORDERS.MEMBER_ID = ? "
-				+ "ORDER BY ORDERS.ORDER_NO DESC ";
+				+ "ORDER BY ORDER_NO DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
