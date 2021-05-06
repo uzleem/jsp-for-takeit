@@ -46,27 +46,6 @@ public class MypageBiz {
 	}
 	
 	
-	/**
-	 * 상점 카테고리 목록 조회
-	 * @param dto
-	 * @throws CommonException
-	 */
-	public void getshopCategoryList( ArrayList<Seller> shopCategoryList) throws CommonException{
-		Connection conn = JdbcTemplate.getConnection();
-		
-		try {
-			dao.getShopCategoryList(conn, shopCategoryList);
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			
-			throw e;
-		}finally {
-			JdbcTemplate.close(conn);
-		}
-		
-	}
 	
 	
 	/**
@@ -90,26 +69,6 @@ public class MypageBiz {
 		
 	}
 	
-	
-	/**
-	 * 상품 포장 타입 목록 조회
-	 * @param packTypeList
-	 * @throws CommonException
-	 */
-		public void getpackTypeList(ArrayList<Item> packTypeList) throws CommonException{
-			
-			Connection conn = JdbcTemplate.getConnection(); 
-			try {
-				dao.getpackTypeList(conn, packTypeList);
-				
-			}catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}finally {
-				JdbcTemplate.close(conn);
-			}
-			
-		} 
 	
 	/**
 	 * 카테고리 목록 조회
