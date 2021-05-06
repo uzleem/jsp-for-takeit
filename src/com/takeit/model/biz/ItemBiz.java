@@ -120,6 +120,19 @@ public void setSellItem(Item dto) throws CommonException{
 	}
 	}
 
+	/**카테고리별 상품 목록*/
+	public void getCategoryItemList(ArrayList<Item> categoryItemList, String categoryNo, String categoryName) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.getCategoryItemList(con, categoryItemList, categoryNo, categoryName);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
+
 
 }
 

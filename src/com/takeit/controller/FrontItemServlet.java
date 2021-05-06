@@ -59,12 +59,6 @@ public class FrontItemServlet extends HttpServlet {
 			case "SellerItemForm":
 				SellerItemForm(request,response);
 				break;
-				//		case "SellerItemForm":
-				//			SellerItemForm(request,response);
-				//				break;
-				//		case "SellerItemForm":
-				//			SellerItemForm(request,response);
-				//				break;
 		}
 	}
 	
