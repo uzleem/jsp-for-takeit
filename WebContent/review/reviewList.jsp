@@ -60,11 +60,13 @@
 		<tr>
 			<td><%=dto.getReviewNo()%></td>
 		<!--	<td>
-          <a  id="reviewLink" href="/takeit/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"></a>
-		</td>-->
+          <a  id="reviewLink" href="/takeit/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"></a></td>-->
 			<td><%=dto.getMemberId()%></td>
 	        <td><%=dto.getItemNo()%></td>
-	        <td><%=dto.getReviewTitle()%></td>
+	        <td>
+		<a id="reviewLink" href="/takeit/item/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"><%= dto.getReviewTitle()%></a>
+		</td>
+	       <!--  <%=dto.getReviewTitle()%></td>-->
 			<td><%=dto.getReviewViews()%></td>
 		    <td><%=dto.getReviewScore()%></td>
 		    <td><%=dto.getReviewDate()%></td>
@@ -77,6 +79,8 @@
 	</table>
 	<br>
 	<a href="/takeit/index" class="link">홈으로이동</a>
+	<!--  <a href="/takeit/item/reviewController?action=deleteReview&reviewNo=<%=dto.getReviewNo() %>">후기삭제</a>-->
+	
 
 
 	<!-- footer 구역 -->

@@ -94,7 +94,7 @@ public void getSellItem(Item dto){
 	Connection conn = JdbcTemplate.getConnection();
 	
 	try {
-		dao.SellDetail(conn, dto);
+		dao.SellItem(conn, dto);
 	}catch (Exception e) {
 		e.printStackTrace();
 	}finally {

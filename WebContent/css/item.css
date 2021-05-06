@@ -5,9 +5,9 @@ img[src$="item/.jpg/"] {
 	height: 30px;
 }
 
-table {
+table{
 	width: 100%;
-	border: 1px solid black;
+	border:  solid 1px black;
 }
 
 .itemTable {

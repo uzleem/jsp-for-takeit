@@ -227,7 +227,7 @@ public class ItemDao {
 	 * @param conn
 	 * @param dto 상품
 	 */
-	public void SellDetail(Connection conn, Item dto){
+	public void SellItem(Connection conn, Item dto){
 		String sql = "select * from Item where seller_id=?";
 		
 		PreparedStatement stmt = null;

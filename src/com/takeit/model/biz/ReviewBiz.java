@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
-import com.takeit.model.dao.ItemDao;
 import com.takeit.model.dao.ReviewDao;
-import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Review;
 
 /**
@@ -98,25 +96,31 @@ public class ReviewBiz {
 	}
 
 	/**후기상세조회*/
-	public void searchReview(Review dto) throws CommonException {
-		ReviewDao dao = ReviewDao.getInstance();
+	public void searchReview(Review dto,String reviewNo) throws CommonException {
+		//ReviewDao dao = ReviewDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
-		System.out.println("dto = "+ dto.getItemNo());
+		System.out.println("dto = "+ dto.getReviewNo());
 		try {
-			dao.lookReview(conn, dto);
+			
+			int hits = dao.hits(conn, reviewNo);
+			JdbcTemplate.commit(conn);
+			if(hits != 0) {
+			dao.lookReview(conn, dto,reviewNo);
+			}
 		} catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
 			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
 		}
-
-
-		JdbcTemplate.close(conn);
+		
 	}
 
 	/**후기삭제*/
-	public void reviewDelete(String reviewNo,String memberId,String reviewTitle) throws CommonException {
+	public void reviewDelete(String reviewNo,String memberId) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			dao.deleteReview(con,reviewNo, memberId, reviewTitle);
+			dao.deleteReview(con,reviewNo, memberId);
 			JdbcTemplate.commit(con);
 		} catch (CommonException e) {
 			JdbcTemplate.rollback(con);
