@@ -1,6 +1,7 @@
 package com.takeit.model.dao;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import java.io.File;
 import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -169,6 +170,45 @@ public class MypageDao {
 		JdbcTemplate.close(stmt);
 		
 	}
+	/**
+	 * 상품 이미지 파일 명 변경
+	 * @param conn
+	 * @param dto
+	 * @throws CommonException
+	 */
+		public void itemget(Connection conn, Item dto) throws CommonException {
+			System.out.println("상품 등록 dao 입장");
+			String sql = "select item_img from ( " + 
+					"select item_img from item order by rownum desc) " + 
+					"where rownum = 1";
+
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					dto.setItemImg(rs.getString("item_img"));
+				}
+				
+				
+				
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			
+				MessageEntity message = new MessageEntity("error", 7);
+				message.setUrl("/takeit/item/login?action=itemaddForm");
+				message.setLinkTitle("상품등록");
+
+				throw new CommonException(message);
+			}
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
 	
 	
 	
@@ -181,10 +221,17 @@ public class MypageDao {
 		public void addItem(Connection conn, Item dto) throws CommonException {
 			System.out.println("상품 등록 dao 입장");
 			String sql = "INSERT INTO ITEM VALUES (? || lpad((ITEM_SEQ.nextval),6,'0'),"
-					+ "?, ?, ?, null, ?, ?,? , ?, sysdate, ?, ?,?)";
+					+ "?, ?, ?, null, ?, ?, ? || lpad((ITEM_SEQ.currval),6,'0')||substr(?,-4)       , ?, sysdate, ?, ?,?)";
 
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
+			
+			File file = new File(dto.getItemImg());
+			File newFile = new File(".jpg");
+			file.renameTo(newFile);
+			
+		
+			System.out.println("파일이름 : " + newFile);
 			
 			try {
 				stmt = conn.prepareStatement(sql);
@@ -195,12 +242,14 @@ public class MypageDao {
 				stmt.setInt(4, dto.getItemPrice ());
 				stmt.setString(5, dto.getItemOrigin());
 				stmt.setInt(6, dto.getItemStock());
-				stmt.setString(7, dto.getItemImg());
+				stmt.setString(7, dto.getItemCategoryNo());
 				
-				stmt.setDouble(8, 0.0);
-				stmt.setInt(9, 0);
-				stmt.setString(10, dto.getItemTakeit());
-				stmt.setString(11, dto.getItemCategoryNo());
+				stmt.setString(8, dto.getItemImg());
+				
+				stmt.setDouble(9, 0.0);
+				stmt.setInt(10, 0);
+				stmt.setString(11, dto.getItemTakeit());
+				stmt.setString(12, dto.getItemCategoryNo());
 				
 				int result = stmt.executeUpdate();
 				
