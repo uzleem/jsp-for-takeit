@@ -45,7 +45,7 @@ public class SellerDao {
 		stmt.setString(10, "S");
 		stmt.setString(11, seller.getSellerNo());
 		stmt.setString(12, seller.getShopMobile());
-		stmt.setString(13, seller.getName());
+		stmt.setString(13, seller.getShopName());
 		stmt.setDouble(14, 5.0);
 		stmt.setString(15, seller.getShopKakaoId());
 		stmt.setString(16, seller.getShopImg());
@@ -245,6 +245,39 @@ public class SellerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			MessageEntity message = new MessageEntity("error",38);
+			message.setUrl("/takeit/seller/sellerInput.jsp");
+			message.setLinkTitle("뒤로가기");
+			throw new CommonException(message);
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return true;
+	}
+
+	/**
+	 * 상점명 중복체크
+	 * @throws CommonException 
+	 */
+	public boolean shopNameChk(Connection con, String shopName) throws CommonException {
+		
+		String sql = "select shop_name from seller where shop_name= ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, shopName);
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error",41);
 			message.setUrl("/takeit/seller/sellerInput.jsp");
 			message.setLinkTitle("뒤로가기");
 			throw new CommonException(message);
