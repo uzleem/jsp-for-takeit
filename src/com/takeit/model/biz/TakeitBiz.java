@@ -100,7 +100,7 @@ public class TakeitBiz {
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-		dao.searchTakeitItemList(conn, member, takeitItemList);
+			dao.searchTakeitItemList(conn, member, takeitItemList);
 		} catch(CommonException e) {
 			throw e;
 		} finally {
@@ -127,6 +127,9 @@ public class TakeitBiz {
 	 * @param member 회원객체
 	 */
 	public void addMemberLocNo(Member member) throws CommonException {
+		member.setMemberLocNo(null);
+		member.setShopLocCode(null);
+		
 		HashMap<String, String> latLng = Utility.getLatlng(member.getAddress());
 		String _lat = latLng.get("lat");
 		String _lng = latLng.get("lng");
@@ -144,6 +147,7 @@ public class TakeitBiz {
 		try {
 			dao.searchShopLocList(conn, shopLocList);
 		} catch (CommonException e) {
+			e.printStackTrace();
 			throw e;
 		} finally {
 			JdbcTemplate.close(conn);
@@ -176,7 +180,6 @@ public class TakeitBiz {
 		locLng += 0.05;
 		memberLocNo += (int)(locLat*100);
 		member.setMemberLocNo(memberLocNo);
-		
 		conn = JdbcTemplate.getConnection();
 		try {
 			boolean result = dao.isValidMemberLocNo(conn, member);

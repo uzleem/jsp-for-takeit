@@ -92,7 +92,6 @@ public class FrontOrderServlet extends HttpServlet {
 		String[] itemNos = request.getParameterValues("itemNo");
 		String[] itemQtys = request.getParameterValues("itemQty");
 		String[] itemPayPrices = request.getParameterValues("itemPrice");
-		//String[] totalPrices = request.getParameterValues("totalPrice");
 		
 		Order order = new Order();
 		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
