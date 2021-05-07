@@ -31,11 +31,11 @@
 	<jsp:include page="/common/navigation.jsp"></jsp:include>
 
 	<!-- contents menu -->
-	<h1 class="title" align='center'>MY REVIEW</h1>
-
-	<br>
-	<br>
-	<table id="review_tbl" class="review_">
+<div id="reviewList-wrap">
+	<div id="title">
+		<h3 style="margin-bottom: 0;">MY REVIEW</h3>
+	</div>
+	<table id="review_tbl" class="review">
 		<!-- 제목행 -->
 		<tr>
 			<th>후기NO</th>
@@ -45,42 +45,35 @@
 		    <th>조회수</th>
 			<th>후기평점</th>
 			<th>작성일자</th>
-		
-
-
 		</tr>
-
 		<%
 			ArrayList<Review> reviewList = (ArrayList<Review>) request.getAttribute("reviewList");
 			for (Review dto : reviewList) {
 		%>
 		<tr>
 			<td><%=dto.getReviewNo()%></td>
-		<!--	<td>
-          <a  id="reviewLink" href="/takeit/reviewController?action=reviewDetail&reviewNo=<%= dto.getReviewNo() %>"></a></td>-->
 			<td><%=dto.getMemberId()%></td>
 	        <td><%=dto.getItemNo()%></td>
 	        <td>
 		<a id="reviewLink" href="/takeit/item/reviewController?action=updateReviewForm&reviewNo=<%= dto.getReviewNo() %>"><%= dto.getReviewTitle()%></a>
 		</td>
-	       <!--  <%=dto.getReviewTitle()%></td>-->
 			<td><%=dto.getReviewViews()%></td>
 		    <td><%=dto.getReviewScore()%></td>
 		    <td><%=dto.getReviewDate()%></td>
-	
 		</tr>
 		<%
 			}
 		%>
-
+	
 	</table>
 	<br>
 	<a href="/takeit/index" class="link">홈으로이동</a>
-	
-	
-
-
-	<!-- footer 구역 -->
-	<jsp:include page="/common/footer.jsp"></jsp:include>
+</div>
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
+<!-- footer 구역 -->
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html>
