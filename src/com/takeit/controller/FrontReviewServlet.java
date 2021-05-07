@@ -55,7 +55,16 @@ public class FrontReviewServlet extends HttpServlet {
 			myReviewList(request,response);
 			break;
 		case "setReviewInfo":
-			setReviewInfo(request,response);
+			String button = request.getParameter("button");
+			System.out.println("= button = ["+ button+"]");
+			
+			if(button.equals("내후기수정")) {
+				System.out.println("setReviewInfo "+ button);
+				setReviewInfo(request,response);
+			}else {	
+				System.out.println("deleteReview "+ button);
+				deleteReview(request,response);
+			}
 			break;
 		case "deleteReview":
 			deleteReview(request, response);
@@ -142,7 +151,7 @@ public class FrontReviewServlet extends HttpServlet {
 
 
 		if (memberId == null || memberId.trim().length() == 0){
-			MessageEntity message = new MessageEntity("validation", 7);
+			MessageEntity message = new MessageEntity("validation", 5);
 			message.setUrl("takeit/review/review.jsp");
 			message.setLinkTitle("후기등록");
 
@@ -152,7 +161,7 @@ public class FrontReviewServlet extends HttpServlet {
 		}
 
 		if (itemNo == null || itemNo.trim().length() == 0){
-			MessageEntity message = new MessageEntity("validation", 7);
+			MessageEntity message = new MessageEntity("validation", 5);
 			message.setUrl("takeit/review/review.jsp");
 			message.setLinkTitle("후기등록");
 
@@ -162,7 +171,7 @@ public class FrontReviewServlet extends HttpServlet {
 
 		}
 		if (reviewTitle   == null || reviewTitle.trim().length() == 0){
-			MessageEntity message = new MessageEntity("validation", 7);
+			MessageEntity message = new MessageEntity("validation", 5);
 			message.setUrl("takeit/review/review.jsp");
 			message.setLinkTitle("후기등록");
 
@@ -172,7 +181,7 @@ public class FrontReviewServlet extends HttpServlet {
 		}
 
 		if (reviewContents == null || reviewContents.trim().length() == 0){
-			MessageEntity message = new MessageEntity("validation", 7);
+			MessageEntity message = new MessageEntity("validation", 5);
 			message.setUrl("takeit/review/review.jsp");
 			message.setLinkTitle("후기등록");
 
@@ -182,7 +191,7 @@ public class FrontReviewServlet extends HttpServlet {
 		}
 
 		if (reviewScore == 0 ){
-			MessageEntity message = new MessageEntity("validation", 7);
+			MessageEntity message = new MessageEntity("validation", 5);
 			message.setUrl("takeit/review/review.jsp");
 			message.setLinkTitle("후기등록");
 
@@ -290,6 +299,8 @@ public class FrontReviewServlet extends HttpServlet {
 		String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
 
+
+		
 		String itemNo = request.getParameter("itemNo");
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContents = request.getParameter("reviewContents");
@@ -336,6 +347,7 @@ public class FrontReviewServlet extends HttpServlet {
 	 */
 	protected void deleteReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		System.out.println("========== 내후기삭제 ============");
 		String reviewNo = request.getParameter("reviewNo");
 		String reviewTitle = request.getParameter("reviewTitle");
 
@@ -352,20 +364,19 @@ public class FrontReviewServlet extends HttpServlet {
 
 		try {
 			bbiz.reviewDelete(reviewNo, memberId);
-			message = new MessageEntity("success", 13); 
+			message = new MessageEntity("success", 15); 
 			message.setLinkTitle("후기목록보기");
 			message.setUrl("/takeit/item/reviewController?action=reviewList");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 
 		} catch (CommonException e) {
-			message = e.getMessageEntity();
-			message.setLinkTitle("후기 목록조회");
-			message.setUrl("/takeit/item/reviewController?action=reviewList");
+			 message = new MessageEntity("error",27);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
+
 
 
 	/**
@@ -391,7 +402,7 @@ public class FrontReviewServlet extends HttpServlet {
 				request.getRequestDispatcher("/review/reviewDetail.jsp").forward(request, response);
 			}
 		} catch (CommonException e) {
-			MessageEntity message = new MessageEntity("error", 25);
+			MessageEntity message = new MessageEntity("error", 32);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}

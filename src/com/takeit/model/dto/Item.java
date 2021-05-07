@@ -39,6 +39,8 @@ public class Item implements Serializable{
 	
 	public Item() {}
 
+	
+	
 	//판매자입력 필수데이터
 	public Item(String itemCategoryName,String sellerId, String itemName, int itemPrice, String itemOrigin, int itemStock, String itemImg,
 			String itemTakeit,String packTypeName,String expirationDate,String notice,int freshPercent) {
@@ -73,7 +75,11 @@ public class Item implements Serializable{
 		this.itemTakeit = itemTakeit;
 		this.sellerName = sellerName;
 		this.shopName = shopName;
+		this.packTypeNo=packTypeNo;
+		this.itemNo=itemNo;
+		this.itemCategoryNo=itemCategoryNo;
 	}
+
 
 	//상품 전체데이터
 

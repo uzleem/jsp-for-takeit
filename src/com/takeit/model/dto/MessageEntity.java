@@ -43,7 +43,7 @@ public class MessageEntity {
 		error.add("[장바구니 삭제 오류]"); //23
 		
 		error.add("[상품전체조회 오류]"); 
-		error.add("[후기조회 오류]"); 
+		error.add("[후기전체조회 오류]"); 
 		error.add("[후기정보 변경오류]"); 
 		error.add("[후기 삭제오류]"); 
 		error.add("[상품 조회오류]"); 
@@ -67,7 +67,8 @@ public class MessageEntity {
 
 		error.add("[상점명 중복체크 오류]"); //42
 
-		error.add("[지역시장 중복 등록"); //43
+		error.add("[지역시장 중복 등록]"); //43
+		error.add("[등록상품 변경오류] "); 
 
 		
 		
@@ -103,6 +104,7 @@ public class MessageEntity {
 		success.add("[후기 등록완료]");
 		success.add("[후기 변경완료]");
 		success.add("[상품 등록 성공]");
+		success.add("[후기 삭제 성공]");
 	
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");
