@@ -8,7 +8,7 @@ import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.ItemDao;
 import com.takeit.model.dto.Item;
-import com.takeit.model.dto.Review;
+
 
 
 
@@ -142,7 +142,10 @@ public void searchSell(Item dto,String itemNo) throws CommonException {
 public void setSellItem(Item dto) throws CommonException{
 	Connection conn = JdbcTemplate.getConnection();
 	try {
-		dao.updateSellItem(conn,dto);
+		System.out.println("[debug]biz packTypeNo: " + dto.getPackTypeNo());
+		dao.updatePacking(conn,dto);
+		dao.updateItemCategory(conn,dto);
+    	dao.updateItem(conn,dto);
 		JdbcTemplate.commit(conn);
 		
 	} catch (Exception e) {

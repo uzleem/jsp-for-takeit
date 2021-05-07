@@ -71,7 +71,7 @@ function mobilePopup() {
 			<td>아이디<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="아이디를 입력해주세요." id="memberId"  name="memberId" />
-				<input type="button" value="중복확인" id="id_button" onclick="idCheck()"/>
+				<input type="button" value="중복확인" id="id_button" name="id_button" onclick="idCheck()"/>
 			</td>
 		</tr>
 		<tr>
@@ -151,7 +151,7 @@ function mobilePopup() {
 			<td>이메일<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="이메일을 입력해주세요." id="email" name="email" />
-				<input type="button" value="중복확인" id="email_button" onclick="emailCheck()"/>
+				<input type="button" value="중복확인" id="email_button" name="email_button" onclick="emailCheck()"/>
 			</td>
 		</tr>
 		<tr>

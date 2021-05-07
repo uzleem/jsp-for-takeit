@@ -77,7 +77,10 @@
 			</tr>
 		</table>
 		<div class="btn-area" align='center'>
-			<input class="link" type="submit" style="display: inline-block; line-height: 35px; vertical-align: middle;" value="내후기수정">
+			<input class="link" type="submit" name="button" style="display: inline-block; line-height: 35px; vertical-align: middle;" value="내후기수정">
+				
+			<input class="link" type="submit"  name="button" style="display: inline-block; line-height: 35px; vertical-align: middle;" value="내후기삭제">
+			
 			<a href="/takeit/member/myPage.jsp"  style="display: inline-block; line-height: 35px; vertical-align: middle;" class="link">마이페이지</a>
 		</div>
 		

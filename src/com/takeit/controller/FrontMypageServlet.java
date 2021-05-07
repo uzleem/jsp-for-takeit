@@ -1244,9 +1244,6 @@ public class FrontMypageServlet extends HttpServlet {
 			try {
 				biz.memberInfoUpdate(dto);
 				
-				
-				
-				
 				session.getAttribute("member");
 				message = new MessageEntity("success", 3);
 				message.setLinkTitle("내 정보 보러가기");

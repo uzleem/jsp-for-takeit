@@ -45,7 +45,8 @@
 				<tr>
 					<th>상품카테고리번호</th>
 					<td><input type="text" name="itemCategoryNo"
-						id="itemCategoryNo" value="${item.itemCategoryNo }"
+
+						id="itemCategoryNo" value="${item.itemCategoryNo}"
 						readonly="readonly"></td>
 
 					<th>상품카테고리이름</th>
@@ -59,6 +60,7 @@
 					<td><input type="text" name="sellerName" id="sellerName"
 						value="${item.sellerName }" readonly="readonly"></td>
 
+
 					<th>상품번호</th>
 					<td><input type="text" name="itemNo" id="itemNo"
 						value="${item.itemNo }" readonly="readonly"></td>
@@ -66,9 +68,11 @@
 
 
 				<tr>
+
 					<th>판매가(원)</th>
 					<td><input type="text" name="itemPrice" id="itemPrice"
 						value="${item.itemPrice }" ></td>
+
 
 					<th>상품명</th>
 					<td><input type="text" name="itemName" id="itemUpdate-itemName"
@@ -106,27 +110,25 @@
 				</tr>
 
 				<tr>
+
 					<th>상품이미지</th>
 					<td> <img src="/takeit/img/item/${item.itemImg }" id="itemUpdate-img"></td>
 					<th>안내사항</th>
-					<td><input type="text" name="notice" id="itemUpdate-notice"
-						value="${item.notice }"></td>
-				</tr>
-
+					<td><input type="text" name="notice" id="itemUpdate-notice" value="${item.notice }"></td>
+			</tr>
 
 				<tr>
 					<th>유통기한(일)</th>
+
 					<td><input type="text" name="expirationDate"
 						id="expirationDate" value="${item.expirationDate }">
 					</td>
 
 					<th>잇거래여부</th>
-					<td><select onchange="takeIt" name="itemTakeit"
-						id="itemTakeit">
-							<option value="">==잇거래 여부==</option>
-							<option value="">True(등록)</option>
-							<option value="">False(등록안함)</option>
-					</select></td>
+					<td><input type="text" name="itemTakeit"
+						id="itemTakeit" value="${item.itemTakeit}">
+					</td>
+					
 				</tr>
 
 				<tr>

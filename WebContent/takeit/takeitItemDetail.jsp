@@ -145,14 +145,18 @@ $(document).ready(function (){
 	</div>
 	<div class="btn-area">
 	<input type="button" class="link" id="addCart"  style="display: inline-block;" value="장바구니"/>
-	<form action="#" method="post" style="display: inline-block;">
-	<input type="button" class="link" style="display: inline-block;" value="구매"/>
+	<form action="${CONTEXT_PATH}/order/orderController?action=orderForm"  method="post" style="display: inline-block;" id="buyItemForm">
+		<input type="hidden" value="${takeitItem.itemNo}" name="itemNo"> 
+		<input type="hidden" value="1" name="itemQty"> 
+		<input type="hidden" value="${intPrice*1000}" name="itemPrice" > 
+		<input type="hidden" value="${intPrice*1000}" name="totalPrice" > 
+		<input type="hidden" value="${intPrice*1000}" name="cartTotalPrice" > 
+		<input type="button" class="link" style="display: inline-block;" value="구매" onclick='$("#buyItemForm").submit();'/>
 	</form>
 	</div>
 	<!-- 장바구니 등록 -->
 	<div id="addCart-area">
 	<form action="/takeit/cartController?action=addCart&itemNo=${takeitItem.itemNo }" method="post">
-	<!-- <form action="/takeit/cartController?action=addCart" method="post"> -->
 	<br><hr>
 		<div id="addCart-info">
 			<div id="cart-info">

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.MypageDao;
+import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.Seller;
@@ -174,10 +175,12 @@ public class MypageBiz {
 	 */
 	public void memberInfoUpdate(Member dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
+		TakeitBiz takeitBiz = new TakeitBiz();
 		try {
 			dao.memberInfoUpdate(conn,dto);
+			takeitBiz.addMemberLocNo(dto); 
+			TakeitDao.getInstance().updateMemberLoc(conn, dto);
 			JdbcTemplate.commit(conn);
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 			JdbcTemplate.rollback(conn);

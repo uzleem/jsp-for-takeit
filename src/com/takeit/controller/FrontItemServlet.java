@@ -14,10 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.ItemBiz;
-import com.takeit.model.biz.ReviewBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
-import com.takeit.model.dto.Review;
+
 
 
 /**
@@ -56,23 +55,24 @@ public class FrontItemServlet extends HttpServlet {
 			case "itemDetail":
 				itemDetail(request, response);
 				break;
-			case "deleteItem":
-				deleteItem(request, response);
-				break;
+		//	case "deleteItem":
+		//		deleteItem(request, response);
+		//		break;
 			case "sellerItemForm":
 				sellerItemForm(request,response);
 				break;
 			case "myitemList":
 				myitemList(request,response);
 				break;
-//			case "setReviewInfo":
-//				setReviewInfo(request,response);
-//				break;
+			case "setSellItem":
+				setSellItem(request,response);
+				break;
 		}
 	}
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		process(request, response);
 	}
 
@@ -238,8 +238,6 @@ public class FrontItemServlet extends HttpServlet {
 		
 }
 	
-	
-
 		/**
 		 * 상품삭제
 		 * @param conn
@@ -274,6 +272,7 @@ public class FrontItemServlet extends HttpServlet {
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
 		}	
+
 
 
 		/**
@@ -360,41 +359,70 @@ public class FrontItemServlet extends HttpServlet {
 
 		}
 			
-//		/**
-//		 *등록 상품수정
-//		 * @param request
-//		 * @param response
-//		 * @throws ServletException
-//		 * @throws IOException
-//		 */
-//		protected void setReviewInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//			String reviewTitle = request.getParameter("reviewTitle");
-//			String reviewContents = request.getParameter("reviewContents");
-//			String reviewScore = request.getParameter("reviewScore");
-//			String reviewImg = request.getParameter("reviewImg");
-//		
-//
-//			
-//			ReviewBiz biz = new ReviewBiz();
-//			
-//			Review dto = new Review();
-//			dto.setReviewTitle(reviewTitle);
-//			dto.setReviewContents(reviewContents);
-//			dto.setReviewScore(reviewScore);
-//			dto.setReviewImg(reviewImg);
-//
-//			
-//			try {
-//				biz.setReview(dto);
-//				request.setAttribute("dto", dto);
-//				request.getRequestDispatcher("/review/reviewController?action=updateReviewForm").forward(request, response);
-//				
-//			}catch (Exception e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//			
-//		}
+		/**
+		 *등록 상품수정
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void setSellItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+			HttpSession session = request.getSession();
+			
+			String sellerId = (String)session.getAttribute("sellerId");
+			sellerId = sellerId.trim();
+			
+			String packTypeNo = request.getParameter("packTypeNo");
+			String packTypeName = request.getParameter("packTypeName");
+			
+			
+			String expirationDate = request.getParameter("expirationDate");
+			String notice = request.getParameter("notice");
+			int freshPercent =Integer.parseInt( request.getParameter("freshPercent"));
+			
+			String itemNo = request.getParameter("itemNo");
+			String itemName = request.getParameter("itemName");
+			int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
+			String salesUnit = request.getParameter("salesUnit");
+			String itemOrigin = request.getParameter("itemOrigin");
+			int itemStock = Integer.parseInt(request.getParameter("itemStock"));
+			String itemImg = request.getParameter("itemImg");
+		
+			String itemInputDate = request.getParameter("itemInputDate");
+			int discRate = Integer.parseInt(request.getParameter("discRate"));
+			String itemTakeit = request.getParameter("itemTakeit");
+			
+			String sellerName = request.getParameter("sellerName");
+			String shopName = request.getParameter("shopName");
+	
+			String itemCategoryNo = request.getParameter("itemCategoryNo");
+			String itemCategoryName =request.getParameter("itemCategoryName");
+			double itemCustScore = Double.parseDouble(request.getParameter("itemCustScore"));
+			
+		
+			
+			ItemBiz biz = new ItemBiz();
+			MessageEntity message = null;
+			Item dto = new Item(packTypeNo, packTypeName, itemCategoryNo,  itemCategoryName,
+					expirationDate, notice, freshPercent, itemNo, sellerId,itemName,
+					 itemPrice,  salesUnit, itemOrigin,itemStock, itemImg,  itemCustScore,
+					itemInputDate,  discRate, itemTakeit,sellerName,shopName);
+			dto.setPackTypeNo(packTypeNo);
+			try {
+				biz.setSellItem(dto);
+				biz.getSellItem(dto);
+				request.setAttribute("item", dto);
+				request.getRequestDispatcher("/item/itemController?action=sellerItemForm&itemNo="+itemNo).forward(request, response);
+
+			} catch(CommonException e) {
+				message = e.getMessageEntity();
+				message.setLinkTitle("상품보기");
+				message.setUrl("/takeit/item/sellInfo.jsp");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+			}
+
+		}
 				
 }
