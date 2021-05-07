@@ -65,7 +65,7 @@ public class MessageEntity {
 		error.add("[등록상품 변경오류]"); 
 		error.add("[전체조회 오류]");
 
-		error.add("[상점명 중복체크 오류]"); //41
+		error.add("[상점명 중복체크 오류]"); //42
 		
 		
 
