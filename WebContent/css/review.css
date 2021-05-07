@@ -4,9 +4,10 @@ table, tr, th , td{
 		border: solid 1px grey;
 }
 input{
-	style=border: 1px solid #f7f7f6; 
+	style: border: 1px solid #f7f7f6; 
 	font-size: 18px; 
-	line-height: 2;"
+	line-height: 2;
+	width: -webkit-fill-available;
 }
 .review{
 		margin: 0 auto;
@@ -48,9 +49,18 @@ input{
 	margin: 0 auto;
 	border-collapse: collapse;
 	padding: 5px;
-	width: 800px;
+	width: 1050px;
 	margin-top: 30px;
 	margin-bottom: 20px;
 	font-size: 18px;
 }
-
+#reviewUpdate-Title{
+	width: fit-content;
+}
+#reviewContents{
+	resize: none;
+	width:715px; 
+	height:325px;
+	font-size: 18px;
+	vertical-align: middle;
+}
