@@ -13,6 +13,7 @@ import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
+import com.takeit.model.dto.ShopLoc;
 
 /**
  * 
@@ -325,7 +326,7 @@ public class MypageDao {
 	public void memberInfoUpdate (Connection conn, Member dto) throws CommonException{
 		String sql = "UPDATE MEMBER SET MEMBER_PW=?, NAME=?, MOBILE=?,"
 					 + "EMAIL=?, POSTNO=?, ADDRESS=?, ADDRESS_DETAIL=?,"
-					 + " BIRTH=? WHERE MEMBER_ID=?";
+					 + " BIRTH=? , MEMBER_LOC_NO=? , SHOP_LOC_CODE=? WHERE MEMBER_ID=?";
 		
 		PreparedStatement stmt = null;
 		
@@ -339,8 +340,10 @@ public class MypageDao {
 			stmt.setString(6, dto.getAddress());
 			stmt.setString(7, dto.getAddressDetail());
 			stmt.setString(8, dto.getBirth());
-			stmt.setString(9, dto.getMemberId());
 			
+			stmt.setString(9, dto.getMemberLocNo());
+			stmt.setString(10, dto.getShopLocCode());
+			stmt.setString(11, dto.getMemberId());
 			int result = stmt.executeUpdate();
 			
 			if(result == 0) {
