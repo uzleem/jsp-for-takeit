@@ -413,6 +413,7 @@ public class FrontOrderServlet extends HttpServlet {
 			return;
 		}
 		
+		
 		String sellerId = (String)session.getAttribute("sellerId");
 		
 		OrderBiz biz = new OrderBiz();

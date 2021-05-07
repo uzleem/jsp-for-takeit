@@ -53,7 +53,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -79,7 +79,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -112,7 +112,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -181,7 +181,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -256,7 +256,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -285,7 +285,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -313,7 +313,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -343,20 +343,13 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
 	}
 	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * 배송상태 목록 조회
 	 * @param shippingList 배송상태리스트

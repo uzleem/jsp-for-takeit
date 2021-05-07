@@ -28,7 +28,7 @@ public class OrderBiz {
 		OrderDao dao = OrderDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
-		try {
+		try { 
 			for (Order order : orderList) {
 				for (OrderDetail orderDetail : order.getOrderDetails()) {
 					order.setItemTakeit(orderDetail.getItemTakeit());
