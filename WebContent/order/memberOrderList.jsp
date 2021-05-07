@@ -127,8 +127,8 @@ $(document).ready(function() {
 				<hr style=" border-top: 1px dashed grey;">
 				</c:forEach>
 			</div>
-		</c:forEach>
 		<hr>
+		</c:forEach>
 	</div>
 </div>
 
