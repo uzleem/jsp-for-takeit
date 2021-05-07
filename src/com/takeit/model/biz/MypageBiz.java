@@ -174,8 +174,10 @@ public class MypageBiz {
 	 */
 	public void memberInfoUpdate(Member dto) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
+		TakeitBiz takeitBiz = new TakeitBiz();
 		try {
 			dao.memberInfoUpdate(conn,dto);
+			takeitBiz.addMemberLocNo(dto); 
 			JdbcTemplate.commit(conn);
 		
 		} catch (Exception e) {
