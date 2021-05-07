@@ -59,9 +59,15 @@ public class FrontItemServlet extends HttpServlet {
 			case "deleteItem":
 				deleteItem(request, response);
 				break;
-			case "SellerItemForm":
-				SellerItemForm(request,response);
+			case "sellerItemForm":
+				sellerItemForm(request,response);
 				break;
+			case "myitemList":
+				myitemList(request,response);
+				break;
+//			case "setReviewInfo":
+//				setReviewInfo(request,response);
+//				break;
 		}
 	}
 	
@@ -231,20 +237,7 @@ public class FrontItemServlet extends HttpServlet {
 			}
 		
 }
-//		
-//		
-//		protected void itemList1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//			ArrayList<Item> itemList = new ArrayList<Item>();
-//			ItemBiz biz = new ItemBiz();
-//			try {
-//				biz.getItemList(itemList);
-//			} catch (CommonException e) {
-//				e.printStackTrace();
-//			}
-//			request.setAttribute("itemList", itemList);
-//			request.getRequestDispatcher("/takeit/item/itemList.jsp").forward(request, response);
-//		}		
+	
 	
 
 		/**
@@ -291,11 +284,41 @@ public class FrontItemServlet extends HttpServlet {
 
 
 		}		
+		/**
+		 * 판매자 등록상품전체조회
+		 * @param request
+		 * @param response
+		 * @throws ServletException
+		 * @throws IOException
+		 */
+		protected void myitemList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			HttpSession session = request.getSession();
+			MessageEntity message = null;
+			
+			String sellerId = (String)session.getAttribute("sellerId"); // String
+		
+			ArrayList<Item> itemList = new ArrayList<Item>();
+			ItemBiz abiz = new ItemBiz();
+			try {
+				abiz.getMySellList(itemList, sellerId);
+				System.out.println("itemList = "+itemList);
+		
+				if(itemList != null) {
+					request.setAttribute("itemList",itemList);
+					request.getRequestDispatcher("/item/mySellList.jsp").forward(request, response);
+				}
+			} catch (CommonException e) {
+				 message = new MessageEntity("error", 24);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+			}
 
+}
+		
 /**
  * 판매자 등록 상품 조회요청		
  */
-		protected void SellerItemForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		protected void sellerItemForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			String itemNo = request.getParameter("itemNo");
 			System.out.println("itemNo = " +itemNo);
@@ -305,10 +328,10 @@ public class FrontItemServlet extends HttpServlet {
 			dto.setItemNo(itemNo);
 
 			try {
-				biz.getItem(dto);
+				biz.searchSell(dto, itemNo);
 				if(dto.getItemName() != null) {
 					request.setAttribute("item", dto);
-					request.getRequestDispatcher("/item/reviewInfo.jsp").forward(request, response);
+					request.getRequestDispatcher("/item/sellInfo.jsp").forward(request, response);
 				}
 			} catch (CommonException e) {
 				MessageEntity message = new MessageEntity("error", 8);
