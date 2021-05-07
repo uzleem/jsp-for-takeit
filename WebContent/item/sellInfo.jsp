@@ -47,7 +47,7 @@
 				<tr>
 					<th>상품카테고리번호</th>
 					<td><input type="text" name="itemCategoryNo"
-						id="itemCategoryNo" value="${review.itemCategoryNo }"
+						id="itemCategoryNo" value="${item.itemCategoryNo}"
 						readonly="readonly"></td>
 
 					<th>상품카테고리이름</th>
@@ -62,15 +62,15 @@
 						value="${item.sellerName }" readonly="readonly"></td>
 
 					<th>판매가</th>
-					<td><input type="text" name="itemNo" id="itemNo"
-						value="${item.itemNo }"></td>
+					<td><input type="text" name="itemPrice" id="itemPrice"
+						value="${item.itemPrice }"></td>
 				</tr>
 
 
 				<tr>
 					<th>상품번호</th>
-					<td><input type="text" name="itemPrice" id="itemPrice"
-						value="${item.itemPrice }" readonly="readonly"></td>
+					<td><input type="text" name="itemNo" id="itemNo"
+						value="${item.itemNo }" readonly="readonly"></td>
 
 					<th>상품명</th>
 					<td><input type="text" name="itemName" id="itemName"
@@ -108,28 +108,26 @@
 				</tr>
 
 				<tr>
-					<th>상품이미지</th>
-					<td><input type="file" name="itemImg" id="itemImg"
-						value="${item.itemImg }" readonly="readonly"></td>
-					<th>안내사항</th>
-					<td><input type="text" name="notice" id="notice"
+				<th colspan="2">상품이미지</th>
+				<th colspan="2">안내사항</th>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;"><img id="itemImg" src="/takeit/img/item/${item.itemImg}"></td>
+				<td colspan="2"><input type="text" name="notice" id="notice"
 						value="${item.notice }"></td>
-				</tr>
+			</tr>
 
-
-				<tr>
+            	<tr>
 					<th>유통기한</th>
 					<td><input type="text" name="expirationDate"
 						id="expirationDate" value="${item.expirationDate }">
 					</td>
 
 					<th>잇거래여부</th>
-					<td><select onchange="takeIt" name="itemTakeit"
-						id="itemTakeit">
-							<option value="">==잇거래 여부==</option>
-							<option value="">True(등록)</option>
-							<option value="">False(등록안함)</option>
-					</select></td>
+					<td><input type="text" name="itemTakeit"
+						id="itemTakeit" value="${item.itemTakeit}">
+					</td>
+					
 				</tr>
 
 				<tr>
