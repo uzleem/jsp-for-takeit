@@ -52,6 +52,7 @@ $(document).ready(function() {
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
+
 <div id="order-check-wrap" class="view-width">
 	<hr style="border-top-width: 3px;">	
 	<div id="personal-info">
@@ -61,6 +62,7 @@ $(document).ready(function() {
 		<span><b>주소</b>&emsp;&emsp;${order.recipientAddr}, ${order.recipientAddrDetail} (${order.recipientPostNo})</span>
 	</div>	
 	<hr style="border-top-width: 3px;">
+
 	
 	<form action="${CONTEXT_PATH}/order/orderController?action=order" method="post" id="orderForm">
 		<div id="recipient-info">	
@@ -113,8 +115,15 @@ $(document).ready(function() {
 				</div>
 				<div></div>
 			</div>
+<input type="hidden" value="${orderDetail.itemNo}" name="itemNo"> 
+<input type="hidden" value="${orderDetail.itemQty}" name="itemQty"> 
+<input type="hidden" value="${orderDetail.itemPayPrice}" name="itemPayPrice" > 
+<input type="hidden" value="${orderDetail.itemTakeit}" name="itemTakeit" > 
+<input type="hidden" value="${orderDetail.sellerId}" name="sellerId" >        
+        
 			</c:forEach>
 		</div>
+
 		<hr style="border-top-width: 3px;">	
 		<div id="order-price-area">
 			<c:if test=""></c:if>
@@ -124,8 +133,10 @@ $(document).ready(function() {
 			</span>
 			<input type="submit" class="link" value="결제하기"/>
 			</div>
+<input type="hidden" value="${totalPrice}" name="orderPrice">	
 	</form>
 </div>
+
 <!-- floating Banner -->
 <jsp:include page="/common/floatingBanner.jsp"></jsp:include>
  <!-- scroll function -->

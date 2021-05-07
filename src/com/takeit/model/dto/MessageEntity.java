@@ -63,7 +63,9 @@ public class MessageEntity {
     error.add("[배송상태 조회 오류]"); //39
     
 		error.add("[등록상품 변경오류]"); 
+		error.add("[전체조회 오류]");
 
+		error.add("[상점명 중복체크 오류]"); //41
 		
 		
 
@@ -103,6 +105,7 @@ public class MessageEntity {
 		
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");
+		message.add("[일반회원 전용]");
 		
 		messageList.put("error", error);
 		messageList.put("validation", validation);
