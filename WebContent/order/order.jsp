@@ -67,8 +67,8 @@ $(document).ready(function() {
 		<input type="radio" name="receiveMethod" id="receiveMethod3" value="직접수령">직접 수령
 	</span><br>
 	
-	수령인 <input type="text" name="recipientName" value="${order.recipientName}"><br>
-	연락처 <input type="text" name="recipientMobile" value="${order.recipientMobile}"><br>
+	수령인 <input type="text" id="recipientName" name="recipientName" value="${order.recipientName}"><br>
+	연락처 <input type="text" id="recipientMobile" name="recipientMobile" value="${order.recipientMobile}"><br>
 	배송지 주소 <input type="text" id="recipientPostNo" name="recipientPostNo" value="${order.recipientPostNo}"><br>
 	<input type="text" id="recipientAddr" name="recipientAddr" value="${order.recipientAddr}"><br>
 	<input type="text" id="recipientAddrDetail" name="recipientAddrDetail" value="${order.recipientAddrDetail}"><br>
@@ -95,13 +95,18 @@ $(document).ready(function() {
 			</div><br>
 		</div>
 		
+<input type="hidden" value="${orderDetail.itemNo}" name="itemNo"> 
+<input type="hidden" value="${orderDetail.itemQty}" name="itemQty"> 
+<input type="hidden" value="${orderDetail.itemPayPrice}" name="itemPayPrice" > 
+<input type="hidden" value="${orderDetail.itemTakeit}" name="itemTakeit" > 
+<input type="hidden" value="${orderDetail.sellerId}" name="sellerId" >
 		</c:forEach>
 		
 	</div><br>
 	<c:if test=""></c:if>
 	총 주문금액 : ${totalPrice}
 	<input type="submit" value="결제하기"/>
-
+<input type="hidden" value="${totalPrice}" name="orderPrice">	
 </form>
 
 <!-- floating Banner -->
