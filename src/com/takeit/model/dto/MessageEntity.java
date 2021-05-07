@@ -63,6 +63,7 @@ public class MessageEntity {
     error.add("[배송상태 조회 오류]"); //39
     
 		error.add("[등록상품 변경오류]"); 
+		error.add("[전체조회 오류]");
 
 		
 		
