@@ -38,16 +38,16 @@
 			<tr >
 				<th>후기번호</th>
 				<td><input type="text" id="reviewNo" name="reviewNo"
-					value="${review.reviewNo }" readonly="readonly"></td>
+					value="${review.reviewNo }" disabled="disabled"></td>
 
 				<th>상품번호</th>
 				<td><input type="text" id="itemNo" name="itemNo"
-					value="${ review.itemNo}" readonly="readonly"></td>
+					value="${ review.itemNo}" disabled="disabled"></td>
 			</tr>
 			<tr >
 				<th>조회수</th>
 				<td><input type="text" id="reviewViews" name="reviewViews"
-					value="${review.reviewViews}" readonly="readonly"></td>
+					value="${review.reviewViews}" disabled="disabled"></td>
 
 				<th>상품평점</th>
 				<td><input type="text" id="reviewScore" name="reviewScore"
@@ -56,15 +56,15 @@
 			<tr >
 				<th>작성자</th>
 				<td><input type="text" id="memberId" name="memberId"
-					value="${review.memberId }" readonly="readonly"></td>
+					value="${review.memberId }" disabled="disabled"></td>
 
 				<th>후기작성일</th>
 				<td><input type="text" id="reviewDate" name="reviewDate"
-					value="${review.reviewDate}" readonly="readonly"></td>
+					value="${review.reviewDate}" disabled="disabled"></td>
 			</tr>
 			<tr >
 				<th>후기제목</th>
-				<td colspan="3"><input type="text" id="reviewUpdate-Title" name="reviewTitle"
+				<td colspan="3"><input type="text" id="reviewUpdate-Title" name="reviewTitle" size="100"
 					value="${review.reviewTitle}"></td>
 			</tr>
 			<tr>
@@ -72,14 +72,22 @@
 				<th colspan="2">내용</th>
 			</tr>
 			<tr>
-				<td colspan="3"><img id="review-img" src="/takeit/img/review/${review.reviewImg}"></td>
-				<td colspan="2"><textarea rows="5" cols="200" id="reviewContents" name="reviewContents" >${review.reviewContents}</textarea></td>
+				<td colspan="2" style="text-align: center;"><img id="review-img" src="/takeit/img/review/${review.reviewImg}"></td>
+				<td colspan="2"><textarea id="reviewContents" name="reviewContents" >${review.reviewContents}</textarea></td>
 			</tr>
 		</table>
 		<div class="btn-area" align='center'>
-			<input class="link" type="submit" style="display: inline-block;" value="내후기수정">
-			<a href="/takeit/member/myPage.jsp"  style="display: inline-block;" class="link">마이페이지</a>
+			<input class="link" type="submit" style="display: inline-block; line-height: 35px; vertical-align: middle;" value="내후기수정">
+			<a href="/takeit/member/myPage.jsp"  style="display: inline-block; line-height: 35px; vertical-align: middle;" class="link">마이페이지</a>
 		</div>
+		
+		<input type="hidden" value="${review.itemNo}" name="itemNo"/>
+		<input type="hidden" value="${review.reviewTitle}" name="reviewTitle"/>
+		<input type="hidden" value="${review.reviewContents}" name="reviewContents"/>
+		<input type="hidden" value="${review.reviewViews}" name="reviewViews"/>
+		<input type="hidden" value="${review.reviewScore}" name="reviewScore"/>
+		<input type="hidden" value="${review.reviewImg}" name="reviewImg"/>
+
 		</form>
 	</div>
 </div>

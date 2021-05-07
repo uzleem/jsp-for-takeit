@@ -457,13 +457,13 @@ public class TakeitDao {
 			stmt.setString(4, shopLoc.getShopLocLng());
 			
 			int row = stmt.executeUpdate();
-//			if (row == 0) {
-//				throw new Exception();
-//			}
+			if (row == 0) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
-//			e.printStackTrace();
-//			MessageEntity message = new MessageEntity("error", 11);
-//			throw new CommonException(message);
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	

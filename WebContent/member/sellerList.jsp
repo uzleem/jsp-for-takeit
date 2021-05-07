@@ -96,7 +96,7 @@
 				${ dto.getGrade()}
 			</td>
 			<td>
-				<input type="button" value="탈퇴" onclick="location.href='${CONTEXT_PATH}/member/mypageController?action=AceRemoveSeller&sellerId=${ dto.getSellerId()}&sellerPw=${ dto.getSellerPw()}'">
+				<input type="button" value="탈퇴" id="deleteBtn" onclick="location.href='${CONTEXT_PATH}/member/mypageController?action=AceRemoveSeller&sellerId=${ dto.getSellerId()}&sellerPw=${ dto.getSellerPw()}'">
 			</td>
 		</tr>
 		

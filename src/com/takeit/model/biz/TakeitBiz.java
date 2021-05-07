@@ -233,7 +233,7 @@ public class TakeitBiz {
 			locLng = shopLng-lng;
 			
 			if (Math.abs(locLat) <= 0.05 && Math.abs(locLng) <= 0.05) {
-				MessageEntity message = new MessageEntity("error", 11);
+				MessageEntity message = new MessageEntity("error", 43);
 				throw new CommonException(message);
 			}
 		}

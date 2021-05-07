@@ -53,7 +53,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -65,7 +65,7 @@ public class OrderDao {
 	 * @param order 주문 객체
 	 */
 	public void selectOrderNo(Connection conn, Order order) throws CommonException {
-		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
+		String sql = "SELECT ORDER_NO FROM ORDERS ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -79,7 +79,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -92,8 +92,8 @@ public class OrderDao {
 	 * @param order 주문객체
 	 */
 	public void insertOrderDetail(Connection conn, Order order) throws CommonException {
+		System.out.println(order);
 		String sql = "INSERT INTO Order_Detail VALUES(?, ?, ?, ?) ";
-		
 		PreparedStatement stmt = null;
 		try {
 			
@@ -112,7 +112,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -181,7 +181,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -256,7 +256,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(rs);
@@ -285,7 +285,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -313,7 +313,7 @@ public class OrderDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
@@ -343,20 +343,13 @@ public class OrderDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MessageEntity message = new MessageEntity("error", 28);
+			MessageEntity message = new MessageEntity("error", 29);
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
 	}
 	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * 배송상태 목록 조회
 	 * @param shippingList 배송상태리스트
