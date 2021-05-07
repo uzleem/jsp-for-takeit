@@ -95,7 +95,7 @@ public class FrontMemberServlet extends HttpServlet {
 		String addressDetail = request.getParameter("addressDetail");
 		String birth = request.getParameter("birth");
 				
-		System.out.println(memberId + memberId + name + mobile + email + postNo + address + addressDetail + birth);
+		System.out.println(memberId + "," + memberId + "," + name + "," + mobile + "," + email + "," + postNo + "," + address + "," + addressDetail + "," + birth);
 
 		memberId = memberId.trim();
 		memberPw = memberPw.trim();
@@ -146,8 +146,10 @@ public class FrontMemberServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
 		
-		System.out.println(memberId);
-		System.out.println(memberPw);
+		System.out.println(memberId + "," + memberPw);
+		
+		memberId = memberId.trim();
+		memberPw = memberPw.trim();
 		
 		Member dto = new Member();
 		
@@ -212,7 +214,10 @@ public class FrontMemberServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		
-		System.out.println(name + email);
+		System.out.println(name + "," + email);
+		
+		name = name.trim();
+		email = email.trim();
 		
 		MemberBiz biz = new MemberBiz();
 		Member dto = new Member();
@@ -253,10 +258,12 @@ public class FrontMemberServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		
-		System.out.println(memberId);
-		System.out.println(name);
-		System.out.println(email);
+		System.out.println(memberId + "," + name + "," + email );
 
+		memberId = memberId.trim();
+		name = name.trim();
+		email = email.trim();
+		
 		MemberBiz biz = new MemberBiz();
 		Member dto = new Member();
 
@@ -290,6 +297,8 @@ public class FrontMemberServlet extends HttpServlet {
 		
 		String memberId = request.getParameter("memberId");
 		
+		memberId = memberId.trim();
+		
 		MemberBiz biz = new MemberBiz();
 
 		try {
@@ -312,6 +321,8 @@ public class FrontMemberServlet extends HttpServlet {
 	protected void memberEmailChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		String email = request.getParameter("email");
+		
+		email = email.trim();
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
 		

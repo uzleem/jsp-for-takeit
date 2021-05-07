@@ -351,4 +351,27 @@ public class FrontSellerServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}	
 	}
+
+	/**
+	 * 상점명 중복체크
+	 */
+	protected void shopNameChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String shopName = request.getParameter("shopName");
+		
+		SellerBiz biz = new SellerBiz();
+		
+		try {
+			int result = biz.shopNameChk(shopName);
+			if(result == 1) {
+				response.getWriter().write("1");
+			}else {
+				response.getWriter().write("0");
+			}
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}	
+	}
 }
