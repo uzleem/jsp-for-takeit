@@ -105,12 +105,16 @@ public class FrontTakeitServlet extends HttpServlet {
 		
 		try { 
 			biz.addTakeit(dto);
-			//response.sendRedirect(CONTEXT_PATH + "/takeit/");
 			
+			MessageEntity message = new MessageEntity("success", 7);
+			message.setLinkTitle("마이페이지");
+			message.setUrl(CONTEXT_PATH + "/member/myPage.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("");
-			message.setUrl("");
+			message.setLinkTitle("잇거래 등록");
+			message.setUrl(CONTEXT_PATH + "/takeit/takeitController?action=takeitInputForm");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
@@ -184,7 +188,12 @@ public class FrontTakeitServlet extends HttpServlet {
 		
 		try {
 			biz.addShopLoc(address, shopLoc);
-			//response.sendRedirect(CONTEXT_PATH + "/takeit/");
+			MessageEntity message = new MessageEntity();
+			message.setLinkTitle("마이페이지");
+			message.setUrl(CONTEXT_PATH + "/member/myPage.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("상점구역 등록");
@@ -211,16 +220,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	
 	/** 잇거래상품 상세조회 요청 서비스 */
 	protected void takeitItemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
-			MessageEntity message = new MessageEntity("message", 0);
-			message.setLinkTitle("로그인");
-			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			return;
-		}
-		
+				
 		String itemNo = request.getParameter("itemNo");
 		
 		if (itemNo == null || itemNo.trim().length() == 0) {
@@ -256,8 +256,12 @@ public class FrontTakeitServlet extends HttpServlet {
 	
 	/** 테이크잇 상품목록 요청 서비스	*/
 	protected void takeitItemList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String scope = request.getParameter("scope");
+		if (scope != null) {
+			application.setAttribute("takeitScope", scope);
+		}
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (application.getAttribute("takeitScope").equals("my") && (session == null || session.getAttribute("dto") == null)) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -265,48 +269,74 @@ public class FrontTakeitServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
-		
-		Object dto = session.getAttribute("dto");
-		String shopLocCode = null;
-		String memberLocNo = null;
-		Member member = null;
-		
-		if (dto instanceof Member) {
-			shopLocCode = ((Member)dto).getShopLocCode();
-			memberLocNo = ((Member)dto).getMemberLocNo();
-			
-			member = new Member();
-			member.setShopLocCode(shopLocCode);
-			member.setMemberLocNo(memberLocNo);
-		} else if (dto instanceof Seller) {
-			shopLocCode = ((Seller)dto).getShopLocCode();
+		if (session == null || session.getAttribute("dto") == null) {
+			application.setAttribute("takeitScope", "all");
 		}
 		
-		if (shopLocCode == null) {
-			shopLocCode = "none";
-		}
-		if (memberLocNo == null) {
-			memberLocNo = "none";
-		}
-		
+		String takeitScope = (String)application.getAttribute("takeitScope");
 		ArrayList<TakeitItem> takeitItemList = new ArrayList<TakeitItem>();
 		TakeitBiz biz = new TakeitBiz();
 		
-		try {
-			if (dto instanceof Member) {
-				biz.getTakeitItemList(member, takeitItemList); 
-			} else if (dto instanceof Seller) {
-				biz.getTakeitItemList(shopLocCode, takeitItemList);
+		switch (takeitScope) {
+		case "all":
+			try {
+				biz.getTakeitItemList(takeitItemList); 
+				
+				request.setAttribute("takeitItemList", takeitItemList);
+				request.getRequestDispatcher("/takeit/takeitItemList.jsp").forward(request, response);
+			} catch (CommonException e) {
+				MessageEntity message = e.getMessageEntity();
+				message.setLinkTitle("메인으로");
+				message.setUrl(CONTEXT_PATH + "/index");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
 			}
-			request.setAttribute("takeitItemList", takeitItemList);
-			request.getRequestDispatcher("/takeit/takeitItemList.jsp").forward(request, response);
-		} catch (CommonException e) {
-			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("메인으로");
-			message.setUrl(CONTEXT_PATH + "index");
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			return;
+			break;
+		case "my":
+			Object dto = session.getAttribute("dto");
+			String shopLocCode = null;
+			String memberLocNo = null;
+			Member member = null;
+			
+			if (dto instanceof Member) {
+				shopLocCode = ((Member)dto).getShopLocCode();
+				memberLocNo = ((Member)dto).getMemberLocNo();
+				
+				member = new Member();
+				member.setShopLocCode(shopLocCode);
+				member.setMemberLocNo(memberLocNo);
+			} else if (dto instanceof Seller) {
+				shopLocCode = ((Seller)dto).getShopLocCode();
+			}
+			
+			if (shopLocCode == null) {
+				shopLocCode = "none";
+			}
+			if (memberLocNo == null) {
+				memberLocNo = "none";
+			}
+			
+			takeitItemList = new ArrayList<TakeitItem>();
+			biz = new TakeitBiz();
+			
+			try {
+				if (dto instanceof Member) {
+					biz.getTakeitItemList(member, takeitItemList); 
+				} else if (dto instanceof Seller) {
+					biz.getTakeitItemList(shopLocCode, takeitItemList);
+				}
+				request.setAttribute("takeitItemList", takeitItemList);
+				request.getRequestDispatcher("/takeit/takeitItemList.jsp").forward(request, response);
+			} catch (CommonException e) {
+				MessageEntity message = e.getMessageEntity();
+				message.setLinkTitle("메인으로");
+				message.setUrl(CONTEXT_PATH + "/index");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				return;
+			}
+			break;
 		}
 	}
 }

@@ -3,6 +3,7 @@ package com.takeit.model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
@@ -387,7 +388,7 @@ public class OrderDao {
 
 	/** 주문 정보 조회 */
 	public void selectOrderItem(Connection conn, Order order) throws CommonException {
-		String sql = "SELECT ITEM_TAKEIT "
+		String sql = "SELECT * "
 				+ "FROM ITEM "
 				+ "WHERE ITEM_NO = ? ";
 		
@@ -400,8 +401,12 @@ public class OrderDao {
 				rs = stmt.executeQuery();
 				while (rs.next()) {
 					orderDetail.setItemTakeit(rs.getString("item_takeit"));
+					orderDetail.setItemName(rs.getString("item_name"));
+					orderDetail.setItemImg(rs.getString("item_img"));
 				}
 			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -411,6 +416,29 @@ public class OrderDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
+		
+		try {
+			sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, order.getMemberId());
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				order.setRecipientName(rs.getString("name"));
+				order.setRecipientPostNo(rs.getString("postno"));
+				order.setRecipientAddr(rs.getString("Address"));
+				order.setRecipientMobile(rs.getString("mobile"));
+				order.setRecipientAddrDetail(rs.getString("Address_Detail"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 29);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
 	}
 
 }
