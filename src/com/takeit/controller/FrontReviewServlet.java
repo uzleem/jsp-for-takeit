@@ -286,11 +286,11 @@ public class FrontReviewServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		String itemNo = request.getParameter("itemNo");
+		
 		String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
 
-		
+		String itemNo = request.getParameter("itemNo");
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContents = request.getParameter("reviewContents");
 		int reviewViews = Integer.parseInt(request.getParameter("reviewViews"));
