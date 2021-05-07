@@ -242,7 +242,7 @@ public class ReviewDao {
 	 * @throws CommonException 
 	 */
 	public void deleteReview(Connection conn,String reviewNo,String memberId) throws CommonException {
-		String sql = "delete from review where member_id=? and reviewNo=?";
+		String sql = "delete from review where member_id=? and review_No=?";
 
 		PreparedStatement stmt = null;
 	
@@ -258,8 +258,8 @@ public class ReviewDao {
 			e.printStackTrace();
 			
 			MessageEntity message = new MessageEntity("error",27);
-			message.setLinkTitle("작성후기");
-			message.setUrl("/takeit/item/reviewController?action=updateReviewForm");
+			message.setLinkTitle("후기목록");
+			message.setUrl("/takeit/item/reviewController?action=myReviewList");
 			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
