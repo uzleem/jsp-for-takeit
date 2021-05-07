@@ -1119,8 +1119,10 @@ public class FrontMypageServlet extends HttpServlet {
 			String address = request.getParameter("address");
 			String addressDetail = request.getParameter("addressDetail");
 			String birth = request.getParameter("birth");
+			String memberLocNo = request.getParameter("memberLocNo");
+			String shopLocCode = request.getParameter("shopLocCode");
 			
-			System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth);
+			System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth + memberLocNo + shopLocCode);
 			
 			if(memberId == null || memberId.trim().length()  == 0 ) {
 
@@ -1227,6 +1229,8 @@ public class FrontMypageServlet extends HttpServlet {
 			address = address.trim();
 			addressDetail = addressDetail.trim();
 			birth = birth.trim();
+			memberLocNo = memberLocNo.trim();
+			shopLocCode = shopLocCode.trim();
 		
 			MypageBiz biz = new MypageBiz();
 			
@@ -1240,6 +1244,8 @@ public class FrontMypageServlet extends HttpServlet {
 			dto.setAddress(address);
 			dto.setAddressDetail(addressDetail);
 			dto.setBirth(birth);
+			dto.setMemberLocNo(memberLocNo);
+			dto.setShopLocCode(shopLocCode);
 			
 			try {
 				biz.memberInfoUpdate(dto);

@@ -48,7 +48,23 @@ function mobilePopup() {
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <br>
-
+<div id="container" class="view-width">
+<div class="side-menu">
+<c:choose>
+	<c:when test ="${not empty sellerId}">
+ 		<!-- 판매자 마이페이지 메뉴 -->
+ 		<jsp:include page="/common/mypage_seller_menu.jsp"/>
+	</c:when>
+	<c:when test="${not empty memberId}">
+		<!-- 일반회원 마이페이지 메뉴 -->
+		<jsp:include page="/common/mypage_member_menu.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/member/memberLogin.jsp"/>
+	</c:otherwise>
+</c:choose>
+</div>
+<div class="memberInfo-wrap">
 	<h1 style="width:fit-content; margin: 0 auto;">내 정보 조회</h1>
 	<br>
 	<form action="/takeit/member/mypageController?action=setSellerInfo" method="post">
@@ -166,7 +182,10 @@ function mobilePopup() {
 		</table>
 		<br>
 	</form>
-		<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
+	<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
+	</div>
+</div>
+		
 
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
