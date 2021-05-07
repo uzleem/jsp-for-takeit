@@ -49,7 +49,6 @@ public class OrderBiz {
 				for (OrderDetail orderDetail : order.getOrderDetails()) {
 					CartDao.getInstance().removeCart(conn, order.getMemberId(), orderDetail.getItemNo());
 				}
-				
 			}
 			JdbcTemplate.commit(conn);
 		} catch (CommonException e) {
