@@ -102,6 +102,76 @@ public class TakeitDao {
 		}		
 	}
 	
+	/** 비회원 잇거래상품목록 조회 */
+	public void searchTakeitItemList(Connection conn, ArrayList<TakeitItem> takeitItemList) throws CommonException {
+		String sql = "SELECT * "
+				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
+				+ "WHERE SELLER_ID IN ( "
+				+ "		SELECT SELLER_ID "
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
+				+ "			SELECT SHOP_LOC_CODE "
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T'"
+				+ "			) "
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			TakeitItem takeitItem = null;
+			while (rs.next()) {
+				takeitItem = new TakeitItem();
+				
+				takeitItem.setItemNo(rs.getString("item_No"));
+				takeitItem.setSellerId(rs.getString("seller_Id"));
+				takeitItem.setItemName(rs.getString("item_Name"));
+				takeitItem.setItemPrice(rs.getInt("item_Price"));
+				takeitItem.setItemImg(rs.getString("item_Img"));
+				takeitItem.setItemCustScore(rs.getDouble("item_Cust_Score"));
+				takeitItem.setItemInputDate(rs.getString("item_Input_Date"));
+				
+				Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
+				Date secondDate = Utility.convertStringToDate(rs.getString("item_input_date"), "yyyy-MM-dd HH:mm:ss");
+				int a = Utility.getDayBetweenAandB(firstDate, secondDate);
+				int b = Integer.valueOf(rs.getString("expiration_date"));
+				int c = 100 - (int)(( (double)(b - a) / b) * 100);
+				if (c > 100 ) {
+					c = 100;
+				}
+				takeitItem.setDiscRate(c);
+				takeitItem.setItemTakeit(rs.getString("item_TakeIt"));
+				
+				takeitItem.setTakeitNo(rs.getString("takeit_No"));
+				takeitItem.setTakeitPrice(rs.getInt("takeit_Price"));
+				takeitItem.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price"));
+				takeitItem.setTakeitDate(rs.getString("takeit_date"));
+				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score"));
+				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
+				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
+				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
+				
+				takeitItem.setSellerName(rs.getString("name"));
+				takeitItem.setShopName(rs.getString("Shop_name"));
+				
+				takeitItemList.add(takeitItem);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}		
+	}	
+	
 	/**
 	 * 일반회원 잇거래상품목록 조회
 	 * @param member 회원객체
@@ -463,5 +533,7 @@ public class TakeitDao {
 		} finally {
 			JdbcTemplate.close(stmt);
 		}
-	}	
+	}
+
+
 }

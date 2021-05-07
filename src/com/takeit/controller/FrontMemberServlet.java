@@ -33,6 +33,7 @@ public class FrontMemberServlet extends HttpServlet {
 		CONTEXT_PATH = application.getContextPath();
 		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
 		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
+		application.setAttribute("takeitScope", "all");
 	}
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -161,7 +162,7 @@ public class FrontMemberServlet extends HttpServlet {
 			if(dto.getAddress() != null) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("memberId", memberId); 
-				session.setAttribute("dto", dto); 	
+				session.setAttribute("dto", dto);
 				response.sendRedirect("/takeit/index");
 			}else {
 				MessageEntity message = new MessageEntity("error", 34);
