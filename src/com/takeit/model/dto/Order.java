@@ -230,4 +230,44 @@ public class Order implements Serializable {
 		this.itemTakeit = itemTakeit;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(itemTakeit);
+		builder.append(", ");
+		builder.append(shipStatus);
+		builder.append(", ");
+		builder.append(orderNo);
+		builder.append(", ");
+		builder.append(receiveMethod);
+		builder.append(", ");
+		builder.append(recipientName);
+		builder.append(", ");
+		builder.append(recipientPostNo);
+		builder.append(", ");
+		builder.append(recipientAddr);
+		builder.append(", ");
+		builder.append(recipientAddrDetail);
+		builder.append(", ");
+		builder.append(recipientMobile);
+		builder.append(", ");
+		builder.append(shipRequest);
+		builder.append(", ");
+		builder.append(orderPrice);
+		builder.append(", ");
+		builder.append(shipStatusCode);
+		builder.append(", ");
+		builder.append(memberId);
+		builder.append(", ");
+		builder.append(orderCancelReq);
+		builder.append(", ");
+		builder.append(orderCancel);
+		builder.append(", ");
+		builder.append(sellerId);
+		builder.append(", ");
+		builder.append(shopName);
+		builder.append(", ");
+		builder.append(orderDetails);
+		return builder.toString();
+	}
 }
