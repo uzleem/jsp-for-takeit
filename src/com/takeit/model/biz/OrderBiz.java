@@ -28,7 +28,7 @@ public class OrderBiz {
 		OrderDao dao = OrderDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
-		try {
+		try { 
 			for (Order order : orderList) {
 				for (OrderDetail orderDetail : order.getOrderDetails()) {
 					order.setItemTakeit(orderDetail.getItemTakeit());
@@ -49,7 +49,6 @@ public class OrderBiz {
 				for (OrderDetail orderDetail : order.getOrderDetails()) {
 					CartDao.getInstance().removeCart(conn, order.getMemberId(), orderDetail.getItemNo());
 				}
-				
 			}
 			JdbcTemplate.commit(conn);
 		} catch (CommonException e) {

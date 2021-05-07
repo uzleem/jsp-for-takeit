@@ -164,7 +164,7 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>우편번호</td>
+			<td>우편번호<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="우편번호를 선택해주세요." id="postNo" name="postNo" readonly="readonly"/>
 				<input type="button" id="postNoBtn" name="postNoBtn" onclick="goPopup();" value="우편번호"/>
@@ -178,7 +178,7 @@ function mobilePopup() {
 		</tr>
 			
 		<tr>
-			<td>도로명주소</td>
+			<td>도로명주소<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="우편번호를 선택해주세요." id="address" name="address" readonly="readonly"/>
 			</td>
@@ -191,7 +191,7 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>상세주소</td>
+			<td>상세주소<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="상세주소를 입력해주세요." id="addressDetail" name="addressDetail"/>
 			</td>
@@ -224,12 +224,16 @@ function mobilePopup() {
 		
 		<tr>
 			<td>사업자등록번호<span class="star"> *</span></td>
-			<td><input type="text" placeholder="사업자등록번호를 입력해주세요." id="sellerNo" name="sellerNo" /></td>
+			<td>
+				<input type="text" placeholder="사업자등록번호를 입력해주세요." id="sellerNo" name="sellerNo" />
+				<input type="button" value="중복확인" id="sellerNoBtn" name="sellerNoBtn" onclick="sellerNoCheck()"/>
+			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
 				<span id="sellerNoResult1" class="inputResult"></span>
+				<span id="sellerNoResult2" class="inputResult"></span>
 			</td>
 		</tr>	
 		

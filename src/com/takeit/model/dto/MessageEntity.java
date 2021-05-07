@@ -60,12 +60,15 @@ public class MessageEntity {
 		error.add("[아이디 중복체크 오류]"); 
 		error.add("[이메일 중복체크 오류]"); 
 
-    error.add("[배송상태 조회 오류]"); //39
+		error.add("[배송상태 조회 오류]"); //39
     
 		error.add("[등록상품 변경오류]"); 
 		error.add("[전체조회 오류]");
 
-		error.add("[상점명 중복체크 오류]"); //41
+		error.add("[상점명 중복체크 오류]"); //42
+
+		error.add("[지역시장 중복 등록"); //43
+
 		
 		
 
@@ -101,11 +104,10 @@ public class MessageEntity {
 		success.add("[후기 변경완료]");
 		success.add("[상품 등록 성공]");
 	
-		
-		
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");
 		message.add("[일반회원 전용]");
+		
 		
 		messageList.put("error", error);
 		messageList.put("validation", validation);

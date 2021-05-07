@@ -212,6 +212,15 @@
 	font-size: 9px;
 	border: 1px solid #7B977A;
 }
+#sellerNoBtn{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+}
 #shopMobile{
 	width:250px;
 	height:35px; 

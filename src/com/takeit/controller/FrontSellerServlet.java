@@ -71,6 +71,12 @@ public class FrontSellerServlet extends HttpServlet {
 		case "sellerEmailChk":
 			sellerEmailChk(request, response);
 			break;
+		case "shopNameChk":
+			shopNameChk(request, response);
+			break;
+		case "sellerNoChk":
+			sellerNoChk(request, response);
+			break;
 		}
 	}
 	
@@ -340,6 +346,29 @@ public class FrontSellerServlet extends HttpServlet {
 	
 		try {
 			int result = biz.emailCheck(email);
+			if(result == 1) {
+				response.getWriter().write("1");
+			}else {
+				response.getWriter().write("0");
+			}
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}	
+	}
+
+	/**
+	 * 사업자등록번호 중복체크
+	 */
+	protected void sellerNoChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String sellerNo = request.getParameter("sellerNo");
+		
+		SellerBiz biz = new SellerBiz();
+		
+		try {
+			int result = biz.sellerNoChk(sellerNo);
 			if(result == 1) {
 				response.getWriter().write("1");
 			}else {

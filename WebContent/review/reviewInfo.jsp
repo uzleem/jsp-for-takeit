@@ -80,6 +80,14 @@
 			<input class="link" type="submit" style="display: inline-block; line-height: 35px; vertical-align: middle;" value="내후기수정">
 			<a href="/takeit/member/myPage.jsp"  style="display: inline-block; line-height: 35px; vertical-align: middle;" class="link">마이페이지</a>
 		</div>
+		
+		<input type="hidden" value="${review.itemNo}" name="itemNo"/>
+		<input type="hidden" value="${review.reviewTitle}" name="reviewTitle"/>
+		<input type="hidden" value="${review.reviewContents}" name="reviewContents"/>
+		<input type="hidden" value="${review.reviewViews}" name="reviewViews"/>
+		<input type="hidden" value="${review.reviewScore}" name="reviewScore"/>
+		<input type="hidden" value="${review.reviewImg}" name="reviewImg"/>
+
 		</form>
 	</div>
 </div>

@@ -256,6 +256,39 @@ public class SellerDao {
 	}
 
 	/**
+	 * 사업자등록번호 중복체크
+	 * @throws CommonException 
+	 */
+	public boolean sellerNoChk(Connection con, String sellerNo) throws CommonException {
+
+		String sql = "select seller_no from seller where seller_no= ?";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, sellerNo);
+			
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error",37);
+			message.setUrl("/takeit/member/memberInput.jsp");
+			message.setLinkTitle("뒤로가기");
+			throw new CommonException(message);
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return true;
+	}
+	
+	/**
 	 * 상점명 중복체크
 	 * @throws CommonException 
 	 */
