@@ -83,6 +83,19 @@ public class FrontMypageServlet extends HttpServlet {
 		case "itemadd":
 			itemadd(request,response);
 			break;
+			
+		case "memberList":
+			memberList(request,response);
+			break;
+		case "sellerList":
+			sellerList(request,response);
+			break;
+		case "AceRemoveMember":
+			AceRemoveMember(request,response);
+			break;	
+		case "AceRemoveSeller":
+			AceRemoveSeller(request,response);
+			break;	
 		}
 	}
 	
@@ -95,6 +108,63 @@ public class FrontMypageServlet extends HttpServlet {
 		process(request, response);
 	}
 	
+	// 판매자 회원 전체 조회
+		protected void sellerList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("판매자 전체 조회");
+			
+			HttpSession session = request.getSession();
+			
+			MessageEntity message = null;
+			
+			ArrayList<Seller> sellerList = new ArrayList<Seller>();
+			MypageBiz biz = new MypageBiz();
+			
+			
+			try {
+				biz.getSellerList(sellerList);
+				
+				System.out.println(sellerList);
+				
+				session.setAttribute("sellerList", sellerList);
+				request.getRequestDispatcher("/member/sellerList.jsp").forward(request, response);
+			}catch (CommonException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				message = e.getMessageEntity();
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+				
+			}
+		}
+	
+	// 일반회원 전체 조회
+	protected void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("일반회원 전체 조회");
+		
+		HttpSession session = request.getSession();
+		
+		MessageEntity message = null;
+		
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		MypageBiz biz = new MypageBiz();
+		
+		
+		try {
+			biz.getMemberList(memberList);
+			
+			System.out.println(memberList);
+			
+			session.setAttribute("memberList", memberList);
+			request.getRequestDispatcher("/member/memberList.jsp").forward(request, response);
+		}catch (CommonException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			
+		}
+	}
 	
 	/**
 	 * 상품 등록 페이지 요청 폼
@@ -272,8 +342,8 @@ public class FrontMypageServlet extends HttpServlet {
 			}
 			
 		} 
-
-	
+		
+		
 	/**
 	 * 회원 탈퇴 판매자 
 	 * @param request
@@ -290,6 +360,8 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		String sellerId = request.getParameter("sellerId");
 		String sellerPw = request.getParameter("sellerPw");
+		System.out.println("탈퇴 요청 아이디 : " + sellerId);
+		System.out.println("탈퇴 요청 비밀번호 : " + sellerPw);
 		
 		if(sellerId == null || sellerId.trim().length()  == 0 ) {
 
@@ -726,6 +798,138 @@ public class FrontMypageServlet extends HttpServlet {
 		
 	}
 	
+	/**
+	 * 괸리자 > 회원 탈퇴 일반회원
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void AceRemoveMember (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("회원 탈퇴 요청");
+		
+		HttpSession session = request.getSession(false);
+		MessageEntity message = null;
+		
+		String memberId = request.getParameter("memberId");
+		String memberPw = request.getParameter("memberPw");
+		
+		if(memberId == null || memberId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("회원 목록으로 ");
+			message.setUrl("/takeit/member/mypageController?action=memberList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(memberPw == null || memberPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("회원 목록으로 ");
+			message.setUrl("/takeit/member/mypageController?action=memberList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		memberId = memberId.trim();
+		memberPw = memberPw.trim();
+		
+		MypageBiz mybiz = new MypageBiz();
+		
+		
+
+		try {
+			mybiz.removeMember(memberId,memberPw);
+			
+			message = new MessageEntity("success", 4);
+			message.setLinkTitle("회원목록으로");
+			message.setUrl("/takeit/member/mypageController?action=memberList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			
+		}catch (CommonException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	} 
+	
+	/**
+	 * 괸리자 > 회원 탈퇴 판매자
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void AceRemoveSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("회원 탈퇴 요청");
+		
+		HttpSession session = request.getSession(false);
+		MessageEntity message = null;
+		
+		String sellerId = request.getParameter("sellerId");
+		String sellerPw = request.getParameter("sellerPw");
+		
+		if(sellerId == null || sellerId.trim().length()  == 0 ) {
+
+
+			message = new MessageEntity("validation",0);
+			message.setLinkTitle("회원 목록으로 ");
+			message.setUrl("/takeit/member/mypageController?action=memberList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		if(sellerPw == null || sellerPw.trim().length() == 0  ) {
+
+
+			message = new MessageEntity("validation",1);
+			message.setLinkTitle("회원 목록으로 ");
+			message.setUrl("/takeit/member/mypageController?action=memberList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		sellerId = sellerId.trim();
+		sellerPw = sellerPw.trim();
+		
+		MypageBiz mybiz = new MypageBiz();
+		
+		
+
+		try {
+			mybiz.removeSeller(sellerId,sellerPw);
+			
+			message = new MessageEntity("success", 4);
+			message.setLinkTitle("회원목록으로");
+			message.setUrl("/takeit/member/mypageController?action=sellerList");
+			
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			
+		}catch (CommonException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	} 
+	
 	
 	/**
 	 * 회원 탈퇴 일반회원
@@ -740,7 +944,7 @@ public class FrontMypageServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		MessageEntity message = null;
 		
-		String memberId = (String)session.getAttribute("memberId");
+		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
 		
 		if(memberId == null || memberId.trim().length()  == 0 ) {

@@ -27,6 +27,110 @@ public class MypageDao {
 		return instance;
 	}
 	
+	//판매자 전체 조회
+		public void selectSellerList(Connection conn , ArrayList<Seller> sellerList) throws CommonException{
+			String sql = "SELECT * FROM SELLER";
+			
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				while(rs.next()) {
+					Seller dto = new Seller();
+					dto.setSellerId(rs.getString("SELLER_ID"));
+					dto.setSellerPw(rs.getString("SELLER_PW"));
+					dto.setName(rs.getString("NAME"));
+					dto.setMobile(rs.getString("MOBILE"));
+					dto.setEmail(rs.getString("EMAIL"));
+					dto.setEntryDate(rs.getString("ENTRY_DATE"));
+					dto.setSellerNo(rs.getString("SELLER_NO"));
+					dto.setPostNo(rs.getString("POSTNO"));
+					dto.setAddress(rs.getString("ADDRESS"));
+					dto.setAddressDetail(rs.getString("ADDRESS_DETAIL"));
+					
+					dto.setShopMobile(rs.getString("SHOP_MOBILE"));
+					dto.setShopName(rs.getString("SHOP_NAME"));
+					dto.setCustScore(rs.getDouble("CUST_SCORE"));
+					dto.setShopKakaoId(rs.getString("SHOP_KAKAO_ID"));
+					dto.setShopLocCode(rs.getString("SHOP_LOC_CODE"));
+					dto.setGrade(rs.getString("GRADE"));
+					
+					
+					
+					
+					
+					sellerList.add(dto);
+				}
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+				MessageEntity message = new MessageEntity("error", 41);
+				message.setUrl("/takeit/member/myPage.jsp");
+				message.setLinkTitle("마이페이지로 이동");
+
+				throw new CommonException(message);
+			}
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+			
+		}
+	
+	
+	//일반회원 전체 조회
+	public void selectMemberList(Connection conn , ArrayList<Member> memberList) throws CommonException{
+		String sql = "SELECT * FROM MEMBER WHERE GRADE='G'";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Member dto = new Member();
+				dto.setMemberId(rs.getString("MEMBER_ID"));
+				dto.setMemberPw(rs.getString("MEMBER_PW"));
+				dto.setName(rs.getString("NAME"));
+				dto.setMobile(rs.getString("MOBILE"));
+				dto.setEmail(rs.getString("EMAIL"));
+				dto.setEntryDate(rs.getString("ENTRY_DATE"));
+				dto.setPoint(rs.getInt("POINT"));
+				dto.setPostNo(rs.getString("POSTNO"));
+				dto.setAddress(rs.getString("ADDRESS"));
+				dto.setAddressDetail(rs.getString("ADDRESS_DETAIL"));
+				dto.setBirth(rs.getString("BIRTH"));
+				dto.setMemberLocNo(rs.getString("MEMBER_LOC_NO"));
+				dto.setGrade(rs.getString("GRADE"));
+				
+				
+				
+				
+				
+				memberList.add(dto);
+			}
+			
+		}catch (Exception e) {
+			System.out.println("카테고리 목록 가져오기 실패");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 41);
+			message.setUrl("/takeit/member/myPage.jsp");
+			message.setLinkTitle("마이페이지로 이동");
+
+			throw new CommonException(message);
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(stmt);
+		
+	}
+	
 	
 	/**
 	 * 상품 카테고리 리스트 가져오기
@@ -274,7 +378,6 @@ public class MypageDao {
 		ResultSet rs = null;
 		
 		try {
-			conn = JdbcTemplate.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, dto.getSellerId());
 			rs = stmt.executeQuery();
