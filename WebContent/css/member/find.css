@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+#contents_box {	
+	margin: auto;
+}
+	
+#contents_box > table {		
+	/* font-size: 9px; */
+}
+	
+#check_submit{
+	width:290px;
+	height:37px;  
+	padding: 0px 19px;
+	font-size: 13px;
+	background-color: #7B977A;
+	color: white;
+	border: 1px solid #7B977A;
+	cursor: pointer;
+    margin-right: 23px;
+}
+
+#memberId{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	border: 1px solid #7B977A;
+}
+
+#sellerId{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	border: 1px solid #7B977A;
+}
+
+#name{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	border: 1px solid #7B977A;
+}
+
+#email{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	border: 1px solid #7B977A;
+}
+
+#mobileNum{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	margin-bottom: 10px;
+	border: 1px solid #7B977A;
+}
+
+#mobile_button{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 12px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+}
+#find-account-tbl>tr>th{
+	text-align: right;
+	margin-right: 10px;
+}

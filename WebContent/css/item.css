@@ -1,90 +1,123 @@
 @charset "UTF-8";
 
-/*  css 파일 */
 
-/* a config */
-a:link {
-	text-decoration: none;
-	color: #152a84;
-}
-a:visited {
-	text-decoration: none;
-	color: #c0c0c0;
-}
-a:hover {
-	text-decoration: none;
-	color: 152a84;
-	background-color: #ffcc00;
-}
-a:active {
-	text-decoration: underline;
-	color: #ff0000;
-}
-
-/* logo img */
-img[src^="img/logo/"] {
-	width: 50px;
-	height: 40px;
-}
-
-img[src$="img/.jpg/"] {
+img[src$="item/.jpg/"] {
 	width: 30px;
 	height: 30px;
 }
 
+table{
 
-/* main_menu */
-#main_menu {
-	text-align: right;
+	width: 100%;
+	border:  solid 1px black;
 }
 
-/* footer_menu */
-div#footer_menu {
+.itemTable {
+	border-collapse: collapse;
+}
+
+.itemTable th, .itemTable td {
+	border: 1px solid black;
+}
+/**상품등록*/
+#enroll_total {
+	border: 0px solid black;
+	width : 1700px;
+	height: 400px;
+	margin: 100px;
+}
+
+#meat_div {
+	margin-left: 50px;
+}
+/**상품리스트*/
+#itemListImg{
+	width: 250px;
+	height: 320px;
+}
+#itemListImg:hover{
+	-webkit-transform: scale(1.005);
+	transform: scale(1.005);
+	box-shadow: 3px 3px grey;
+}
+.item_list{
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.item_list>a{
+	color: black;
+}
+.item_list>a:hover{
+	color: #5a7d59;
+	font-weight: 700;
+}
+#itemLI{
+	font-weight: 700;
+	font-size: 18px;
+}
+.item_wrap{
+	margin: 0 auto;
+	width: 1050px;
+}
+#itemPr{
+	color: grey;
+	text-decoration: line-through;
+}
+#itemDc{
+	color: red;
+	font-size: 15px;
+}
+#itemDiscPrice{
+	font-weight: 700;
+	color: red;
+	font-size: 18px;
+}
+/**item detail*/
+#item_detail_wrap{
+	width: 1050px;
+	margin: 0 auto;
+}
+.item_img_wrap>img{
+	width: 320px;
+	height: 390px;
+	margin: 0 auto;
+    margin-top: 15px;
+	margin-right: 15px;
+}
+.item_detail{
+	display: flex;
+	margin-top: 30px;
+}
+#itemName{
+	font-size: 20px;
+	font-weight: 700;
+}
+#realPrice{
+}
+.btn-area{
+	width: fit-content;
+	float: right;
+	display: flex;
+	margin-top: 10px;
+}
+#addCart{
+	display: inline-block;
+	margin-right: 5px;
+}
+.it_info{
+	line-height: 2;
+}
+/**no item list*/
+#noItemList-wrap{
+	width: fit-content;
+	margin: 20px auto;
+}
+#noItemList-title>h3{
+	font-size: 40px;
+	font-weight: 700;
 	text-align: center;
 }
-
-/*  class="seperator" */
-span.seperator {
-	margin: 0 5px;
-	font-size: 0.7em;
-	color: gray;
-}
-
-span.seperator_title {
-	margin: 0 5px;
-	font-size: 0.8em;
-	color: #ffcc00;	
-}
-
-/* title */
-h3.title {
-	color: #152a84;		
-}
-
-/* form readonly */
-input[readonly] {
-	background-color: cyan;
-}
-
-input.large {
-	width: 500px;	
-}
-
-/*table */
-table, tr, td, th {
-	border: 1px solid Pink;
-	margin-left: 20px;
-	padding: 3px;
-}
-
-tr.title_rows {
-	text-align: center;
-	background-color: purple;
-	color: white;
-}
-
-div.form {
-	margin-top: 20px;
-	margin-left: 20px;
-	padding: 5px;
+#noItemList-info{
+	margin-top: 30px;
+	font-size: 20px;
 }

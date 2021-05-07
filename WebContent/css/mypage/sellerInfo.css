@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+#sellerInfo_table table,#sellerInfo_table th,  #sellerInfo_table td , #sellerInfo_table tr{
+	
+	border: solid 1px #8D959C;
+		margin: 0 auto;
+		border-collapse: collapse;
+		padding: 5px;
+		width: 1050px;
+		margin-top: 30px;
+		margin-bottom: 20px;
+	
+	
+}
+
+
+#sellerInfo_table th {
+	width:130px;
+}
+
+#sellerInfo_table td {
+	width: 400px;
+}
+
+
+#sellerInfo_table{
+	width: 500px;
+	margin: 0 auto;
+}
+
+
+
+#mypage_Btn{
+	text-align: center;
+	display: block;
+	margin: 5px auto 0 auto;
+	width: 300px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	margin-top: 30px;
+}
+#mypage_Btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+
+#memberInfo_button{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+}
+#addressDetail{
+	
+	width:250px;
+	
+}
+#address{
+	
+	width:250px;
+	
+}
+
+
+.updateBtn{
+	width: 450px;
+	height:40px; 
+	padding: 0px 19px;
+	font-size: 15px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
+    
+}
+
+#shopImg{
+	 width: 230px;
+    height: 300px;
+}

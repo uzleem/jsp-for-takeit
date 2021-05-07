@@ -1,0 +1,234 @@
+@charset "UTF-8";
+
+/**공통*/
+#takeitImg-wrap{
+	width: fit-content;
+}
+#takeit-detailImg{
+	position:relative;
+	width: 246px;
+    height: 316px;
+    margin-top: 45px;
+}
+#takeitImg{
+	position:relative;
+	width: 246px;
+    height: 316px;
+}
+#takeitImg:hover{
+	-webkit-transform: scale(1.005);
+	transform: scale(1.005);
+	box-shadow: 3px 3px grey;
+} 
+/**takeit list*/
+.takeit_item_wrap{
+	width: 1050px;
+	justify-content: space-between;
+}
+.item-fresh{
+	display: block;
+    position: absolute;
+    margin-top: -35px;
+    margin-left: 153px;
+    font-weight: 700;
+    height: 31px;
+    width: 91px;
+    text-align: center;
+    line-height: 31px;
+    vertical-align: middle;
+    background-color: #a7a370;
+}
+.takeit-listTime{
+	margin-top: 15px;
+	width:246px;
+	height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    position: absolute;
+    text-align: center;
+	font-weight: 700;
+	background-color: #a7a370;
+	z-index:1;
+}
+.takeit_item>li{
+	list-style: none;
+}
+
+.blink{
+	-webkit-animation:blink 0.5s ease-in-out infinite alternate; 
+	-moz-animation:blink 0.5s ease-in-out infinite alternate; 
+	animation:blink 0.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{ 
+	0% {opacity:0.6;} 
+	100% {opacity:1;} 
+} 
+@-moz-keyframes blink{ 
+	0% {opacity:0.6;} 
+	100% {opacity:1;}
+} 
+@keyframes blink{ 
+	0% {opacity:0.6;} 
+	100% {opacity:1;} 
+}
+
+
+/**takeit detail*/
+.takeit_detail{
+	width: 1050px;
+	margin: 0 auto;
+}
+.takeit_detail_wrap{
+	width: 1050px;
+	display: flex;
+}
+.btn-area{
+	width: fit-content;
+	float: right;
+}
+.takeit-detailTime{
+	margin-top: 40px;
+    text-align: center;
+	font-weight: 700;
+	background-color: #a7a384;
+}
+.it_info{
+	line-height: 2;
+}
+
+/**지역시장등록 shopLocInput*/
+.side-menu{
+	margin-right: 50px;
+}
+.shopLocInput-wrap{
+	margin: 33px auto;
+}
+.shopLocInput-wrap>h1{
+	width:fit-content; 
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+.shopLocInput-tbl{
+	width: fit-content;
+}
+.shopLoc-input{
+	height: 35px;
+	width: 250px;
+	border: 1px solid grey;
+	font-size: 14px;
+}
+#shopLoc-btn-area{
+	margin-top: 15px;
+	display: flex;
+	width: 550px;
+	margin: 20px auto;
+
+}
+.shopLoc-btn{
+	text-align: center;
+	width: 170px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.shopLoc-btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+/**takeit 등록*/
+.takeitInput-wrap{
+	margin: 33px auto;
+}
+.takeitInput-wrap>h1{
+	width:fit-content; 
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+.takeitInput-tbl{
+	width: fit-content;
+}
+.shopLoc-input{
+	height: 35px;
+	width: 250px;
+	border: 1px solid grey;
+	font-size: 14px;
+}
+#shopLoc-btn-area{
+	margin-top: 15px;
+	display: flex;
+	width: 550px;
+	margin: 20px auto;
+
+}
+.shopLoc-btn{
+	text-align: center;
+	width: 170px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.shopLoc-btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+#shopLocCode{
+	height: 35px;
+	width: 250px;
+	border: 1px solid grey;
+	font-size: 14px;
+	cursor: pointer;
+}
+#takeitInput{
+	margin-top:10px;
+	height: 35px;
+	width: 250px;
+	border: 1px solid grey;
+	font-size: 14px;
+}
+#takeitInput-btn-area{
+	margin-top: 15px;
+	display: flex;
+	width: 550px;
+	margin: 20px auto;
+
+}
+.takeitInput-btn{
+	text-align: center;
+	width: 170px;
+	height: 45px;
+	line-height: 45px;
+	font-size:20px;
+	font-weight: 500;
+	color: #35363a;
+	border: solid 1px #8D959C;
+	background-color: #fff;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.takeitInput-btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

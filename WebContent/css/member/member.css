@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
-/* 회원가입 */
+/* 필요시 사용 예정 */
+
+/* 일반,판매자 회원가입 */
 @import url("input.css");
 
 /* 로그인 */
 @import url("login.css");
 
-/* 아이디 찾기 */
-@import url("find_Id.css");
+/* 아이디,비밀번호 찾기 */
+@import url("find.css");
 
-/* 비밀번호 찾기 */
-@import url("find_Pw.css");

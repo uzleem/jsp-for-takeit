@@ -1,24 +1,119 @@
 package com.takeit.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
 
 /** 
  * <pre>
  * 객체 생성없이 사용하기 위한 공통기능 유틸클래스
  * </pre>
-
  */
 public class Utility {
 
+	/** argument로 전달받은 주소의 위도, 경도를 반환 */
+	public static HashMap<String, String> getLatlng(String address) {
+		String clientId = "5ta9sn0kog";
+		String clientSecret = "2uWwVDqXH2WqejM8bumlMLrjJXu9pPvLkRLgdQiT";
+		
+		StringBuffer response = new StringBuffer();
+		try {
+            String addr = URLEncoder.encode(address, "UTF-8");  
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + addr;
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+            con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+            
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { 
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		JSONParser parser = new JSONParser();
+		JSONObject jsonObject = null;//네이버로 받아온 JSON데이터를 저장
+		JSONArray jsonArray= null;//addresses 내부의 JSON 배열을 저장
+		JSONObject jsonObject2 = null;//반복문을 통해서 array내부의 데이터를 하나씩 저장
+		String x = null;
+		String y = null;
+		try {
+			jsonObject=(JSONObject) parser.parse(response.toString());
+			jsonArray = (JSONArray)jsonObject.get("addresses");
+			for(Object object: jsonArray) {
+				jsonObject2= (JSONObject)object;
+				if(jsonObject2.get("x")!=null) {
+					x=jsonObject2.get("x").toString();//위도 저장
+				}
+				if(jsonObject2.get("y")!=null) {
+					y=jsonObject2.get("y").toString();//경도 저장
+				}
+			}
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		HashMap<String, String> latLng = new HashMap<String, String>();
+		latLng.put("lat", y);
+		latLng.put("lng", x);
+		return latLng;
+	}
+	
+	/** 랜덤값 반환 메서드 */
+	public static String getSecureString(int length, boolean isUpper) {
+		Random extractNo = new Random((long)(Math.random() * System.nanoTime()));
+		String secureCode = "";
+		for (int index = 0; index < length; index++) {
+			if (extractNo.nextBoolean()) {
+				secureCode += extractNo.nextInt(10); // 0 ~ 9 숫자
+			} else {
+				if (isUpper) {	// 영문 대문자
+					secureCode += (char)(extractNo.nextInt(26) + 65);
+				} else {		// 영문 소문자
+					secureCode += (char)(extractNo.nextInt(26) + 97);
+				}
+			}
+		}
+		
+		return secureCode;
+	}
+	
 	/**
 	 * 현재날짜 반환 
 	 * @return 현재 기본형식(년도4-월2-일2) 날짜 
 	 */
 	public static String getCurrentDate() {
-		return getCurrentDate("yyyy-MM-dd", Locale.KOREA);
+		return getCurrentDate("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
 	}
 	
 	public static String getCurrentDate(String pattern) {
@@ -27,6 +122,19 @@ public class Utility {
 	
 	public static String getCurrentDate(String pattern, Locale locale) {
 		return new SimpleDateFormat(pattern, locale).format(new Date());
+	}
+	
+	/** 문자열 형식의 날짜를 Date객체로 반환 */
+	public static Date convertStringToDate(String date, String pattern) throws java.text.ParseException {
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		return new Date(format.parse(date).getTime());
+	}
+	
+	/** 두 Date객체의 날짜 간격 일 수를 반환 */
+	public static int getDayBetweenAandB(Date firstDate, Date secondDate) {
+		long date = firstDate.getTime() - secondDate.getTime(); 
+		long dateDays = date / (24*60*60*1000);
+		return (int)dateDays;
 	}
 	
 	/**
@@ -99,7 +207,7 @@ public class Utility {
 		
 		System.out.println("\n보안문자 : 숫자형식");
 		System.out.println(Utility.getSecureNumber());
-		System.out.println(Utility.getSecureNumber(4));
+		System.out.println(Utility.getSecureNumber(6));
 		System.out.println(Utility.getSecureNumber(8));
 		System.out.println(Utility.getSecureNumber(12));
 		
