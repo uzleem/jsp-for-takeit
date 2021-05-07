@@ -73,7 +73,7 @@
 				&#8361;<fmt:formatNumber value="<%= cart.getTotalPrice()+3500 %>" pattern="###,###"/>
 				</span>
 			</div><br>
-			<form action="/takeit/order/OrderController?action=orderForm" method="post">
+			<form action="" method="post">
 				<input type="submit" value="구매" class="small-btn" style="margin-bottom: 10px;">
 			</form>
 			<form action="/takeit/cartController?action=removeCart&itemNo=<%= cart.getItemNo() %>" method="post">

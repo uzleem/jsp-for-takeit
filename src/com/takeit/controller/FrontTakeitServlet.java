@@ -188,7 +188,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		
 		try {
 			biz.addShopLoc(address, shopLoc);
-			MessageEntity message = new MessageEntity();
+			MessageEntity message = new MessageEntity("success", 7);
 			message.setLinkTitle("마이페이지");
 			message.setUrl(CONTEXT_PATH + "/member/myPage.jsp");
 			request.setAttribute("message", message);
