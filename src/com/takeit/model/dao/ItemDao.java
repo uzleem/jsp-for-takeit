@@ -441,8 +441,8 @@ public class ItemDao {
 		/**
 		 * 상품삭제
 		 */
-		public void deleteItem(Connection conn, Item dto) {
-			
+		public void deleteItem(Connection conn, String sellerId, String itemNo ) {
+			System.out.println("[debug] 등록 상품 삭제 dao 요청");
 			String sql = "delete from Item where seller_id=? and Item_no=?";
 			
 			PreparedStatement stmt = null;
@@ -450,11 +450,13 @@ public class ItemDao {
 			
 			try {
 				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, dto.getSellerId());
-				stmt.setString(2, dto.getItemNo());
+				stmt.setString(1, sellerId);
+				stmt.setString(2,itemNo);
 				
 				stmt.executeUpdate();
+				System.out.println("[debug] 등록 상품 삭제 dao 요청 완료");
 			}catch (Exception e) {
+				System.out.println("[debug] 등록 상품 삭제 dao 요청 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}finally {
