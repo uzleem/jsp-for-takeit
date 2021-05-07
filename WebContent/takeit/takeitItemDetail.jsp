@@ -145,14 +145,19 @@ $(document).ready(function (){
 	</div>
 	<div class="btn-area">
 	<input type="button" class="link" id="addCart"  style="display: inline-block;" value="장바구니"/>
-	<form action="#" method="post" style="display: inline-block;">
-	<input type="button" class="link" style="display: inline-block;" value="구매"/>
+	<form action="${CONTEXT_PATH}/order/orderController?action=orderForm"  method="post" style="display: inline-block;" id="buyItemForm">
+
+		<input type="hidden" value="${cart.itemNo}" name="itemNo" id="${cart.itemNo}"> 
+		<input type="hidden" value="${cart.cartItemQty}" name="itemQty" id="${cart.itemNo}qty"> 
+		<input type="hidden" value="${cart.itemPrice}" name="itemPrice" id="${cart.itemNo}price"> 
+		<input type="hidden" value="${cart.totalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
+		<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 
+		<input type="button" class="link" style="display: inline-block;" value="구매" onclick='$("#buyItemForm").submit();'/>
 	</form>
 	</div>
 	<!-- 장바구니 등록 -->
 	<div id="addCart-area">
 	<form action="/takeit/cartController?action=addCart&itemNo=${takeitItem.itemNo }" method="post">
-	<!-- <form action="/takeit/cartController?action=addCart" method="post"> -->
 	<br><hr>
 		<div id="addCart-info">
 			<div id="cart-info">
