@@ -110,6 +110,20 @@ public class SellerBiz {
 	}
 
 	/**
+	 * 아이디 중복체크
+	 * @throws CommonException 
+	 */
+	public int sellerNoChk(String sellerNo) throws CommonException{
+		Connection con = JdbcTemplate.getConnection();
+		boolean result = dao.sellerNoChk(con, sellerNo);
+		JdbcTemplate.close(con);
+		if (result) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
 	 * 상점명 중복체크
 	 * @throws CommonException 
 	 */

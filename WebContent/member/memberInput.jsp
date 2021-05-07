@@ -163,7 +163,7 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>우편번호</td>
+			<td>우편번호<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="우편번호를 선택해주세요." id="postNo" name="postNo" readonly="readonly"/>
 				<input type="button" id="postNoBtn" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
@@ -177,7 +177,7 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>도로명주소</td>
+			<td>도로명주소<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="우편번호를 선택해주세요." id="address" name="address" readonly="readonly"/>
 			</td>
@@ -190,7 +190,7 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>상세주소</td>
+			<td>상세주소<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="상세주소를 입력해주세요." id="addressDetail" name="addressDetail"/>
 			</td>
