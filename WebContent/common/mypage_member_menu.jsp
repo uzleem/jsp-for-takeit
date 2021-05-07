@@ -20,4 +20,13 @@
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=takeitInputForm">잇거래 등록</a></li>
 		</ul>
 	</c:if>
+	
+	
+	<c:if test="${not empty dto and dto.grade == 'A'}">
+		<h3 class="active"> 회원관리</h3>
+		<ul>
+			<li><a href="${CONTEXT_PATH}/member/mypageController?action=sellerList">판매자 회원 목록</a></li>
+			<li><a href="${CONTEXT_PATH}/member/mypageController?action=memberList">일반 회원 목록</a></li>			
+		</ul>
+	</c:if>
 </div>

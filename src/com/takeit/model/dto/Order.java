@@ -18,13 +18,17 @@ public class Order implements Serializable {
 	private String recipientName;
 	private String recipientPostNo;
 	private String recipientAddr;
+	private String recipientAddrDetail;
 	private String recipientMobile;
+	
+	
 	private String shipRequest;
 	private int orderPrice;
 	private String shipStatusCode;
 	private String memberId;
 	private String orderCancelReq;
 	private String orderCancel;
+	
 	// 판매자
 	private String sellerId;
 	private String shopName;
@@ -78,6 +82,16 @@ public class Order implements Serializable {
 		this.sellerId = sellerId;
 		this.shopName = shopName;
 		this.orderDetails = orderDetails;
+	}
+
+	
+	
+	public String getRecipientAddrDetail() {
+		return recipientAddrDetail;
+	}
+
+	public void setRecipientAddrDetail(String recipientAddrDetail) {
+		this.recipientAddrDetail = recipientAddrDetail;
 	}
 
 	public String getSellerId() {

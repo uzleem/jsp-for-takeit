@@ -9,7 +9,7 @@
 		<span id="pipe">|</span>
 		<a href="/takeit/item/reviewController?action=reviewList">사용자리뷰</a>
 		<span id="pipe">|</span>
-		<a href="/takeit/takeit/takeitController?action=takeitItemList">잇거래</a>
+		<a href="/takeit/takeit/takeitController?action=takeitItemList&scope=all">잇거래</a>
 		<span id="pipe">|</span>
 		<a href="/takeit/boardController?action=boardList&boardCategory=1">공지사항</a>
 	</div>

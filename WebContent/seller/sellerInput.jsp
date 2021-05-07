@@ -71,10 +71,10 @@ function mobilePopup() {
 <form action="${CONTEXT_PATH}/seller/controller?action=sellerInput" method="post" enctype="multipart/form-data">
 <table>
 		<tr>
-			<td>아이디</td>
+			<td>아이디<span class="star"> *</span></td>
 			<td>
-				<input type="text" placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합" id="sellerId" name="sellerId" />
-				<input type="button" value="중복확인" id="id_button" onclick="idCheckSellerSeller()"/>
+				<input type="text" placeholder="아이디를 입력해주세요." id="sellerId" name="sellerId" />
+				<input type="button" value="중복확인" id="id_button" onclick="idCheckSeller()"/>
 			</td>
 		</tr>
 		<tr>
@@ -86,8 +86,8 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>비밀번호</td>
-			<td><input type="password" placeholder="비밀번호를 입력해주세요" id="sellerPw" name="sellerPw" /></td>
+			<td>비밀번호<span class="star"> *</span></td>
+			<td><input type="password" placeholder="비밀번호를 입력해주세요." id="sellerPw" name="sellerPw" /></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -97,9 +97,9 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>비밀번호 확인</td>
+			<td>비밀번호 확인<span class="star"> *</span></td>
 			<td>
-				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요" id="pwChk" name="pwChk" />
+				<input type="password" placeholder="비밀번호를 한번 더 입력해주세요." id="pwChkSeller" name="pwChkSeller" />
 				<input type="checkbox" id="pwCheckbox" name="pwCheckbox" onclick="pwCheckbox_onclick_seller()"/>
 			</td>
 		</tr>
@@ -111,8 +111,8 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>이름</td>
-			<td><input type="text" placeholder="이름을 입력해주세요" id="name" name="name" /></td>
+			<td>이름<span class="star"> *</span></td>
+			<td><input type="text" placeholder="이름을 입력해주세요." id="name" name="name" /></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -122,9 +122,9 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>휴대폰</td>
+			<td>휴대폰<span class="star"> *</span></td>
 			<td>
-				<input type="text" id="mobile" placeholder="예:000-00-00000" id="mobile" name="mobile"  />
+				<input type="text" id="mobile" placeholder="휴대폰번호를 입력해주세요." id="mobile" name="mobile"  />
 				<input type="button" value="인증번호" id="mobile_button" name="mobile_button" onclick="mobilePopup();"/>
 			</td>
 		</tr>
@@ -136,9 +136,9 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>인증번호</td>
+			<td>인증번호<span class="star"> *</span></td>
 			<td>
-				<input type="text" placeholder="인증번호 선택" id="mobileNum" name="mobileNum"  readonly="readonly"/>
+				<input type="text" placeholder="인증번호를 선택해주세요." id="mobileNum" name="mobileNum"  readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -149,9 +149,9 @@ function mobilePopup() {
 		</tr>
 		
 		<tr>
-			<td>이메일</td>
+			<td>이메일<span class="star"> *</span></td>
 			<td>
-				<input type="text" placeholder="예:takeit@take.com" id="email" name ="email" />
+				<input type="text" placeholder="이메일을 입력해주세요." id="email" name ="email" />
 				<input type="button" value="중복확인" id="email_button" name="email_button" onclick="emailCheckSeller()"/>
 			</td>
 		</tr>
@@ -166,7 +166,7 @@ function mobilePopup() {
 		<tr>
 			<td>우편번호</td>
 			<td>
-				<input type="text" placeholder="우편번호" id="postNo" name="postNo" readonly="readonly"/>
+				<input type="text" placeholder="우편번호를 선택해주세요." id="postNo" name="postNo" readonly="readonly"/>
 				<input type="button" id="postNoBtn" name="postNoBtn" onclick="goPopup();" value="우편번호"/>
 			</td>
 		</tr>
@@ -180,7 +180,7 @@ function mobilePopup() {
 		<tr>
 			<td>도로명주소</td>
 			<td>
-				<input type="text" placeholder="도로명주소" id="address" name="address" readonly="readonly"/>
+				<input type="text" placeholder="우편번호를 선택해주세요." id="address" name="address" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
@@ -193,7 +193,7 @@ function mobilePopup() {
 		<tr>
 			<td>상세주소</td>
 			<td>
-				<input type="text" placeholder="상세주소" id="addressDetail" name="addressDetail"/>
+				<input type="text" placeholder="상세주소를 입력해주세요." id="addressDetail" name="addressDetail"/>
 			</td>
 		</tr>
 		<tr>
@@ -204,7 +204,7 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>상점구역</td>
+			<td>상점구역<span class="star"> *</span></td>
 			<td>
 				<select name="shopLocCode" id="shopLocCode">
 					<option value="none">:::선택:::</option>
@@ -223,8 +223,8 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>사업자등록번호</td>
-			<td><input type="text" placeholder="예:000-00-00000" id="sellerNo" name="sellerNo" /></td>
+			<td>사업자등록번호<span class="star"> *</span></td>
+			<td><input type="text" placeholder="사업자등록번호를 입력해주세요." id="sellerNo" name="sellerNo" /></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -234,8 +234,8 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>상점연락처</td>
-			<td><input type="text" placeholder="상점 연락처를 입력해주세요" id="shopMobile" name="shopMobile" /></td>
+			<td>상점연락처<span class="star"> *</span></td>
+			<td><input type="text" placeholder="상점 연락처를 입력해주세요." id="shopMobile" name="shopMobile" /></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -245,13 +245,17 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>상점명</td>
-			<td><input type="text" placeholder="상점명을 입력해주세요" id="shopName" name="shopName" /></td>
+			<td>상점명<span class="star"> *</span></td>
+			<td>
+				<input type="text" placeholder="상점명을 입력해주세요." id="shopName" name="shopName" />
+				<input type="button" value="중복확인" id="shopNameBtn" name="shopNameBtn" onclick="shopNameCheck()"/>
+			</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
 				<span id="shopNameResult1" class="inputResult"></span>
+				<span id="shopNameResult2" class="inputResult"></span>
 			</td>
 		</tr>	
 		
@@ -281,7 +285,7 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td>카테고리</td>
+			<td>카테고리<span class="star"> *</span></td>
 			<td>
 				<select name="shopCategoryNo" id="shopCategoryNo">
 					<option value="none">:::선택:::</option>
@@ -301,10 +305,14 @@ function mobilePopup() {
 		</tr>	
 		
 		<tr>
-			<td colspan="3" align="center"><input type="submit" value="가입하기" id="sellerSubmit" name="sellerSubmit"  onclick="return inputCheck()"/></td>
+			<td colspan="3" align="center"><input type="submit" value="가입하기" id="sellerSubmit" name="sellerSubmit"  onclick="return inputCheckSeller()"/></td>
 		</tr>
 	</table>
 </form>
 </div>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
+<!-- footer 구역 -->
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html> 

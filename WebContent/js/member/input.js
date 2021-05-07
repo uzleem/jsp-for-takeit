@@ -30,10 +30,10 @@ $("#memberId").on('keyup', function() {
 	var memberId_Valid = memberId_data(memberId)
 	if(memberId_Valid) {
 		$('#memberIdResult1').show().html("o 6~20자 영문 혹은 영문+숫자를 조합<br>");
-		$('#memberIdResult1').css('color','#0F851A')
+		$('#memberIdResult1').css('color','#08A600')
 	}else {
 		$('#memberIdResult1').show().html("x 6~20자 영문 혹은 영문+숫자를 조합<br>");
-		$('#memberIdResult1').css('color','#B3575A')
+		$('#memberIdResult1').css('color','#FF0000')
 	}
 });
 /* 비밀번호 포커스 */
@@ -55,10 +55,10 @@ $("#memberPw").on('keyup', function() {
 	var memberPw_Valid = memberPw_data(memberPw)
 	if(memberPw_Valid) {
 		$('#memberPwResult1').show().html("o 8~20자 영문대소문자+숫자+특수문자 조합");
-		$('#memberPwResult1').css('color','#0F851A')
+		$('#memberPwResult1').css('color','#08A600')
 	}else {
 		$('#memberPwResult1').show().html("x 8~20자 영문대소문자+숫자+특수문자 조합");
-		$('#memberPwResult1').css('color','#B3575A')
+		$('#memberPwResult1').css('color','#FF0000')
 	} 
 });
 /* 비밀번호 확인 포커스 */
@@ -81,10 +81,10 @@ $("#pwChk").on('keyup', function() {
 	 
 	 if(memberPw == pwChk) {
 			$('#pwChkResult1').show().html("o 동일한 비밀번호를 입력해주세요.");
-			$('#pwChkResult1').css('color','#0F851A')
+			$('#pwChkResult1').css('color','#08A600')
 	 }else {
 			$('#pwChkResult1').show().html("x 동일한 비밀번호를 입력해주세요.");
-			$('#pwChkResult1').css('color','#B3575A')
+			$('#pwChkResult1').css('color','#FF0000')
 	 }
 });
 
@@ -107,10 +107,10 @@ $("#name").on('keyup', function() {
 	var name_Valid = name_data(name)
 	if(name_Valid) {
 		$('#nameResult1').show().html("o 2~6자 한글입력");
-		$('#nameResult1').css('color','#0F851A')
+		$('#nameResult1').css('color','#08A600')
 	}else {
 		$('#nameResult1').show().html("x 2~6자 한글입력");
-		$('#nameResult1').css('color','#B3575A')
+		$('#nameResult1').css('color','#FF0000')
 	} 
 });
 /* 휴대폰 포커스 */
@@ -118,7 +118,7 @@ $("#mobile").on('focus', function() {
 	$("#mobile").css({
 		'background' : "#E8F0FE"
 	});
-	$('#mobileResult1').show().html("* -포함 13자리를 입력하세요.");
+	$('#mobileResult1').show().html("* -포함 13자리를 입력하세요. 예:000-0000-0000");
 });	
 /* 휴대폰 포커스 아웃 */
 $("#mobile").on('focusout', function() {
@@ -131,11 +131,11 @@ $("#mobile").on('keyup', function() {
 	var mobile = $("#mobile").val();
 	var mobile_Valid = mobile_data(mobile)
 	if(mobile_Valid) {
-		$('#mobileResult1').show().html("o -포함 13자리를 입력하세요.");
-		$('#mobileResult1').css('color','#0F851A')
+		$('#mobileResult1').show().html("o -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#mobileResult1').css('color','#08A600')
 	}else {
-		$('#mobileResult1').show().html("x -포함 13자리를 입력하세요.");
-		$('#mobileResult1').css('color','#B3575A')
+		$('#mobileResult1').show().html("x -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#mobileResult1').css('color','#FF0000')
 	} 
 });
 /* 인증번호 포커스 */
@@ -143,7 +143,7 @@ $("#mobileNum").on('focus', function() {
 	$("#mobileNum").css({
 		'background' : "#E8F0FE"
 	});
-	$('#mobileNumResult1').show().html("* 인증번호를 받아주세요.");
+	//$('#mobileNumResult1').show().html("* 인증번호를 받아주세요.");
 });	
 /* 인증번호 포커스 아웃 */
 $("#mobileNum").on('focusout', function() {
@@ -151,7 +151,6 @@ $("#mobileNum").on('focusout', function() {
 		'background' : "white"
 	});
 });
-
 /* 이메일 포커스 */
 $("#email").on('focus', function() {
 	$("#email").css({
@@ -172,10 +171,10 @@ $("#email").on('keyup', function() {
 	var email_Valid = email_data(email)
 	if(email_Valid) {
 		$('#emailNumResult1').show().html("o 예:takeit@take.com<br>");
-		$('#emailNumResult1').css('color','#0F851A')
+		$('#emailNumResult1').css('color','#08A600')
 	}else {
 		$('#emailNumResult1').show().html("x 예:takeit@take.com<br>");
-		$('#emailNumResult1').css('color','#B3575A')
+		$('#emailNumResult1').css('color','#FF0000')
 	} 
 });
 /* 우편번호 포커스 */
@@ -247,10 +246,10 @@ $("#sellerId").on('keyup', function() {
 	var sellerId_Valid = sellerId_data(sellerId)
 	if(sellerId_Valid) {
 		$('#sellerIdResult1').show().html("o 6~20자 영문 혹은 영문+숫자를 조합<br>");
-		$('#sellerIdResult1').css('color','#0F851A')
+		$('#sellerIdResult1').css('color','#08A600')
 	}else {
 		$('#sellerIdResult1').show().html("x 6~20자 영문 혹은 영문+숫자를 조합<br>");
-		$('#sellerIdResult1').css('color','#B3575A')
+		$('#sellerIdResult1').css('color','#FF0000')
 	} 
 });
 /* 비밀번호 포커스 */
@@ -272,29 +271,44 @@ $("#sellerPw").on('keyup', function() {
 	var sellerPw_Valid = sellerPw_data(sellerPw)
 	if(sellerPw_Valid) {
 		$('#sellerPwResult1').show().html("o 8~20자 영문대소문자+숫자 조합");
-		$('#sellerPwResult1').css('color','#0F851A')
+		$('#sellerPwResult1').css('color','#08A600')
 	}else {
 		$('#sellerPwResult1').show().html("x 8~20자 영문대소문자+숫자 조합");
-		$('#sellerPwResult1').css('color','#B3575A')
+		$('#sellerPwResult1').css('color','#FF0000')
 	} 
 });
 /* 비밀번호확인 포커스 */
-$("#sellerPw_chk").on('focus', function() {
-	$("#sellerPw_chk").css({
+$("#pwChkSeller").on('focus', function() {
+	$("#pwChkSeller").css({
 		'background' : "#E8F0FE"
 	});
+	$('#pwChkResult1').show().html("* 동일한 비밀번호를 입력해주세요.");
 });
 /* 비밀번호확인 포커스 아웃*/
-$("#sellerPw_chk").on('focusout', function() {
-	$("#sellerPw_chk").css({
+$("#pwChkSeller").on('focusout', function() {
+	$("#pwChkSeller").css({
 		'background' : "white"
 	});
+});
+/* 비밀번호확인 키다운 */
+$("#pwChkSeller").on('keyup', function() {
+	 var sellerPw = $("#sellerPw").val();
+	 var pwChkSeller = $("#pwChkSeller").val();
+	 
+	 if(sellerPw == pwChkSeller) {
+			$('#pwChkResult1').show().html("o 동일한 비밀번호를 입력해주세요.");
+			$('#pwChkResult1').css('color','#08A600')
+	 }else {
+			$('#pwChkResult1').show().html("x 동일한 비밀번호를 입력해주세요.");
+			$('#pwChkResult1').css('color','#FF0000')
+	 }
 });
 /* 상점구역 포커스 */
 $("#shopLocCode").on('focus', function() {
 	$("#shopLocCode").css({
 		'background' : "#E8F0FE"
 	});
+	$('#"shopLocCodeResult1"').show().html("* 구역을 선택해주세요.");
 });
 /* 상점구역 포커스 */
 $("#shopLocCode").on('focusout', function() {
@@ -307,7 +321,7 @@ $("#sellerNo").on('focus', function() {
 	$("#sellerNo").css({
 		'background' : "#E8F0FE"
 	});
-	$('#sellerNoResult1').show().html("* -포함 12자리를 입력하세요.");
+	$('#sellerNoResult1').show().html("* -포함 13자리를 입력하세요. 예:00-000-00000");
 });
 /* 사업자등록번호 포커스 아웃*/
 $("#sellerNo").on('focusout', function() {
@@ -320,44 +334,45 @@ $("#sellerNo").on('keyup', function() {
 	var sellerNo = $("#sellerNo").val();
 	var sellerNo_Valid = sellerNo_data(sellerNo)
 	if(sellerNo_Valid) {
-		$('#sellerNoResult1').show().html("o -포함 12자리를 입력하세요.");
-		$('#sellerNoResult1').css('color','#0F851A')
+		$('#sellerNoResult1').show().html("o -포함 13자리를 입력하세요. 예:00-000-00000");
+		$('#sellerNoResult1').css('color','#08A600')
 	}else {
-		$('#sellerNoResult1').show().html("x -포함 12자리를 입력하세요.");
-		$('#sellerNoResult1').css('color','#B3575A')
+		$('#sellerNoResult1').show().html("x -포함 13자리를 입력하세요. 예:00-000-00000");
+		$('#sellerNoResult1').css('color','#FF0000')
 	} 
 }); 
-/* 싱잠연락처 포커스 */
+/* 상점연락처 포커스 */
 $("#shopMobile").on('focus', function() {
 	$("#shopMobile").css({
 		'background' : "#E8F0FE"
 	});
-	$('#shopMobileResult1').show().html("* 형식에 맞게 입력하세요");
+	$('#shopMobileResult1').show().html("* -포함 13자리를 입력하세요. 예:000-0000-0000");
 });
-/* 싱잠연락처 포커스 아웃*/
+/* 상점연락처 포커스 아웃*/
 $("#shopMobile").on('focusout', function() {
 	$("#shopMobile").css({
 		'background' : "white"
 	});
 });
-/* 싱잠연락처 키다운 */
+/* 상점연락처 키다운 */
 $("#shopMobile").on('keyup', function() {
 	var shopMobile = $("#shopMobile").val();
 	var shopMobile_Valid = shopMobile_data(shopMobile)
 	if(shopMobile_Valid) {
-		$('#shopMobileResult1').show().html("o 8~20자 영문대소문자+숫자 조합");
-		$('#shopMobileResult1').css('color','#0F851A')
+		$('#shopMobileResult1').show().html("o -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#shopMobileResult1').css('color','#08A600')
 	}else {
-		$('#shopMobileResult1').show().html("x 8~20자 영문대소문자+숫자 조합");
-		$('#shopMobileResult1').css('color','#B3575A')
+		$('#shopMobileResult1').show().html("x -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#shopMobileResult1').css('color','#FF0000')
 	} 
 });
-/* 싱잠명 포커스 */
+/* 상점명 포커스 */
 $("#shopName").on('focus', function() {
 	$("#shopName").css({
 		'background' : "#E8F0FE"
 	});
-	$('#shopNameResult1').show().html("* 형식에 맞게 입력하세요");
+	$('#shopNameResult1').show().html("* 한글, 영문, 숫자 입력<br>");
+	$('#shopNameResult2').show().html("* 상점명 중복확인");
 });
 /* 상점명 포커스 아웃*/
 $("#shopName").on('focusout', function() {
@@ -370,11 +385,11 @@ $("#shopName").on('keyup', function() {
 	var shopName = $("#shopName").val();
 	var shopName_Valid = shopName_data(shopName)
 	if(shopName_Valid) {
-		$('#shopNameResult1').show().html("o 8~20자 영문대소문자+숫자 조합");
-		$('#shopNameResult1').css('color','#0F851A')
+		$('#shopNameResult1').show().html("o * 한글, 영문, 숫자 입력<br>");
+		$('#shopNameResult1').css('color','#08A600')
 	}else {
-		$('#shopNameResult1').show().html("x 8~20자 영문대소문자+숫자 조합");
-		$('#shopNameResult1').css('color','#B3575A')
+		$('#shopNameResult1').show().html("x * 한글, 영문, 숫자 입력<br>");
+		$('#shopNameResult1').css('color','#FF0000')
 	} 
 });
 /* 카카오톡아이디 포커스 */
@@ -426,7 +441,7 @@ function memberId_data(take) {
 
  	return pattern.test(take);
 }
-/* 이름 : 최소 2 ~ 최대 6자리 */
+/* 이름 : 최소 2 ~ 최대 6자리 */	
  function name_data(take) {
  	var pattern = new RegExp(/^[가-힣]{2,6}$/); 
  	return pattern.test(take);
@@ -438,7 +453,7 @@ function memberId_data(take) {
 }
 /* 이메일 : takeit@takeit.com 형식에 맞게 입력 */
  function email_data(take) {
- 	var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i)
+ 	var pattern = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{3}$/i)
  	return pattern.test(take);
 }
 /* 판매자 아이디 : 6~20자 영문+숫자를 조합, 중복확인*/
@@ -456,35 +471,36 @@ function sellerId_data(take) {
 	 var pattern = new RegExp(/^\d{3}-\d{2}-\d{5}$/); 
  	return pattern.test(take);
 }
-/* 상점연락처 */
+/* 상점연락처 : 휴대폰 동일 */
  function shopMobile_data(take) {
- 	//var pattern = new RegExp(/^.*(?=^.{4,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
+	 var pattern = new RegExp(/^\d{3}-\d{4}-\d{4}$/); 
  	return pattern.test(take);
 }
-/* 상점명 : 8~20자 영대소문자+숫자 조합 */
+/* 상점명 : 한글,영어,숫자 조합 */
  function shopName_data(take) {
- 	//var pattern = new RegExp(/^.*(?=^.{4,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
+ 	var pattern = new RegExp(/^[가-힣|a-z|A-Z|0-9|]+$/);
  	return pattern.test(take);
 }
-
+ 
 /* 회원가입 폼 검증 메서드 */
 function inputCheck() {
-		
-	/* 아이디*/
+	/* 아이디 */
 	var memberId = $("#memberId").val();
 	var memberId_Valid = memberId_data(memberId)
 	if (!memberId_Valid) {
 		$("#memberId").focus();
 		return false;
 	} 
-	/* 비밀번호*/
+	/* 아이디 중복확인 */
+	
+	/* 비밀번호 */
 	var memberPw = $("#memberPw").val();
 	var memberPw_Valid = memberPw_data(memberPw)	
 	if (!memberPw_Valid) {
 		$("#memberPw").focus();
 		return false;
 	} 
-	/* 비밀번호 확인*/
+	/* 비밀번호 확인 */
 	var pwChk = $("#pwChk").val(); 
 	if(memberPw != pwChk) {
 		$("#pwChk").focus();
@@ -504,9 +520,9 @@ function inputCheck() {
 		$("#mobile").focus();
 		return false;
 	} 
-	/* 인증번호 : 적용안됨*/
+	/* 인증번호 */
 	var mobileNum = $("#mobileNum").val();
-	if (mobileNum == null) {
+	if (mobileNum == "") {
 		$("#mobileNum").focus();
 		return false;
 	} 
@@ -517,55 +533,94 @@ function inputCheck() {
 		$("#email").focus();
 		return false;
 	} 
-	
+	return true;
+}
+/* 판매자 회원가입 폼 검증 메서드 */
+function inputCheckSeller() {
 	/* 판매자 아이디 */
 	var sellerId = $("#sellerId").val();
 	var sellerId_Valid = sellerId_data(sellerId)
 	if (!sellerId_Valid) {
-		alert("확인1")
 		$("#sellerId").focus();
 		return false;
 	} 
-	
 	/* 판매자 비밀번호 */
 	var sellerPw = $("#sellerPw").val();
 	var sellerPw_Valid = sellerPw_data(sellerPw)
 	if (!sellerPw_Valid) {
-		alert("확인2")
 		$("#sellerPw").focus();
 		return false;
 	} 
-	
+	/* 비밀번호 확인*/
+	var pwChkSeller = $("#pwChkSeller").val(); 
+	if(sellerPw != pwChkSeller) {
+		$("#pwChkSeller").focus();
+		return false;
+	}
+	/* 이름 */
+	var name = $("#name").val();
+	var name_Valid = name_data(name)
+	if (!name_Valid) {
+		$("#name").focus();
+		return false;
+	} 
+	/* 휴대폰*/
+	var mobile = $("#mobile").val();
+	var mobile_Valid = mobile_data(mobile)
+	if (!mobile_Valid) {
+		$("#mobile").focus();
+		return false;
+	} 
+	/* 인증번호*/
+	var mobileNum = $("#mobileNum").val();
+	if (mobileNum == "") {
+		$("#mobileNum").focus();
+		return false;
+	} 
+	/* 이메일 */
+	var email = $("#email").val();
+	var email_Valid = email_data(email)
+	if (!email_Valid) {
+		$("#email").focus();
+		return false;
+	} 
+	/* 상점구역 */
+	var shopLocCode = $("#shopLocCode").val();
+	if (shopLocCode == "none") {
+		alert("상점구역을 선택해주세요.")
+		//$("#shopLocCode").focus(); 사용시 폼이 넘어가버리는데 이유를 모름
+		return false;
+	}
 	/* 사업자등록번호 */
 	var sellerNo = $("#sellerNo").val();
 	var sellerNo_Valid = sellerNo_data(sellerNo)
 	if (!sellerNo_Valid) {
-		alert("확인3")
 		$("#sellerNo").focus();
 		return false;
 	} 
-	
 	/* 상점연락처 */
 	var shopMobile = $("#shopMobile").val();
 	var shopMobile_Valid = shopMobile_data(shopMobile)
 	if (!shopMobile_Valid) {
-		alert("확인4")
 		$("#shopMobile").focus();
 		return false;
 	} 
-	
 	/* 상점명 */
 	var shopName = $("#shopName").val();
 	var shopName_Valid = shopName_data(shopName)
-	if (!shopMobile_Valid) {
-		alert("확인5")
+	if (!shopName_Valid) {
 		$("#shopName").focus();
 		return false;
-	} 
-	
+	}
+	/* 상점구역 */
+	var shopCategoryNo = $("#shopCategoryNo").val();
+	if (shopCategoryNo == "none") {
+		alert("상점카테고리를 선택해주세요.")
+		//$("#shopLocCode").focus(); 사용시 폼이 넘어가버리는데 이유를 모름
+		return false;
+	}
 	return true;
 }
-
 /* 아이디 중복체크 */
 function idCheck(){
 	 $.ajax({	
@@ -582,12 +637,12 @@ function idCheck(){
 				if(data == "1"){
 					alert("사용가능한 아이디입니다.");
 					$('#memberIdResult2').show().html("o 아이디 중복확인");
-					$('#memberIdResult2').css('color','#0F851A')
+					$('#memberIdResult2').css('color','#08A600')
 					$("#memberId" ).prop('readonly', true);
 				}else {					
 					alert("해당 아이디는 사용중입니다.");	
 					$('#memberIdResult2').show().html("x 아이디 중복확인");
-					$('#memberIdResult2').css('color','#B3575A')
+					$('#memberIdResult2').css('color','#FF0000')
 				}			
 			}
 	});	 
@@ -608,18 +663,18 @@ function emailCheck(){
 				if(data == "1"){
 					alert("사용가능한 이메일입니다.");
 					$('#emailNumResult2').show().html("o 이메일 중복확인");
-					$('#emailNumResult2').css('color','#0F851A')
+					$('#emailNumResult2').css('color','#08A600')
 					$("#email" ).prop('readonly', true);
 				}else {					
 					alert("해당 이메일은 사용중입니다.");	
 					$('#emailNumResult2').show().html("x 이메일 중복확인");
-					$('#emailNumResult2').css('color','#B3575A')
+					$('#emailNumResult2').css('color','#FF0000')
 				}					
 			}
 	});	 
 };
 /* 판매자 아이디 중복체크 */
-function idCheckSellerSeller(){
+function idCheckSeller(){
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/seller/controller?action=sellerIdChk",
@@ -634,12 +689,12 @@ function idCheckSellerSeller(){
 				if(data == "1"){
 					alert("사용가능한 아이디입니다.");
 					$('#sellerIdResult2').show().html("o 아이디 중복확인");
-					$('#sellerIdResult2').css('color','#0F851A')
+					$('#sellerIdResult2').css('color','#08A600')
 					$("#sellerId" ).prop('readonly', true);
 				}else {					
 					alert("해당 아이디는 사용중입니다.");	
 					$('#sellerIdResult2').show().html("x 아이디 중복확인");
-					$('#sellerIdResult2').css('color','#B3575A')
+					$('#sellerIdResult2').css('color','#FF0000')
 				}				
 			}
 	});	 
@@ -660,17 +715,42 @@ function emailCheckSeller(){
 				if(data == "1"){
 					alert("사용가능한 이메일입니다.");
 					$('#emailNumResult2').show().html("o 이메일 중복확인");
-					$('#emailNumResult2').css('color','#0F851A')
+					$('#emailNumResult2').css('color','#08A600')
 					$("#email" ).prop('readonly', true);
 				}else {					
 					alert("해당 이메일은 사용중입니다.");	
 					$('#emailNumResult2').show().html("x 이메일 중복확인");
-					$('#emailNumResult2').css('color','#B3575A')
+					$('#emailNumResult2').css('color','#FF0000')
 				}			
 			}
 	});	 
 };
-
+/* 판매자 상점명 중복체크 */
+function shopNameCheck(){
+	$.ajax({	
+		// 서블릿으로 보낸다
+		url:"/takeit/seller/controller?action=shopNameChk",
+		type:"get",	
+		// name값
+		data:{
+			"shopName" : $("#shopName").val()  
+		},	
+		
+		success:function(data){
+			
+			if(data == "1"){
+				alert("사용가능한 상점명입니다.");
+				$('#shopNameResult2').show().html("o 상점명 중복확인");
+				$('#shopNameResult2').css('color','#08A600')
+				$("#shopName" ).prop('readonly', true);
+			}else {					
+				alert("해당 상점명은 사용중입니다.");	
+				$('#shopNameResult2').show().html("x 상점명 중복확인");
+				$('#shopNameResult2').css('color','#FF0000')
+			}			
+		}
+	});	 
+};
 /* 비밀번호 표시 */
 function pwCheckbox_onclick() {
 	
@@ -692,14 +772,14 @@ function pwCheckbox_onclick_seller() {
 	
 	var pwCheckboxElement = document.getElementById("pwCheckbox")
 	var sellerPwElement = document.getElementById("sellerPw")
-	var pwChk_Element = document.getElementById("pwChk")
+	var pwChkSeller_Element = document.getElementById("pwChkSeller")
 	
 	if(pwCheckboxElement.checked) {
 		sellerPwElement.type = "text"
-		pwChk_Element.type = "text"
+		pwChkSeller_Element.type = "text"
 	}else {
 		sellerPwElement.type = "password"
-		pwChk_Element.type = "password"
+		pwChkSeller_Element.type = "password"
 	}
 }
 

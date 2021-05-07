@@ -96,7 +96,6 @@ public class FrontOrderServlet extends HttpServlet {
 		
 		Order order = new Order();
 		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
-		
 		OrderDetail orderDetail = null;
 		for (int index = 0; index < itemNos.length; index++) {
 			orderDetail = new OrderDetail();
@@ -116,8 +115,9 @@ public class FrontOrderServlet extends HttpServlet {
 			biz.getOrderItem(order);
 			
 			request.setAttribute("order", order);
-			request.getRequestDispatcher(CONTEXT_PATH + "/order/orderController?action=order.jsp").forward(request, response);
-		} catch (CommonException e) {
+			request.getRequestDispatcher("/order/order.jsp").forward(request, response);
+		} 
+		catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");
 			message.setUrl(CONTEXT_PATH + "/index");
@@ -138,77 +138,87 @@ public class FrontOrderServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
-		
-		String memberId = (String)session.getAttribute("memberId"); 
-		//상품
-//		String itemTakeit = request.getParameter("itemTakeit");
-//		//주문상세
-//		String[] itemNos= request.getParameterValues("itemNo");
-//		String[] _itemQtys = request.getParameterValues("itemQty");
-//		String[] _itemPayPrices = request.getParameterValues("itemPayPrice");
-		//주문
-//		String _orderPrice = request.getParameter("orderPrice");
-//		//배송
-//		String shipStatusCode = request.getParameter("shipStatusCode");
-//		//수령인
-//		String receiveMethod = request.getParameter("receiveMethod");
-//		String recipientName = request.getParameter("recipientName");
-//		String recipientPostNo = request.getParameter("recipientPostNo");
-//		String recipientAddr = request.getParameter("recipientAddr");
-//		String recipientMobile = request.getParameter("recipientMobile");
-//		String shipRequest = request.getParameter("shipRequest");
-
-		//상품
-		String itemTakeit = "T";  //쿼리로 가져올것!
-		//주문
-		String _orderPrice = "21000"; //받아오기
-		//주문상세
-		String[] _itemNos= {"FR000002", "BF000003"};
-		
-		String[] _itemQtys = {"2", "3"};
-		String[] _itemPayPrices = {"3000", "5000"};	
-		//수령인
-		String receiveMethod = "배송";
-		String recipientName = "홍길동";
-		String recipientPostNo = "12345";
-		String recipientAddr = "경기도";
-		String recipientMobile = "010-1234-1231";
-		String shipRequest = "보내주세요";		
-		//배송
-		String shipStatusCode = "O-GET";
-		
-		Order order = new Order();
-		ArrayList<OrderDetail> orderDetails = new ArrayList<>();
-		OrderDetail orderDetail = null;
-		for (int index = 0; index < _itemNos.length; index++) {
-			orderDetail = new OrderDetail();
-			orderDetail.setItemNo(_itemNos[index]);
-			orderDetail.setItemQty(Integer.valueOf(_itemQtys[index]));
-			orderDetail.setItemPayPrice(Integer.valueOf(_itemPayPrices[index]));
-			orderDetails.add(orderDetail);
+		if (session.getAttribute("memberId") == null) {
+			MessageEntity message = new MessageEntity("message", 1);
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
 		}
+		String memberId = (String)session.getAttribute("memberId"); 
+		String receiveMethod = request.getParameter("receiveMethod");
+		String shipStatusCode = null;
+		if (receiveMethod.equals("배송")) {
+			shipStatusCode = "O-GET";
+		}
+		
+		String[] itemNos= request.getParameterValues("itemNo");
+		String[] itemQtys = request.getParameterValues("itemQty");
+		String[] itemPayPrices = request.getParameterValues("itemPayPrice");
+		String[] itemTakeits = request.getParameterValues("itemTakeit");
+		String[] sellerIds = request.getParameterValues("sellerId");
+		
+		String _orderPrice = request.getParameter("orderPrice");
 		int orderPrice = Integer.valueOf(_orderPrice);
 		
-		order.setOrderDetails(orderDetails);
+		String recipientName = request.getParameter("recipientName");
+		String recipientMobile = request.getParameter("recipientMobile");
+		String recipientAddr = request.getParameter("recipientAddr");
+		String recipientAddrDetail = request.getParameter("recipientAddrDetail");
+		String recipientPostNo = request.getParameter("recipientPostNo");
+		String shipRequest = request.getParameter("shipRequest");
 		
-		order.setItemTakeit(itemTakeit);
-		
-		order.setOrderPrice(orderPrice);
-		order.setMemberId(memberId);
-		order.setReceiveMethod(receiveMethod);
-		order.setRecipientName(recipientName);
-		order.setRecipientPostNo(recipientPostNo);
-		order.setRecipientAddr(recipientAddr);
-		order.setRecipientMobile(recipientMobile);
-		
-		order.setShipRequest(shipRequest);
-		order.setShipStatusCode(shipStatusCode);		
-		
+		ArrayList<Order> orderList = new ArrayList<>();
+		Order order = null;
+		ArrayList<OrderDetail> orderDetails = null;
+		OrderDetail orderDetail = null;
+		for (int index = 0; index < itemNos.length; index++) {
+			order = new Order();
+			orderDetails = new ArrayList<>();
+			orderDetail = new OrderDetail();
+			for (Order dto : orderList) {
+				if (dto.getOrderDetails().get(0).getSellerId().equals(sellerIds[index])) {
+					orderDetails = dto.getOrderDetails();
+					orderDetail.setSellerId(sellerIds[index]);
+					orderDetail.setItemNo(itemNos[index]);
+					orderDetail.setItemQty(Integer.valueOf(itemQtys[index]));
+					orderDetail.setItemPayPrice(Integer.valueOf(itemPayPrices[index]));
+					orderDetail.setItemTakeit(itemTakeits[index]);
+					orderDetails.add(orderDetail);
+					break;
+				}
+			}
+			if (orderDetails.isEmpty()) {
+				orderDetail = new OrderDetail();
+				orderDetail.setSellerId(sellerIds[index]);
+				orderDetail.setItemNo(itemNos[index]);
+				orderDetail.setItemQty(Integer.valueOf(itemQtys[index]));
+				orderDetail.setItemPayPrice(Integer.valueOf(itemPayPrices[index]));
+				orderDetail.setItemTakeit(itemTakeits[index]);
+				orderDetails.add(orderDetail);
+				
+				order.setOrderDetails(orderDetails);
+				
+				order.setOrderPrice(orderPrice);
+				order.setMemberId(memberId);
+				order.setReceiveMethod(receiveMethod);
+				order.setRecipientName(recipientName);
+				order.setRecipientPostNo(recipientPostNo);
+				order.setRecipientAddr(recipientAddr);
+				order.setRecipientAddrDetail(recipientAddrDetail);
+				
+				order.setRecipientMobile(recipientMobile);
+				order.setShipRequest(shipRequest);
+				order.setShipStatusCode(shipStatusCode);
+				
+				orderList.add(order);
+			}
+		}
 		OrderBiz biz = new OrderBiz();
 		try {
-			biz.addOrder(order);
-			
-			//response.sendRedirect(CONTEXT_PATH + ""); //마이페이지로
+			biz.addOrder(orderList);
+			response.sendRedirect(CONTEXT_PATH + "/member/myPage.jsp");
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");
@@ -245,18 +255,8 @@ public class FrontOrderServlet extends HttpServlet {
 			
 		} catch (CommonException e) {
 			response.getWriter().write("failed");
-			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("마이페이지");
-			//message.setUrl(CONTEXT_PATH + "/");
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
-		
-		
-		
-		
-		
 	}
 	
 	/**	배송상태변경 화면 요청 서비스 */

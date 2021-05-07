@@ -9,6 +9,9 @@
 #contents_box > p {	
 	/* font-size: 9px; */
 }
+.star {
+	color: #FF0000;
+}
 /* 일반회원가입 폼 */
 #nomal_inputForm{
 	width: 315px;
@@ -46,6 +49,13 @@
 	border: 1px solid #7B977A;
 }
 #pwChk{
+	width:250px;
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+}
+#pwChkSeller{
 	width:250px;
 	height:35px; 
 	padding: 0px 19px;
@@ -215,6 +225,15 @@
 	padding: 0px 19px;
 	font-size: 9px;
 	border: 1px solid #7B977A;
+}
+#shopNameBtn{
+	height:35px; 
+	padding: 0px 19px;
+	font-size: 9px;
+	border: 1px solid #7B977A;
+	color: white;
+	background: #7B977A;
+	cursor: pointer;
 }
 #shopKakaoId{
 	width:250px;

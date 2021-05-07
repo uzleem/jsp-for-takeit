@@ -80,6 +80,19 @@ public class TakeitBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
+	/** 비회원 잇거래 상품목록 조회  */
+	public void getTakeitItemList(ArrayList<TakeitItem> takeitItemList) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+		dao.searchTakeitItemList(conn, takeitItemList);
+		} catch(CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
 	
 	/** 일반회원의 잇거래 상품 목록 조회 */
 	public void getTakeitItemList(Member member, ArrayList<TakeitItem> takeitItemList) throws CommonException {
@@ -257,6 +270,8 @@ public class TakeitBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
+
+
 
 
 }

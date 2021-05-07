@@ -32,13 +32,26 @@
 			var m1 = Math.floor((result % (1000 * 60 * 60)) / (1000 * 60));
 			var s1 = Math.floor((result % (1000 * 60)) / 1000);
 			
-			takeitTimeElement.innerHTML = "남은시간 :" +d1 + "일 "+ h1+"시간 "+m1+"분 "+s1 + "초"
+			takeitTimeElement.innerHTML = "남은시간 : " +d1 + "일 "+ h1+"시간 "+m1+"분 "+s1 + "초"
 			
+			if (d1 <= 3) {
+				console.log("d1="+d1);
+				$($(".takeitTime").get(i)).css("color", "red");
+			}
 		}
 	}
 	$(document).ready(function (){
 		getTakeitTime();
 		setInterval(getTakeitTime, 1000);
+		
+		$("#selectScope").change(function() {
+			if ($("#selectScope").val() == "my") {
+				location.href="/takeit/takeit/takeitController?action=takeitItemList&scope=my";
+			} else {
+				location.href="/takeit/takeit/takeitController?action=takeitItemList&scope=all";
+			}
+		});
+		
 	});
 </script>
 </head>
@@ -59,7 +72,21 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 
-<h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">잇거래</h3>
+<h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">
+<select id="selectScope" name="scope" style="position:relative; left:-150px; height:35px;width:150px;">
+<c:choose >
+	<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'all'}">
+		<option value="all" selected="selected">전체</option>
+		<option value="my">내 지역</option>
+		
+	</c:when>
+	<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'my'}">
+		<option value="all">전체</option>
+		<option value="my" selected="selected">내 지역</option>
+	</c:when>
+</c:choose>
+</select>	
+잇거래</h3>
 
  <div class="item_wrap" style="display: flex;">
  	<%
@@ -124,7 +151,6 @@
 
 <!-- floating Banner -->
 <jsp:include page="/common/floatingBanner.jsp"></jsp:include>
-
 <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
 <!-- footer 구역 -->

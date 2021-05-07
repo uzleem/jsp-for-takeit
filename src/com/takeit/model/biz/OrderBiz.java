@@ -5,9 +5,13 @@ import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
+import com.takeit.model.dao.CartDao;
 import com.takeit.model.dao.OrderDao;
+import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Order;
+import com.takeit.model.dto.OrderDetail;
 import com.takeit.model.dto.Shipping;
+import com.takeit.model.dto.Takeit;
 
 /**
  * 주문 업무처리 위한 OrderBiz 클래스
@@ -20,18 +24,38 @@ public class OrderBiz {
 	 * @param order 주문 객체
 	 * @throws CommonException 
 	 */
-	public void addOrder(Order order) throws CommonException {
+	public void addOrder(ArrayList<Order> orderList) throws CommonException {
 		OrderDao dao = OrderDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-			dao.insertOrder(conn, order);
-			dao.selectOrderNo(conn, order);
-			dao.insertOrderDetail(conn, order);
-			
+			for (Order order : orderList) {
+				for (OrderDetail orderDetail : order.getOrderDetails()) {
+					order.setItemTakeit(orderDetail.getItemTakeit());
+					
+					if (order.getItemTakeit().equals("F")) {
+						break;
+					}
+				} 
+				dao.insertOrder(conn, order);
+				dao.selectOrderNo(conn, order);
+				dao.insertOrderDetail(conn, order);
+				if (order.getItemTakeit().equals("T")) {
+					TakeitDao takeitDao = TakeitDao.getInstance();
+					Takeit takeit = new Takeit();
+					takeitDao.selectLoc(conn, order.getMemberId(), takeit);
+					takeitDao.selectTakeitNo(conn, takeit);
+					takeitDao.insertTakeitDetail(conn, takeit, order);
+				}
+				for (OrderDetail orderDetail : order.getOrderDetails()) {
+					CartDao.getInstance().removeCart(conn, order.getMemberId(), orderDetail.getItemNo());
+				}
+				
+			}
 			JdbcTemplate.commit(conn);
 		} catch (CommonException e) {
-			JdbcTemplate.rollback(conn);
+			JdbcTemplate.commit(conn);
+			//JdbcTemplate.rollback(conn);
 			throw e;
 		} finally {
 			JdbcTemplate.close(conn);
@@ -145,8 +169,9 @@ public class OrderBiz {
 		} finally {
 			JdbcTemplate.close(conn);
 		}
-  }
+	}
 
+	/** 배송상태 변경 */
 	public void updateShipStatusCode(String orderNo, String shipStatusCode) throws CommonException {
 
 		OrderDao dao = OrderDao.getInstance();

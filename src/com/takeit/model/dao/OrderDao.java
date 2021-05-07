@@ -3,6 +3,7 @@ package com.takeit.model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
@@ -28,13 +29,13 @@ public class OrderDao {
 	 * @param order 주문 객체
 	 */
 	public void insertOrder(Connection conn, Order order) throws CommonException {
-		String sql = "INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yyyymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
+		String sql = "INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
 				+ ", ?, ?, ?, ?, ?, ?, ?, 'F', 'F', ?, ?) ";
 		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, order.getItemTakeit());
+			stmt.setString(1, order.getItemTakeit()); //주문번호 T/F ex)T210505000001, F21050100002
 			stmt.setString(2, order.getReceiveMethod());
 			stmt.setString(3, order.getRecipientName());
 			stmt.setString(4, order.getRecipientPostNo());
@@ -64,7 +65,7 @@ public class OrderDao {
 	 * @param order 주문 객체
 	 */
 	public void selectOrderNo(Connection conn, Order order) throws CommonException {
-		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY 1 DESC ";
+		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -387,7 +388,7 @@ public class OrderDao {
 
 	/** 주문 정보 조회 */
 	public void selectOrderItem(Connection conn, Order order) throws CommonException {
-		String sql = "SELECT ITEM_TAKEIT "
+		String sql = "SELECT * "
 				+ "FROM ITEM "
 				+ "WHERE ITEM_NO = ? ";
 		
@@ -400,8 +401,12 @@ public class OrderDao {
 				rs = stmt.executeQuery();
 				while (rs.next()) {
 					orderDetail.setItemTakeit(rs.getString("item_takeit"));
+					orderDetail.setItemName(rs.getString("item_name"));
+					orderDetail.setItemImg(rs.getString("item_img"));
 				}
 			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -411,6 +416,29 @@ public class OrderDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(stmt);
 		}	
+		
+		try {
+			sql = "SELECT * FROM MEMBER WHERE MEMBER_ID = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, order.getMemberId());
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				order.setRecipientName(rs.getString("name"));
+				order.setRecipientPostNo(rs.getString("postno"));
+				order.setRecipientAddr(rs.getString("Address"));
+				order.setRecipientMobile(rs.getString("mobile"));
+				order.setRecipientAddrDetail(rs.getString("Address_Detail"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 29);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
 	}
 
 }

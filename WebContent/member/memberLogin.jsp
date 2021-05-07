@@ -14,7 +14,7 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- 카카오 로그인 -->
 <script>
-Kakao.init('ef7d648c9d8cef88d6c092d4942eee41'); //발급받은 키 중 javascript키를 사용해준다.
+Kakao.init('4a836a6d7613b825e60dc25d5b9d8a82'); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 function kakaoLogin() {
     Kakao.Auth.login({
@@ -106,5 +106,9 @@ function kakaoLogin() {
 </div> -->
 </form>
 </div>
+<!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
+<!-- footer 구역 -->
+<jsp:include page="/common/footer.jsp"></jsp:include>
 </body>
 </html> 
