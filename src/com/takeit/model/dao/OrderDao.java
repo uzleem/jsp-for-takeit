@@ -29,13 +29,13 @@ public class OrderDao {
 	 * @param order 주문 객체
 	 */
 	public void insertOrder(Connection conn, Order order) throws CommonException {
-		String sql = "INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yyyymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
+		String sql = "INSERT INTO Orders VALUES(? || TO_CHAR(SYSDATE,'yymmdd') || LPAD(ORDER_SEQ.NEXTVAL, 6, '0') "
 				+ ", ?, ?, ?, ?, ?, ?, ?, 'F', 'F', ?, ?) ";
 		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, order.getItemTakeit());
+			stmt.setString(1, order.getItemTakeit()); //주문번호 T/F ex)T210505000001, F21050100002
 			stmt.setString(2, order.getReceiveMethod());
 			stmt.setString(3, order.getRecipientName());
 			stmt.setString(4, order.getRecipientPostNo());
@@ -65,7 +65,7 @@ public class OrderDao {
 	 * @param order 주문 객체
 	 */
 	public void selectOrderNo(Connection conn, Order order) throws CommonException {
-		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY 1 DESC ";
+		String sql = "SELECT ORDER_NO FROM ORDERS WHERE ROWNUM = 1 ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

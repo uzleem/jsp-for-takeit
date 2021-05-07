@@ -11,6 +11,7 @@ import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Order;
 import com.takeit.model.dto.ShopLoc;
 import com.takeit.model.dto.Takeit;
 import com.takeit.model.dto.TakeitItem;
@@ -456,14 +457,13 @@ public class TakeitDao {
 			stmt.setString(4, shopLoc.getShopLocLng());
 			
 			int row = stmt.executeUpdate();
-			if (row == 0) {
-				throw new Exception();
-			}
+//			if (row == 0) {
+//				throw new Exception();
+//			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			
-			MessageEntity message = new MessageEntity("error", 11);
-			throw new CommonException(message);
+//			e.printStackTrace();
+//			MessageEntity message = new MessageEntity("error", 11);
+//			throw new CommonException(message);
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
@@ -535,5 +535,88 @@ public class TakeitDao {
 		}
 	}
 
+	/** 일반회원의 회원구역 조회 */
+	public void selectLoc(Connection conn, String memberId, Takeit takeit) throws CommonException {
+		String sql = "SELECT MEMBER_LOC_NO, SHOP_LOC_CODE "
+				+ "FROM MEMBER "
+				+ "WHERE MEMBER_ID = ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				takeit.setMemberLocNo(rs.getString("MEMBER_LOC_NO"));
+				takeit.setShopLocCode(rs.getString("SHOP_LOC_CODE"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+	}
 
+	/** 회원구역번호와 일치하는 잇거래번호 반환 */
+	public void selectTakeitNo(Connection conn, Takeit takeit) throws CommonException {
+		String sql = "SELECT TAKEIT_NO "
+				+ "FROM TAKEIT "
+				+ "WHERE MEMBER_LOC_NO = ? AND SHOP_LOC_CODE = ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			System.out.println( takeit.getMemberLocNo());
+			System.out.println(takeit.getShopLocCode()+"debug");
+			
+			stmt.setString(1, takeit.getMemberLocNo());
+			stmt.setString(2, takeit.getShopLocCode());
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				takeit.setTakeitNo(rs.getString("TAKEIT_NO"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+	}
+
+	/** 잇거래 상세 등록 */
+	public void insertTakeitDetail(Connection conn, Takeit takeit, Order order) throws CommonException {
+		String sql = "INSERT INTO TAKEIT_DETAIL VALUES(?,?) ";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeit.getTakeitNo());
+			stmt.setString(2, order.getOrderNo());
+			
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
 }
