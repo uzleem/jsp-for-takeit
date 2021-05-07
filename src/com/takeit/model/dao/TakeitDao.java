@@ -39,13 +39,13 @@ public class TakeitDao {
 				+ "WHERE SELLER_ID IN ( "
 				+ "		SELECT SELLER_ID "
 				+ "		FROM SELLER "
-				+ "		WHERE SHOP_LOC_CODE = ( "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
 				+ "			SELECT SHOP_LOC_CODE "
 				+ "			FROM TAKEIT "
 				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
 				+ "			) "
 				+ "		) "
-				+ "AND ITEM_TAKEIT = 'T' "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' "
 				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 		
 		PreparedStatement stmt = null;
@@ -116,7 +116,7 @@ public class TakeitDao {
 				+ "			WHERE TAKEIT_ALIVE = 'T'"
 				+ "			) "
 				+ "		) "
-				+ "AND ITEM_TAKEIT = 'T' "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' "
 				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 		
 		PreparedStatement stmt = null;
@@ -184,13 +184,13 @@ public class TakeitDao {
 				+ "WHERE SELLER_ID IN ( "
 				+ "		SELECT SELLER_ID "
 				+ "		FROM SELLER "
-				+ "		WHERE SHOP_LOC_CODE = ( "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
 				+ "			SELECT SHOP_LOC_CODE "
 				+ "			FROM TAKEIT "
-				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? AND MEMBER_LOC_NO = ? "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
 				+ "			) "
 				+ "		) "
-				+ "AND ITEM_TAKEIT = 'T' "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = ? "
 				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 		
 		PreparedStatement stmt = null;
@@ -324,12 +324,13 @@ public class TakeitDao {
 	/** 상점구역목록 전체 조회 */
 	public void searchShopLocList(Connection conn, ArrayList<ShopLoc> shopLocList) throws CommonException {
 		String sql = "SELECT * FROM SHOP_LOC";
-		
+		System.out.println("debp5-1");
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
+			System.out.println("debp5-2");
 			ShopLoc shopLoc = null;
 			while (rs.next()) {
 				shopLoc = new ShopLoc();
@@ -337,7 +338,7 @@ public class TakeitDao {
 				shopLoc.setShopLocName(rs.getString("shop_Loc_Name"));
 				shopLoc.setShopLocLat(rs.getString("shop_Loc_Lat"));
 				shopLoc.setShopLocLng(rs.getString("shop_Loc_Lng"));
-				
+				System.out.println("debp5-3");
 				shopLocList.add(shopLoc);
 			}
 		} catch (Exception e) {
@@ -618,5 +619,28 @@ public class TakeitDao {
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
+	}
+
+	public void updateMemberLoc(Connection conn, Member member) throws CommonException {
+		String sql = "UPDATE MEMBER SET MEMBER_LOC_NO = ? , SHOP_LOC_CODE = ? where member_ID = ?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getMemberLocNo());
+			stmt.setString(2, member.getShopLocCode());
+			stmt.setString(3, member.getMemberId());
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 2);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+		System.out.println("debp4-2");
 	}
 }

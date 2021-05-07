@@ -146,12 +146,11 @@ $(document).ready(function (){
 	<div class="btn-area">
 	<input type="button" class="link" id="addCart"  style="display: inline-block;" value="장바구니"/>
 	<form action="${CONTEXT_PATH}/order/orderController?action=orderForm"  method="post" style="display: inline-block;" id="buyItemForm">
-
-		<input type="hidden" value="${cart.itemNo}" name="itemNo" id="${cart.itemNo}"> 
-		<input type="hidden" value="${cart.cartItemQty}" name="itemQty" id="${cart.itemNo}qty"> 
-		<input type="hidden" value="${cart.itemPrice}" name="itemPrice" id="${cart.itemNo}price"> 
-		<input type="hidden" value="${cart.totalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
-		<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 
+		<input type="hidden" value="${takeitItem.itemNo}" name="itemNo"> 
+		<input type="hidden" value="1" name="itemQty"> 
+		<input type="hidden" value="${intPrice*1000}" name="itemPrice" > 
+		<input type="hidden" value="${intPrice*1000}" name="totalPrice" > 
+		<input type="hidden" value="${intPrice*1000}" name="cartTotalPrice" > 
 		<input type="button" class="link" style="display: inline-block;" value="구매" onclick='$("#buyItemForm").submit();'/>
 	</form>
 	</div>

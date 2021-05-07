@@ -47,7 +47,6 @@ $(document).ready(function() {
 		$("#shipRequest").val("").attr("disabled", true);
 	});
 });
-	
 </script>
 </head>
 <body>
