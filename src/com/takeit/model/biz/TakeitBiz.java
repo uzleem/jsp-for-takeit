@@ -182,8 +182,10 @@ public class TakeitBiz {
 			boolean result = dao.isValidMemberLocNo(conn, member);
 			if (!result) {
 				dao.addMemberLocNo(conn, member);
+				JdbcTemplate.commit(conn);
 			}
 		} catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
 			throw e;
 		} finally {
 			JdbcTemplate.close(conn);

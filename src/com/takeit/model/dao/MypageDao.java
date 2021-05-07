@@ -107,7 +107,7 @@ public class MypageDao {
 				dto.setBirth(rs.getString("BIRTH"));
 				dto.setMemberLocNo(rs.getString("MEMBER_LOC_NO"));
 				dto.setGrade(rs.getString("GRADE"));
-				
+				dto.setShopLocCode(rs.getString("SHOP_LOC_CODE"));
 				
 				
 				
