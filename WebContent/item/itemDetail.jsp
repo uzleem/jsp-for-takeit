@@ -53,7 +53,7 @@ $(document).ready(function (){
 				<hr class="line1">
 				<span class="it_info"><b>카테고리</b>&emsp;${item.itemCategoryName}</span><br>
 				<span class="it_info"><b>판매단위</b>&emsp;${item.salesUnit}</span><br>
-				<span class="it_info"><b>재고량</b>&emsp;${item.itemStock}</span><br>
+				<span class="it_info"><b>재고량</b>&emsp;&emsp;${item.itemStock}</span><br>
 				<span class="it_info"><b>원산지</b>&emsp;&emsp;${item.itemOrigin}</span><br>
 				<span class="it_info"><b>포장타입</b>&emsp;${item.packTypeName}</span><br>
 		        <span class="it_info"><b>고객평점</b>&emsp;${item.itemCustScore}</span><br>
