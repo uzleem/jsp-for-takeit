@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+/*  비활성화 */
+$("#id_button" ).prop('disabled', true)	
+$("#mobile_button" ).prop('disabled', true)	
+$("#email_button" ).prop('disabled', true)	
+$("#sellerNoBtn" ).prop('disabled', true)	
+$("#shopNameBtn" ).prop('disabled', true)	
+
 /* 회원가입 폼 : 라디오 버튼 */
 /* 일반 회원가입 버튼 이벤트 */
 $("#normalInputFrom").click(function() {
@@ -11,11 +18,6 @@ $("#sellerInputForm").click(function() {
 	location.href = "/takeit/seller/controller?action=sellerInputForm"
 });
 /* 일반회원 시작 */
-/* 중복확인 버튼 비활성화 */
-$("#id_button" ).prop('disabled', true);
-$("#email_button" ).prop('disabled', true);
-$("#sellerNoBtn" ).prop('disabled', true);
-$("#shopNameBtn" ).prop('disabled', true);
 /* 아이디 포커스 */
 $("#memberId").on('focus', function() {
 	$("#memberId").css({
@@ -41,6 +43,7 @@ $("#memberId").on('keyup', function() {
 	}else {
 		$('#memberIdResult1').show().html("x 6~20자 영문 혹은 영문+숫자를 조합<br>");
 		$('#memberIdResult1').css('color','#FF0000')
+		$("#id_button" ).prop('disabled', true);
 	}
 });
 /* 비밀번호 포커스 */
@@ -125,7 +128,7 @@ $("#mobile").on('focus', function() {
 	$("#mobile").css({
 		'background' : "#E8F0FE"
 	});
-	$('#mobileResult1').show().html("* -포함 13자리를 입력하세요. 예:000-0000-0000");
+	$('#mobileResult1').show().html("* - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 });	
 /* 휴대폰 포커스 아웃 */
 $("#mobile").on('focusout', function() {
@@ -138,11 +141,13 @@ $("#mobile").on('keyup', function() {
 	var mobile = $("#mobile").val();
 	var mobile_Valid = mobile_data(mobile)
 	if(mobile_Valid) {
-		$('#mobileResult1').show().html("o -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#mobileResult1').show().html("o - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 		$('#mobileResult1').css('color','#08A600')
+		$("#mobile_button" ).prop('disabled', false);
 	}else {
-		$('#mobileResult1').show().html("x -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#mobileResult1').show().html("x - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 		$('#mobileResult1').css('color','#FF0000')
+		$("#mobile_button" ).prop('disabled', true);
 	} 
 });
 /* 인증번호 포커스 */
@@ -183,6 +188,7 @@ $("#email").on('keyup', function() {
 	}else {
 		$('#emailNumResult1').show().html("x 예:takeit@take.com<br>");
 		$('#emailNumResult1').css('color','#FF0000')
+		$("#email_button").prop('disabled', true);
 	} 
 });
 /* 우편번호 포커스 */
@@ -255,9 +261,11 @@ $("#sellerId").on('keyup', function() {
 	if(sellerId_Valid) {
 		$('#sellerIdResult1').show().html("o 6~20자 영문 혹은 영문+숫자를 조합<br>");
 		$('#sellerIdResult1').css('color','#08A600')
+		$("#id_button").prop('disabled', false);
 	}else {
 		$('#sellerIdResult1').show().html("x 6~20자 영문 혹은 영문+숫자를 조합<br>");
 		$('#sellerIdResult1').css('color','#FF0000')
+		$("#id_button").prop('disabled', true);
 	} 
 });
 /* 비밀번호 포커스 */
@@ -329,7 +337,7 @@ $("#sellerNo").on('focus', function() {
 	$("#sellerNo").css({
 		'background' : "#E8F0FE"
 	});
-	$('#sellerNoResult1').show().html("* -포함 13자리를 입력하세요. 예:00-000-00000<br>");
+	$('#sellerNoResult1').show().html("* -포함 13자리를 입력하세요. ex) 000-00-00000<br>");
 	$('#sellerNoResult2').show().html("* 사업자등록번호 중복확인");
 });
 /* 사업자등록번호 포커스 아웃*/
@@ -343,12 +351,13 @@ $("#sellerNo").on('keyup', function() {
 	var sellerNo = $("#sellerNo").val();
 	var sellerNo_Valid = sellerNo_data(sellerNo)
 	if(sellerNo_Valid) {
-		$('#sellerNoResult1').show().html("o -포함 13자리를 입력하세요. 예:00-000-00000<br>");
+		$('#sellerNoResult1').show().html("o -포함 13자리를 입력하세요. ex) 000-00-00000<br>");
 		$('#sellerNoResult1').css('color','#08A600')
 		$("#sellerNoBtn").prop('disabled', false);
 	}else {
-		$('#sellerNoResult1').show().html("x -포함 13자리를 입력하세요. 예:00-000-00000<br>");
+		$('#sellerNoResult1').show().html("x -포함 13자리를 입력하세요. ex) 000-00-00000<br>");
 		$('#sellerNoResult1').css('color','#FF0000')
+		$("#sellerNoBtn").prop('disabled', true);
 	} 
 }); 
 /* 상점연락처 포커스 */
@@ -356,7 +365,7 @@ $("#shopMobile").on('focus', function() {
 	$("#shopMobile").css({
 		'background' : "#E8F0FE"
 	});
-	$('#shopMobileResult1').show().html("* -포함 13자리를 입력하세요. 예:000-0000-0000");
+	$('#shopMobileResult1').show().html("* - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 });
 /* 상점연락처 포커스 아웃*/
 $("#shopMobile").on('focusout', function() {
@@ -369,10 +378,10 @@ $("#shopMobile").on('keyup', function() {
 	var shopMobile = $("#shopMobile").val();
 	var shopMobile_Valid = shopMobile_data(shopMobile)
 	if(shopMobile_Valid) {
-		$('#shopMobileResult1').show().html("o -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#shopMobileResult1').show().html("o - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 		$('#shopMobileResult1').css('color','#08A600')
 	}else {
-		$('#shopMobileResult1').show().html("x -포함 13자리를 입력하세요. 예:000-0000-0000");
+		$('#shopMobileResult1').show().html("x - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 		$('#shopMobileResult1').css('color','#FF0000')
 	} 
 });
@@ -401,6 +410,7 @@ $("#shopName").on('keyup', function() {
 	}else {
 		$('#shopNameResult1').show().html("x * 한글, 영문, 숫자 입력<br>");
 		$('#shopNameResult1').css('color','#FF0000')
+		$("#shopNameBtn").prop('disabled', true);
 	} 
 });
 /* 카카오톡아이디 포커스 */
@@ -503,7 +513,11 @@ function inputCheck() {
 		return false;
 	} 
 	/* 아이디 중복확인 */
-	
+//	if(!idCheck()) {
+//		alert("아이디 중복확인을 해주세요.")
+//		$("#memberId").focus();
+//		return false;
+//	}
 	/* 비밀번호 */
 	var memberPw = $("#memberPw").val();
 	var memberPw_Valid = memberPw_data(memberPw)	
@@ -536,7 +550,7 @@ function inputCheck() {
 	if (mobileNum == "") {
 		$("#mobileNum").focus();
 		return false;
-	} 
+	}
 	/* 이메일 */
 	var email = $("#email").val();
 	var email_Valid = email_data(email)
@@ -632,8 +646,18 @@ function inputCheckSeller() {
 	}
 	return true;
 }
+
 /* 아이디 중복체크 */
 function idCheck(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var memberId = $("#memberId").val();
+	var memberId_Valid = memberId_data(memberId)
+	if(!memberId_Valid) {
+		$("#memberId").focus();
+		return false;
+	}
+	
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/member/controller?action=memberIdChk",
@@ -642,24 +666,38 @@ function idCheck(){
 			data:{
 				"memberId" : $("#memberId").val()  
 			},	
-		
+			
 			success:function(data){
-				
 				if(data == "1"){
 					alert("사용가능한 아이디입니다.");
 					$('#memberIdResult2').show().html("o 아이디 중복확인");
 					$('#memberIdResult2').css('color','#08A600')
-					//$("#memberId" ).prop('readonly', true);
+					$("#memberId" ).prop('readonly', true);
+					//$("#id_button" ).prop('disabled', true);
 				}else {					
 					alert("해당 아이디는 사용중입니다.");	
 					$('#memberIdResult2').show().html("x 아이디 중복확인");
 					$('#memberIdResult2').css('color','#FF0000')
-				}			
+					//$("#id_button" ).prop('disabled', false)
+					//$("#memberId").focus();
+					//return false;
+				}
 			}
-	});	 
+	});	
+	 
+
 };
 /* 이메일 중복체크 */
 function emailCheck(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var email = $("#email").val();
+	var email_Valid = email_data(email)
+	if(!email_Valid) {
+		$("#email").focus();
+		return false;
+	}
+	
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/member/controller?action=memberEmailChk",
@@ -675,17 +713,30 @@ function emailCheck(){
 					alert("사용가능한 이메일입니다.");
 					$('#emailNumResult2').show().html("o 이메일 중복확인");
 					$('#emailNumResult2').css('color','#08A600')
-					//$("#email" ).prop('readonly', true);
+					$("#email" ).prop('readonly', true);
+					//$("#email_button" ).prop('disabled', true);
 				}else {					
 					alert("해당 이메일은 사용중입니다.");	
 					$('#emailNumResult2').show().html("x 이메일 중복확인");
 					$('#emailNumResult2').css('color','#FF0000')
+					//$("#email").focus();
+					//return false;
 				}					
 			}
 	});	 
 };
+
 /* 판매자 아이디 중복체크 */
 function idCheckSeller(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var sellerId = $("#sellerId").val();
+	var sellerId_Valid = sellerId_data(sellerId)
+	if(!sellerId_Valid) {
+		$("#sellerId").focus();
+		return false;
+	}
+	
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/seller/controller?action=sellerIdChk",
@@ -701,17 +752,29 @@ function idCheckSeller(){
 					alert("사용가능한 아이디입니다.");
 					$('#sellerIdResult2').show().html("o 아이디 중복확인");
 					$('#sellerIdResult2').css('color','#08A600')
-					//$("#sellerId" ).prop('readonly', true);
+					$("#sellerId").prop('readonly', true);
+					//$("#id_button").prop('disabled', true);
 				}else {					
 					alert("해당 아이디는 사용중입니다.");	
 					$('#sellerIdResult2').show().html("x 아이디 중복확인");
 					$('#sellerIdResult2').css('color','#FF0000')
+					//$("#sellerId").focus();
+					//return false;
 				}				
 			}
 	});	 
 };
 /* 판매자 이메일 중복체크 */
 function emailCheckSeller(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var email = $("#email").val();
+	var email_Valid = email_data(email)
+	if(!email_Valid) {
+		$("#email").focus();
+		return false;
+	}
+	
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/seller/controller?action=sellerEmailChk",
@@ -727,17 +790,29 @@ function emailCheckSeller(){
 					alert("사용가능한 이메일입니다.");
 					$('#emailNumResult2').show().html("o 이메일 중복확인");
 					$('#emailNumResult2').css('color','#08A600')
-					//$("#email" ).prop('readonly', true);
+					$("#email").prop('readonly', true);
+					//$("#email_button").prop('disabled', true);
 				}else {					
 					alert("해당 이메일은 사용중입니다.");	
 					$('#emailNumResult2').show().html("x 이메일 중복확인");
 					$('#emailNumResult2').css('color','#FF0000')
+					//$("#email").focus();
+					//return false;
 				}			
 			}
 	});	 
 };
 /* 판매자 사업자등록번호 중복체크 */
 function sellerNoCheck(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var sellerNo = $("#sellerNo").val();
+	var sellerNo_Valid = sellerNo_data(sellerNo)
+	if(!sellerNo_Valid) {
+		$("#sellerNo").focus();
+		return false;
+	}
+	
 	 $.ajax({	
 		 	// 서블릿으로 보낸다
 			url:"/takeit/seller/controller?action=sellerNoChk",
@@ -753,18 +828,30 @@ function sellerNoCheck(){
 					alert("사용가능한 사업자등록번호입니다.");
 					$('#sellerNoResult2').show().html("o 사업자등록번호 중복확인");
 					$('#sellerNoResult2').css('color','#08A600')
-					//$("#sellerNo" ).prop('readonly', true);
+					$("#sellerNo").prop('readonly', true);
+					//$("#sellerNoBtn").prop('disabled', true);
 					
 				}else {					
 					alert("해당 사업자등록번호는 사용중입니다.");	
 					$('#sellerNoResult2').show().html("x 사업자등록번호 중복확인");
 					$('#sellerNoResult2').css('color','#FF0000')
+					//$("#sellerNo").focus();
+					//return false;
 				}				
 			}
 	});	 
 };
 /* 판매자 상점명 중복체크 */
 function shopNameCheck(){
+	
+	/* 중복확인 버튼 클릭시 검증이 맞지않으면 리턴 */
+	var shopName = $("#shopName").val();
+	var shopName_Valid = shopName_data(shopName)
+	if(!shopName_Valid) {
+		$("#shopName").focus();
+		return false;
+	}
+	
 	$.ajax({	
 		// 서블릿으로 보낸다
 		url:"/takeit/seller/controller?action=shopNameChk",
@@ -780,11 +867,14 @@ function shopNameCheck(){
 				alert("사용가능한 상점명입니다.");
 				$('#shopNameResult2').show().html("o 상점명 중복확인");
 				$('#shopNameResult2').css('color','#08A600')
-				//$("#shopName" ).prop('readonly', true);
+				$("#shopName").prop('readonly', true);
+				//$("#shopNameBtn").prop('disabled', true);
 			}else {					
 				alert("해당 상점명은 사용중입니다.");	
 				$('#shopNameResult2').show().html("x 상점명 중복확인");
 				$('#shopNameResult2').css('color','#FF0000')
+				//$("#shopName").focus();
+				//return false;
 			}			
 		}
 	});	 

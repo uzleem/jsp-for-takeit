@@ -47,23 +47,29 @@ function mobilePopup() {
 	<table id="find-account-tbl">
 		<tr>
 			<th>이름</th>
-			<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name" name="name" required="required"/></td>
+			<td><input type="text" placeholder="고객님의 이름을 입력해주세요" id="name" name="name" /></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
 			<td>
-				<input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email" name="email" required="required"/>
-				<input type="button" value="인증번호" id="mobile_button" name="mobile_button" onclick="mobilePopup();"/>
+				<input type="text" placeholder="가입 시 등록하신 이메일 주소를 입력해주세요" id="email" name="email" />
+				<input type="button" value="인증번호" id="email_button" name="email_button" onclick="mobilePopup();"/>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<span id="emailNumResult1" class="inputResult"></span>
 			</td>
 		</tr>
 		<tr>
 			<th>인증번호</th>
 			<td>
-				<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum" readonly="readonly" required="required"/>
+				<input type="text" placeholder="인증번호 입력" id="mobileNum" name="mobileNum" readonly="readonly" />
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align: center;"><input type="submit" value="찾기" id="check_submit"/></td>
+			<td colspan="2" style="text-align: center;"><input type="submit" value="찾기" id="check_submit" onclick="return inputCheck()"/></td>
 		</tr>
 	</table>
 	</form>

@@ -74,7 +74,7 @@ function mobilePopup() {
 			<td>아이디<span class="star"> *</span></td>
 			<td>
 				<input type="text" placeholder="아이디를 입력해주세요." id="sellerId" name="sellerId" />
-				<input type="button" value="중복확인" id="id_button" onclick="idCheckSeller()"/>
+				<input type="button" value="중복확인" id="id_button" name="id_button" onclick="idCheckSeller()"/>
 			</td>
 		</tr>
 		<tr>
