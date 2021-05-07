@@ -73,11 +73,11 @@ public void enrollItem(Item dto) throws CommonException{
 	}
 }
 /**상품삭제*/
-public void deleteItem(Item dto){
+public void deleteItem(String sellerId, String itemNo) throws CommonException{
 	
 	Connection conn = JdbcTemplate.getConnection();
 	try {
-		dao.deleteItem(conn,dto);
+		dao.deleteItem(conn, sellerId, itemNo);
 		JdbcTemplate.commit(conn);
 	}catch (Exception e) {
 		e.printStackTrace();

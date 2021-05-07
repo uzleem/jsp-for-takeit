@@ -34,6 +34,8 @@
 	color: #35363A;
 	text-decoration: none;
 	margin: 0 5px;
+	line-height: 36px;
+	vertical-align: middle;
 }
 #top-menu>a:hover, #navi>a:hover{
 	font-weight: 700;

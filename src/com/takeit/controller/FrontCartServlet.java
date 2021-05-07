@@ -142,10 +142,15 @@ public class FrontCartServlet extends HttpServlet {
 			ArrayList<Cart> cartList = new ArrayList<Cart>();
 			
 			try {
+				int result = cbiz.searchCartItem(itemNo, memberId);
 				int cartTotalPrice =  0;
-				cbiz.addCart(cart);
+				if(result == 1) {
+					cbiz.cartUpdate(cart);
+				} else {
+					cbiz.addCart(cart);
+				}
 				cbiz.getCartList(memberId, cartTotalPrice, cartList);
-
+				
 				session.setAttribute("cartList", cartList);
 				for(Cart dto : cartList) {
 					cartTotalPrice += dto.getTotalPrice();
@@ -162,8 +167,7 @@ public class FrontCartServlet extends HttpServlet {
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
 		}
-
-
+		
 		/**장바구니 삭제*/
 		protected void removeCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("[dubug]장바구니 삭제 요청");

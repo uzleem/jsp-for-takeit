@@ -238,6 +238,41 @@ public class FrontItemServlet extends HttpServlet {
 		
 }
 	
+		/**
+		 * 상품삭제
+		 * @param conn
+		 * @param dto
+		 */
+		protected void deleteItem (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("[debug]판매자 등록 상품 삭제 요청");
+		
+			HttpSession session = request.getSession(false);
+			String sellerId = (String)session.getAttribute("sellerId");
+			String itemNo = request.getParameter("itemNo");
+			sellerId = sellerId.trim();
+			itemNo = itemNo.trim();
+			System.out.println("[deubg] "+ sellerId + ", " + itemNo);
+		
+			ItemBiz ibiz = new ItemBiz();
+			ArrayList<Item> itemList = new ArrayList<Item>();
+			ItemBiz abiz = new ItemBiz();
+			
+			try {
+				ibiz.deleteItem( sellerId, itemNo);
+				abiz.getMySellList(itemList, sellerId);
+				System.out.println("itemList = "+itemList);
+		
+				if(itemList != null) {
+					request.setAttribute("itemList",itemList);
+					request.getRequestDispatcher("/item/mySellList.jsp").forward(request, response);
+				}
+			} catch (CommonException e) {
+				MessageEntity message = new MessageEntity("error", 10);
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+			}
+		}	
+
 
 
 		/**
