@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>상품주문 폼</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
+<link type="text/css" rel="stylesheet" href="/takeit/css/order.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -51,59 +52,80 @@ $(document).ready(function() {
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-
-	주문자<hr><br>
-	${order.recipientName}<br>
-	${order.recipientMobile}<br>
-	${order.recipientAddr}, ${order.recipientAddrDetail} (${order.recipientPostNo}) <br>
-	<br><br>
+<div id="order-check-wrap" class="view-width">
+	<hr style="border-top-width: 3px;">	
+	<div id="personal-info">
+		<h1>주문자 정보</h1><hr>
+		<span><b>이름</b>&emsp;&emsp;${order.recipientName}</span><br>
+		<span><b>연락처</b>&emsp;${order.recipientMobile}</span><br>
+		<span><b>주소</b>&emsp;&emsp;${order.recipientAddr}, ${order.recipientAddrDetail} (${order.recipientPostNo})</span>
+	</div>	
+	<hr style="border-top-width: 3px;">
 	
-<form action="${CONTEXT_PATH}/order/orderController?action=order" method="post" id="orderForm">	
-	<span>배송지 정보</span><hr>
-	<span>배송지 선택 : </span>
-	<span>
-		<input type="radio" name="receiveMethod" id="receiveMethod1" value="배송" checked="checked">기본 배송지
-		<input type="radio" name="receiveMethod" id="receiveMethod2" value="배송">신규 배송지
-		<input type="radio" name="receiveMethod" id="receiveMethod3" value="직접수령">직접 수령
-	</span><br>
-	
-	수령인 <input type="text" name="recipientName" value="${order.recipientName}"><br>
-	연락처 <input type="text" name="recipientMobile" value="${order.recipientMobile}"><br>
-	배송지 주소 <input type="text" id="recipientPostNo" name="recipientPostNo" value="${order.recipientPostNo}"><br>
-	<input type="text" id="recipientAddr" name="recipientAddr" value="${order.recipientAddr}"><br>
-	<input type="text" id="recipientAddrDetail" name="recipientAddrDetail" value="${order.recipientAddrDetail}"><br>
-	배송요청사항 <input type="text" id="shipRequest" name="shipRequest" value="${order.shipRequest}"><br> 
-	
-	
-<c:set var="totalPrice" value="0" scope="page"/>
-	<div class="orderList-wrap">
-	<h3>주문상품</h3>
-		<c:forEach var="orderDetail" items="${order.orderDetails}">
-		<br>
-		<div class="order-detail">
-			<img src="/takeit/img/item/${orderDetail.itemImg}" style="width:100px; height:150px;">
-			<div  style="display:inline-block;">
-				상품명 : ${orderDetail.itemName} <br>
-				상품개수 : ${orderDetail.itemQty}개 <br>
-				배송비 :
-				<c:choose>
-					<c:when test="${orderDetail.itemTakeit == 'T' }">무료(잇거래)<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
-					<c:when test="${orderDetail.itemPayPrice * orderDetail.itemQty >= 50000}">무료<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
-					<c:when test="${orderDetai.itemTakeit == 'F' and orderDetail.itemPayPrice * orderDetail.itemQty < 50000 }">3500원<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice)+3500}"/></c:when>
-				</c:choose><br>
-				상품결제금액 : ${orderDetail.itemPayPrice * orderDetail.itemQty}원 <br> 
-			</div><br>
+	<form action="${CONTEXT_PATH}/order/orderController?action=order" method="post" id="orderForm">
+		<div id="recipient-info">	
+			<h1>배송지 정보</h1><hr>
+			<span><b>배송지 선택 :</b> </span>
+			<span id="receiveMethod">
+				<input type="radio" name="receiveMethod" id="receiveMethod1" class="recipient-receiveMethod" value="배송" checked="checked">기본 배송지
+				<input type="radio" name="receiveMethod" id="receiveMethod2" class="recipient-receiveMethod" value="배송">신규 배송지
+				<input type="radio" name="receiveMethod" id="receiveMethod3" class="recipient-receiveMethod" value="직접수령">직접 수령
+			</span><br>
+			<div id="recipient" style="display: flex;">
+			<div class="recipient-info">
+				<span><b>수령인</b></span><br>
+				<span><b>연락처</b></span><br>
+				<span><b style="margin-top: 5px;">배송지주소</b></span><br>
+				<br><br><br>
+				<span><b>배송요청사항</b></span>
+			</div>
+			<div class="recipient-info" style="margin-left: 10px;">
+				<span><input type="text" name="recipientName"  class="recipient-receiveMethod" value="${order.recipientName}"></span><br>
+				<span><input type="text" name="recipientMobile"  class="recipient-receiveMethod" value="${order.recipientMobile}"></span><br>
+				<span><input type="text" id="recipientPostNo"  class="recipient-receiveMethod" name="recipientPostNo" value="${order.recipientPostNo}"></span><br>
+				<input type="text" id="recipientAddr" name="recipientAddr"  class="recipient-receiveMethod" value="${order.recipientAddr}"><br>
+				<input type="text" id="recipientAddrDetail" name="recipientAddrDetail"  class="recipient-receiveMethod" value="${order.recipientAddrDetail}"><br>
+				<span><input type="text" id="shipRequest" name="shipRequest"  class="recipient-receiveMethod" value="${order.shipRequest}"></span>
+			</div>
+			</div> 
 		</div>
-		
-		</c:forEach>
-		
-	</div><br>
-	<c:if test=""></c:if>
-	총 주문금액 : ${totalPrice}
-	<input type="submit" value="결제하기"/>
-
-</form>
-
+	<hr style="border-top-width: 3px;">	
+	
+	<c:set var="totalPrice" value="0" scope="page"/>
+		<div class="orderList-wrap">
+		<h3>주문상품</h3><hr>
+			<br>
+			<c:forEach var="orderDetail" items="${order.orderDetails}">
+			<div class="orderDetail">
+				<div id="orderDetail-img-area">
+				<img src="/takeit/img/item/${orderDetail.itemImg}" id="orderDetail-img" >
+				</div>
+				<div id="orderDetail-info-area">
+					<span><b>상품명 :</b> ${orderDetail.itemName} </span><br>
+					<span><b>상품개수 :</b> ${orderDetail.itemQty}개 </span><br>
+					<span><b>배송비 :</b>
+					<c:choose>
+						<c:when test="${orderDetail.itemTakeit == 'T' }">무료(잇거래)<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
+						<c:when test="${orderDetail.itemPayPrice * orderDetail.itemQty >= 50000}">무료<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
+						<c:when test="${orderDetai.itemTakeit == 'F' and orderDetail.itemPayPrice * orderDetail.itemQty < 50000 }">3500원<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice)+3500}"/></c:when>
+					</c:choose></span><br>
+					<span><b>상품결제금액 :</b> ${orderDetail.itemPayPrice * orderDetail.itemQty}원</span> <br> 
+				</div>
+				<div></div>
+			</div>
+			</c:forEach>
+		</div>
+		<hr style="border-top-width: 3px;">	
+		<div id="order-price-area">
+			<c:if test=""></c:if>
+			<span id="order-totPrice">
+				<b>총 주문금액 :</b> 
+				<span style="font-weight: 700; font-size:35px;  color: red;">&#8361;<fmt:formatNumber value="${totalPrice}" pattern="###,###"/></span> 
+			</span>
+			<input type="submit" class="link" value="결제하기"/>
+			</div>
+	</form>
+</div>
 <!-- floating Banner -->
 <jsp:include page="/common/floatingBanner.jsp"></jsp:include>
  <!-- scroll function -->

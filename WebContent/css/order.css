@@ -4,9 +4,12 @@
 .side-menu{
 	margin-right: 50px;
 }
-.orderList-wrap>h1{
+.orderList-wrap>h1, .orderList-wrap>h3,
+#personal-info>h1, #recipient-info>h1
+{
 	width:fit-content; 
 	margin: 0 auto;
+	font-size: 30px;
 }
 order-info>span{
 	font-size: 14px;
@@ -72,4 +75,38 @@ order-info>span{
 	font-weight: 600;
 	cursor: pointer;
 }
+/**주문확인 페이지*/
+#personal-info{
+	line-height: 1.5;
+	font-size: 20px;
+}
+#recipient-info, .recipient-receiveMethod{
+	font-size: 20px;
+	line-height: 1.5;
+}
+.recipient-receiveMethod{
+ 	margin-bottom: 5px;
+ 	border: 1px solid #8D959C;
+}
+#recipient{
+	margin-top: 10px;
+}
+#orderDetail-img{
+	width: 200px;
+	height: 270px;
+}
+.orderDetail{
+	display: flex;
+}
 
+.recipient-info>span{
+	font-size: 20px;
+	line-height: 35px;
+}
+#order-price-area{
+	width: fit-content;
+	margin: 10px auto;
+}
+#order-totPrice{
+	font-size: 30px;
+}
