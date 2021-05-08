@@ -67,6 +67,12 @@ public class FrontTakeitServlet extends HttpServlet {
 		case "takeitInput":
 			takeitInput(request, response);
 			break;
+		case "takeitDeleteForm":
+			takeitDeleteForm(request, response);
+			break;
+		case "takeitDelete":
+			takeitDelete(request, response);
+			break;
 		}
 	}
 	
@@ -338,6 +344,15 @@ public class FrontTakeitServlet extends HttpServlet {
 			}
 			break;
 		}
+	}	
+	/** 잇거래 삭제 화면 서비스 */
+	protected void takeitDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/takeit/takeitDelete.jsp").forward(request, response);
+	}
+
+	/** 잇거래 삭제 요청 서비스 */
+	protected void takeitDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/takeit/takeitDelete.jsp").forward(request, response);
 	}
 }
 
