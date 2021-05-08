@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/common/taglib_menu.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +28,6 @@ function removeCheck(){
 		return false;
 	}
 }
-
-
 function sellerRemoveCheck(){
 	
 	
@@ -51,7 +49,6 @@ function sellerRemoveCheck(){
 
 </script>
 <style type="text/css">
-
 
 .error {
 	color: red;
@@ -76,9 +73,25 @@ function sellerRemoveCheck(){
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <br>
-
+<div id="container" class="view-width">
+<div class="side-menu">
+<c:choose>
+	<c:when test ="${not empty sellerId}">
+ 		<!-- 판매자 마이페이지 메뉴 -->
+ 		<jsp:include page="/common/mypage_seller_menu.jsp"/>
+	</c:when>
+	<c:when test="${not empty memberId}">
+		<!-- 일반회원 마이페이지 메뉴 -->
+		<jsp:include page="/common/mypage_member_menu.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/member/memberLogin.jsp"/>
+	</c:otherwise>
+</c:choose>
+</div>
 <c:choose>
 	<c:when test ="${dto.grade == 'S' }">
+	<div id="memberRemove-wrap">
 		<h1 style="width:fit-content; margin: 0 auto;">판매자회원 탈퇴</h1>
 		<br>
 		<form action = "/takeit/member/mypageController?action=removeSeller" method="post">
@@ -89,14 +102,12 @@ function sellerRemoveCheck(){
 						<input type="text" id="sellerId" name="sellerId" value="${sellerId }" readonly="readonly">
 					</td>
 				</tr>
-				
 				<tr>
 					<th>비밀번호</th>
 					<td>
 						<input type="password" id="sellerPw" name="sellerPw">
 					</td>		
 				</tr>
-				
 				<tr>
 					<th>비밀번호 확인</th>
 					<td>
@@ -110,12 +121,12 @@ function sellerRemoveCheck(){
 					</td>
 				</tr>
 			</table>
-			
 		</form>
-		
+	</div>
 	</c:when>
 	<c:otherwise>
-			<!-- 일반회원 마이페이지 메뉴 -->
+	<!-- 일반회원 마이페이지 메뉴 -->
+	<div id="memberRemove-wrap">
 		<h1 style="width:fit-content; margin: 0 auto;">일반회원 탈퇴</h1>
 		<br>
 		<form action="/takeit/member/mypageController?action=removeMember" method="post" name="memberRemove">
@@ -126,14 +137,12 @@ function sellerRemoveCheck(){
 						<input type="text" id="memberId" name="memberId" value="${memberId }" readonly="readonly">
 					</td>
 				</tr>
-				
 				<tr>
 					<th>비밀번호</th>
 					<td>
 						<input type="password" id="memberPw" name="memberPw">
 					</td>		
 				</tr>
-				
 				<tr>
 					<th>비밀번호 확인</th>
 					<td>
@@ -148,8 +157,14 @@ function sellerRemoveCheck(){
 				</tr>
 			</table>
 		</form>
+	</div>
 	</c:otherwise>
 </c:choose>
+</div>
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>	
+ <!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>
 </body>

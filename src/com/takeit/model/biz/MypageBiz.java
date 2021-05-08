@@ -25,17 +25,18 @@ public class MypageBiz {
 	private MypageDao dao = MypageDao.getInstance();
 	
 	
-	//판매자 리스트
+	/**
+	 * 판매자 회원 목록 리스트
+	 * @param sellerList
+	 * @throws CommonException
+	 */
 		public void getSellerList(ArrayList<Seller> sellerList) throws CommonException{
 			Connection conn = JdbcTemplate.getConnection();
 			
 			try {
 				dao.selectSellerList(conn, sellerList);
-				
-				
 			}catch (Exception e) {
 				e.printStackTrace();
-				
 				throw e;
 			}finally {
 				JdbcTemplate.close(conn);
@@ -43,7 +44,11 @@ public class MypageBiz {
 			
 		}
 	
-	//일반회원 리스트
+	/**
+	 * 일반회원 목록 리스트
+	 * @param memberList
+	 * @throws CommonException
+	 */
 	public void getMemberList(ArrayList<Member> memberList) throws CommonException{
 		Connection conn = JdbcTemplate.getConnection();
 		
@@ -84,9 +89,6 @@ public class MypageBiz {
 		}
 		
 	}
-	
-	
-	
 	
 	/**
 	 * 상품 등록
@@ -299,11 +301,6 @@ public class MypageBiz {
 			}
 			
 		}
-	
-	
-	
-	
-	
 	
 
 }
