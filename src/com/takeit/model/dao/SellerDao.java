@@ -191,7 +191,6 @@ public class SellerDao {
 	
 	/**
 	 * 아이디 중복체크
-	 * @throws CommonException 
 	 */
 	public boolean sellerIdChk(Connection con, String seller) throws CommonException {
 
@@ -224,7 +223,6 @@ public class SellerDao {
 
 	/**
 	 * 이메일 중복체크
-	 * @throws CommonException 
 	 */
 	public boolean sellerEmailChk(Connection con, String email) throws CommonException {
 		
@@ -257,7 +255,6 @@ public class SellerDao {
 
 	/**
 	 * 사업자등록번호 중복체크
-	 * @throws CommonException 
 	 */
 	public boolean sellerNoChk(Connection con, String sellerNo) throws CommonException {
 
@@ -290,7 +287,6 @@ public class SellerDao {
 	
 	/**
 	 * 상점명 중복체크
-	 * @throws CommonException 
 	 */
 	public boolean shopNameChk(Connection con, String shopName) throws CommonException {
 		

@@ -35,7 +35,7 @@ public class Seller implements Serializable{
 	private String name;
 	private String mobile;
 	private String email;
-	private String entryDate; // TIMESTAMP 형식으로 DB에서 처리할때 TO_CHAR 필요
+	private String entryDate;
 	private String postNo;
 	private String address;
 	private String addressDetail;
@@ -99,6 +99,7 @@ public class Seller implements Serializable{
 		this.shopLocCode = shopLocCode;
 	}
 
+	/* getter, setter */
 	public String getSellerId() {
 		return sellerId;
 	}
@@ -243,8 +244,6 @@ public class Seller implements Serializable{
 		this.shopLocCode = shopLocCode;
 	}
 
-	
-	
 	public String getShopCategoryName() {
 		return shopCategoryName;
 	}
@@ -262,8 +261,4 @@ public class Seller implements Serializable{
 				+ ", shopImg=" + shopImg + ", shopCategoryNo=" + shopCategoryNo + ", shopCategoryName="
 				+ ", shopLocCode=" + shopLocCode + "]";
 	}
-
-	
-	
-}
-
+} // Seller 끝
