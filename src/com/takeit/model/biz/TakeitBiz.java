@@ -284,6 +284,20 @@ public class TakeitBiz {
 		}
 	}
 
+
+	public void getTakeitList(ArrayList<Takeit> takeitList) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.searchTakeitEndList(conn, takeitList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
+
 	/**
 	 * 상점구역 삭제
 	 * @param shopLocList 상점구역목록
@@ -302,6 +316,4 @@ public class TakeitBiz {
 			JdbcTemplate.close(conn);
 		}
 	}
-
-
 }

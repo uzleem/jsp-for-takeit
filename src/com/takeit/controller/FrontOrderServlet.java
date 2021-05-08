@@ -173,6 +173,11 @@ public class FrontOrderServlet extends HttpServlet {
 		ArrayList<OrderDetail> orderDetails = null;
 		OrderDetail orderDetail = null;
 		for (int index = 0; index < itemNos.length; index++) {
+			System.out.println(itemNos[index]);
+			System.out.println(sellerIds[index]);
+			System.out.println(itemPayPrices[index]);
+			System.out.println(itemQtys[index]);
+			
 			order = new Order();
 			orderDetails = new ArrayList<>();
 			orderDetail = new OrderDetail();
@@ -189,7 +194,6 @@ public class FrontOrderServlet extends HttpServlet {
 				}
 			}
 			if (orderDetails.isEmpty()) {
-				orderDetail = new OrderDetail();
 				orderDetail.setSellerId(sellerIds[index]);
 				orderDetail.setItemNo(itemNos[index]);
 				orderDetail.setItemQty(Integer.valueOf(itemQtys[index]));
@@ -212,7 +216,7 @@ public class FrontOrderServlet extends HttpServlet {
 				order.setShipStatusCode(shipStatusCode);
 				
 				orderList.add(order);
-			}
+			} 
 		}
 		OrderBiz biz = new OrderBiz();
 		try {

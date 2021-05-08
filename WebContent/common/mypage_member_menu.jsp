@@ -18,7 +18,9 @@
 		<ul>
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=shopLocInputForm">지역시장 등록</a></li>
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=takeitInputForm">잇거래 등록</a></li>
+			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=takeitManageForm">잇거래 관리</a></li>
 			<li><a href="${CONTEXT_PATH}/takeit/takeitController?action=shopLocDeleteForm">지역상점 관리</a></li>
+
 		</ul>
 	</c:if>
 	

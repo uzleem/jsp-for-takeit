@@ -92,7 +92,6 @@ public class OrderDao {
 	 * @param order 주문객체
 	 */
 	public void insertOrderDetail(Connection conn, Order order) throws CommonException {
-		System.out.println(order);
 		String sql = "INSERT INTO Order_Detail VALUES(?, ?, ?, ?) ";
 		PreparedStatement stmt = null;
 		try {
@@ -396,9 +395,9 @@ public class OrderDao {
 					orderDetail.setItemTakeit(rs.getString("item_takeit"));
 					orderDetail.setItemName(rs.getString("item_name"));
 					orderDetail.setItemImg(rs.getString("item_img"));
+					orderDetail.setSellerId(rs.getString("seller_id"));
 				}
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
