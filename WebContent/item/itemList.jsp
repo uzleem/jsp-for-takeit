@@ -50,7 +50,7 @@ String categoryName = categoryItemList.get(0).getItemCategoryName();
 	<div class="item_list" style="white-space: nowrap;">
 		<div>
 		<a href="/takeit/item/itemController?action=itemDetail&itemNo=<%= dto.getItemNo() %>">
-			<img id="itemListImg" src="/takeit/img/item/<%= dto.getItemImg() %>">
+			<img id="itemListImg" title="/<%= dto.getItemImg() %>== <%= dto.getItemNo() %>" alt="/<%= dto.getItemImg() %>== <%= dto.getItemNo() %>" src="/takeit/img/item/<%= dto.getItemImg() %>">
 		</a>
 		</div>
 		<a href="/takeit/item/itemController?action=itemDetail&itemNo=<%= dto.getItemNo() %>">
