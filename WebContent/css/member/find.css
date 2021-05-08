@@ -1,13 +1,15 @@
+/**
+ * 아이디, 비밀번호 찾기 : 일반, 판매자
+ * @author 임우진
+ * 
+ */
 @charset "UTF-8";
-
+ 
+/* 내용 div */
 #contents_box {	
 	margin: auto;
 }
-	
-#contents_box > table {		
-	/* font-size: 9px; */
-}
-	
+/* 찾기  */
 #check_submit{
 	width:290px;
 	height:37px;  
@@ -19,7 +21,7 @@
 	cursor: pointer;
     margin-right: 23px;
 }
-
+/* 일반 아이디 */
 #memberId{
 	width:250px;
 	height:35px; 
@@ -27,7 +29,7 @@
 	font-size: 12px;
 	border: 1px solid #7B977A;
 }
-
+/* 판매자 아이디 */
 #sellerId{
 	width:250px;
 	height:35px; 
@@ -35,7 +37,7 @@
 	font-size: 12px;
 	border: 1px solid #7B977A;
 }
-
+/* 이름 */
 #name{
 	width:250px;
 	height:35px; 
@@ -43,7 +45,7 @@
 	font-size: 12px;
 	border: 1px solid #7B977A;
 }
-
+/* 이메일 */
 #email{
 	width:250px;
 	height:35px; 
@@ -51,7 +53,7 @@
 	font-size: 12px;
 	border: 1px solid #7B977A;
 }
-
+/* 인증번호 */
 #mobileNum{
 	width:250px;
 	height:35px; 
@@ -60,7 +62,7 @@
 	margin-bottom: 10px;
 	border: 1px solid #7B977A;
 }
-
+/* 이메일 중복확인 버튼 */
 #email_button{
 	height:35px; 
 	padding: 0px 19px;
@@ -70,6 +72,7 @@
 	background: #7B977A;
 	cursor: pointer;
 }
+/* th */
 #find-account-tbl>tr>th{
 	text-align: right;
 	margin-right: 10px;

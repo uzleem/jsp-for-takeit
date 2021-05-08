@@ -10,15 +10,6 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/find.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="${CONTEXT_PATH}/js/member/find.js"></script>
-<script type="text/javascript">
-function mobilePopup() {
-     // window.name = "부모창 이름"; 
-     window.name = "parentForm";
-     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-     window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
-             "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
-}
-</script>
 </head>
   
   
@@ -42,7 +33,7 @@ function mobilePopup() {
 <div id="contents_box" align="center">
 <div class="view-width">
 	<h1 align="center">아이디 찾기</h1>
-	<form action="${CONTEXT_PATH}/member/controller?action=memberFindId" method="post">
+	<form action="${CONTEXT_PATH}/seller/controller?action=sellerFindId" method="post">
 	<table id="find-account-tbl">
 		<tr>
 			<th>이름</th>
