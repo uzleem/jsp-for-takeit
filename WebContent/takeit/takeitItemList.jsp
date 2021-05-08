@@ -71,22 +71,26 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-
-<h3 style="width:fit-content; margin: 20px auto; font-size: 30px;">
-<select id="selectScope" name="scope" style="position:relative; left:-150px; height:35px;width:150px;">
-<c:choose >
-	<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'all'}">
-		<option value="all" selected="selected">전체</option>
-		<option value="my">내 지역</option>
-		
-	</c:when>
-	<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'my'}">
-		<option value="all">전체</option>
-		<option value="my" selected="selected">내 지역</option>
-	</c:when>
-</c:choose>
-</select>	
-잇거래</h3>
+<div style="width: 950px; margin: 0 auto;">
+	<div id="title">
+		<h3 >잇거래</h3>
+	</div>
+	<div>
+		<select id="selectScope" name="scope">
+		<c:choose >
+			<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'all'}">
+				<option value="all" selected="selected">전체</option>
+				<option value="my">내 지역</option>
+				
+			</c:when>
+			<c:when test="${not empty applicationScope.takeitScope and applicationScope.takeitScope == 'my'}">
+				<option value="all">전체</option>
+				<option value="my" selected="selected">내 지역</option>
+			</c:when>
+		</c:choose>
+		</select>	
+	</div>
+</div>
 
  <div class="item_wrap" style="display: flex;">
  	<%

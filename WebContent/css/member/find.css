@@ -77,3 +77,43 @@
 	text-align: right;
 	margin-right: 10px;
 }
+/* find message */
+#find-table{
+	width: fit-content;
+	margin: 0 auto;
+}
+.find-table{
+	border: 1px solid grey;
+	border-collapse: collapse;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	line-height: 2.5;
+}
+/* mobile popup */
+#popup{
+	height: 200px;
+	width: 500px;
+}
+#popup-table{
+	margin: 150px auto;
+	height: fit-content;
+	vertical-align: middle;
+	
+}
+.popup{
+	font-size: 18px;
+	line-height: 1.7;
+}
+.popup-btn{
+	border: solid 1px #8D959C;
+	color: #000;
+	background-color: white;
+	text-decoration: none;
+	padding: 3px 15px 3px 15px;
+}
+.popup-btn:hover{
+	background-color: #5a7d59;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}

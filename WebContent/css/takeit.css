@@ -21,6 +21,11 @@
 	box-shadow: 3px 3px grey;
 } 
 /**takeit list*/
+#selectScope{
+	height: 35px;
+	width: 150px;
+	font-size: 18px;
+}
 .takeit_item_wrap{
 	width: 1050px;
 	justify-content: space-between;
