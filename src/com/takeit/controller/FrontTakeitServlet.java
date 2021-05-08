@@ -81,19 +81,34 @@ public class FrontTakeitServlet extends HttpServlet {
 	}
 	
 	protected void takeitManageForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		TakeitBiz biz = new TakeitBiz();
+		String takeitRange = request.getParameter("takeitRange");
+		if (takeitRange == null) {
+			takeitRange = "Expired";
+		}
 		
 		ArrayList<Takeit> takeitList = new ArrayList<>();
+		TakeitBiz biz = new TakeitBiz();
 		
 		try {
-			biz.getTakeitList(takeitList);
-			
+			switch(takeitRange) {
+			case "Expired":
+				biz.getTakeitExpiredList(takeitList);
+				break;
+			case "live":
+				biz.getTakeitLiveList(takeitList);
+				break;
+			case "all":
+				//biz.getTakeitAllList(takeitList);
+				break;
+			case "dead":
+				//biz.getTakeitDeadList(takeitList);
+				break;
+			}
 			request.setAttribute("takeitList", takeitList);
 			request.getRequestDispatcher("/takeit/takeitManage.jsp").forward(request, response);;
 		} catch (CommonException e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	/** 잇거래 등록 요청 서비스 */
