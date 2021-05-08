@@ -59,9 +59,9 @@ public class FrontBoardServlet extends HttpServlet {
 		case "boardDelete":
 			boardDelete(request,response);
 			break;
-//		case "":
-//			(request,response);
-//			break;
+		case "boardSearch":
+			boardSearch(request,response);
+			break;
 //		case "":
 //			(request,response);
 //			break;
@@ -165,7 +165,6 @@ public class FrontBoardServlet extends HttpServlet {
 		boardContents = boardContents.trim();
 		boardCategory = boardCategory.trim();
 
-		
 		System.out.println("[debug] " + boardTitle + boardContents);
 		
 		BoardBiz bbiz = new BoardBiz();
@@ -270,5 +269,35 @@ public class FrontBoardServlet extends HttpServlet {
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
+	}
+	
+	/**게시글 검색결과 목록*/
+	protected void boardSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 검색결과 조회 요청");
+		String searchInput = request.getParameter("searchInput");
+		String boardSearch = request.getParameter("boardSearch");
+		String boardCategory = request.getParameter("boardCategory");
+		searchInput = searchInput.trim();
+		boardSearch = boardSearch.trim();
+		boardCategory = boardCategory.trim();
+		if(searchInput == null || searchInput.length()==0) {
+			response.sendRedirect("/takeit/board/noBoardSearchResult.jsp");
+		}
+		
+		System.out.println("[debug]"+boardCategory + ", " + boardSearch + ", " + searchInput);
+		
+		ArrayList<Board> boardList = new ArrayList<Board>();
+		BoardBiz bbiz = new BoardBiz();
+		try {
+			bbiz.getBoardSearchList(boardCategory, boardSearch, "%" + searchInput + "%", boardList);
+			if(boardList != null) {
+				request.setAttribute("searchInput", searchInput);
+				request.setAttribute("boardList", boardList);
+				request.getRequestDispatcher("/board/boardSearcResult.jsp").forward(request, response);
+			} 
+		} catch (CommonException e) {
+				request.getRequestDispatcher("/board/noBoardSearchResult.jsp").forward(request, response);
+		}
+		
 	}
 }

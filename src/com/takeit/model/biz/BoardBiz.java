@@ -124,7 +124,19 @@ public class BoardBiz {
 		}
 		
 	}
-
+	/**게시글 검색결과 조회*/
+	public void getBoardSearchList(String boardCategory, String boardSearch, String searchInput,
+			ArrayList<Board> boardList) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.getBoardSearchList(con, boardCategory, boardSearch, searchInput, boardList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
 	
 
 }

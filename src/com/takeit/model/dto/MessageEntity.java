@@ -31,11 +31,11 @@ public class MessageEntity {
 		error.add("[잇거래 검색 오류]");
 		error.add("[잇거래 삭제 오류]"); //14
 		
-		error.add("[공지사항/자주하는질문 등록 오류]"); 
-		error.add("[공지사항/자주하는질문 조회 오류]");
-		error.add("[공지사항/자주하는질문 검색 오류]");
-		error.add("[공지사항/자주하는질문 삭제 오류]");		
-		error.add("[공지사항/자주하는질문 변경 오류]"); //19
+		error.add("[게시글 등록 오류]"); 
+		error.add("[게시글 조회 오류]");
+		error.add("[게시글 검색 오류]");
+		error.add("[게시글 삭제 오류]");		
+		error.add("[게시글 변경 오류]"); //19
 		
 		error.add("[장바구니 등록/변경 오류]");
 		error.add("[장바구니 조회 오류]");

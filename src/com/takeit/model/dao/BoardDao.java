@@ -331,5 +331,54 @@ public class BoardDao {
 		}
 		
 	}
+	
+	/**게시글 검색결과 조회*/
+	public void getBoardSearchList(Connection con, String boardCategory, String boardSearch, String searchInput,
+			ArrayList<Board> boardList) throws CommonException{
+		System.out.println("[debug] 게시판 dao 검색결과 요청");
+		String sql = "SELECT DISTINCT * FROM BOARD B LEFT OUTER JOIN BOARD_CATEGORY BC "
+				+ "ON (B.BOARD_CATEGORY_NO=BC.BOARD_CATEGORY_NO) "
+				+ "WHERE B.BOARD_CATEGORY_NO = ? "
+				+ "AND B.BOARD_WRITER LIKE ? "
+				+ "OR B.BOARD_TITLE LIKE ? "
+				+ "OR B.BOARD_CONTENTS LIKE ? "
+				+ "OR B.ITEM_NO LIKE ?"
+				+ "ORDER BY B.BOARD_DATE DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, boardCategory);
+			pstmt.setString(2, searchInput);
+			pstmt.setString(3, searchInput);
+			pstmt.setString(4, searchInput);
+			pstmt.setString(5, searchInput);
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Board dto = new Board();
+				dto.setBoardNo(rs.getString("BOARD_NO"));
+				dto.setBoardTitle(rs.getString("BOARD_TITLE"));
+				dto.setBoardWriter(rs.getString("BOARD_WRITER"));
+				dto.setBoardCategory(rs.getString("BOARD_CATEGORY_NO"));
+				dto.setBoardCategoryName(rs.getString("BOARD_CATEGORY"));
+				dto.setBoardViews(rs.getInt("BOARD_VIEWS"));
+				dto.setBoardPicks(rs.getInt("BOARD_PICKS"));
+				dto.setBoardDate(rs.getString("BOARD_DATE"));
+				
+				boardList.add(dto);
+				System.out.println("[debug] 게시판 dao 검색결과 요청 완료");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("[debug] 게시판 dao 검색결과 요청 실패");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		JdbcTemplate.close(rs);
+		JdbcTemplate.close(pstmt);
+		
+	}
 
 }
