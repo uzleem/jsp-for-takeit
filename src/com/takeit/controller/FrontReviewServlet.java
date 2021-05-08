@@ -55,17 +55,19 @@ public class FrontReviewServlet extends HttpServlet {
 			myReviewList(request,response);
 			break;
 		case "setReviewInfo":
-			String button = request.getParameter("button");
-			System.out.println("= button = ["+ button+"]");
-			
-			if(button.equals("내후기수정")) {
-				System.out.println("setReviewInfo "+ button);
-				setReviewInfo(request,response);
-			}else {	
-				System.out.println("deleteReview "+ button);
-				deleteReview(request,response);
-			}
+			setReviewInfo(request,response);
 			break;
+//			String button = request.getParameter("button");
+//			System.out.println("= button = ["+ button+"]");
+//			
+//			if(button.equals("내후기수정")) {
+//				System.out.println("setReviewInfo "+ button);
+//				setReviewInfo(request,response);
+//			}else {	
+//				System.out.println("deleteReview "+ button);
+//				deleteReview(request,response);
+//			}
+		
 		case "deleteReview":
 			deleteReview(request, response);
 			break;
@@ -304,21 +306,32 @@ public class FrontReviewServlet extends HttpServlet {
 		String itemNo = request.getParameter("itemNo");
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContents = request.getParameter("reviewContents");
-		int reviewViews = Integer.parseInt(request.getParameter("reviewViews"));
-		int reviewScore = Integer.parseInt(request.getParameter("reviewScore"));
-		String reviewImg = request.getParameter("reviewImg");
-		String reviewNo = null;
-		String reviewDate = null;
-		
-		
-		itemNo = itemNo.trim();
-		reviewTitle = reviewTitle.trim();
-		//reviewContents = reviewContents.trim();
 
-		System.out.println("========== itemNo"+ itemNo);
-		System.out.println("========== reviewTitle"+ reviewTitle);
-		System.out.println("========== reviewScore"+ reviewScore);
-		System.out.println("========== reviewContents"+ reviewContents);
+		int reviewViews = 0;
+		String reviewViews_ = request.getParameter("reviewViews");
+
+		if (reviewViews_ != null) {
+			reviewViews = Integer.parseInt(reviewViews_);
+		}
+
+		int reviewScore = 0;
+		String reviewScore_ = request.getParameter("reviewScore");
+		
+		if (reviewScore_ != null) {
+			reviewScore = Integer.parseInt(reviewScore_);
+		}
+		
+		String reviewImg = request.getParameter("reviewImg");
+		String reviewNo = request.getParameter("reviewNo");
+		String reviewDate = request.getParameter("reviewDate");
+		
+		/*
+		 * System.out.println("========== itemNo"+ itemNo);
+		 * System.out.println("========== reviewTitle"+ reviewTitle);
+		 * System.out.println("========== reviewScore"+ reviewScore);
+		 * System.out.println("========== reviewContents"+ reviewContents);
+		 */		
+		
 		ReviewBiz biz = new ReviewBiz();
 		MessageEntity message = null;
 
@@ -349,15 +362,18 @@ public class FrontReviewServlet extends HttpServlet {
 
 		System.out.println("========== 내후기삭제 ============");
 		String reviewNo = request.getParameter("reviewNo");
-		String reviewTitle = request.getParameter("reviewTitle");
+		//String reviewTitle = request.getParameter("reviewTitle");
 
 		reviewNo = reviewNo.trim();
-		reviewTitle = reviewTitle.trim();
+		//reviewTitle = reviewTitle.trim();
 		
 
 		HttpSession session = request.getSession(false);
 		String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
+		
+		System.out.println("========== reviewNo ="+ reviewNo);
+		System.out.println("========== memberId ="+ memberId);
 
 		ReviewBiz bbiz = new ReviewBiz();
 		MessageEntity message = null;
@@ -366,7 +382,7 @@ public class FrontReviewServlet extends HttpServlet {
 			bbiz.reviewDelete(reviewNo, memberId);
 			message = new MessageEntity("success", 15); 
 			message.setLinkTitle("후기목록보기");
-			message.setUrl("/takeit/item/reviewController?action=reviewList");
+			message.setUrl("/takeit/item/reviewController?action=myReviewList");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 

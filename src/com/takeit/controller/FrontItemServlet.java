@@ -55,9 +55,9 @@ public class FrontItemServlet extends HttpServlet {
 			case "itemDetail":
 				itemDetail(request, response);
 				break;
-		//	case "deleteItem":
-		//		deleteItem(request, response);
-		//		break;
+			case "deleteItem":
+				deleteItem(request, response);
+		    	break;
 			case "sellerItemForm":
 				sellerItemForm(request,response);
 				break;
