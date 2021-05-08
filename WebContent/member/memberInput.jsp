@@ -10,30 +10,6 @@
 <link type="text/css" rel="stylesheet" href="${CONTEXT_PATH}/css/member/input.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/takeit/js/member/input.js"></script>	
-<script type="text/javascript">
-/* 우편번호 api */
-var goPopup = function() {
-	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-} 
-var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
-	 document.getElementById("postNo").value = zipNo; 
-	 document.getElementById("address").value = roadAddrPart1; 
-	 document.getElementById("addressDetail").value = addrDetail; 
-	 if(addressDetail.length>30){ 
-		alert('상세주소를 30자 이내로 입력해주세요.'); 
-		return; 
-	} 
-}
-
-/* 모바일 인증번호 팝업 */
-function mobilePopup() {
-    // window.name = "부모창 이름"; 
-    window.name = "parentForm";
-    // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-    window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
-            "childForm", "width=570, height=350, resizable = no, scrollbars = no");  
-}
-</script>
 </head>
 
 
@@ -47,14 +23,10 @@ function mobilePopup() {
 	<!-- 로그인 후 메뉴 -->
 	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 </c:if>
-
-
 <!-- logo.jsp 삽입 -->
 <jsp:include page="/common/logo.jsp"></jsp:include>
-
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-
 <!-- 내용 -->
 <div id="contents_box" align="center">
 <table>

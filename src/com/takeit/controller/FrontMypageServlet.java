@@ -21,10 +21,10 @@ import com.takeit.model.dto.Item;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
-import com.takeit.model.dto.ShopLoc;
 
 /**
  * 마이페이지 관리 컨트롤러
+ * @author 심선경
  */
 @WebServlet("/member/mypageController")
 public class FrontMypageServlet extends HttpServlet {
@@ -83,7 +83,6 @@ public class FrontMypageServlet extends HttpServlet {
 		case "itemadd":
 			itemadd(request,response);
 			break;
-			
 		case "memberList":
 			memberList(request,response);
 			break;
@@ -108,38 +107,48 @@ public class FrontMypageServlet extends HttpServlet {
 		process(request, response);
 	}
 	
-	// 판매자 회원 전체 조회
-		protected void sellerList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("판매자 전체 조회");
+	/**
+	 * 판매자 회원 전체 조회
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void sellerList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		
+		MessageEntity message = null;
+		
+		ArrayList<Seller> sellerList = new ArrayList<Seller>();
+		MypageBiz biz = new MypageBiz();
+		
+		
+		try {
+			biz.getSellerList(sellerList);
 			
-			HttpSession session = request.getSession();
+			System.out.println(sellerList);
 			
-			MessageEntity message = null;
+			session.setAttribute("sellerList", sellerList);
+			request.getRequestDispatcher("/member/sellerList.jsp").forward(request, response);
+		}catch (CommonException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			
-			ArrayList<Seller> sellerList = new ArrayList<Seller>();
-			MypageBiz biz = new MypageBiz();
-			
-			
-			try {
-				biz.getSellerList(sellerList);
-				
-				System.out.println(sellerList);
-				
-				session.setAttribute("sellerList", sellerList);
-				request.getRequestDispatcher("/member/sellerList.jsp").forward(request, response);
-			}catch (CommonException e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				message = e.getMessageEntity();
-				request.setAttribute("message", message);
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				
-			}
 		}
+	}
 	
-	// 일반회원 전체 조회
+	/**
+	 * 일반회원 전체 조회
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void memberList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("일반회원 전체 조회");
 		
 		HttpSession session = request.getSession();
 		
@@ -147,7 +156,6 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		MypageBiz biz = new MypageBiz();
-		
 		
 		try {
 			biz.getMemberList(memberList);
@@ -174,7 +182,6 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void itemaddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("카테고리 리스트 요청 서블릿");
 		
 		HttpSession session = request.getSession();
 		
@@ -210,8 +217,7 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void itemadd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("상품 등록 요청 폼");
-		String directory = "C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item";
+		String directory = "C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/item";
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
 		System.out.println(directory);
@@ -231,8 +237,6 @@ public class FrontMypageServlet extends HttpServlet {
 		String itemImg = multi.getFilesystemName(("itemImg"));
 		String itemTakeit = multi.getParameter("itemTakeit");
 		
-		System.out.println(itemCategoryNo +sellerId +itemName+ itemPrice +salesUnit+ itemOrigin+ itemStock+ itemTakeit);
-		System.out.println("상품 이미지 : " +itemImg );
 		MessageEntity message = null;
 		MypageBiz biz = new MypageBiz();
 		
@@ -251,7 +255,7 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		try {
 			
-			File file = new File("C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item/"+dto.getItemImg());
+			File file = new File("C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/item/"+dto.getItemImg());
 			if(file.exists() == false) {
 				System.out.println("등록된  이미지가 없습니다.");
 				return;
@@ -261,8 +265,7 @@ public class FrontMypageServlet extends HttpServlet {
 			biz.addItem(dto);
 			biz.itemget(dto2);
 			
-			System.out.println("biz다녀온 후 상품 이미지 이름 은?  ; " + dto2.getItemImg());
-			File newFile = new File("C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/item/"+dto2.getItemImg());
+			File newFile = new File("C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/item/"+dto2.getItemImg());
 			file.renameTo(newFile);
 			
 			if(newFile.exists() ==true) {
@@ -271,7 +274,6 @@ public class FrontMypageServlet extends HttpServlet {
 				System.out.println("파일명 변경이 실패되었습니다.");
 			}
 			
-			System.out.println("상품 등록 성공 서블릿");
 			
 			if(dto.getItemName() != null) {
 				
@@ -332,7 +334,6 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 		protected void removeMemberForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("회원 탈퇴 요청 페이지 ");
 			
 			try {
 				request.getRequestDispatcher("/member/memberRemove.jsp").forward(request, response);
@@ -352,7 +353,6 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void removeSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("판매자 탈퇴");
 		
 		HttpSession session = request.getSession();
 		
@@ -360,8 +360,6 @@ public class FrontMypageServlet extends HttpServlet {
 		
 		String sellerId = request.getParameter("sellerId");
 		String sellerPw = request.getParameter("sellerPw");
-		System.out.println("탈퇴 요청 아이디 : " + sellerId);
-		System.out.println("탈퇴 요청 비밀번호 : " + sellerPw);
 		
 		if(sellerId == null || sellerId.trim().length()  == 0 ) {
 
@@ -433,7 +431,6 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void memberPwUpdateForm (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("비밀번호 변경 요청 페이지 ");
 		
 		HttpSession session = request.getSession(false);
 
@@ -532,14 +529,13 @@ public class FrontMypageServlet extends HttpServlet {
 	} 
 	
 	/**
-	 * 판매자 정보 수정 ok
+	 * 판매자 정보 수정 
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	protected void setSellerInfo (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("내 판매자  수정");
 		
 		HttpSession session = request.getSession();
 		
@@ -757,13 +753,11 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void sellerInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("판매자 내 정보 조회");
 		
 		HttpSession session = request.getSession();
 		
 		MessageEntity message = null;
 		String sellerId = (String)session.getAttribute("sellerId");
-		System.out.println("판매자 세션 아이디  : " + sellerId);
 		
 		if(sellerId == null || sellerId.trim().length()  == 0 ) {
 
@@ -806,9 +800,7 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void AceRemoveMember (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("회원 탈퇴 요청");
 		
-		HttpSession session = request.getSession(false);
 		MessageEntity message = null;
 		
 		String memberId = request.getParameter("memberId");
@@ -872,9 +864,7 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void AceRemoveSeller (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("회원 탈퇴 요청");
 		
-		HttpSession session = request.getSession(false);
 		MessageEntity message = null;
 		
 		String sellerId = request.getParameter("sellerId");
@@ -939,7 +929,6 @@ public class FrontMypageServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void removeMember (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("회원 탈퇴 요청");
 		
 		HttpSession session = request.getSession(false);
 		MessageEntity message = null;
@@ -976,7 +965,6 @@ public class FrontMypageServlet extends HttpServlet {
 		MypageBiz mybiz = new MypageBiz();
 		
 		
-
 		try {
 			mybiz.removeMember(memberId,memberPw);
 			
@@ -1104,7 +1092,6 @@ public class FrontMypageServlet extends HttpServlet {
 		 * @throws IOException
 		 */
 		protected void setMemberInfo (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("일반회원 내 정보  수정");
 			
 			HttpSession session = request.getSession();
 			
@@ -1122,7 +1109,6 @@ public class FrontMypageServlet extends HttpServlet {
 			String memberLocNo = request.getParameter("memberLocNo");
 			String shopLocCode = request.getParameter("shopLocCode");
 			
-			System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth + memberLocNo + shopLocCode);
 			
 			if(memberId == null || memberId.trim().length()  == 0 ) {
 
@@ -1218,7 +1204,6 @@ public class FrontMypageServlet extends HttpServlet {
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 				return;
 			}
-			System.out.println(memberId+ memberPw+ name+ mobile+ email+ postNo+address+ addressDetail+ birth);
 			
 			memberId = memberId.trim();
 			memberPw = memberPw.trim();
@@ -1276,7 +1261,6 @@ public class FrontMypageServlet extends HttpServlet {
 		 * @throws IOException
 		 */
 		protected void memberInfoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("일반회원 내 정보 조회");
 			
 			HttpSession session = request.getSession();
 			
@@ -1302,7 +1286,6 @@ public class FrontMypageServlet extends HttpServlet {
 			
 			Member dto = new Member();
 			dto.setMemberId(memberId);
-			
 			
 			try {
 				biz.memberDetail(dto);

@@ -11,14 +11,6 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/board.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#cancle").on("click", function(){
-			history.back();
-		});
-	});
-	
-</script>
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -35,54 +27,41 @@
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
 <div id="notice">
+<div id="title">
+	<h3></h3>
+</div>
 <%
-	Board dto = (Board)request.getAttribute("board");
-	String memberId = (String)session.getAttribute("memberId");
+	ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
 %>
 <div id="title">
-	<h3><%= dto.getBoardCategoryName() %> </h3>
+	<h3>[<%= request.getAttribute("searchInput") %>] 검색 결과</h3>
 </div>
-<%
-	if(memberId != null && memberId.equals(dto.getBoardWriter())){ 
-%>
-<form action="/takeit/boardController?action=boardUpdateForm&boardNo=<%= dto.getBoardNo() %>&boardCategory=<%= dto.getBoardCategory() %>" method="post">
-	<input type="submit" value="수정" class="btn">
-</form>
-<form action="/takeit/boardController?action=boardDelete&boardNo=<%= dto.getBoardNo()%>&boardCategory=<%= dto.getBoardCategory() %>" method="post">
-	<input type="submit" value="삭제" class="btn">
-</form>
-<%
-	}
-%>
-<table class="notice-table">
+<table id="notice-tbl" class="notice-table">
 	<tr>
-		<th>글번호</th>
-		<td><%= dto.getBoardNo() %></td>
-		<th>조회수</th>
-		<td><%= dto.getBoardViews()%></td>
-	</tr>
-	<tr>
+		<th>번호</th>
+		<th>제목</th>
 		<th>작성자</th>
-		<td><%= dto.getBoardWriter() %></td>
+		<th>조회수</th>
 		<th>작성일자</th>
-		<td><%= dto.getBoardDate() %></td>
 	</tr>
+	<%
+		
+		for(Board dto : boardList){
+	%>
 	<tr>
-		<th>글제목</th>
-		<td colspan="3"><%= dto.getBoardTitle() %> </td>
-	</tr>
-	<tr>
-		<th colspan="4">내용</th>
-	</tr>
-	<tr>
-		<td colspan="4">
-			<%= dto.getBoardContents() %>
+		<td><%= dto.getBoardNo() %></td>
+		<td>
+		<a  id="boardLink" href="/takeit/boardController?action=boardDetail&boardNo=<%= dto.getBoardNo() %>&boardCategory=<%= dto.getBoardCategory() %>"><%= dto.getBoardTitle()%></a>
 		</td>
+		<td><%= dto.getBoardWriter() %></td>
+		<td><%= dto.getBoardViews() %></td>
+		<td><%= dto.getBoardDate()%></td>
 	</tr>
+	<%
+		}
+	%>
 </table>
-<div>
-<div id="cancle" class="link">돌아가기</div>
-</div>
+<a href="/takeit/index" class="link">홈으로이동</a>
 </div>
 <!-- floating Banner -->
 <jsp:include page="/common/floatingBanner.jsp"></jsp:include>

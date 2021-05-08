@@ -16,7 +16,7 @@ import com.takeit.model.dto.Seller;
 import com.takeit.model.dto.ShopLoc;
 
 /**
- * 
+ * 회원 괸련 테이블에 관한 DAO
  * @author 심선경
  *
  */
@@ -28,7 +28,12 @@ public class MypageDao {
 		return instance;
 	}
 	
-	//판매자 전체 조회
+	/**
+	 * 판매자 회원 전체 조회
+	 * @param conn
+	 * @param sellerList
+	 * @throws CommonException
+	 */
 		public void selectSellerList(Connection conn , ArrayList<Seller> sellerList) throws CommonException{
 			String sql = "SELECT * FROM SELLER";
 			
@@ -59,10 +64,6 @@ public class MypageDao {
 					dto.setShopLocCode(rs.getString("SHOP_LOC_CODE"));
 					dto.setGrade(rs.getString("GRADE"));
 					
-					
-					
-					
-					
 					sellerList.add(dto);
 				}
 				
@@ -82,7 +83,12 @@ public class MypageDao {
 		}
 	
 	
-	//일반회원 전체 조회
+	/**
+	 * 일반회원 전체 조회
+	 * @param conn
+	 * @param memberList
+	 * @throws CommonException
+	 */
 	public void selectMemberList(Connection conn , ArrayList<Member> memberList) throws CommonException{
 		String sql = "SELECT * FROM MEMBER WHERE GRADE='G'";
 		
@@ -110,14 +116,10 @@ public class MypageDao {
 				dto.setGrade(rs.getString("GRADE"));
 				dto.setShopLocCode(rs.getString("SHOP_LOC_CODE"));
 				
-				
-				
-				
 				memberList.add(dto);
 			}
 			
 		}catch (Exception e) {
-			System.out.println("카테고리 목록 가져오기 실패");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			
@@ -163,7 +165,6 @@ public class MypageDao {
 			}
 			
 		}catch (Exception e) {
-			System.out.println("카테고리 목록 가져오기 실패");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			
@@ -184,7 +185,6 @@ public class MypageDao {
 	 * @throws CommonException
 	 */
 	public void itemget(Connection conn, Item dto) throws CommonException {
-		System.out.println("상품 이미지 파일명 변경 dao");
 		String sql = "SELECT ITEM_IMG" + 
 					 " FROM ( SELECT ITEM_IMG" + 
 					 " FROM ITEM" + 
@@ -224,7 +224,6 @@ public class MypageDao {
 	 * @throws CommonException
 	 */
 		public void addItem(Connection conn, Item dto) throws CommonException {
-			System.out.println("상품 등록 dao 입장");
 			String sql = "INSERT INTO ITEM VALUES (? || lpad((ITEM_SEQ.nextval),6,'0'),"
 					+ "?, ?, ?, null, ?, ?,"
 					+ " ? || lpad((ITEM_SEQ.currval),6,'0')||substr(?,-4), ?, sysdate, ?, ?,?)";
@@ -562,7 +561,6 @@ public class MypageDao {
 			
 			PreparedStatement stmt = null;
 			
-			System.out.println("회원 탈퇴 요청--dao");
 			
 			try {
 				stmt = conn.prepareStatement(sql);
@@ -577,7 +575,6 @@ public class MypageDao {
 				}
 				
 			}catch (Exception e) {
-				System.out.println("탈퇴 요청 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				
@@ -620,7 +617,6 @@ public class MypageDao {
 				}
 				
 			}catch (Exception e) {
-				System.out.println("탈퇴 요청 실패");
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 				

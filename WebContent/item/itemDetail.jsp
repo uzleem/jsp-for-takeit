@@ -56,6 +56,7 @@ $(document).ready(function (){
 				<span id="realPrice"><b>소비자 권장소매가:</b><fmt:formatNumber value="${item.itemPrice}" pattern="###,###"/>원</span> 
 				<hr class="line1">
 				<span class="it_info"><b>카테고리</b>&emsp;${item.itemCategoryName}</span><br>
+				<span class="it_info"><b>상품번호</b>&emsp;${item.itemNo}</span><br>
 				<span class="it_info"><b>판매단위</b>&emsp;${item.salesUnit}</span><br>
 				<span class="it_info"><b>재고량</b>&emsp;&emsp;${item.itemStock}</span><br>
 				<span class="it_info"><b>원산지</b>&emsp;&emsp;${item.itemOrigin}</span><br>

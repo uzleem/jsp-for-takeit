@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/common/taglib_menu.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +25,7 @@ var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,
 </script>
 <script type="text/javascript">
 function mobilePopup() {
-     // window.name = "부모창 이름"; 
      window.name = "parentForm";
-     // window.open("open할 window", "자식창 이름", "팝업창 옵션");
      window.open("${CONTEXT_PATH}/member/mobilePopup.jsp",
              "childForm", "width=570, height=350, resizable = no, scrollbars = no");    
 }
@@ -75,7 +73,6 @@ function mobilePopup() {
 					<input type="text" id="memberId" name="memberId" value="${member.memberId }" readonly="readonly">
 				</td>
 			</tr>
-			
 			<tr>
 				<th>비밀번호</th>
 				<td>
@@ -83,42 +80,36 @@ function mobilePopup() {
 					<input id="memberInfo_button" type="button" value="비밀번호 변경" onclick="location.href='/takeit/member/mypageController?action=memberPwUpdateForm'">
 				</td>		
 			</tr>
-			
 			<tr>
 				<th>이름</th>	
 				<td>
 					<input type="text" id="name" name="name" value="${ member.name}">
 				</td>	
 			</tr>
-			
 			<tr>
 				<th>휴대폰</th>
 				<td>
 					<input type="text" id="mobile" name="mobile" value="${member.mobile }">
 				</td>		
 			</tr>
-			
 			<tr>
 				<th>이메일</th>
 				<td>
 					<input type="text" id="email" name="email" value="${ member.email}">
 				</td>		
 			</tr>
-			
 			<tr>
 				<th>가입일자</th>	
 				<td>
 					<input type="text" id="entryDate" name="entryDate" value="${ member.entryDate}" readonly="readonly">
 				</td>	
 			</tr>
-			
 			<tr>
 				<th>포인트</th>
 				<td>
 					<input type="text" id="point" name="point" value="${member.point }" readonly="readonly">
 				</td>		
 			</tr>
-			
 			<tr>
 				<th>우편번호</th>
 				<td>
@@ -126,42 +117,36 @@ function mobilePopup() {
 					<input type="button" id="memberInfo_button" name="zipNoBtn" onclick="goPopup();" value="우편번호"/>
 				</td>
 			</tr>
-			
 			<tr>
 				<th>도로명주소</th>
 				<td>
 					<input type="text" placeholder="도로명주소" id="address" name="address" readonly="readonly" value="${ member.address}"/>
 				</td>
 			</tr>
-			
 			<tr>
 				<th>상세주소</th>
 				<td>
 					<input type="text" placeholder="상세주소" id="addressDetail" name="addressDetail" value="${member.addressDetail }"/>
 				</td>
 			</tr>
-			
 			<tr>
 				<th>생일</th>	
 				<td>
 					<input type="text" id="birth" name="birth" value="${member.birth }">
 				</td>	
 			</tr>
-			
 			<tr>
 				<th>구역번호</th>	
 				<td>
 					<input type="text" id="memberLocNo" name="memberLocNo" value="${member.memberLocNo }" readonly="readonly">
 				</td>	
 			</tr>
-			
 			<tr>
 				<th>상점구역코드</th>	
 				<td>
 					<input type="text" id="shopLocCode" name="shopLocCode" value="${member.shopLocCode }" readonly="readonly">
 				</td>	
 			</tr>
-			
 			<tr>
 				<th>등급</th>	
 				<td>
@@ -175,14 +160,16 @@ function mobilePopup() {
 			</tr>
 		</table>
 		<br>
-		
 	</form>
 	<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
 </div>
 </div>
-	
-	<!-- footer 구역 -->
-	<jsp:include page="/common/footer.jsp"></jsp:include>
+<!-- floating Banner -->
+<jsp:include page="/common/floatingBanner.jsp"></jsp:include>
+ <!-- scroll function -->
+<jsp:include page="/common/back_to_top.jsp"></jsp:include>
+<!-- footer 구역 -->
+<jsp:include page="/common/footer.jsp"></jsp:include>
 
 </body>
 </html>

@@ -105,13 +105,13 @@
 
 #memberList_table table,#memberList_table th,  #memberList_table td , #memberList_table tr{
 	
-		border: solid 1px #8D959C;
-		margin: 0 auto;
-		border-collapse: collapse;
-		padding: 5px;
-		width: 1050px;
-		margin-top: 30px;
-		margin-bottom: 20px;
+	border: solid 1px #8D959C;
+	margin: 0 auto;
+	border-collapse: collapse;
+	padding: 5px;
+	width: 1050px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 	
 	
 }
@@ -124,12 +124,6 @@
 #memberList_table td {
 	width: 400px;
 }
-
-
-/* #memberList_table{
-	width: 500px;
-	margin: 0 auto;
-} */
 
 #mypage_Btn{
 	text-align: center;
