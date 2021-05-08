@@ -94,7 +94,7 @@ function sellerRemoveCheck(){
 	<div id="memberRemove-wrap">
 		<h1 style="width:fit-content; margin: 0 auto;">판매자회원 탈퇴</h1>
 		<br>
-		<form action = "/takeit/member/mypageController?action=removeSeller" method="post">
+		<form action = "${CONTEXT_PATH}/member/mypageController?action=removeSeller" method="post">
 			<table id="myInfo_table">
 				<tr>
 					<th>아이디</th>
@@ -129,7 +129,7 @@ function sellerRemoveCheck(){
 	<div id="memberRemove-wrap">
 		<h1 style="width:fit-content; margin: 0 auto;">일반회원 탈퇴</h1>
 		<br>
-		<form action="/takeit/member/mypageController?action=removeMember" method="post" name="memberRemove">
+		<form action="${CONTEXT_PATH}/member/mypageController?action=removeMember" method="post" name="memberRemove">
 			<table id="myInfo_table">
 				<tr>
 					<th>아이디</th>

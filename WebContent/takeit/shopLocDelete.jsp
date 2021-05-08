@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>잇거래 등록</title>
+<title>지역상점 관리</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/takeit.css">
@@ -43,8 +43,8 @@
 	</c:choose>
 	</div>
 	<div class="takeitInput-wrap view-width">
-		<h1>잇거래 등록</h1>
-		<form action="${CONTEXT_PATH}/takeit/takeitController?action=takeitInput" method="post" style="width: fit-content; margin: 0 auto;">
+		<h1>지역상점 관리</h1>
+		<form action="${CONTEXT_PATH}/takeit/takeitController?action=shopLocDelete" method="post" style="width: fit-content; margin: 0 auto;">
 		<table class="takeitInput-tbl">
 			<tr>
 				<th>상점구역선택</th>
@@ -56,10 +56,6 @@
 				</select>
 				</td>
 			</tr>	
-			<tr>
-				<th>모집금액</th>
-				<td><input type="number" required="required" name="takeitPrice" id="takeitInput" placeholder="1,000,000원 이상"/>
-			</tr>
 		</table>
 		<div id="takeitInput-btn-area">
 			<input type="submit" class="takeitInput-btn" value="삭제"/>
