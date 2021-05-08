@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
-import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Seller;
 import com.takeit.util.Utility;
@@ -315,5 +315,35 @@ public class SellerDao {
 			JdbcTemplate.close(stmt);
 		}
 		return true;
+	}
+	
+	/**
+	 * 상점 카테고리 전체조회
+	 */
+	public void shopCategoryList(Connection conn, ArrayList<Seller> shopCategoryList) throws CommonException {
+	
+		String sql ="select * from seller s, shop_category c where s.shop_category_no = c.shop_category_no";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			Seller shopCate = null;
+			while (rs.next()) {
+				shopCate = new Seller();
+				shopCate.setShopCategoryNo(rs.getString("shop_category_no"));  
+				shopCate.setShopCategory(rs.getString("shop_category"));
+				shopCategoryList.add(shopCate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			MessageEntity message = new MessageEntity("error", 0);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
 	}
 }
