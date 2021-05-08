@@ -1250,7 +1250,7 @@ public class FrontMypageServlet extends HttpServlet {
 			try {
 				biz.memberInfoUpdate(dto);
 				
-				session.getAttribute("member");
+				session.setAttribute("dto", dto);
 				message = new MessageEntity("success", 3);
 				message.setLinkTitle("내 정보 보러가기");
 				message.setUrl("/takeit/member/mypageController?action=memberInfoForm");

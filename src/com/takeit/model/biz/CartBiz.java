@@ -90,8 +90,7 @@ public class CartBiz {
 	public int searchCartItem(String itemNo, String memberId) throws CommonException {
 		Connection con = JdbcTemplate.getConnection();
 		try {
-			dao.searchCartItem(con, itemNo, memberId);
-			return 1;
+			return dao.searchCartItem(con, itemNo, memberId);
 		} catch (CommonException e) {
 			throw e;
 		} finally {

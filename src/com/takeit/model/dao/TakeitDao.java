@@ -199,6 +199,7 @@ public class TakeitDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getShopLocCode());
 			stmt.setString(2, member.getMemberLocNo());
+			System.out.println("search location :" + member.getShopLocCode() + member.getMemberLocNo());
 			rs = stmt.executeQuery();
 			
 			TakeitItem takeitItem = null;
@@ -256,7 +257,7 @@ public class TakeitDao {
 	public void searchTakeitItem(Connection conn, TakeitItem takeitItem) throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
-				+ "WHERE ITEM_NO = ? ";
+				+ "WHERE ITEM_NO = ?";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -265,7 +266,7 @@ public class TakeitDao {
 			stmt.setString(1, takeitItem.getItemNo());
 			rs = stmt.executeQuery();
 			
-			while (rs.next()) {
+			if (rs.next()) {
 				
 				takeitItem.setPackTypeNo(rs.getString("pack_Type_No"));
 				takeitItem.setPackTypeName(rs.getString("pack_Type_Name"));
@@ -304,7 +305,6 @@ public class TakeitDao {
 				takeitItem.setTakeitDate(rs.getString("takeit_date"));
 				takeitItem.setTakeitCustScore(rs.getDouble("takeit_Cust_Score"));
 				takeitItem.setTakeitAlive(rs.getString("takeit_Alive"));
-				takeitItem.setMemberLocNo(rs.getString("member_Loc_No"));
 				takeitItem.setShopLocCode(rs.getString("shop_Loc_Code"));
 				
 				takeitItem.setSellerName(rs.getString("name"));
@@ -575,8 +575,6 @@ public class TakeitDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			System.out.println( takeit.getMemberLocNo());
-			System.out.println(takeit.getShopLocCode()+"debug");
 			
 			stmt.setString(1, takeit.getMemberLocNo());
 			stmt.setString(2, takeit.getShopLocCode());
@@ -584,6 +582,36 @@ public class TakeitDao {
 			rs = stmt.executeQuery();
 			if (rs.next()) {
 				takeit.setTakeitNo(rs.getString("TAKEIT_NO"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 11);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}	
+	}
+	
+	/** 회원구역번호와 일치하는 잇거래번호 반환 */
+	public void selectTakeitNo(Connection conn, TakeitItem takeitItem) throws CommonException {
+		String sql = "SELECT TAKEIT_NO "
+				+ "FROM TAKEIT "
+				+ "WHERE MEMBER_LOC_NO = ? AND SHOP_LOC_CODE = ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, takeitItem.getMemberLocNo());
+			stmt.setString(2, takeitItem.getShopLocCode());
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				takeitItem.setTakeitNo(rs.getString("TAKEIT_NO"));
 			}
 			
 		} catch (Exception e) {
@@ -641,6 +669,82 @@ public class TakeitDao {
 		} finally {
 			JdbcTemplate.close(stmt);
 		}	
-		System.out.println("debp4-2");
+	}
+
+	/** 잇거래 현재금액 변경  */
+	public void updateTakeitCurrPrice(Connection conn, Takeit takeit, Order order) throws CommonException {
+		String sql = "UPDATE TAKEIT SET TAKEIT_CURR_PRICE = TAKEIT_CURR_PRICE + ? "
+				+ " WHERE TAKEIT_NO = ? ";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, order.getOrderPrice());
+			stmt.setString(2, takeit.getTakeitNo());
+			int row = stmt.executeUpdate();
+			if (row == 0) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 2);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}	
+	}
+	/** 잇거래 현재금액 조회
+	 * @throws CommonException */
+	public void searchTakeitCurrPrice(Connection conn, TakeitItem takeitItem) throws CommonException {
+		String sql = "SELECT TAKEIT_CURR_PRICE, TAKEIT_PRICE "
+				+ "FROM TAKEIT "
+				+ "WHERE TAKEIT_NO = ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeitItem.getTakeitNo());
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				takeitItem.setTakeitCurrPrice(rs.getInt("TAKEIT_CURR_PRICE"));
+				takeitItem.setTakeitPrice(rs.getInt("TAKEIT_PRICE"));				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}			
+	}
+
+	public void searchshopLocName(Connection conn, TakeitItem takeitItem) throws CommonException {
+		String sql = "SELECT SHOP_LOC_NAME FROM SHOP_LOC WHERE SHOP_LOC_CODE = ? "; 
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeitItem.getShopLocCode());
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				takeitItem.setShopLocName(rs.getString("shop_Loc_Name"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}		
 	}
 }

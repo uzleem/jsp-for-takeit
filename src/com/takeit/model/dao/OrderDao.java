@@ -126,7 +126,7 @@ public class OrderDao {
 	 */
 	public void selectSellerOrderList(Connection conn, String sellerId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
-				+ "FROM ITEM JOIN ORDER_DETAIL USING(ITEM_NO) JOIN ORDERS USING(ORDER_NO) JOIN SHIPPING USING(SHIP_STATUS_CODE) "
+				+ "FROM ITEM JOIN ORDER_DETAIL USING(ITEM_NO) JOIN ORDERS USING(ORDER_NO) LEFT JOIN SHIPPING USING(SHIP_STATUS_CODE) "
 				+ "WHERE ITEM.SELLER_ID = ? "
 				+ "ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
 		
@@ -196,7 +196,7 @@ public class OrderDao {
 	 */
 	public void selectMemberOrderList(Connection conn, String memberId, ArrayList<Order> orderList) throws CommonException {
 		String sql = "SELECT * "
-				+ "FROM ORDERS JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) JOIN SELLER USING(SELLER_ID) "
+				+ "FROM ORDERS LEFT JOIN SHIPPING USING(SHIP_STATUS_CODE) JOIN ORDER_DETAIL USING(ORDER_NO) JOIN ITEM USING(ITEM_NO) JOIN SELLER USING(SELLER_ID) "
 				+ "WHERE ORDERS.MEMBER_ID = ? "
 				+ "ORDER BY SUBSTR(ORDER_NO, 2) DESC ";
 		

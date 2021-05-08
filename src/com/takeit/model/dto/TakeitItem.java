@@ -15,6 +15,7 @@ public class TakeitItem extends Item implements Serializable {
 	private String takeitAlive;
 	private String memberLocNo;
 	private String shopLocCode;
+	private String shopLocName;
 	
 	/** 기본 생성자 */
 	public TakeitItem() {}
@@ -33,6 +34,14 @@ public class TakeitItem extends Item implements Serializable {
 	}
 
 	
+	public String getShopLocName() {
+		return shopLocName;
+	}
+
+	public void setShopLocName(String shopLocName) {
+		this.shopLocName = shopLocName;
+	}
+
 	public String getTakeitDate() {
 		return takeitDate;
 	}

@@ -67,7 +67,8 @@
 			ArrayList<Category> categoryList =(ArrayList<Category>)request.getAttribute("category");
 			for(Category dto : categoryList){
 		%>
-			<option value="<%= dto.getCategoryNo() %>"><%= dto.getCategoryName() %></option>
+				<option value="<%= dto.getCategoryNo() %>"><%= dto.getCategoryName() %></option>
+			
 		<% } %>
 		</select>
 	</td>

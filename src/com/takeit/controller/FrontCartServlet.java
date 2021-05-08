@@ -93,6 +93,7 @@ public class FrontCartServlet extends HttpServlet {
 			try {
 				int cartTotalPrice =  0;
 				cbiz.getCartList(memberId, cartTotalPrice, cartList);
+				System.out.println(cartList.get(0));
 				session.setAttribute("cartList", cartList);
 				for(Cart dto : cartList) {
 					cartTotalPrice += dto.getTotalPrice();

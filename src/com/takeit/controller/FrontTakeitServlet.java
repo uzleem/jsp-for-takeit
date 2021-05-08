@@ -222,6 +222,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	protected void takeitItemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String itemNo = request.getParameter("itemNo");
+		String shopLocCode= request.getParameter("shopLocCode");
 		
 		if (itemNo == null || itemNo.trim().length() == 0) {
 			MessageEntity message = new MessageEntity("error", 12);
@@ -232,15 +233,27 @@ public class FrontTakeitServlet extends HttpServlet {
 			return;
 		}
 		
-		itemNo = itemNo.trim();
-		
 		TakeitItem takeitItem = new TakeitItem();
 		takeitItem.setItemNo(itemNo);
+		
+		String memShopLocCode = null;
+		if (request.getSession(false) != null && request.getSession(false).getAttribute("dto") != null) {
+			Object dto = request.getSession(false).getAttribute("dto");
+			if (dto instanceof Member) {
+				Member member = (Member)dto;
+				memShopLocCode = member.getShopLocCode();
+				takeitItem.setMemberLocNo(member.getMemberLocNo());
+				
+			} else if (dto instanceof Seller) {
+				Seller seller = (Seller)dto;
+				memShopLocCode = seller.getShopLocCode();
+			}
+		}
 		
 		TakeitBiz biz = new TakeitBiz();
 		
 		try {
-			biz.getTakeitItem(takeitItem);
+			biz.getTakeitItem(memShopLocCode, takeitItem);
 			
 			request.setAttribute("takeitItem", takeitItem);
 			request.getRequestDispatcher("/takeit/takeitItemDetail.jsp").forward(request, response);
