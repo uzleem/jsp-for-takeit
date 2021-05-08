@@ -81,19 +81,49 @@ public class FrontTakeitServlet extends HttpServlet {
 	}
 	
 	protected void takeitManageForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
 		
-		TakeitBiz biz = new TakeitBiz();
+		String takeitRange = request.getParameter("takeitRange");
+		if (takeitRange == null) {
+			takeitRange = "all";
+		}
 		
 		ArrayList<Takeit> takeitList = new ArrayList<>();
+		TakeitBiz biz = new TakeitBiz();
 		
 		try {
-			biz.getTakeitList(takeitList);
-			
+			switch(takeitRange) {
+			case "expired":
+				biz.getTakeitExpiredList(takeitList);
+				break;
+			case "live":
+				biz.getTakeitLiveList(takeitList);
+				break;
+			case "all":
+				biz.getTakeitAllList(takeitList);
+				break;
+			case "dead":
+				biz.getTakeitDeadList(takeitList);
+				break;
+			}
 			request.setAttribute("takeitList", takeitList);
+			request.setAttribute("takeitRange", takeitRange);
 			request.getRequestDispatcher("/takeit/takeitManage.jsp").forward(request, response);;
 		} catch (CommonException e) {
-			e.printStackTrace();
-		}
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("메인으로");
+			message.setUrl(CONTEXT_PATH + "/index");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}		
 	}
 	
 	/** 잇거래 등록 요청 서비스 */
