@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.oreilly.servlet.multipart.ExceededSizeException;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Member;
@@ -747,4 +748,32 @@ public class TakeitDao {
 			JdbcTemplate.close(stmt);
 		}		
 	}
+	
+	/**
+	 * 지역상점 삭제 
+	 * @param takeit 잇거래 객체
+	 */
+	public void deleteShopLoc(Connection conn, Takeit takeit) throws CommonException {
+		String sql = "DELETE FROM SHOP_LOC WHERE SHOP_LOC_CODE = ? "; 
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeit.getShopLocCode());
+			
+			int rows = stmt.executeUpdate();
+			
+			if(rows == 0) {
+				throw new ExceededSizeException();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 45);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}		
+	}
+	
 }

@@ -67,11 +67,11 @@ public class FrontTakeitServlet extends HttpServlet {
 		case "takeitInput":
 			takeitInput(request, response);
 			break;
-		case "takeitDeleteForm":
-			takeitDeleteForm(request, response);
+		case "shopLocDeleteForm":
+			shopLocDeleteForm(request, response);
 			break;
-		case "takeitDelete":
-			takeitDelete(request, response);
+		case "shopLocDelete":
+			shopLocDelete(request, response);
 			break;
 		}
 	}
@@ -358,14 +358,82 @@ public class FrontTakeitServlet extends HttpServlet {
 			break;
 		}
 	}	
-	/** 잇거래 삭제 화면 서비스 */
-	protected void takeitDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/takeit/takeitDelete.jsp").forward(request, response);
+	/** 지역상점 삭제 화면 서비스 */
+	protected void shopLocDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
+		TakeitBiz biz = new TakeitBiz();
+		ArrayList<ShopLoc> shopLocList = new ArrayList<ShopLoc>();
+		
+		try {
+			biz.getShopLocList(shopLocList);
+			request.setAttribute("shopLocList", shopLocList);
+			request.getRequestDispatcher("/takeit/shopLocDelete.jsp").forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("지역상점 관리");
+			message.setUrl(CONTEXT_PATH + "/takeit/takeitController?action=shopLocDeleteForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		
 	}
 
-	/** 잇거래 삭제 요청 서비스 */
-	protected void takeitDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/takeit/takeitDelete.jsp").forward(request, response);
+	/** 지역상점 삭제 요청 서비스 */
+	protected void shopLocDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("dto") == null) {
+			MessageEntity message = new MessageEntity("message", 0);
+			message.setLinkTitle("로그인");
+			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		String shopLocCode = request.getParameter("shopLocCode");
+		System.out.println("shopLocCode : " + shopLocCode);
+		if (shopLocCode == null || shopLocCode.trim().length() == 0 ) {
+			MessageEntity message = new MessageEntity("validation", 4);
+			message.setLinkTitle("지역상점 관리");
+			message.setUrl(CONTEXT_PATH + "/takeit/takeitController?action=shopLocDeleteForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
+		}
+		shopLocCode = shopLocCode.trim();
+		
+		Takeit dto = new Takeit();
+		dto.setShopLocCode(shopLocCode);
+		
+		TakeitBiz biz = new TakeitBiz();
+		
+		try { 
+			biz.deleteShopLoc(dto);
+			
+			MessageEntity message = new MessageEntity("success", 16);
+			message.setLinkTitle("지역상점 관리");
+			message.setUrl(CONTEXT_PATH + "/takeit/takeitController?action=shopLocDeleteForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			message.setLinkTitle("지역상점 관리");
+			message.setUrl(CONTEXT_PATH + "/takeit/takeitController?action=shopLocDeleteForm");
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+		
 	}
 }
 

@@ -99,7 +99,7 @@
 		</tr>
 		</c:forEach>
 	</table>
-<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
+<a href="${CONTEXT_PATH}/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
 
  <!-- footer 구역 -->
 <jsp:include page="/common/footer.jsp"></jsp:include>

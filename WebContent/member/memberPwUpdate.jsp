@@ -49,7 +49,7 @@
 		<div id="memberPwUpdate-wrap">
 			<h1 style="width:fit-content; margin: 0 auto;">판매자 비밀번호 변경</h1>
 			<br>
-			<form action = "/takeit/member/mypageController?action=setSellerPw" method="post">
+			<form action = "${CONTEXT_PATH}/member/mypageController?action=setSellerPw" method="post">
 				<table id="myInfo_table">
 					<tr>
 						<th>아이디</th>
@@ -82,7 +82,7 @@
 		<div id="memberPwUpdate-wrap">
 			<h1 style="width:fit-content; margin: 0 auto;">일반회원 비밀번호 변경</h1>
 			<br>
-			<form action="/takeit/member/mypageController?action=setMemberPw" method="post">
+			<form action="${CONTEXT_PATH}/member/mypageController?action=setMemberPw" method="post">
 				<table id="myInfo_table">
 					<tr>
 						<th>아이디</th>
