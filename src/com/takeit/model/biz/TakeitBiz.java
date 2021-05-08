@@ -73,7 +73,8 @@ public class TakeitBiz {
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-		dao.searchTakeitItemList(conn, shopLocCode, takeitItemList);
+			dao.searchTakeitItemList(conn, shopLocCode, takeitItemList);
+			
 		} catch(CommonException e) {
 			throw e;
 		} finally {
@@ -86,7 +87,8 @@ public class TakeitBiz {
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
-		dao.searchTakeitItemList(conn, takeitItemList);
+			dao.searchTakeitItemList(conn, takeitItemList);
+			
 		} catch(CommonException e) {
 			throw e;
 		} finally {
@@ -101,6 +103,7 @@ public class TakeitBiz {
 		
 		try {
 			dao.searchTakeitItemList(conn, member, takeitItemList);
+			
 		} catch(CommonException e) {
 			throw e;
 		} finally {
@@ -109,12 +112,17 @@ public class TakeitBiz {
 	}
 	
 	/** 잇거래 상품 상세조회 */
-	public void getTakeitItem(TakeitItem takeitItem) throws CommonException {
+	public void getTakeitItem(String shopLocCode, TakeitItem takeitItem) throws CommonException {
 		TakeitDao dao = TakeitDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
 		
 		try {
 			dao.searchTakeitItem(conn, takeitItem);
+			dao.searchshopLocName(conn, takeitItem);
+			if (takeitItem.getShopLocCode().equals(shopLocCode)) {
+				dao.selectTakeitNo(conn, takeitItem);
+				dao.searchTakeitCurrPrice(conn, takeitItem);
+			}
 		} catch (CommonException e) {
 			throw e;
 		} finally {

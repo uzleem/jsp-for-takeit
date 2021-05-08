@@ -87,7 +87,7 @@ public class ItemDao {
 			          ", d.shop_name as shop_name"+
 			          " from item a, item_category b , packing c, seller d"+
 			          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
-			          " and a.seller_id = d.seller_id"+
+			          " and a.seller_id = d.seller_id AND ITEM_TAKEIT = 'T' "+
 			          " order by a.item_input_date desc";
 
 		PreparedStatement stmt = null;

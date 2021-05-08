@@ -15,17 +15,21 @@ $(document).ready(function (){
 	$("#addCart-area").hide();
 	
 	$("#addCart").on("click",function(){
+		if(${sellerId != null}) {
+			alert('판매자는 구매할 수 없습니다'); 
+			return;
+		}
 		$("#addCart-area").slideToggle(300);
 	});
 });
 </script>
 </head>
 <!-- 상단 메뉴 -->
-<c:if test="${empty memberId }">
+<c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->
 	<jsp:include page="/common/before_login_menu.jsp"></jsp:include>
 </c:if>
-<c:if test="${not empty memberId }">
+<c:if test="${not empty memberId or not empty sellerId}">
 	<!-- 로그인 후 메뉴 -->
 	<jsp:include page="/common/after_login_menu.jsp"></jsp:include>	
 </c:if>
@@ -44,12 +48,12 @@ $(document).ready(function (){
 				<span id="itemName">${item.itemName}</span>
 				<fmt:formatNumber var="itemPrice" value="${item.itemPrice}" type="number"/>
 				<fmt:formatNumber var="discPrice" value="${item.itemPrice * (100-item.discRate) / 100}" type="number"/>
-				<fmt:parseNumber  var="realPrice" value="${(item.itemPrice * (100+item.discRate) / 100)}" integerOnly="true"/>
+				<fmt:parseNumber  var="realPrice" value="${(item.itemPrice * (100-item.discRate) / 100)}" integerOnly="true"/>
 				<fmt:formatNumber var="itemDiscRate" value="${item.discRate / 100}" type="percent"/>
-				<span style="color: red;">&#8361;<fmt:formatNumber value="${item.itemPrice}" pattern="###,###"/></span> 
+				<span style="color: red; font-weight: 700; font-size: 20px;">&#8361;<fmt:formatNumber value="${realPrice}" pattern="###,###"/></span> 
 				<span id="item_disc_Rate"> (${itemDiscRate}할인) </span>&emsp;&emsp;&emsp; 
 				<br>
-				<span id="realPrice"><b>소비자 권장소매가:</b><fmt:formatNumber value="${realPrice}" pattern="###,###"/>원</span> 
+				<span id="realPrice"><b>소비자 권장소매가:</b><fmt:formatNumber value="${item.itemPrice}" pattern="###,###"/>원</span> 
 				<hr class="line1">
 				<span class="it_info"><b>카테고리</b>&emsp;${item.itemCategoryName}</span><br>
 				<span class="it_info"><b>상품번호</b>&emsp;${item.itemNo}</span><br>
@@ -74,7 +78,7 @@ $(document).ready(function (){
 		<input type="hidden" value="${item.itemPrice}" name="itemPrice" > 
 		<input type="hidden" value="${item.itemPrice}" name="totalPrice" > 
 		<input type="hidden" value="${item.itemPrice}" name="cartTotalPrice" > 
-		<input type="button" class="link" style="display: inline-block;" value="구매" onclick='$("#buyItemForm").submit();'/>
+		<input type="button" class="link" style="display: inline-block;" value="구매" onclick="if(${sellerId != null}){alert('판매자는 구매할 수 없습니다'); return;};$('#buyItemForm').submit();"/>
 	</form>
 	</div>
 <!-- 장바구니 등록 -->

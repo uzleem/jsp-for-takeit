@@ -304,8 +304,8 @@ public class FrontOrderServlet extends HttpServlet {
 		
 		if (orderNo == null || orderNo.trim().length() == 0) {
 			MessageEntity message = new MessageEntity("error", 12);
-			message.setLinkTitle("마이페이지");
-			//message.setUrl(CONTEXT_PATH + "/order/orderController?action=");
+			message.setLinkTitle("판매목록");
+			message.setUrl(CONTEXT_PATH + "/order/orderController?action=sellerOrderList");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
@@ -346,7 +346,7 @@ public class FrontOrderServlet extends HttpServlet {
 		if (orderNo == null || orderNo.trim().length() == 0) {
 			MessageEntity message = new MessageEntity("error", 12);
 			message.setLinkTitle("마이페이지");
-			//message.setUrl(CONTEXT_PATH + "/order/orderController?action=");
+			message.setUrl(CONTEXT_PATH + "/member/myPage.jsp");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
@@ -361,8 +361,8 @@ public class FrontOrderServlet extends HttpServlet {
 		} catch (CommonException e) {
 			response.getWriter().write("failed");
 			MessageEntity message = e.getMessageEntity();
-			message.setLinkTitle("마이페이지");
-			//message.setUrl(CONTEXT_PATH + "/");
+			message.setLinkTitle("주문내역");
+			message.setUrl(CONTEXT_PATH + "/order/orderController?action=memberOrderList");
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;

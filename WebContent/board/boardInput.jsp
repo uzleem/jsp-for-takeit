@@ -74,7 +74,9 @@
 					continue;
 				}
 		%>
+
 			<option value="<%= cate.getCategoryNo() %>"><%= cate.getCategoryName() %></option>
+
 		<% } %>
 		</select>
 	</td>

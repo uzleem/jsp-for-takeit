@@ -97,7 +97,7 @@
 	int i = 0;
 	%>
 	<div class="takeit_item_wrap">
-	<c:forEach items="${takeitItemList}" var="dto"> 
+	<c:forEach items="${takeitItemList}" var="takeitItem"> 
 	<%
 		i++;
 		if(i % 3 != 0){ //3의 배수가 아닐 때(flex)
@@ -105,45 +105,45 @@
 		<ul class="takeit_item" style="display: inline-block;">
 
 			<li style="width: 250px;">
-				<span class="takeitTime takeit-listTime blink" data-takeittime="${dto.takeitDate}"></span><br>
-				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${dto.itemNo }">
-					<img id="takeitImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
+				<span class="takeitTime takeit-listTime blink" data-takeittime="${takeitItem.takeitDate}"></span><br>
+				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${takeitItem.itemNo}&shopLocCode=${takeitItem.shopLocCode}">
+					<img id="takeitImg" alt="${takeitItem.itemImg}" src="/takeit/img/item/${takeitItem.itemImg}">
 				</a>
-				<span class="item-fresh">신선도${100-(dto.discRate)}%</span>
+				<span class="item-fresh">신선도${100-(takeitItem.discRate)}%</span>
 			</li>
-			<fmt:formatNumber var="itemPrice" value="${dto.itemPrice}" type="number"/>
-			<fmt:formatNumber var="discPrice" value="${dto.itemPrice * (100-dto.discRate) / 100}" type="number"/>
-			<fmt:parseNumber  var="intPrice" value="${(dto.itemPrice * (100-dto.discRate) / 100)/1000}" integerOnly="true"/>
+			<fmt:formatNumber var="itemPrice" value="${takeitItem.itemPrice}" type="number"/>
+			<fmt:formatNumber var="discPrice" value="${takeitItem.itemPrice * (100-takeitItem.discRate) / 100}" type="number"/>
+			<fmt:parseNumber  var="intPrice" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100)/1000}" integerOnly="true"/>
 			<fmt:formatNumber var="takeitItemPrice" value="${intPrice*1000}" type="number"/>
-			<fmt:formatNumber var="itemDiscRate" value="${dto.discRate / 100}" type="percent"/>
-			<fmt:formatNumber var="takeitDisc" value="${(dto.itemPrice * (100-dto.discRate) / 100) - intPrice*1000 }" type="number"/>
-			<li id="itemTitle">${dto.itemName}</li>
+			<fmt:formatNumber var="itemDiscRate" value="${takeitItem.discRate / 100}" type="percent"/>
+			<fmt:formatNumber var="takeitDisc" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100) - intPrice*1000 }" type="number"/>
+			<li id="itemTitle">${takeitItem.itemName}</li>
 			<li id="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
 			<li id="salePrice">${takeitItemPrice}원</li>
-			<li id="price">${dto.itemPrice}원</li>
+			<li id="price">${takeitItem.itemPrice}원</li>
 		</ul>
 
-		<%
+	<%
 		} else if(i % 3 == 0){ //3의 배수일 때
 	%>
 		<ul class="takeit_item" style="display: inline-block;">
 			<li style="width: 250px;">
-				<span class="takeitTime takeit-listTime blink" data-takeittime="${dto.takeitDate}"></span><br>
-				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${dto.itemNo }">
-					<img id="takeitImg" alt="${dto.itemImg}" src="/takeit/img/item/${dto.itemImg}">
+				<span class="takeitTime takeit-listTime blink" data-takeittime="${takeitItem.takeitDate}"></span><br>
+				<a href="/takeit/takeit/takeitController?action=takeitItemDetail&itemNo=${takeitItem.itemNo}&shopLocCode=${takeitItem.shopLocCode}">
+					<img id="takeitImg" alt="${takeitItem.itemImg}" src="/takeit/img/item/${takeitItem.itemImg}">
 				</a>
-				<span class="item-fresh">신선도${100-(dto.discRate)}%</span>
+				<span class="item-fresh">신선도${100-(takeitItem.discRate)}%</span>
 			</li>
-			<fmt:formatNumber var="itemPrice" value="${dto.itemPrice}" type="number"/>
-			<fmt:formatNumber var="discPrice" value="${dto.itemPrice * (100-dto.discRate) / 100}" type="number"/>
-			<fmt:parseNumber  var="intPrice" value="${(dto.itemPrice * (100-dto.discRate) / 100)/1000}" integerOnly="true"/>
+			<fmt:formatNumber var="itemPrice" value="${takeitItem.itemPrice}" type="number"/>
+			<fmt:formatNumber var="discPrice" value="${takeitItem.itemPrice * (100-takeitItem.discRate) / 100}" type="number"/>
+			<fmt:parseNumber  var="intPrice" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100)/1000}" integerOnly="true"/>
 			<fmt:formatNumber var="takeitItemPrice" value="${intPrice*1000}" type="number"/>
-			<fmt:formatNumber var="itemDiscRate" value="${dto.discRate / 100}" type="percent"/>
-			<fmt:formatNumber var="takeitDisc" value="${(dto.itemPrice * (100-dto.discRate) / 100) - intPrice*1000 }" type="number"/>
-			<li id="itemTitle">${dto.itemName}</li>
+			<fmt:formatNumber var="itemDiscRate" value="${takeitItem.discRate / 100}" type="percent"/>
+			<fmt:formatNumber var="takeitDisc" value="${(takeitItem.itemPrice * (100-takeitItem.discRate) / 100) - intPrice*1000 }" type="number"/>
+			<li id="itemTitle">${takeitItem.itemName}</li>
 			<li id="discRate">(할인 ${itemDiscRate}+${takeitDisc}원)</li>
 			<li id="salePrice">${takeitItemPrice}원</li>
-			<li id="price">${dto.itemPrice}원</li>
+			<li id="price">${takeitItem.itemPrice}원</li>
 		</ul>
 	<%
 		i--;
