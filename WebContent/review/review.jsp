@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><textarea name="reviewContents" class="reviewInput" id="reviewInput-contents"
-							placeholder="자세한 후기작성은 저희에게 큰 도움이 됩니다.반품/환불문의는 카톡문의로 가능합니다."></textarea>
+							placeholder="자세한 후기작성은 저희에게 큰 도움이 됩니다.반품/환불문의는 고객센터에 남겨주세요."></textarea>
 					</td>
 				</tr>
 				<tr>

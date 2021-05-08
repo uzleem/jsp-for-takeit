@@ -12,7 +12,6 @@ import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
 
 
-
 /**
  * @author 김효원
  */
@@ -122,9 +121,8 @@ public class ItemDao {
 				dto.setItemInputDate(rs.getString("ITEM_INPUT_DATE"));
 				dto.setDiscRate(rs.getInt("DISC_RATE"));
 				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));
-		
-                
-				itemList.add(dto);
+				
+ 		    	itemList.add(dto);
 			}
 			
 		} catch (SQLException e) {
@@ -146,42 +144,42 @@ public class ItemDao {
 	 * @return ArrayList<Item>
 	 */
 	public void getMyReviewList(Connection conn, ArrayList<Item> itemList,String sellerId) throws CommonException {
-		
+
 		String sql = "select a.item_no , a.seller_id , a.item_name , a.item_price"+
-			          ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
-			          ", a.item_input_date , a.disc_rate , a.item_takeit , a.item_category_no , b.item_category_name"+
-			          ", b.expiration_date, b.fresh_percent,b.notice, b.pack_type_no , c.pack_type_name"+
-			          ", d.shop_name as shop_name"+
-			          " from item a, item_category b , packing c, seller d"+
-			          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
-			          " and a.seller_id = d.seller_id"+
-			          " and a.seller_Id =?" +
-			          " order by a.item_input_date desc";
+				 	 ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
+				 	 ", a.item_input_date , a.disc_rate , a.item_takeit , a.item_category_no , b.item_category_name"+
+				 	 ", b.expiration_date, b.fresh_percent,b.notice, b.pack_type_no , c.pack_type_name"+
+				 	 ", d.shop_name as shop_name"+
+				 	 " from item a, item_category b , packing c, seller d"+
+				 	 " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
+				 	 " and a.seller_id = d.seller_id"+
+				 	 " and a.seller_Id =?" +
+				 	 " order by a.item_input_date desc";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
-			
+
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, sellerId);
 			rs = stmt.executeQuery();
-			
+
 			System.out.println("try");
 			while(rs.next()) {
 				System.out.println("while");
-				 Item dto = new Item();
-				
+				Item dto = new Item();
+
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
 				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
-				
+
 				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
 				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
 				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
 				dto.setNotice(rs.getString("NOTICE"));
 				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
 				dto.setItemNo(rs.getString("ITEM_NO"));
-				
+
 				dto.setShopName(rs.getString("SHOP_NAME"));
 				dto.setSellerId(rs.getString("SELLER_ID"));
 				dto.setItemName(rs.getString("ITEM_NAME"));
@@ -194,16 +192,16 @@ public class ItemDao {
 				dto.setItemInputDate(rs.getString("ITEM_INPUT_DATE"));
 				dto.setDiscRate(rs.getInt("DISC_RATE"));
 				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));
-		
-                
+
+
 				itemList.add(dto);
-		
+
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			
+
 			MessageEntity message = new MessageEntity("error",7);
 			message.setLinkTitle("메인으로");
 			message.setUrl("/takeit/index");
@@ -212,9 +210,10 @@ public class ItemDao {
 		JdbcTemplate.close(rs);
 		JdbcTemplate.close(stmt);
 	}
-/**
- * 상품 상세조회	
- */
+	
+	/**
+	 * 상품 상세조회	
+	 */
 	public void searchItem(Connection conn, Item dto) throws CommonException {
 		String sql = "select a.item_no , a.seller_id , a.item_name , a.item_price"+
 		          ", a.sales_unit, a.item_origin , a.item_stock	, a.item_img , a.item_cust_score" +
@@ -224,7 +223,7 @@ public class ItemDao {
 		          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no and a.seller_id = d.seller_id "+
 		          " and a.item_no = ? ";
 
-		
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -232,21 +231,21 @@ public class ItemDao {
 			stmt.setString(1, dto.getItemNo());
 			rs = stmt.executeQuery();
 
-			
+
 			while (rs.next()) {
 				//포장타입
 				System.out.println("PACK_TYPE_NO = "+rs.getString("PACK_TYPE_NO"));
-				//dto = new Item();
+
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
 				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
-				
+
 				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
 				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
 				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
 				dto.setNotice(rs.getString("NOTICE"));
 				dto.setFreshPercent(rs.getInt("FRESH_PERCENT"));
 				dto.setItemNo(rs.getString("ITEM_NO"));
-				
+
 				dto.setSellerId(rs.getString("SELLER_ID"));
 				dto.setItemName(rs.getString("ITEM_NAME"));
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
@@ -258,7 +257,7 @@ public class ItemDao {
 				dto.setItemInputDate(rs.getString("ITEM_INPUT_DATE"));
 				dto.setDiscRate(rs.getInt("DISC_RATE"));
 				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));
-		
+
 				//판매자
 				dto.setSellerName(rs.getString("SELLER_NAME"));
 				dto.setShopName(rs.getString("SHOP_NAME"));
@@ -272,7 +271,7 @@ public class ItemDao {
 			JdbcTemplate.close(stmt);
 		}	
 	}	
-	
+
 
 	/**
 	 * 내가 등록한 상품상세보기
@@ -300,7 +299,7 @@ public class ItemDao {
 
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
 				dto.setPackTypeName(rs.getString("PACK_TYPE_NAME"));
-				
+
 				dto.setItemCategoryNo(rs.getString("ITEM_CATEGORY_NO"));
 				dto.setItemCategoryName(rs.getString("ITEM_CATEGORY_NAME"));
 				dto.setExpirationDate(rs.getString("EXPIRATION_DATE"));
@@ -334,12 +333,12 @@ public class ItemDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-		/**
-		 * 등록상품내역변경
-		 * @param conn
-		 * @param dto 상품
-		 */
-		public void updatePacking(Connection conn,Item dto)throws CommonException{
+	/**
+	 * 등록상품내역변경(packing table)
+	 * @param conn
+	 * @param dto 상품
+	 */
+	public void updatePacking(Connection conn,Item dto)throws CommonException{
 		
 			String sql = "update packing set pack_type_name=?"
 						 + " where pack_type_no=? ";
@@ -368,16 +367,14 @@ public class ItemDao {
 			}
 		}
 		
-		
-		
-		
+
 		/**
-		 * 등록상품내역변경2
+		 * 등록상품내역변경(item_category 테이블)
 		 * @param conn
 		 * @param dto 상품
 		 */
 		public void updateItemCategory (Connection conn,Item dto)throws CommonException{
-			System.out.println("[debug] 등록 상품 내역 카테고리 변경 ");
+
 			String sql = "update item_category set expiration_date=? ,notice=?,fresh_percent=?"
 						 + " where item_category_no=? ";
 			
@@ -391,10 +388,8 @@ public class ItemDao {
 				stmt.setInt(3, dto.getFreshPercent());
 				stmt.setString(4, dto.getItemCategoryNo());
 				
-
 				stmt.executeUpdate();
-				
-	
+
 			}catch (Exception e) {
 		
 				System.out.println(e.getMessage());
@@ -412,12 +407,12 @@ public class ItemDao {
 			
 		
 		/**
-		 * 등록상품내역변경3
+		 * 등록상품내역변경(item table)
 		 * @param conn
 		 * @param dto 상품
 		 */
 		public void updateItem (Connection conn,Item dto)throws CommonException{
-			System.out.println("[debug] 등록 상품 내역 상품 변경 ");
+			
 			String sql = "update item set item_name=? ,item_price=?,sales_unit=?,item_origin=?,item_stock=?,disc_rate=?,item_takeit=?"
 						 + " where item_no=? ";
 			
@@ -425,8 +420,6 @@ public class ItemDao {
 			
 			try {
 				stmt = conn.prepareStatement(sql);
-			
-	
 			
 				stmt.setString(1, dto.getItemName());
 				stmt.setInt(2, dto.getItemPrice());
@@ -455,12 +448,9 @@ public class ItemDao {
 		}
 		
 				
-
-		
-		
-		/**카테고리별 상품 리스트*/
+	/**카테고리별 상품 리스트*/
 		public void getCategoryItemList(Connection con, ArrayList<Item> categoryItemList, String categoryNo, String categoryName) throws CommonException{
-			System.out.println("[debug]카테고리 상품 목록 dao 요청");
+
 			String sql = "SELECT * "
 					+ "FROM ITEM I LEFT OUTER JOIN ITEM_CATEGORY IC "
 					+ "ON(I.ITEM_CATEGORY_NO=IC.ITEM_CATEGORY_NO) "
@@ -513,7 +503,7 @@ public class ItemDao {
 		 * 상품삭제
 		 */
 		public void deleteItem(Connection conn, String sellerId, String itemNo ) {
-			System.out.println("[debug] 등록 상품 삭제 dao 요청");
+		
 			String sql = "delete from Item where seller_id=? and Item_no=?";
 			
 			PreparedStatement stmt = null;
@@ -525,9 +515,9 @@ public class ItemDao {
 				stmt.setString(2,itemNo);
 				
 				stmt.executeUpdate();
-				System.out.println("[debug] 등록 상품 삭제 dao 요청 완료");
+
 			}catch (Exception e) {
-				System.out.println("[debug] 등록 상품 삭제 dao 요청 실패");
+			
 				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}finally {

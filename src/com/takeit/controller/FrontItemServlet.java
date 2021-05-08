@@ -18,7 +18,6 @@ import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
 
 
-
 /**
  * 상품관리를 위한 FrontController servlet
  * @author 김효원
@@ -235,11 +234,11 @@ public class FrontItemServlet extends HttpServlet {
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);
 			}
-		
-}
+
+		}
 	
 		/**
-		 * 상품삭제
+		 * 상품삭제기능
 		 * @param conn
 		 * @param dto
 		 */
@@ -274,7 +273,6 @@ public class FrontItemServlet extends HttpServlet {
 		}	
 
 
-
 		/**
 		 * 상품상세조회
 		 * @param request
@@ -299,9 +297,9 @@ public class FrontItemServlet extends HttpServlet {
 			} catch (CommonException e) {
 				e.printStackTrace();
 			}
-
-
-		}		
+		}
+		
+		
 		/**
 		 * 판매자 등록상품전체조회
 		 * @param request
@@ -319,7 +317,6 @@ public class FrontItemServlet extends HttpServlet {
 			ItemBiz abiz = new ItemBiz();
 			try {
 				abiz.getMySellList(itemList, sellerId);
-				System.out.println("itemList = "+itemList);
 		
 				if(itemList != null) {
 					request.setAttribute("itemList",itemList);
@@ -369,18 +366,18 @@ public class FrontItemServlet extends HttpServlet {
 		protected void setSellItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 			HttpSession session = request.getSession();
-			
+
 			String sellerId = (String)session.getAttribute("sellerId");
 			sellerId = sellerId.trim();
-			
+
 			String packTypeNo = request.getParameter("packTypeNo");
 			String packTypeName = request.getParameter("packTypeName");
-			
-			
+
+
 			String expirationDate = request.getParameter("expirationDate");
 			String notice = request.getParameter("notice");
 			int freshPercent =Integer.parseInt( request.getParameter("freshPercent"));
-			
+
 			String itemNo = request.getParameter("itemNo");
 			String itemName = request.getParameter("itemName");
 			int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
@@ -388,26 +385,26 @@ public class FrontItemServlet extends HttpServlet {
 			String itemOrigin = request.getParameter("itemOrigin");
 			int itemStock = Integer.parseInt(request.getParameter("itemStock"));
 			String itemImg = request.getParameter("itemImg");
-		
+
 			String itemInputDate = request.getParameter("itemInputDate");
 			int discRate = Integer.parseInt(request.getParameter("discRate"));
 			String itemTakeit = request.getParameter("itemTakeit");
-			
+
 			String sellerName = request.getParameter("sellerName");
 			String shopName = request.getParameter("shopName");
-	
+
 			String itemCategoryNo = request.getParameter("itemCategoryNo");
 			String itemCategoryName =request.getParameter("itemCategoryName");
 			double itemCustScore = Double.parseDouble(request.getParameter("itemCustScore"));
 			
 		
-			
-			ItemBiz biz = new ItemBiz();
+            ItemBiz biz = new ItemBiz();
 			MessageEntity message = null;
 			Item dto = new Item(packTypeNo, packTypeName, itemCategoryNo,  itemCategoryName,
 					expirationDate, notice, freshPercent, itemNo, sellerId,itemName,
 					 itemPrice,  salesUnit, itemOrigin,itemStock, itemImg,  itemCustScore,
 					itemInputDate,  discRate, itemTakeit,sellerName,shopName);
+			
 			dto.setPackTypeNo(packTypeNo);
 			try {
 				biz.setSellItem(dto);

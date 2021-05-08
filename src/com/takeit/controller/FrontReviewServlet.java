@@ -87,6 +87,7 @@ public class FrontReviewServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		process(request, response);
 	}
+	
 	/**
 	 * 후기전체조회
 	 * @param request
@@ -294,16 +295,12 @@ public class FrontReviewServlet extends HttpServlet {
 	 */
 	protected void setReviewInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
 		HttpSession session = request.getSession();
 
-		
-		String memberId = (String)session.getAttribute("memberId");
+        String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
-
-
 		
-		String itemNo = request.getParameter("itemNo");
+    	String itemNo = request.getParameter("itemNo");
 		String reviewTitle = request.getParameter("reviewTitle");
 		String reviewContents = request.getParameter("reviewContents");
 
@@ -324,13 +321,7 @@ public class FrontReviewServlet extends HttpServlet {
 		String reviewImg = request.getParameter("reviewImg");
 		String reviewNo = request.getParameter("reviewNo");
 		String reviewDate = request.getParameter("reviewDate");
-		
-		/*
-		 * System.out.println("========== itemNo"+ itemNo);
-		 * System.out.println("========== reviewTitle"+ reviewTitle);
-		 * System.out.println("========== reviewScore"+ reviewScore);
-		 * System.out.println("========== reviewContents"+ reviewContents);
-		 */		
+
 		
 		ReviewBiz biz = new ReviewBiz();
 		MessageEntity message = null;
@@ -360,20 +351,15 @@ public class FrontReviewServlet extends HttpServlet {
 	 */
 	protected void deleteReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("========== 내후기삭제 ============");
 		String reviewNo = request.getParameter("reviewNo");
 		//String reviewTitle = request.getParameter("reviewTitle");
 
 		reviewNo = reviewNo.trim();
 		//reviewTitle = reviewTitle.trim();
-		
-
 		HttpSession session = request.getSession(false);
 		String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
-		
-		System.out.println("========== reviewNo ="+ reviewNo);
-		System.out.println("========== memberId ="+ memberId);
+
 
 		ReviewBiz bbiz = new ReviewBiz();
 		MessageEntity message = null;
@@ -392,7 +378,6 @@ public class FrontReviewServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
 	}
-
 
 
 	/**
