@@ -328,4 +328,32 @@ public class TakeitBiz {
 		}
 	}
 
+	public void getTakeitDeadList(ArrayList<Takeit> takeitList) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.searchTakeitDeadList(conn, takeitList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+		
+	}
+
+	public void getTakeitAllList(ArrayList<Takeit> takeitList) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.searchTakeitAllList(conn, takeitList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+		
+	}
+
 }
