@@ -73,6 +73,25 @@ public class FrontTakeitServlet extends HttpServlet {
 		case "takeitDelete":
 			takeitDelete(request, response);
 			break;
+		case "takeitManageForm":
+			takeitManageForm(request, response);
+			break;
+		}
+	}
+	
+	protected void takeitManageForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		TakeitBiz biz = new TakeitBiz();
+		
+		ArrayList<Takeit> takeitList = new ArrayList<>();
+		
+		try {
+			biz.getTakeitList(takeitList);
+			
+			request.setAttribute("takeitList", takeitList);
+			request.getRequestDispatcher("/takeit/takeitManage.jsp").forward(request, response);;
+		} catch (CommonException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -105,7 +124,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		
 		Takeit dto = new Takeit();
 		dto.setShopLocCode(shopLocCode);
-		dto.setTakeitPrice(takeitPrice);
+		dto.setTakeitPrice(Integer.valueOf(takeitPrice));
 		
 		TakeitBiz biz = new TakeitBiz();
 		

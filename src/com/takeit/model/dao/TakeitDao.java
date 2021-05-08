@@ -199,7 +199,6 @@ public class TakeitDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, member.getShopLocCode());
 			stmt.setString(2, member.getMemberLocNo());
-			System.out.println("search location :" + member.getShopLocCode() + member.getMemberLocNo());
 			rs = stmt.executeQuery();
 			
 			TakeitItem takeitItem = null;
@@ -324,13 +323,11 @@ public class TakeitDao {
 	/** 상점구역목록 전체 조회 */
 	public void searchShopLocList(Connection conn, ArrayList<ShopLoc> shopLocList) throws CommonException {
 		String sql = "SELECT * FROM SHOP_LOC";
-		System.out.println("debp5-1");
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
-			System.out.println("debp5-2");
 			ShopLoc shopLoc = null;
 			while (rs.next()) {
 				shopLoc = new ShopLoc();
@@ -338,7 +335,6 @@ public class TakeitDao {
 				shopLoc.setShopLocName(rs.getString("shop_Loc_Name"));
 				shopLoc.setShopLocLat(rs.getString("shop_Loc_Lat"));
 				shopLoc.setShopLocLng(rs.getString("shop_Loc_Lng"));
-				System.out.println("debp5-3");
 				shopLocList.add(shopLoc);
 			}
 		} catch (Exception e) {
@@ -519,7 +515,7 @@ public class TakeitDao {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, takeit.getTakeitPrice());
+			stmt.setInt(1, takeit.getTakeitPrice());
 			stmt.setString(2, takeit.getShopLocCode());
 			
 			int rows = stmt.executeUpdate();
@@ -737,6 +733,44 @@ public class TakeitDao {
 				takeitItem.setShopLocName(rs.getString("shop_Loc_Name"));
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}		
+	}
+
+	public void searchTakeitEndList(Connection conn, ArrayList<Takeit> takeitList) throws CommonException {
+		String sql = "SELECT SHOP_LOC_CODE, TAKEIT_NO, TAKEIT_PRICE, TAKEIT_CURR_PRICE, TAKEIT_DATE, TAKEIT_CUST_SCORE, TAKEIT_ALIVE, MEMBER_LOC_NO, SHOP_LOC_NAME, TAKEIT_DATE+7 TAKEIT_END_DATE"
+				+ " FROM TAKEIT JOIN SHOP_LOC USING(SHOP_LOC_CODE) "
+				+ " WHERE TAKEIT_ALIVE = 'T' AND (TAKEIT_PRICE <= TAKEIT_CURR_PRICE "
+				+ " OR TAKEIT_DATE + 2 >= SYSDATE)"; 
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			rs = stmt.executeQuery();
+			Takeit dto = null;
+			while (rs.next()) {
+				dto = new Takeit();
+				dto.setMemberLocNo(rs.getString("member_Loc_No"));
+				dto.setShopLocCode(rs.getString("shop_Loc_Code"));
+				dto.setShopLocName(rs.getString("shop_Loc_Name"));
+				dto.setTakeitAlive(rs.getString("takeit_alive"));
+				dto.setTakeitCurrPrice(rs.getInt("takeit_Curr_Price"));
+				dto.setTakeitDate(rs.getString("takeit_Date"));
+				dto.setTakeitEndDate(rs.getString("takeit_End_Date"));
+				dto.setTakeitNo(rs.getString("takeit_No"));
+				dto.setTakeitPrice(rs.getInt("takeit_Price"));
+				takeitList.add(dto);
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			

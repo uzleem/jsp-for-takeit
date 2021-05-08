@@ -284,6 +284,19 @@ public class TakeitBiz {
 		}
 	}
 
+	public void getTakeitList(ArrayList<Takeit> takeitList) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
+		
+		try {
+			dao.searchTakeitEndList(conn, takeitList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
+
 
 
 
