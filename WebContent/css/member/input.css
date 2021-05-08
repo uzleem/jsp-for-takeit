@@ -71,6 +71,30 @@
 #pwCheckbox{
 	background: #7B977A;
 }
+/* 비밀번호 표시 아이콘 */
+input[type=checkbox]{
+	-webkit-appearance: none;
+}
+input[type=checkbox] + label{
+    line-height: 37px;
+    vertical-align: middle;
+	background: url("/takeit/img/icon/eye2.png");
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background-size: 100%;
+}
+input[type=checkbox]:checked + label{
+	line-height: 37px;
+    vertical-align: middle;
+	background: url("/takeit/img/icon/eye.png");
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background-size: 100%;
+}
 /* 이름 */
 #name{
 	width:250px;

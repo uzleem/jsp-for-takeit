@@ -78,6 +78,7 @@ function kakaoLogin() {
 		</td>
 		<td>
 			<input type="checkbox" id="pwCheckbox" name="pwCheckbox" onclick="pwCheckbox_onclick()"/>
+			<label for="pwCheckbox"></label>
 		</td>
 	</tr>
 	<tr>
