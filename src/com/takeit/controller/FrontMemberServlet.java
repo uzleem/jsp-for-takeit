@@ -44,6 +44,9 @@ public class FrontMemberServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		switch(action) {
+		case "memberInputForm":
+			memberInputForm(request, response);
+			break;
 		case "memberInput":
 			memberInput(request, response);
 			break;
@@ -76,6 +79,16 @@ public class FrontMemberServlet extends HttpServlet {
 		process(request, response);
 	}
 
+
+	/**
+	 * 회원가입 폼
+	 */
+	protected void memberInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("작동확인 : memberInputForm");
+		
+		request.getRequestDispatcher("/member/memberInput.jsp").forward(request, response);
+	}
+	
 	/**
 	 * 회원가입 
 	 */

@@ -1,13 +1,10 @@
 package com.takeit.model.biz;
-
 import java.sql.Connection;
-
+import java.util.ArrayList;
 import com.takeit.common.CommonException;
 import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.SellerDao;
-import com.takeit.model.dto.Member;
 import com.takeit.model.dto.Seller;
-
 /**
  * 회원가입 : 판매자회원
  * @author 임우진
@@ -131,5 +128,19 @@ public class SellerBiz {
 			return 1;
 		}
 		return 0;
+	}
+	
+	/**
+	 * 상점카테고리 조회
+	 */
+	public void shopCategoryList(ArrayList<Seller> shopCategoryList) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			dao.shopCategoryList(con, shopCategoryList);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
 	}
 }

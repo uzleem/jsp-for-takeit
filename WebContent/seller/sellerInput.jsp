@@ -183,7 +183,6 @@
 					<c:forEach var="shopLoc" items="${shopLocList}">
 						<option value="${shopLoc.shopLocCode}">${shopLoc.shopLocName }</option>
 					</c:forEach>
-					
 				</select>
 			</td>
 		</tr>
@@ -260,16 +259,14 @@
 			</td>
 		</tr>	
 		
-		<tr>
+		<tr>			
 			<td>카테고리<span class="star"> *</span></td>
 			<td>
 				<select name="shopCategoryNo" id="shopCategoryNo">
 					<option value="none">:::선택:::</option>
-					<option value="1">야채</option>
-					<option value="2">과일</option>
-					<option value="3">정육</option>
-					<option value="4">밑반찬</option>
-					<option value="5">쌀</option>
+					<c:forEach var="shopCate" items="${shopCategoryList}">
+						<option value="${shopCate.shopCategoryNo}">${shopCate.shopCategory}</option>
+					</c:forEach>
 				</select>
 			</td>
 		</tr>

@@ -48,7 +48,7 @@ public class Seller implements Serializable{
 	private String shopImg;
 	private String shopCategoryNo;
 	private String shopLocCode;
-	private String shopCategoryName;
+	private String shopCategory;
 	
 	/* 기본 생성자 */
 	public Seller() {}
@@ -244,12 +244,12 @@ public class Seller implements Serializable{
 		this.shopLocCode = shopLocCode;
 	}
 
-	public String getShopCategoryName() {
-		return shopCategoryName;
+	public String getShopCategory() {
+		return shopCategory;
 	}
 
-	public void setShopCategoryName(String shopCategoryName) {
-		this.shopCategoryName = shopCategoryName;
+	public void setShopCategory(String shopCategory) {
+		this.shopCategory = shopCategory;
 	}
 
 	@Override
@@ -258,7 +258,10 @@ public class Seller implements Serializable{
 				+ ", email=" + email + ", entryDate=" + entryDate + ", postNo=" + postNo + ", address=" + address
 				+ ", addressDetail=" + addressDetail + ", grade=" + grade + ", sellerNo=" + sellerNo + ", shopMobile="
 				+ shopMobile + ", shopName=" + shopName + ", custScore=" + custScore + ", shopKakaoId=" + shopKakaoId
-				+ ", shopImg=" + shopImg + ", shopCategoryNo=" + shopCategoryNo + ", shopCategoryName="
-				+ ", shopLocCode=" + shopLocCode + "]";
+				+ ", shopImg=" + shopImg + ", shopCategoryNo=" + shopCategoryNo + ", shopLocCode=" + shopLocCode
+				+ ", shopCategory=" + shopCategory + "]";
 	}
+
+	
+	
 } // Seller 끝
