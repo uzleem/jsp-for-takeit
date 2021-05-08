@@ -69,6 +69,7 @@ public class MessageEntity {
 
 		error.add("[지역시장 중복 등록]"); //43
 		error.add("[등록상품 변경오류] "); 
+		error.add("[지역시장 삭제 오류]");
 
 		
 		
@@ -105,7 +106,7 @@ public class MessageEntity {
 		success.add("[후기 변경완료]");
 		success.add("[상품 등록 성공]");
 		success.add("[후기 삭제 성공]");
-	
+		success.add("[지역상점 삭제 성공]");
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");
 		message.add("[일반회원 전용]");

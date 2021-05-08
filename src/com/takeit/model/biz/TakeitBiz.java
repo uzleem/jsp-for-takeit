@@ -284,6 +284,7 @@ public class TakeitBiz {
 		}
 	}
 
+
 	public void getTakeitList(ArrayList<Takeit> takeitList) throws CommonException {
 		TakeitDao dao = TakeitDao.getInstance();
 		Connection conn = JdbcTemplate.getConnection();
@@ -297,7 +298,22 @@ public class TakeitBiz {
 		}
 	}
 
+	/**
+	 * 상점구역 삭제
+	 * @param shopLocList 상점구역목록
+	 */
+	public void deleteShopLoc(Takeit takeit) throws CommonException {
+		TakeitDao dao = TakeitDao.getInstance();
+		Connection conn = JdbcTemplate.getConnection();
 
-
-
+		try {
+			dao.deleteShopLoc(conn, takeit);
+			JdbcTemplate.commit(conn);
+		} catch (CommonException e) {
+			JdbcTemplate.rollback(conn);
+			throw e;
+		} finally {
+			JdbcTemplate.close(conn);
+		}
+	}
 }

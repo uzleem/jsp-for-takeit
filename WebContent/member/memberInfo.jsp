@@ -65,7 +65,7 @@ function mobilePopup() {
 <div class="memberInfo-wrap">
 	<h1 style="width:fit-content; margin: 0 auto;">내 정보 조회</h1>
 	<br>
-	<form action ="/takeit/member/mypageController?action=setMemberInfo" method="post">
+	<form action ="${CONTEXT_PATH}/member/mypageController?action=setMemberInfo" method="post">
 		<table id="myInfo_table">
 			<tr>
 				<th>아이디</th>
@@ -77,7 +77,7 @@ function mobilePopup() {
 				<th>비밀번호</th>
 				<td>
 					<input type="password" id="memberPw" name="memberPw" value="${member.memberPw }">
-					<input id="memberInfo_button" type="button" value="비밀번호 변경" onclick="location.href='/takeit/member/mypageController?action=memberPwUpdateForm'">
+					<input id="memberInfo_button" type="button" value="비밀번호 변경" onclick="location.href='${CONTEXT_PATH}/member/mypageController?action=memberPwUpdateForm'">
 				</td>		
 			</tr>
 			<tr>
@@ -161,7 +161,7 @@ function mobilePopup() {
 		</table>
 		<br>
 	</form>
-	<a href="/takeit/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
+	<a href="${CONTEXT_PATH}/member/myPage.jsp" id="mypage_Btn">마이페이지로 이동</a>
 </div>
 </div>
 <!-- floating Banner -->
