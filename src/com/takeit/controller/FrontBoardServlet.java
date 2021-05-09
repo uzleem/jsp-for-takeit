@@ -16,15 +16,16 @@ import com.takeit.model.biz.BoardBiz;
 import com.takeit.model.dto.Board;
 import com.takeit.model.dto.Category;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Paging;
 
 /**
  * 게시판 관리 컨트롤러
+ * @author 한소희
  */
 @WebServlet("/boardController")
 public class FrontBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
-	//서버 구동시에 해당 어플리케이션당 한 개의 환경설정, 모든 서블릿(jsp)공유객체, 서버 종료시까지 사용
 	public ServletContext application;
 	public String CONTEXT_PATH;
 	
@@ -62,16 +63,9 @@ public class FrontBoardServlet extends HttpServlet {
 		case "boardSearch":
 			boardSearch(request,response);
 			break;
-//		case "":
-//			(request,response);
-//			break;
-//		case "":
-//			(request,response);
-//			break;
-//		case "":
-//			(request,response);
-//			break;
-			
+		case "boardListPaging":
+			boardListPaging(request,response);
+			break;
 		}
 	}
 
@@ -99,6 +93,57 @@ public class FrontBoardServlet extends HttpServlet {
 				request.setAttribute("boardList", boardList);
 				request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
 			}
+		} catch (CommonException e) {
+			MessageEntity message = new MessageEntity("error", 14);
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+		}
+		
+	}
+	
+	/**게시글 전체 목록 paging*/
+	protected void boardListPaging(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("[debug]게시글 전체 조회 요청(페이징처리)");
+		String boardCategory = request.getParameter("boardCategory");
+		System.out.println("[debug]categoryNo:"+boardCategory);
+		
+		String go = request.getParameter("go");
+		String goGroup = request.getParameter("goGroup");
+		
+		
+		ArrayList<Board> boardList = new ArrayList<Board>();
+		BoardBiz bbiz = new BoardBiz();
+		Paging paging = new Paging();
+		int totalCnt = 0;
+		try {
+			// 총 게시물 갯수
+			totalCnt = bbiz.boardCount(boardCategory);
+			if(go != null) {
+				paging.setGo(Integer.parseInt(go));
+			} 
+			if(goGroup != null) {
+				paging.setGoGroup(Integer.parseInt(goGroup));
+			}
+			paging.setTotalCount(totalCnt);
+			
+			int startRow = paging.getStartRowNo(); 	//페이지 시작 라인
+			int endRow = paging.getEndRowNo();		//페이직 끝 라인
+			
+			request.setAttribute("startRow", startRow);
+			request.setAttribute("endRow", endRow);
+			request.setAttribute("startPageNo", paging.getStartPageNo());
+			request.setAttribute("endPageNo", paging.getEndPageNo());
+			request.setAttribute("whereGroup", paging.getWhereGroup());
+			request.setAttribute("totalGroup", paging.getTotalGroup());
+			request.setAttribute("nextGroup", paging.getNextGroup());
+			request.setAttribute("priorGroup", paging.getPriorGroup());
+			
+			bbiz.getBoardList(boardCategory, boardList);
+			if(boardList != null) {
+				request.setAttribute("boardList", boardList);
+				request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
+			}
+			
 		} catch (CommonException e) {
 			MessageEntity message = new MessageEntity("error", 14);
 			request.setAttribute("message", message);

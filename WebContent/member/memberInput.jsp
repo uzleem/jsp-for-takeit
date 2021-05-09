@@ -165,7 +165,7 @@
 		<tr>
 			<td>상세주소<span class="star"> *</span></td>
 			<td>
-				<input type="text" placeholder="상세주소를 입력해주세요." id="addressDetail" name="addressDetail"/>
+				<input type="text" placeholder="상세주소를 입력해주세요." id="addressDetail" name="addressDetail" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

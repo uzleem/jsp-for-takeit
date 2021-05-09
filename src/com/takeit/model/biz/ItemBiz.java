@@ -163,5 +163,16 @@ public class ItemBiz {
 		}
 	}
 
+	public int itemListCount() throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			return dao.selectItemListCount(con);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
+
 }
 	

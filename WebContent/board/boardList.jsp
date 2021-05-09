@@ -83,23 +83,40 @@ function valueIsNull(){
 		<th>조회수</th>
 		<th>작성일자</th>
 	</tr>
-	<%
-		
-		for(Board dto : boardList){
-	%>
+	<c:forEach var="dto" items="${boardList}" begin="${startRow }" end="${endRow}">
 	<tr>
-		<td><%= dto.getBoardNo() %></td>
+		<td>${dto.boardNo}</td>
 		<td>
-		<a  id="boardLink" href="/takeit/boardController?action=boardDetail&boardNo=<%= dto.getBoardNo() %>&boardCategory=<%= dto.getBoardCategory() %>"><%= dto.getBoardTitle()%></a>
+			<a id="boardLink" href="/takeit/boardController?action=boardDetail&boardNo=${dto.boardNo}&boardCategory=${dto.boardCategory}">${dto.boardTitle}</a>
 		</td>
-		<td><%= dto.getBoardWriter() %></td>
-		<td><%= dto.getBoardViews() %></td>
-		<td><%= dto.getBoardDate()%></td>
+		<td>${dto.boardWriter}</td>
+		<td>${dto.boardViews}</td>
+		<td>${dto.boardDate}</td>
 	</tr>
-<%
-	}
-%>
+	</c:forEach>
 </table>
+
+<!-- 페이징 -->
+<div id="paging">
+	<c:choose>
+		<c:when test="${whereGroup > 1 }">
+			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=1">[처음]</a>
+			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${priorGroup}">[이전]</a>
+		</c:when>
+		<c:otherwise>[처음][이전]</c:otherwise>
+	</c:choose>
+	<c:forEach var="i" begin="${startPageNo}" end="${endPageNo}" step="1">
+		<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&go=${i}">${i}</a>
+	</c:forEach>
+	<c:choose>
+		<c:when test="${whereGroup < totalGroup}">
+			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${nextGroup}">[다음]</a>
+			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${totalGroup}">[마지막]</a>
+		</c:when>
+		<c:otherwise>[다음][마지막]</c:otherwise>
+	</c:choose>
+</div>
+
 <!-- 게시글 검색 -->
 <div id="boardSearch-area">
 	<form action="/takeit/boardController?action=boardSearch&boardCategory=<%= boardList.get(0).getBoardCategory() %>" method="post" style="width: fit-content;">
@@ -112,9 +129,11 @@ function valueIsNull(){
 	<input type="search" name="searchInput" id="board-searchInput" class="searchInput" placeholder="검색어를 입력하세요.." style="border: 1px solid grey; height: 25px;">
 	<input type="submit" class="searchInput" id="searchInput-btn" value="검색" onclick="return valueIsNull(); ">
 	</form>
+	
 </div>
 <a href="/takeit/index" class="link">홈으로이동</a>
 </div>
+
 <!-- floating Banner -->
 <jsp:include page="/common/floatingBanner.jsp"></jsp:include>
 <!-- scroll function -->

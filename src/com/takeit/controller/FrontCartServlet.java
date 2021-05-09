@@ -18,12 +18,12 @@ import com.takeit.model.dto.MessageEntity;
 
 /**
  * 장바구니 관리 컨트롤러
+ * @author 한소희
  */
 @WebServlet("/cartController")
 public class FrontCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	//서버 구동시에 해당 어플리케이션당 한 개의 환경설정, 모든 서블릿(jsp)공유객체, 서버 종료시까지 사용
 		public ServletContext application;
 		public String CONTEXT_PATH;
 		
@@ -52,10 +52,6 @@ public class FrontCartServlet extends HttpServlet {
 			case "changeCartQty":
 				changeCartQty(request,response);
 				break;
-//			case "":
-//				(request,response);
-//				break;
-				
 			}
 		}
 
@@ -93,7 +89,6 @@ public class FrontCartServlet extends HttpServlet {
 			try {
 				int cartTotalPrice =  0;
 				cbiz.getCartList(memberId, cartTotalPrice, cartList);
-				System.out.println(cartList.get(0));
 				session.setAttribute("cartList", cartList);
 				for(Cart dto : cartList) {
 					cartTotalPrice += dto.getTotalPrice();

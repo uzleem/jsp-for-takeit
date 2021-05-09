@@ -16,6 +16,7 @@ import com.takeit.common.CommonException;
 import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Paging;
 
 
 /**
@@ -223,12 +224,41 @@ public class FrontItemServlet extends HttpServlet {
 
 			ArrayList<Item> itemList = new ArrayList<Item>();
 			ItemBiz biz = new ItemBiz();
+			
+			Paging paging = new Paging();
+			paging.setMaxRows(8);
+			int totalCnt = 0;
+			
+			String go = request.getParameter("go");
+			String goGroup = request.getParameter("goGroup");
+			
+			if(go != null) {
+				paging.setGo(Integer.parseInt(go));
+			} 
+			if(goGroup != null) {
+				paging.setGoGroup(Integer.parseInt(goGroup));
+			}
+			
 			try {
+				totalCnt = biz.itemListCount();
+				paging.setTotalCount(totalCnt);
+				
+				int startRow = paging.getStartRowNo(); 	//페이지 시작 라인
+				int endRow = paging.getEndRowNo();		//페이직 끝 라인
+				
+				request.setAttribute("startRow", startRow);
+				request.setAttribute("endRow", endRow);
+				request.setAttribute("startPageNo", paging.getStartPageNo());
+				request.setAttribute("endPageNo", paging.getEndPageNo());
+				request.setAttribute("whereGroup", paging.getWhereGroup());
+				request.setAttribute("totalGroup", paging.getTotalGroup());
+				request.setAttribute("nextGroup", paging.getNextGroup());
+				request.setAttribute("priorGroup", paging.getPriorGroup());
+				
 				biz.getItemList(itemList);
-				if(itemList != null) {
-					request.setAttribute("itemList",itemList);
-					request.getRequestDispatcher("/item/newItem.jsp").forward(request, response);
-				}
+				
+				request.setAttribute("itemList",itemList);
+				request.getRequestDispatcher("/item/newItem.jsp").forward(request, response);
 			} catch (CommonException e) {
 				MessageEntity message = new MessageEntity("error", 24);
 				request.setAttribute("message", message);
@@ -311,7 +341,7 @@ public class FrontItemServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			MessageEntity message = null;
 			
-			String sellerId = (String)session.getAttribute("sellerId"); // String
+			String sellerId = (String)session.getAttribute("sellerId"); 
 		
 			ArrayList<Item> itemList = new ArrayList<Item>();
 			ItemBiz abiz = new ItemBiz();

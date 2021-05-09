@@ -11,6 +11,11 @@ import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dto.Cart;
 import com.takeit.model.dto.MessageEntity;
 
+/**
+ * 장바구니 dao
+ * @author 한소희
+ *
+ */
 public class CartDao {
 	private static CartDao instance = new CartDao();
 	private CartDao() {}
