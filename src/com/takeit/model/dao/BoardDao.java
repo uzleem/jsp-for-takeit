@@ -75,6 +75,44 @@ public class BoardDao {
 		JdbcTemplate.close(pstmt);
 	}
 	
+	/**게시글 갯수 구하기*/
+	public int boardCount(Connection con, String categoryNo) throws CommonException {
+		System.out.println("[debug] 게시판 dao 목록 갯수 요청");
+		String sql = "SELECT COUNT(*) FROM BOARD B, BOARD_CATEGORY BC "
+				+ "WHERE B.BOARD_CATEGORY_NO=BC.BOARD_CATEGORY_NO "
+				+ "AND B.BOARD_CATEGORY_NO = ? "
+				+ "ORDER BY B.BOARD_DATE DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int cnt = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, categoryNo);
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+			cnt = rs.getInt(1);
+				System.out.println("[debug] 게시판 dao 목록 갯수 요청 완료");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("[debug] 게시판 dao 목록 갯수 요청 실패");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",16);
+			message.setLinkTitle("메인으로");
+			message.setUrl("/takeit/index");
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return cnt;
+	}
+	
 	/***
 	 * 게시글 상세조회
 	 * @param con
