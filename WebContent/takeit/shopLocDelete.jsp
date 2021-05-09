@@ -59,7 +59,6 @@
 		</table>
 		<div id="takeitInput-btn-area">
 			<input type="submit" class="takeitInput-btn" value="삭제"/>
-			<input type="reset" class="takeitInput-btn" value="초기화"/>
 		</div>
 		</form>
 	</div>
