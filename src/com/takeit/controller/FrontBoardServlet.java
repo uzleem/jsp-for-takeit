@@ -129,7 +129,7 @@ public class FrontBoardServlet extends HttpServlet {
 				paging.setGo(Integer.parseInt(go));
 			} 
 			if(goGroup != null) {
-				paging.setGogroup(Integer.parseInt(goGroup));
+				paging.setGoGroup(Integer.parseInt(goGroup));
 			}
 			paging.setTotalCount(totalCnt);
 			
@@ -140,7 +140,7 @@ public class FrontBoardServlet extends HttpServlet {
 			request.setAttribute("endRow", endRow);
 			request.setAttribute("startPageNo", paging.getStartPageNo());
 			request.setAttribute("endPageNo", paging.getEndPageNo());
-			request.setAttribute("whereGroup", paging.getWheregroup());
+			request.setAttribute("whereGroup", paging.getWhereGroup());
 			request.setAttribute("totalGroup", paging.getTotalGroup());
 			request.setAttribute("nextGroup", paging.getNextGroup());
 			request.setAttribute("priorGroup", paging.getPriorGroup());

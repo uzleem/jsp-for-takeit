@@ -920,4 +920,138 @@ public class TakeitDao {
 		}		
 		
 	}
+
+	public void deleteTakeit(Connection conn, String takeitNo) throws CommonException {
+		String sql = "UPDATE TAKEIT SET TAKEIT_ALIVE = 'F' WHERE TAKEIT_NO = ? "; 
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, takeitNo);
+			int rows = stmt.executeUpdate();
+			
+			if(rows == 0) {
+				throw new ExceededSizeException();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 14);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(stmt);
+		}		
+	}
+
+	/** 비회원 잇거래 상품 개수 조회 */
+	public int selectTakeitItemListCount(Connection conn) throws CommonException {
+		String sql = "SELECT COUNT(*) count "
+				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
+				+ "WHERE SELLER_ID IN ( "
+				+ "		SELECT SELLER_ID "
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
+				+ "			SELECT SHOP_LOC_CODE "
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T'"
+				+ "			) "
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return 0;
+	}
+	
+	
+	/** 일반회원 잇거래 상품 개수 조회 */
+	public int selectTakeitItemListCount(Connection conn, Member member) throws CommonException {
+		String sql = "SELECT COUNT(*) count "
+				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
+				+ "WHERE SELLER_ID IN ( "
+				+ "		SELECT SELLER_ID "
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
+				+ "			SELECT SHOP_LOC_CODE "
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
+				+ "			) "
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = ? "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getShopLocCode());
+			stmt.setString(2, member.getMemberLocNo());
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return 0;
+	}
+	
+	/** 판매자회원 잇거래상품개수 조회 */
+	public int selectTakeitItemListCount(Connection conn, String shopLocCode) throws CommonException {
+		String sql = "SELECT COUNT(*) count "
+				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
+				+ "WHERE SELLER_ID IN ( "
+				+ "		SELECT SELLER_ID "
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( "
+				+ "			SELECT SHOP_LOC_CODE "
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? "
+				+ "			) "
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' "
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, shopLocCode);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error", 12);
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return 0;
+	}
 }
