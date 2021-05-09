@@ -8,48 +8,47 @@ import java.util.ArrayList;
  * @author 김태경
  */
 public class Order implements Serializable {
-	// 상품
-	
+
+	/***/
 	private String itemTakeit;
-	// 배송
-	
+	/** 배송상태이름(주문접수|o-get, 상품인수|i-get, 상품이동중|i-move, 배달지도착|s-arr, 배달출발|s-go, 배달완료|done), 판매자 입력 */
 	private String shipStatus;
-	// 주문
-
+	/** 주문 번호, 시스템자동부여, 필수*/
 	private String orderNo;
-	
+	/** 수령방법(배송/직접수령), 사용자 입력, 필수 */
 	private String receiveMethod;
-	
+	/** 수령인 이름, 사용자 입력, 필수 */
 	private String recipientName;
-
+	/** 수령인 우편번호, 사용자 주소api통해 입력, 배송수령 선택한 사용자 필수 */
 	private String recipientPostNo;
-	
+	/** 수령인 도로명주소, 주소api에서 자동입력, 배송수령 선택한 사용자 필수*/
 	private String recipientAddr;
-	
+	/** 수령인 상세주소, 사용자 입력, 배송수령 선택한 사용자 필수*/
 	private String recipientAddrDetail;
-	
+	/** 수령인 연락처, 사용자 입력, 배송수령 선택한 사용자  필수 */
+
 	private String recipientMobile;
 	
-	
+	/** 배송요청사항, 사용자입력 */
 	private String shipRequest;
-	
+	/** 주문금액, 시스템계산, 필수 */
 	private int orderPrice;
-	
+	/** 배송상태코드(주문접수|o-get, 상품인수|i-get, 상품이동중|i-move, 배달지도착|s-arr, 배달출발|s-go, 배달완료|done) */
 	private String shipStatusCode;
-	
+	/** 주문자 아이디, session에서 받아옴, 필수 */
 	private String memberId;
-	
+	/** 주문 취소요청, 사용자 입력 */
 	private String orderCancelReq;
-	
+	/** 주문 취소, 판매자 입력 */
 	private String orderCancel;
 	
-	// 판매자
-	
+	/** 판매자 아이디, itemNo로 접근, 필수*/
 	private String sellerId;
-	
+	/** 상점명, sellerId로 접근, 필수*/
+
 	private String shopName;
 
-	// 주문상세
+	/** 주문상세정보 */
 	private ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
 
 	/** 기본 생성자 */

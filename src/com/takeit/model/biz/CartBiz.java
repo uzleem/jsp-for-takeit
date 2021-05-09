@@ -8,6 +8,10 @@ import com.takeit.common.JdbcTemplate;
 import com.takeit.model.dao.CartDao;
 import com.takeit.model.dto.Cart;
 
+/**
+ * 장바구니 서비스
+ * @author 한소희
+ */
 public class CartBiz {
 	private CartDao dao = CartDao.getInstance();
 

@@ -525,4 +525,34 @@ public class ItemDao {
 				JdbcTemplate.close(stmt);
 			}		
 		}
+		
+	public int selectItemListCount(Connection conn) throws CommonException {
+		String sql = "SELECT COUNT(*) COUNT " +
+		          " from item a, item_category b , packing c, seller d"+
+		          " where a.item_category_no =b.item_category_no and b.pack_type_no =c.pack_type_no"+
+		          " and a.seller_id = d.seller_id AND ITEM_TAKEIT = 'F' "+
+		          " order by a.item_input_date desc";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			MessageEntity message = new MessageEntity("error",7);
+			message.setLinkTitle("메인으로");
+			message.setUrl("/takeit/index");
+			throw new CommonException(message);
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(stmt);
+		}
+		return 0;
+	}
 }
