@@ -7,9 +7,17 @@ import java.io.Serializable;
  * @author 김태경
  */
 public class ShopLoc implements Serializable{
+	
+	/* 상점구역코드 : 필수데이터, 중복불가 */
 	private String shopLocCode;
+	
+	/* 상점구역이름 : 필수데이터 */
 	private String shopLocName;
+	
+	/* 위도 : 필수데이터 */
 	private String shopLocLat;
+	
+	/* 경도 : 필수데이터 */
 	private String shopLocLng;
 	
 	public ShopLoc() {	}
