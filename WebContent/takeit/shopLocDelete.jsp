@@ -10,6 +10,20 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/mypage/myPage.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/takeit.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+function shopLocDelete(){
+	
+	if(confirm("[ "+$("#shopLocCode option:checked").text()+" ]"+"을 삭제 하시겠습니까?") == true){
+		document.getElementById('shopLocDelete').submit();
+		return true;
+	}else{
+		return false;
+	}
+	
+}
+
+</script>
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -44,7 +58,7 @@
 	</div>
 	<div class="takeitInput-wrap view-width">
 		<h1>지역상점 관리</h1>
-		<form action="${CONTEXT_PATH}/takeit/takeitController?action=shopLocDelete" method="post" style="width: fit-content; margin: 0 auto;">
+		<form action="${CONTEXT_PATH}/takeit/takeitController?action=shopLocDelete" method="post" id="shopLocDelete" style="width: fit-content; margin: 0 auto;">
 		<table class="takeitInput-tbl">
 			<tr>
 				<th>상점구역선택</th>
@@ -57,8 +71,8 @@
 				</td>
 			</tr>	
 		</table>
-		<div id="takeitInput-btn-area">
-			<input type="submit" class="takeitInput-btn" value="삭제"/>
+		<div id="shopLoc-btn-area">
+			<input type="button" class="shopLocDelete_btn" value="삭제" onclick="shopLocDelete()"/>
 		</div>
 		</form>
 	</div>
