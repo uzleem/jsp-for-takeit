@@ -16,6 +16,7 @@ import com.takeit.model.dto.Category;
 import com.takeit.model.dto.MessageEntity;
 
 /**
+ * 게시글 dao
  * @author 한소희
  *
  */
@@ -54,7 +55,6 @@ public class BoardDao {
 				dto.setBoardCategory(rs.getString("BOARD_CATEGORY_NO"));
 				dto.setBoardCategoryName(rs.getString("BOARD_CATEGORY"));
 				dto.setBoardViews(rs.getInt("BOARD_VIEWS"));
-				dto.setBoardPicks(rs.getInt("BOARD_PICKS"));
 				dto.setBoardDate(rs.getString("BOARD_DATE"));
 				
 				boardList.add(dto);
@@ -143,7 +143,6 @@ public class BoardDao {
 				board.setBoardCategoryName(rs.getString("board_category"));
 				board.setBoardCategory(rs.getString("board_category_no"));
 				board.setBoardViews(rs.getInt("board_views"));
-				board.setBoardPicks(rs.getInt("board_picks"));
 				board.setBoardDate(rs.getString("board_date"));
 				board.setBoardContents(rs.getString("board_contents"));
 				
@@ -286,7 +285,6 @@ public class BoardDao {
 				board.setBoardCategoryName(rs.getString("board_category"));
 				board.setBoardCategory(rs.getString("board_category_no"));
 				board.setBoardViews(rs.getInt("board_views"));
-				board.setBoardPicks(rs.getInt("board_picks"));
 				board.setBoardDate(rs.getString("board_date"));
 				board.setBoardContents(rs.getString("board_contents"));
 				
@@ -402,7 +400,6 @@ public class BoardDao {
 				dto.setBoardCategory(rs.getString("BOARD_CATEGORY_NO"));
 				dto.setBoardCategoryName(rs.getString("BOARD_CATEGORY"));
 				dto.setBoardViews(rs.getInt("BOARD_VIEWS"));
-				dto.setBoardPicks(rs.getInt("BOARD_PICKS"));
 				dto.setBoardDate(rs.getString("BOARD_DATE"));
 				
 				boardList.add(dto);

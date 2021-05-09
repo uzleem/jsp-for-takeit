@@ -19,13 +19,13 @@ import com.takeit.model.dto.MessageEntity;
 
 
 /**
- * 상품관리를 위한 FrontController servlet
+ * 카테고리에 따른 상품관리를 위한 FrontController servlet
+ * @author 한소희
  */
 @WebServlet("/categoryController")
 public class FrontCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	//서버구동시에 해당 어플리케이션당 한개의 한개의 환경설정 
 		public ServletContext application;
 		public String CONTEXT_PATH;
 		
