@@ -1,9 +1,12 @@
 package com.takeit.model.dto;
 
 /**
+ * <pre>
  * 잇거래 도메인 클래스
- * 
+ * </pre>
  * @author 김태경
+ * @since jdk1.8
+ * @version ver.1.0
  */
 public class Takeit {
 	
@@ -44,8 +47,36 @@ public class Takeit {
 	 */
 	private String takeitAlive;
 
-	public Takeit() {
+	
+	/** 기본 생성자 */
+	public Takeit() { }
+
+	/**
+	 * 전체 데이터 초기화 생성자
+	 * @param takeitNo 잇거래번호
+	 * @param shopLocCode 상점구역코드
+	 * @param shopLocName 상점구역이름
+	 * @param memberLocNo 회원구역번호
+	 * @param takeitPrice 모집금액
+	 * @param takeitCurrPrice 현재금액
+	 * @param takeitDate 모집일자
+	 * @param takeitEndDate 종료일자
+	 * @param takeitAlive 진행여부
+	 */
+	public Takeit(String takeitNo, String shopLocCode, String shopLocName, String memberLocNo, int takeitPrice,
+			int takeitCurrPrice, String takeitDate, String takeitEndDate, String takeitAlive) {
+		super();
+		this.takeitNo = takeitNo;
+		this.shopLocCode = shopLocCode;
+		this.shopLocName = shopLocName;
+		this.memberLocNo = memberLocNo;
+		this.takeitPrice = takeitPrice;
+		this.takeitCurrPrice = takeitCurrPrice;
+		this.takeitDate = takeitDate;
+		this.takeitEndDate = takeitEndDate;
+		this.takeitAlive = takeitAlive;
 	}
+
 
 	public String getTakeitNo() {
 		return takeitNo;
@@ -119,4 +150,26 @@ public class Takeit {
 		this.takeitAlive = takeitAlive;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(takeitNo);
+		builder.append(", ");
+		builder.append(shopLocCode);
+		builder.append(", ");
+		builder.append(shopLocName);
+		builder.append(", ");
+		builder.append(memberLocNo);
+		builder.append(", ");
+		builder.append(takeitPrice);
+		builder.append(", ");
+		builder.append(takeitCurrPrice);
+		builder.append(", ");
+		builder.append(takeitDate);
+		builder.append(", ");
+		builder.append(takeitEndDate);
+		builder.append(", ");
+		builder.append(takeitAlive);
+		return builder.toString();
+	}
 }

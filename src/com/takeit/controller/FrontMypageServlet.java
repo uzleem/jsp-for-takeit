@@ -94,7 +94,10 @@ public class FrontMypageServlet extends HttpServlet {
 			break;	
 		case "AceRemoveSeller":
 			AceRemoveSeller(request,response);
-			break;	
+			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 	

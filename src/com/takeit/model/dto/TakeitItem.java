@@ -3,8 +3,12 @@ package com.takeit.model.dto;
 import java.io.Serializable;
 
 /**
- * 잇거래상품 도메인 클래스
+ * <pre>
+ * 잇거래 상품 도메인 클래스
+ * </pre>
  * @author 김태경
+ * @since jdk1.8
+ * @version ver.1.0
  */
 public class TakeitItem extends Item implements Serializable {
 	
@@ -48,12 +52,25 @@ public class TakeitItem extends Item implements Serializable {
 	 * 구역이름:AA,BB
 	 */
 	private String shopLocName;
+
 	
 	/** 기본 생성자 */
 	public TakeitItem() {}
-	
+
+	/**
+	 * 전체 데이터 초기화 생성자
+	 * @param takeitNo 잇거래번호
+	 * @param takeitPrice 모집금액
+	 * @param takeitCurrPrice 현재금액
+	 * @param takeitDate 모집일자
+	 * @param takeitCustScore 잇거래평점
+	 * @param takeitAlive 진행여부
+	 * @param memberLocNo 회원구역번호
+	 * @param shopLocCode 상점구역코드
+	 * @param shopLocName 상점구역이름
+	 */
 	public TakeitItem(String takeitNo, int takeitPrice, int takeitCurrPrice, String takeitDate, double takeitCustScore,
-			String takeitAlive, String memberLocNo, String shopLocCode) {
+			String takeitAlive, String memberLocNo, String shopLocCode, String shopLocName) {
 		super();
 		this.takeitNo = takeitNo;
 		this.takeitPrice = takeitPrice;
@@ -63,9 +80,10 @@ public class TakeitItem extends Item implements Serializable {
 		this.takeitAlive = takeitAlive;
 		this.memberLocNo = memberLocNo;
 		this.shopLocCode = shopLocCode;
+		this.shopLocName = shopLocName;
 	}
 
-	
+
 	public String getShopLocName() {
 		return shopLocName;
 	}
@@ -156,6 +174,8 @@ public class TakeitItem extends Item implements Serializable {
 		builder.append(memberLocNo);
 		builder.append(", ");
 		builder.append(shopLocCode);
-		return builder.toString();
+		builder.append(", ");
+		builder.append(shopLocName);
+		return super.toString() + builder.toString();
 	}
 }

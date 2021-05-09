@@ -39,6 +39,9 @@ public class FrontSearchServlet extends HttpServlet {
 		case "searchList":
 			searchList(request,response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 

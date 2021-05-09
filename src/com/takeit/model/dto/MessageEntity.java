@@ -3,6 +3,7 @@ package com.takeit.model.dto;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/** 메세지 도메인 클래스 */
 public class MessageEntity {
 	private HashMap<String, ArrayList<String>> messageList = new HashMap<String, ArrayList<String>>();
 	private String url;

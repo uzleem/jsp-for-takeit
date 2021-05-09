@@ -1,25 +1,57 @@
 package com.takeit.model.dto;
 
+/** 페이징 도메인 클래스 */
 public class Paging {
-	private int where = 1; // 내가 클릭한 페이지 번호
-	private int go; // 현재 페이지 번호
-	private int goGroup; // 그룹페이지
-	private int whereGroup = 1; // 페이지 그룹
-	private int startRowNo; // 조회 시작 번호
-	private int endRowNo; // 조회 마지막 번호
-	private int finalPageNo = 5;// 마지막 페이지 번호
-	private int startPageNo; // 시작 페이지
-	private int endPageNo; // 끝 페이지
-	private int totalCount; // 게시글 전체 수
-	private int maxRows = 10; // 한번에 보여질 레코드 수
-	private int nextGroup; // 다음 페이지 그룹
-	private int priorGroup; // 이전 페이지 그룹
-	private int totalGroup; // 전체 페이지 그룹
-	private int totalPages; // 전체 페이지 수
+	/** 내가 클릭한 페이지 번호 */
+	private int where = 1; 
+	
+	/** 현재 페이지 번호 */
+	private int go; 
+	
+	/** 그룹페이지 */
+	private int goGroup; 
+	
+	/** 페이지 그룹 */
+	private int whereGroup = 1; 
+	
+	/** 조회 시작 번호 */
+	private int startRowNo; 
+	
+	/** 조회 마지막 번호 */
+	private int endRowNo; 
+	
+	/** 마지막 페이지 번호 */
+	private int finalPageNo = 5;
+	
+	/** 시작 페이지 */
+	private int startPageNo; 
+	
+	 /** 끝 페이지 */
+	private int endPageNo;
+	
+	/** 게시글 전체 수 */
+	private int totalCount; 
+	
+	 /** 한번에 보여질 레코드 수 */
+	private int maxRows = 10;
+	
+	/** 다음 페이지 그룹 */
+	private int nextGroup; 
+	
+	/** 이전 페이지 그룹 */
+	private int priorGroup; 
+	
+	/** 전체 페이지 그룹 */
+	private int totalGroup; 
+	
+	/** 전체 페이지 수 */
+	private int totalPages; 
 
-	public Paging() {
-	}
+	
+	/** 기본 생성자 */
+	public Paging() { }
 
+	
 	public int getWhere() {
 		return where;
 	}
@@ -144,12 +176,11 @@ public class Paging {
 
 	private void makePaging() {
 		if (this.totalCount == 0)
-			return; // 전체 레코드 수가 0 이면 반환
+			return; 
 		if (this.go == 0) {
 			this.setGo(1);
-		} // go값이 처음에 0인 경우 오류 발생하여 1로 초기화
+		}
 
-		// [1][2][3] 등 페이지 계산
 		if (this.getGo() != 0) {
 			this.where = this.getGo();
 			this.whereGroup = (where - 1) / finalPageNo + 1;
@@ -157,7 +188,6 @@ public class Paging {
 			this.endPageNo = startPageNo + finalPageNo - 1;
 		}
 
-		// 그룹 페이지 계산
 		if (this.getGoGroup() != 0) {
 			this.whereGroup = this.getGoGroup();
 			this.startPageNo = ((whereGroup - 1) * finalPageNo + 1);
@@ -165,26 +195,21 @@ public class Paging {
 			this.endPageNo = startPageNo + finalPageNo - 1;
 		}
 
-		// 전체 페이지 계산
 		this.totalPages = (this.totalCount - 1) / this.maxRows + 1;
 
 		int startPage = this.startPageNo;
 		int endPage = this.endPageNo;
 
-		// 마지막 페이지 > 전체 페이지? 전체 페이지를 마지막 페이지에 대입
 		if (endPage > this.totalPages) {
 			endPage = this.totalPages;
 		}
 
-		// 시작페이지 & 마지막 페이지
 		this.setStartPageNo(startPage);
 		this.setEndPageNo(endPage);
 
-		// 다음그룹 & 이전그룹
 		this.setNextGroup(whereGroup + 1);
 		this.setPriorGroup(whereGroup - 1);
 
-		// 조회 시작 row, 조회 끝 row
 		int startRow = ((where - 1) * maxRows);
 		int endRow = startRow + maxRows - 1;
 		if (endRow >= totalCount) {

@@ -44,7 +44,10 @@ public class FrontCategoryServlet extends HttpServlet {
 			switch(action) {
 			case "categoryList":
 				categoryList(request,response);
-					break;
+				break;
+			default:
+				response.sendRedirect(CONTEXT_PATH + "/index");
+				break;
 		}
 	}
 	

@@ -67,6 +67,9 @@ public class FrontItemServlet extends HttpServlet {
 			case "setSellItem":
 				setSellItem(request,response);
 				break;
+			default:
+				response.sendRedirect(CONTEXT_PATH + "/index");
+				break;
 		}
 	}
 	

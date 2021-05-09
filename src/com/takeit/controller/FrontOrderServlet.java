@@ -71,6 +71,9 @@ public class FrontOrderServlet extends HttpServlet {
 		case "orderForm":
 			orderForm(request, response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 	

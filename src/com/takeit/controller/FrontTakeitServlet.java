@@ -81,6 +81,9 @@ public class FrontTakeitServlet extends HttpServlet {
 		case "takeitDelete":
 			takeitDelete(request, response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 	

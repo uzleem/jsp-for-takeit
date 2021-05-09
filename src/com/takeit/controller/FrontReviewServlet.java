@@ -74,6 +74,9 @@ public class FrontReviewServlet extends HttpServlet {
 		case "reviewDetail":
 			reviewDetail(request, response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 	
 		}
 	}
@@ -119,6 +122,10 @@ public class FrontReviewServlet extends HttpServlet {
 	 * 후기등록요청서비스
 	 */
 	protected void enrollReviewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
 		String url = "/takeit/review/review.jsp";
 		response.sendRedirect(url);
 	}
