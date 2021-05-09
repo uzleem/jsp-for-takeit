@@ -442,8 +442,14 @@ public class FrontItemServlet extends HttpServlet {
 			try {
 				biz.setSellItem(dto);
 				biz.getSellItem(dto);
-				request.setAttribute("item", dto);
-				request.getRequestDispatcher("/item/itemController?action=sellerItemForm&itemNo="+itemNo).forward(request, response);
+				message = new MessageEntity("success", 5); 
+				message.setLinkTitle("내 상품보기");
+				message.setUrl("/takeit/item/itemController?action=myitemList");
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/message.jsp").forward(request, response);
+
+			//	request.setAttribute("item", dto);
+			//	request.getRequestDispatcher("/item/itemController?action=sellerItemForm&itemNo="+itemNo).forward(request, response);
 
 			} catch(CommonException e) {
 				message = e.getMessageEntity();
