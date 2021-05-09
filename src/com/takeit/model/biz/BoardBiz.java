@@ -30,6 +30,18 @@ public class BoardBiz {
 			JdbcTemplate.close(con);
 		}
 	}
+	
+	/**게시글 전체갯수조회*/
+	public int boardCount(String categoryNo) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try {
+			return dao.boardCount(con, categoryNo);
+		} catch (CommonException e) {
+			throw e;
+		} finally {
+			JdbcTemplate.close(con);
+		}
+	}
 
 	/**게시글상세조회*/
 	public void boardDetail(String boardNo, String boardCategory, Board board) throws CommonException {
