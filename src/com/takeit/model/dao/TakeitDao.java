@@ -754,10 +754,7 @@ public class TakeitDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, takeit.getShopLocCode());
-			int rows = stmt.executeUpdate();
-			if (rows == 0) {
-				throw new Exception();
-			}
+			int row = stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
