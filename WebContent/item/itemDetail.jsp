@@ -75,9 +75,9 @@ $(document).ready(function (){
 		<form action="${CONTEXT_PATH}/order/orderController?action=orderForm"  method="post" style="display: inline-block;" id="buyItemForm">
 		<input type="hidden" value="${item.itemNo}" name="itemNo"> 
 		<input type="hidden" value="1" name="itemQty"> 
-		<input type="hidden" value="${item.itemPrice}" name="itemPrice" > 
-		<input type="hidden" value="${item.itemPrice}" name="totalPrice" > 
-		<input type="hidden" value="${item.itemPrice}" name="cartTotalPrice" > 
+		<input type="hidden" value="${realPrice}" name="itemPrice" > 
+		<input type="hidden" value="${realPrice}" name="totalPrice" > 
+		<input type="hidden" value="${realPrice}" name="cartTotalPrice" > 
 		<input type="button" class="link" style="display: inline-block;" value="구매" onclick="if(${sellerId != null}){alert('판매자는 구매할 수 없습니다'); return;};$('#buyItemForm').submit();"/>
 	</form>
 	</div>

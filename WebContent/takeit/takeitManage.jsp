@@ -72,25 +72,25 @@ $(document).ready(function() {
 			<div class="takeitMgr-scroll">
 				<table  class="takeitMgr-table">
 					<tr id= "takeitMgr-tr">
-						<th style="width: 105px;">구역이름</th>
+						<th style="width: 105px;">지역시장</th>
 						<th style="width: 69px;">구역코드</th>
-						<th style="width: 69px;">회원번호</th>
-						<th style="width: 100.5px;">시작일자</th>
+						<th style="width: 69px;">회원코드</th>
+						<th style="width: 100.5px;">모집일자</th>
 						<th style="width: 100.5px;">종료일자</th>
 						<th style="width: 69px;">현재금액</th>
 						<th style="width: 69px;">목표금액</th>
-						<th style="width: 85.5px;">잇거래여부</th>
+						<th style="width: 85.5px;">진행중여부</th>
 						<th style="width: 102px;">삭제하기</th>
 					</tr>
 				<c:forEach var="takeit" items="${takeitList}">
-					<tr class="takeitMgr-table">
+					<tr class="takeitMgr-table" style="text-align: center;">
 						<td style="width: 105px;">${takeit.shopLocName}</td>
 						<td style="width: 69px;">${takeit.shopLocCode}</td>
 						<td style="width: 69px;">${takeit.memberLocNo}</td>
 						<td style="width: 100.5px;">${takeit.takeitDate}</td>
 						<td style="width: 100.5px;">${takeit.takeitEndDate}</td>
-						<td style="width: 69px;">${takeit.takeitCurrPrice}</td>
-						<td style="width: 69px;">${takeit.takeitPrice}</td>
+						<td style="width: 69px;"><fmt:formatNumber value="${takeit.takeitCurrPrice}" pattern="###,###,###"/></td>
+						<td style="width: 69px;"><fmt:formatNumber value="${takeit.takeitPrice}" pattern="###,###,###"/></td>
 						<td style="width: 85.5px;">${takeit.takeitAlive}</td>
 						<td style="width: 102px;"><input type="button" class="takeitMgr-del-btn" value="삭제"></td>
 					</tr>

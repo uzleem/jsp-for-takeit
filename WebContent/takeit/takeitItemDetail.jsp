@@ -191,16 +191,12 @@ $(document).ready(function (){
 				<b>판매자</b>&emsp;
 				<span id="addcart-itemSeller">${takeitItem.sellerName }</span><br>
 				<b>배송비</b>&emsp;
-				<span id="addcart-shippingFee">3500원</span><br>
+				<span id="addcart-shippingFee">무료(잇거래)</span><br>
 				<b>수량</b>&emsp;&emsp;
 				<select id="addcart-itemQty" name="cart-itemQty">
-				<%
-					for(int i=1; i<10; i++){
-				%>
-					<option value="<%= i %>"><%= i %></option>
-				<%
-					}
-				%>
+				<c:forEach var="i" begin="1" end="9">
+					<option>${i}</option>
+				</c:forEach>
 				</select>
 			</div>
 		</div>

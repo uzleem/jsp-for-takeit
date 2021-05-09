@@ -93,15 +93,15 @@
 </div>
 
  <div class="item_wrap" style="display: flex;">
- 	<%
+<%--  	<%
 	int i = 0;
-	%>
+	%> --%>
 	<div class="takeit_item_wrap">
-	<c:forEach items="${takeitItemList}" var="takeitItem"> 
-	<%
+	<c:forEach items="${takeitItemList}" var="takeitItem" > 
+<%--  	<%
 		i++;
 		if(i % 3 != 0){ //3의 배수가 아닐 때(flex)
-	%>
+	%>  --%>
 		<ul class="takeit_item" style="display: inline-block;">
 
 			<li style="width: 250px;">
@@ -122,10 +122,10 @@
 			<li id="salePrice">${takeitItemPrice}원</li>
 			<li id="price">${takeitItem.itemPrice}원</li>
 		</ul>
-
-	<%
+<%-- 
+ 	<%
 		} else if(i % 3 == 0){ //3의 배수일 때
-	%>
+	%> 
 		<ul class="takeit_item" style="display: inline-block;">
 			<li style="width: 250px;">
 				<span class="takeitTime takeit-listTime blink" data-takeittime="${takeitItem.takeitDate}"></span><br>
@@ -145,10 +145,10 @@
 			<li id="salePrice">${takeitItemPrice}원</li>
 			<li id="price">${takeitItem.itemPrice}원</li>
 		</ul>
-	<%
+ 	<%
 		i--;
 		}
-	%>
+	%>  --%>
 	</c:forEach>
 	</div>
 </div>
