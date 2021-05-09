@@ -732,7 +732,6 @@ public class TakeitDao {
 			if (rows == 0) {
 				throw new Exception();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -750,12 +749,15 @@ public class TakeitDao {
 	 * @param takeit 잇거래 객체
 	 */
 	public void updateMemberLocNull(Connection conn, Takeit takeit) throws CommonException {
-		String sql = "UPDATE MEMBER SET SHOP_LOC_CODE=NULL WHERE SHOP_LOC_CODE=?";
+		String sql = "UPDATE MEMBER SET SHOP_LOC_CODE = NULL WHERE SHOP_LOC_CODE = ?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, takeit.getShopLocCode());
-			int row = stmt.executeUpdate();
+			int rows = stmt.executeUpdate();
+			if (rows == 0) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
