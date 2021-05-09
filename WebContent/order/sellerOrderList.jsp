@@ -121,7 +121,7 @@ function updateShipStatus(orderNo, shipStatusCode) {
 				<div class="order-detail">
 					<span><b>상품명 :</b>&emsp;&emsp;&emsp;&emsp; ${orderDetail.itemName}</span> <br>
 					<span><b>상품개수 :</b>&emsp;&emsp;&emsp; ${orderDetail.itemQty}개</span> <br>
-					<span><b>상품결제금액 :</b>&emsp; ${orderDetail.itemPayPrice}원</span> <br> 
+					<span><b>상품결제금액 :</b>&emsp; ${orderDetail.itemPayPrice * orderDetail.itemQty}원</span> <br> 
 				</div><br>
 			</div>
 			</c:forEach>
