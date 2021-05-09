@@ -293,6 +293,7 @@ public class TakeitBiz {
 		Connection conn = JdbcTemplate.getConnection();
 
 		try {
+			dao.updateMemberLocNull(conn, takeit);
 			dao.deleteShopLoc(conn, takeit);
 			JdbcTemplate.commit(conn);
 		} catch (CommonException e) {
