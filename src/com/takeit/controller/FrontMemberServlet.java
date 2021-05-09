@@ -68,6 +68,9 @@ public class FrontMemberServlet extends HttpServlet {
 		case "memberEmailChk":
 			memberEmailChk(request, response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 	

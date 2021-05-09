@@ -3,8 +3,12 @@ package com.takeit.model.dto;
 import java.io.Serializable;
 
 /**
+ * <pre>
  * 상점구역 도메인 클래스
+ * </pre>
  * @author 김태경
+ * @since jdk1.8
+ * @version ver.1.0
  */
 public class ShopLoc implements Serializable{
 	
@@ -20,8 +24,18 @@ public class ShopLoc implements Serializable{
 	/* 경도 : 필수데이터 */
 	private String shopLocLng;
 	
+	
+	/** 기본 생성자 */
 	public ShopLoc() {	}
 
+	
+	/**
+	 * 전체 데이터 초기화 생성자
+	 * @param shopLocCode 상점구역코드
+	 * @param shopLocName 상점구역이름
+	 * @param shopLocLat 경도
+	 * @param shopLocLng 위도
+	 */
 	public ShopLoc(String shopLocCode, String shopLocName, String shopLocLat, String shopLocLng) {
 		super();
 		this.shopLocCode = shopLocCode;
@@ -61,6 +75,18 @@ public class ShopLoc implements Serializable{
 	public void setShopLocLng(String shopLocLng) {
 		this.shopLocLng = shopLocLng;
 	}
-	
-	
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(shopLocCode);
+		builder.append(", ");
+		builder.append(shopLocName);
+		builder.append(", ");
+		builder.append(shopLocLat);
+		builder.append(", ");
+		builder.append(shopLocLng);
+		return builder.toString();
+	}
 }

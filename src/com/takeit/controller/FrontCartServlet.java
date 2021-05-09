@@ -52,6 +52,9 @@ public class FrontCartServlet extends HttpServlet {
 			case "changeCartQty":
 				changeCartQty(request,response);
 				break;
+			default:
+				response.sendRedirect(CONTEXT_PATH + "/index");
+				break;
 			}
 		}
 

@@ -66,6 +66,9 @@ public class FrontBoardServlet extends HttpServlet {
 		case "boardListPaging":
 			boardListPaging(request,response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 

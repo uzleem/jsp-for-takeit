@@ -73,6 +73,9 @@ public class FrontSellerServlet extends HttpServlet {
 		case "sellerNoChk":
 			sellerNoChk(request, response);
 			break;
+		default:
+			response.sendRedirect(CONTEXT_PATH + "/index");
+			break;
 		}
 	}
 	
