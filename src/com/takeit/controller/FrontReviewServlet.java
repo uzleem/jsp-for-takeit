@@ -57,17 +57,6 @@ public class FrontReviewServlet extends HttpServlet {
 		case "setReviewInfo":
 			setReviewInfo(request,response);
 			break;
-//			String button = request.getParameter("button");
-//			System.out.println("= button = ["+ button+"]");
-//			
-//			if(button.equals("내후기수정")) {
-//				System.out.println("setReviewInfo "+ button);
-//				setReviewInfo(request,response);
-//			}else {	
-//				System.out.println("deleteReview "+ button);
-//				deleteReview(request,response);
-//			}
-		
 		case "deleteReview":
 			deleteReview(request, response);
 			break;
@@ -132,7 +121,7 @@ public class FrontReviewServlet extends HttpServlet {
 
 	/**후기등록*/
 	private void enrollReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String directory = "C:/Users/kkhw9/git/takeit/WebContent/img/review";
+	
 		String directory = 	"C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/review";
 	
 		int maxSize = 1024 * 1024 * 100;
@@ -146,7 +135,7 @@ public class FrontReviewServlet extends HttpServlet {
 		String reviewTitle = multi.getParameter("reviewTitle");
 		String reviewContents = multi.getParameter("reviewContents");
 		String reviewScore_ = multi.getParameter("reviewScore");
-	//	int reviewViews = Integer.parseInt(request.getParameter("reviewViews"));
+
 
 		int reviewScore = 0;
 		if (reviewScore_!= null) {
@@ -361,10 +350,9 @@ public class FrontReviewServlet extends HttpServlet {
 	protected void deleteReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String reviewNo = request.getParameter("reviewNo");
-		//String reviewTitle = request.getParameter("reviewTitle");
-
-		reviewNo = reviewNo.trim();
-		//reviewTitle = reviewTitle.trim();
+	
+    	reviewNo = reviewNo.trim();
+		
 		HttpSession session = request.getSession(false);
 		String memberId = (String)session.getAttribute("memberId");
 		memberId = memberId.trim();
