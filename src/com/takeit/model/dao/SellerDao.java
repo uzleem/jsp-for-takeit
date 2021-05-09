@@ -46,7 +46,7 @@ public class SellerDao {
 		stmt.setString(11, seller.getSellerNo());
 		stmt.setString(12, seller.getShopMobile());
 		stmt.setString(13, seller.getShopName());
-		stmt.setDouble(14, 5.0);
+		stmt.setDouble(14, 0.0);
 		stmt.setString(15, seller.getShopKakaoId());
 		stmt.setString(16, seller.getShopImg());
 		stmt.setString(17, seller.getShopCategoryNo());
