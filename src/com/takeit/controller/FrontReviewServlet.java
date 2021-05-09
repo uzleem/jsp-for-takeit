@@ -132,7 +132,9 @@ public class FrontReviewServlet extends HttpServlet {
 
 	/**후기등록*/
 	private void enrollReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String directory = "C:/Users/kkhw9/git/takeit/WebContent/img/review";
+		//String directory = "C:/Users/kkhw9/git/takeit/WebContent/img/review";
+		String directory = 	"C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/review";
+	
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
 		MultipartRequest multi
