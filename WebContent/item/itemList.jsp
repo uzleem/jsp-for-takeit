@@ -44,7 +44,7 @@ String categoryName = categoryItemList.get(0).getItemCategoryName();
 </div>
 
 <div class="item_wrap">
-<c:forEach var="dto" items="${categoryItemList}" begin="${startRow }" end="${endRow}">
+<c:forEach var="dto" items="${categoryItemList}">
 	<div class="item_list" style="white-space: nowrap;">
 		<div>
 		<a href="/takeit/item/itemController?action=itemDetail&itemNo=${dto.itemNo}">
