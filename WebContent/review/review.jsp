@@ -35,12 +35,12 @@
 			<table id="reviewInput-table">
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="memberId" class="reviewInput" placeholder="작성자"></td>
+					<td><input type="text" name="memberId" class="reviewInput" placeholder="작성자" value="${memberId }"></td>
 				</tr>
 
 				<tr>
 					<th>상품번호</th>
-					<td><input type="text" name="itemNo" class="reviewInput" placeholder="상품번호"></td>
+					<td><input type="text" name="itemNo" class="reviewInput" placeholder="상품번호" value="${order.orderNo}"></td>
 				</tr>
 				<tr>
 					<th>글제목</th>

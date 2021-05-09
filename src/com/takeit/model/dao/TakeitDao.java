@@ -40,10 +40,17 @@ public class TakeitDao {
 			throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
-				+ "WHERE SELLER_ID IN ( " + "		SELECT SELLER_ID " + "		FROM SELLER "
-				+ "		WHERE SHOP_LOC_CODE IN ( " + "			SELECT SHOP_LOC_CODE " + "			FROM TAKEIT "
-				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? " + "			) " + "		) "
-				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' " + "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+				+ "WHERE SELLER_ID IN ( " 
+				+ "		SELECT SELLER_ID " 
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( " 
+				+ "			SELECT SHOP_LOC_CODE " 
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? " 
+				+ "			) " 
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' " 
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -104,9 +111,15 @@ public class TakeitDao {
 	public void searchTakeitItemList(Connection conn, ArrayList<TakeitItem> takeitItemList) throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
-				+ "WHERE SELLER_ID IN ( " + "		SELECT SELLER_ID " + "		FROM SELLER "
-				+ "		WHERE SHOP_LOC_CODE IN ( " + "			SELECT SHOP_LOC_CODE " + "			FROM TAKEIT "
-				+ "			WHERE TAKEIT_ALIVE = 'T'" + "			) " + "		) "
+				+ "WHERE SELLER_ID IN ( " 
+				+ "		SELECT SELLER_ID " 
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( " 
+				+ "			SELECT SHOP_LOC_CODE " 
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T'" 
+				+ "			) " 
+				+ "		) "
 				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = '0' " + "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 
 		PreparedStatement stmt = null;
@@ -173,10 +186,17 @@ public class TakeitDao {
 			throws CommonException {
 		String sql = "SELECT * "
 				+ "FROM ITEM JOIN ITEM_CATEGORY USING (ITEM_CATEGORY_NO) JOIN PACKING USING (PACK_TYPE_NO) JOIN SELLER USING (SELLER_ID) JOIN TAKEIT USING(SHOP_LOC_CODE) "
-				+ "WHERE SELLER_ID IN ( " + "		SELECT SELLER_ID " + "		FROM SELLER "
-				+ "		WHERE SHOP_LOC_CODE IN ( " + "			SELECT SHOP_LOC_CODE " + "			FROM TAKEIT "
-				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? " + "			) " + "		) "
-				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = ? " + "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
+				+ "WHERE SELLER_ID IN ( " 
+				+ "		SELECT SELLER_ID " 
+				+ "		FROM SELLER "
+				+ "		WHERE SHOP_LOC_CODE IN ( " 
+				+ "			SELECT SHOP_LOC_CODE " 
+				+ "			FROM TAKEIT "
+				+ "			WHERE TAKEIT_ALIVE = 'T' AND SHOP_LOC_CODE = ? " 
+				+ "			) " 
+				+ "		) "
+				+ "AND ITEM_TAKEIT = 'T' AND MEMBER_LOC_NO = ? " 
+				+ "ORDER BY SUBSTR(ITEM.ITEM_NO, 3) DESC ";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -732,7 +752,6 @@ public class TakeitDao {
 			if (rows == 0) {
 				throw new Exception();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -750,7 +769,7 @@ public class TakeitDao {
 	 * @param takeit 잇거래 객체
 	 */
 	public void updateMemberLocNull(Connection conn, Takeit takeit) throws CommonException {
-		String sql = "UPDATE MEMBER SET SHOP_LOC_CODE=NULL WHERE SHOP_LOC_CODE=?";
+		String sql = "UPDATE MEMBER SET SHOP_LOC_CODE = NULL WHERE SHOP_LOC_CODE = ?";
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(sql);
