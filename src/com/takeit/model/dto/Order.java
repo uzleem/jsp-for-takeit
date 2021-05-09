@@ -9,28 +9,44 @@ import java.util.ArrayList;
  */
 public class Order implements Serializable {
 	// 상품
+	
 	private String itemTakeit;
 	// 배송
+	
 	private String shipStatus;
 	// 주문
+
 	private String orderNo;
+	
 	private String receiveMethod;
+	
 	private String recipientName;
+
 	private String recipientPostNo;
+	
 	private String recipientAddr;
+	
 	private String recipientAddrDetail;
+	
 	private String recipientMobile;
 	
 	
 	private String shipRequest;
+	
 	private int orderPrice;
+	
 	private String shipStatusCode;
+	
 	private String memberId;
+	
 	private String orderCancelReq;
+	
 	private String orderCancel;
 	
 	// 판매자
+	
 	private String sellerId;
+	
 	private String shopName;
 
 	// 주문상세
