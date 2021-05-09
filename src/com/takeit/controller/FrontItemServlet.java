@@ -341,7 +341,7 @@ public class FrontItemServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			MessageEntity message = null;
 			
-			String sellerId = (String)session.getAttribute("sellerId"); // String
+			String sellerId = (String)session.getAttribute("sellerId"); 
 		
 			ArrayList<Item> itemList = new ArrayList<Item>();
 			ItemBiz abiz = new ItemBiz();

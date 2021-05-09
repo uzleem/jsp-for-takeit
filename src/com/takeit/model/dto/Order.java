@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author 김태경
  */
 public class Order implements Serializable {
+
 	/***/
 	private String itemTakeit;
 	/** 배송상태이름(주문접수|o-get, 상품인수|i-get, 상품이동중|i-move, 배달지도착|s-arr, 배달출발|s-go, 배달완료|done), 판매자 입력 */
@@ -25,6 +26,7 @@ public class Order implements Serializable {
 	/** 수령인 상세주소, 사용자 입력, 배송수령 선택한 사용자 필수*/
 	private String recipientAddrDetail;
 	/** 수령인 연락처, 사용자 입력, 배송수령 선택한 사용자  필수 */
+
 	private String recipientMobile;
 	
 	/** 배송요청사항, 사용자입력 */
@@ -43,6 +45,7 @@ public class Order implements Serializable {
 	/** 판매자 아이디, itemNo로 접근, 필수*/
 	private String sellerId;
 	/** 상점명, sellerId로 접근, 필수*/
+
 	private String shopName;
 
 	/** 주문상세정보 */
