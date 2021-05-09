@@ -117,24 +117,32 @@
 </div>
 
 <!-- 페이징 -->
-<div id="paging">
-	<c:choose>
-		<c:when test="${whereGroup > 1 }">
-			<a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=1">[처음]</a>
-			<a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${priorGroup}">[이전]</a>
-		</c:when>
-		<c:otherwise>[처음][이전]</c:otherwise>
-	</c:choose>
-	<c:forEach var="i" begin="${startPageNo}" end="${endPageNo}" step="1">
-		<a href="/takeit/takeit/takeitController?action=takeitItemList&go=${i}">${i}</a>
-	</c:forEach>
-	<c:choose>
-		<c:when test="${whereGroup < totalGroup}">
-			<a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${nextGroup}">[다음]</a>
-			<a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${totalGroup}">[마지막]</a>
-		</c:when>
-		<c:otherwise>[다음][마지막]</c:otherwise>
-	</c:choose>
+<div class="view-width">
+	<div id="paging">
+		<c:choose>
+			<c:when test="${whereGroup > 1 }">
+				<span><a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=1">[처음]</a></span>
+				<span><a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${priorGroup}">[이전]</a></span>
+			</c:when>
+			<c:otherwise>
+					<span>[처음]</span>
+					<span>[이전]</span>
+				</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${startPageNo}" end="${endPageNo}" step="1">
+			<a href="/takeit/takeit/takeitController?action=takeitItemList&go=${i}">${i}</a>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${whereGroup < totalGroup}">
+				<span><a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${nextGroup}">[다음]</a></span>
+				<span><a href="/takeit/takeit/takeitController?action=takeitItemList&goGroup=${totalGroup}">[마지막]</a></span>
+			</c:when>
+			<c:otherwise>
+					<span>[다음]</span>
+					<span>[마지막]</span>
+				</c:otherwise>
+		</c:choose>
+	</div>
 </div>
 
 

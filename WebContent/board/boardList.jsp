@@ -21,6 +21,13 @@ function valueIsNull(){
 		return true;
 	}
 }
+
+$(document).ready(function(){
+	$("#go").on("click",function(){
+		$("#go").attr("style", "color: #fe4b03")
+	});
+});
+	
 </script>
 </head>
 <body>
@@ -95,28 +102,6 @@ function valueIsNull(){
 	</tr>
 	</c:forEach>
 </table>
-
-<!-- 페이징 -->
-<div id="paging">
-	<c:choose>
-		<c:when test="${whereGroup > 1 }">
-			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=1">[처음]</a>
-			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${priorGroup}">[이전]</a>
-		</c:when>
-		<c:otherwise>[처음][이전]</c:otherwise>
-	</c:choose>
-	<c:forEach var="i" begin="${startPageNo}" end="${endPageNo}" step="1">
-		<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&go=${i}">${i}</a>
-	</c:forEach>
-	<c:choose>
-		<c:when test="${whereGroup < totalGroup}">
-			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${nextGroup}">[다음]</a>
-			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${totalGroup}">[마지막]</a>
-		</c:when>
-		<c:otherwise>[다음][마지막]</c:otherwise>
-	</c:choose>
-</div>
-
 <!-- 게시글 검색 -->
 <div id="boardSearch-area">
 	<form action="/takeit/boardController?action=boardSearch&boardCategory=<%= boardList.get(0).getBoardCategory() %>" method="post" style="width: fit-content;">
@@ -131,6 +116,36 @@ function valueIsNull(){
 	</form>
 	
 </div>
+
+<!-- 페이징 -->
+<div class="view-width">
+	<div id="paging">
+		<c:choose>
+			<c:when test="${whereGroup > 1 }">
+				<span><a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=1">[처음]</a></span>
+				<span><a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${priorGroup}">[이전]</a></span>
+			</c:when>
+			<c:otherwise>
+				<span>[처음]</span>
+				<span>[이전]</span>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${startPageNo}" end="${endPageNo}" step="1">
+			<a href="/takeit/boardController?action=boardListPaging&boardCategory=1&go=${i}" id="go">${i}</a>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${whereGroup < totalGroup}">
+				<span><a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${nextGroup}">[다음]</a></span>
+				<span><a href="/takeit/boardController?action=boardListPaging&boardCategory=1&goGroup=${totalGroup}">[마지막]</a></span>
+			</c:when>
+			<c:otherwise>
+				<span>[다음]</span>
+				<span>[마지막]</span>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</div>
+
 <a href="/takeit/index" class="link">홈으로이동</a>
 </div>
 
