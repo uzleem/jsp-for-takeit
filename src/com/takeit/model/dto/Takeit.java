@@ -16,32 +16,22 @@ public class Takeit {
 	/**상점명:필수*/
 	private String shopLocName;
 	
-	/**회원구역번호:필수
-	 * 구역번호:29,30
-	 */
+	/**회원구역번호:(구역번호:29,30),필수입력 */
 	private String memberLocNo;
 	
-	/**모집금액:필수
-	 * 모집금액 :100만원
-	 */
+	/**모집금액:모집금액 :100만원,필수입력*/
 	private int takeitPrice;
 	
 	/**현재 모집된 금액:필수*/
 	private int takeitCurrPrice;
 	
-	/**모집시작일자:필수
-	 * 시작일자 :takeit등록일자 
-	 */
+	/**모집시작일자:takeit등록일자 */
 	private String takeitDate;
 	
-	/**모집마감일자:필수
-	 *100만원 충족 or 등록후 7일 경과 */
+	/**모집마감일자:100만원 충족 or 등록후 7일 경과,필수입력 */
 	private String takeitEndDate;
 	
-
-	/**잇거래진행여부:필수
-	 * DEFAULT 'T'
-	 */
+	/**잇거래진행여부:DEFAULT 'T',필수입력*/
 	private String takeitAlive;
 
 	public Takeit() {

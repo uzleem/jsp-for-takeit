@@ -11,27 +11,19 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
 
-	/**포장타입번호:필수입력
-	 *re789,ic789,ro123,el456
-	 */
+	/**포장타입번호:(re789,ic789,ro123,el456),필수입력*/
 	private String packTypeNo;
 
-	/**포장타입이름:필수입력
-	 * 냉장포장,냉동포장,상온포장,기타
-	 */
+	/**포장타입이름:(냉장포장,냉동포장,상온포장,기타),필수입력 */
 	private String packTypeName;
 
 	/**상품카테고리번호:필수입력*/
 	private String itemCategoryNo;
 
-	/**상품카테고리이름:필수입력
-	 * 야채,과일,곡물류,음료,유제품,고기류,반찬류,아이스크림
-	 */
+	/**상품카테고리이름:(야채,과일,곡물류,음료,유제품,고기류,반찬류,아이스크림),필수입력 */
 	private String itemCategoryName;
 
-	/**유통기한
-	 * 남은 일수 숫자로 계산
-	 */
+	/**유통기한:남은 일수 숫자로 계산 */
 	private String expirationDate;
 
 	/**안내사항:필수입력*/
@@ -61,9 +53,7 @@ public class Item implements Serializable{
 	/**재고량:필수입력*/
 	private int itemStock;
 
-	/**상품이미지:필수입력
-	 * 이미지 업로드 파일사용
-	 */
+	/**상품이미지:이미지 업로드 파일사용,필수입력*/
 	private String itemImg;
 
 	/**고갱평점:필수입력*/
@@ -75,9 +65,7 @@ public class Item implements Serializable{
 	/**할인율*/
 	private int discRate;
 
-	/**잇거래여부:필수입력
-	 * 잇거래 여부  T,F로 선택
-	 */
+	/**잇거래여부:T,F로 선택,필수입력*/
 	private String itemTakeit;
 
 	/**판매자이름:필수입력*/

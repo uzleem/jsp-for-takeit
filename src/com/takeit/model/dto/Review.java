@@ -29,9 +29,7 @@ public class Review implements Serializable{
 	/**후기내용:필수입력*/
 	private String reviewContents;
 	
-	/**후기 조회수 
-	 *default=0
-	 */
+	/**후기 조회수 default=0*/
 	private int reviewViews;
 	
 	/**후기 평점:필수입력*/
