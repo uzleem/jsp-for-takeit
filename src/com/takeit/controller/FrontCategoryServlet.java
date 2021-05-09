@@ -16,6 +16,7 @@ import com.takeit.common.CommonException;
 import com.takeit.model.biz.ItemBiz;
 import com.takeit.model.dto.Item;
 import com.takeit.model.dto.MessageEntity;
+import com.takeit.model.dto.Paging;
 
 
 /**
@@ -66,6 +67,7 @@ public class FrontCategoryServlet extends HttpServlet {
 		
 		ArrayList<Item> categoryItemList = new ArrayList<Item>();
 		ItemBiz ibiz = new ItemBiz();
+		
 		String categoryName = null;
 		try {
 			ibiz.getCategoryItemList(categoryItemList, categoryNo, categoryName);
