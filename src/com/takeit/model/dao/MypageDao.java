@@ -426,7 +426,7 @@ public class MypageDao {
 	 */
 	public void sellerInfoUpdate(Connection conn, Seller dto) throws CommonException{
 		String sql = "UPDATE SELLER SET SELLER_PW=? ,NAME=? ,MOBILE=?,"
-				 + "EMAIL=?, POSTNO=?, ADDRESS=?, ADDRESS_DETAIL=?, SELLER-NO=? , "
+				 + "EMAIL=?, POSTNO=?, ADDRESS=?, ADDRESS_DETAIL=?, SELLER_NO=? , "
 				 + "SHOP_MOBILE=? , SHOP_NAME=?, SHOP_KAKAO_ID=?, "
 				 + "SHOP_CATEGORY_NO=? WHERE SELLER_ID=? ";
 	
