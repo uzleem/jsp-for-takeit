@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품주문 폼</title>
+<title>상품주문</title>
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/order.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 var goPopup = function() {
-	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+	 var pop = window.open("/takeit/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
  } 
 var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
 	 document.getElementById("recipientPostNo").value = zipNo; 
@@ -96,7 +96,8 @@ $(document).ready(function() {
 			<div class="recipient-info" style="margin-left: 10px;">
 				<span><input type="text" id="recipientName" name="recipientName"  class="recipient-receiveMethod" value="${order.recipientName}"></span><br>
 				<span><input type="text" id="recipientMobile" name="recipientMobile"  class="recipient-receiveMethod" value="${order.recipientMobile}"></span><br>
-				<span><input type="text" id="recipientPostNo" readonly="readonly" class="recipient-receiveMethod" name="recipientPostNo" value="${order.recipientPostNo}"></span><input type="button" id="postNoBtn" name="postNoBtn" class="small-btn" onclick="goPopup();" value="주소검색" /> <br>
+				<span><input type="text" id="recipientPostNo" readonly="readonly" class="recipient-receiveMethod" name="recipientPostNo" value="${order.recipientPostNo}"></span>
+				<input type="button" id="postNoBtn" name="postNoBtn" class="small-btn" onclick="goPopup()" value="주소검색" /> <br>
 				<input type="text" id="recipientAddr" readonly="readonly" name="recipientAddr"  class="recipient-receiveMethod" value="${order.recipientAddr}"><br>
 				<input type="text" id="recipientAddrDetail" name="recipientAddrDetail"  class="recipient-receiveMethod" value="${order.recipientAddrDetail}"><br>
 				<span><input type="text" id="shipRequest" name="shipRequest"  class="recipient-receiveMethod" value="${order.shipRequest}"></span>

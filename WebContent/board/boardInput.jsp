@@ -24,7 +24,14 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#itemNo").attr("readonly",true);
+		
+		if ($("#itemNo").val() == "null") {
+			$("#itemNo").attr("readonly", false).val("");
+		} else {
+			$("#itemNo").attr("readonly", true);
+		}
+		
+		
 		$("#boardCategory").on('change',function(){
 			var itemNo = this.value;
 			if(itemNo === '3'){
@@ -36,7 +43,8 @@
 		});
 		$("#cancle").on("click", function(){
 			history.back();
-		})
+		});
+		
 	});
 	
 </script>
@@ -83,12 +91,12 @@
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><input type="text" name="boardWriter" id="boardWriter" class="boardInput" value="${memberId }" readonly="readonly"></td>
+		<td><input type="text" name="boardWriter" id="boardWriter" class="boardInput" value="${memberId}" readonly="readonly"></td>
 		<%
 			String itemNo = request.getParameter("itemNo");
 		%>
 		<th >상품번호</th>
-		<td><input type="text" id="itemNo" class="boardInput" name="itemNo" placeholder="상품번호(예:FR0709)" value="<%=itemNo%>" readonly="readonly"></td>
+		<td><input type="text" id="itemNo" class="boardInput" name="itemNo" placeholder="상품번호(예:FR000709)" value="<%=itemNo%>" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th colspan="4">내용</th>
