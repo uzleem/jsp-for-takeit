@@ -21,6 +21,9 @@ import com.takeit.model.dto.ShopLoc;
 
 /**
  * 판매자 회원관리 컨트롤러
+ * @author  임우진
+ * @since   jdk1.8
+ * @version v2.0
  */
 @WebServlet(urlPatterns = {"/seller/controller"})
 public class FrontSellerServlet extends HttpServlet {

@@ -19,6 +19,9 @@ import com.takeit.model.dto.MessageEntity;
 
 /**
  * 일반 회원관리 컨트롤러
+ * @author  임우진
+ * @since   jdk1.8
+ * @version v2.0
  */
 @WebServlet(urlPatterns = {"/member/controller"}, loadOnStartup = 1)
 public class FrontMemberServlet extends HttpServlet {

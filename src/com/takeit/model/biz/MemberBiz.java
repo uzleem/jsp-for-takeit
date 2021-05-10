@@ -9,9 +9,10 @@ import com.takeit.model.dao.TakeitDao;
 import com.takeit.model.dto.Member;
 
 /**
- * 회원가입 : 일반회원
- * @author 임우진
- * 
+ * 일반 회원관리 서비스
+ * @author  임우진
+ * @since   jdk1.8
+ * @version v2.0
  */
 public class MemberBiz {
 
