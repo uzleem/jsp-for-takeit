@@ -38,8 +38,8 @@
 <form action="${CONTEXT_PATH}/member/controller?action=memberInput" method="post">
 <%-- <input type="hidden" value="${kakaoId}" name="memberId">
 <input type="hidden" value="${kakaoPass}" name="memberPw"> --%>
-<input type="hidden" value="17215481" name="memberId">
-<input type="hidden" value="abeSFeSefZCVnkn" name="memberPw">
+<input type="hidden" value="${kakaoId}" name="memberId">
+<input type="hidden" value="kakaoPass" name="memberPw">
 <table>
 		<tr>
 			<td>이름<span class="star"> *</span></td>
@@ -82,7 +82,7 @@
 		<tr>
 			<td>이메일<span class="star"> *</span></td>
 			<td>
-				<input type="text" placeholder="이메일을 입력해주세요." id="email" name="email" />
+				<input type="text" placeholder="이메일을 입력해주세요." id="email" name="email" value="${kakaoEmail}" />
 				<input type="button" value="중복확인" id="email_button" name="email_button" onclick="emailCheck()"/>
 			</td>
 		</tr>

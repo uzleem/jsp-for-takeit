@@ -15,30 +15,49 @@
 <script>
 Kakao.init('cfba92f035510f0ba0faccfd270f7b1a'); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
-<!-- 카카오 로그인 -->
+//<!-- 카카오 로그인 -->
+var kakaoId = "";
 function kakaoLogin() {
 	
 	console.log(Kakao.Auth.getAccessToken());
 	console.log("login req");
-    Kakao.Auth.login({
-      scope: 'account_email',
-      success: function (response) {
-    	  
-    	  
-    	  //아이디 존재여부 확인
-    	  
-    	  
-    	  
-    	  console.log("login succ");
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function (response) {
-        	  const kakao_account = response.kakao_account;
-        	  console.log(response.id);
-        	  console.log(kakao_account.email);
-          },
-          fail: function (error) {
-            console.log(error)
+	Kakao.Auth.login({
+		scope: 'account_email',
+		success: function (response) {
+		console.log("login succ");
+		Kakao.API.request({
+			url: '/v2/user/me',
+			success: function (response) {
+			kakaoId =""+ response.id;
+			console.log(kakaoId);
+			const kakao_account = response.kakao_account;
+			$.ajax({	
+				url:"/takeit/member/controller?action=memberIdChk",
+				type:"post",
+				data:{
+					"memberId" : ""+kakaoId
+				},	
+				success:function(data){
+					console.log(kakaoId);
+					if(data == "1"){
+						alert("사용가능한 아이디입니다.");
+						$("#kakaoEmail").val(kakao_account.email);
+						$("#kakaoIdInput").val(""+kakaoId);
+						
+						$("#kakaoInputForm").submit();
+						//회원가입 페이지로 이동하는데 데이터를 갖고 지나가
+        					
+       				} else {					
+						alert("해당 아이디는 사용중입니다.");
+						$("#kakaoId").val(response.id);
+						$("#kakaoLoginForm").submit();
+						//메인페이지
+					}
+       			}
+       		});
+		},
+		fail: function (error) {
+			console.log(error)
             console.log("요청실패");
           },
         })
@@ -113,6 +132,16 @@ function kakaoLogin() {
 	</tr>
 </table>
 </form>
+
+<form id="kakaoLoginForm" action="/takeit/member/controller?action=kakaoLogin" method="post">
+	<input id="kakaoId" type="hidden" name="kakaoId" value="">
+</form>
+
+<form id="kakaoInputForm" action="/takeit/member/controller?action=kakaoMemberInputForm" method="post">
+	<input id="kakaoIdInput" type="hidden" name="kakaoIdInput" value="">
+	<input id="kakaoEmail" type="hidden" name="kakaoEmail" value="">
+</form>
+
 </div>
 <!-- scroll function -->
 <jsp:include page="/common/back_to_top.jsp"></jsp:include>
