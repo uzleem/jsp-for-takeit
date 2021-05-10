@@ -15,7 +15,9 @@ import com.takeit.util.Utility;
 
 /**
  * 장바구니 dao
- * @author 한소희
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  *
  */
 public class CartDao {

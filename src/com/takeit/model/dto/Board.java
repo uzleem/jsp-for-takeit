@@ -7,7 +7,9 @@ import java.io.Serializable;
 
 /**
  * 게시글
- * @author 한소희
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  */
 public class Board implements Serializable{
 	

@@ -15,8 +15,9 @@ import com.takeit.model.dto.Search;
 
 /**
  * 상품검색 dao
- * @author 한소희
- *
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  */
 public class SearchDao {
 	private static SearchDao instance = new SearchDao();

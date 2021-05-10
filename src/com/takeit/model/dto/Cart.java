@@ -1,7 +1,9 @@
 package com.takeit.model.dto;
 
 /** 장바구니
- * @author 한소희
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  *  
  */
 public class Cart {

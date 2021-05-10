@@ -21,7 +21,9 @@ import com.takeit.model.dto.Paging;
 
 /**
  * 카테고리에 따른 상품관리를 위한 FrontController servlet
- * @author 한소희
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  */
 @WebServlet("/categoryController")
 public class FrontCategoryServlet extends HttpServlet {

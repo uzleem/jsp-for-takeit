@@ -18,7 +18,9 @@ import com.takeit.model.dto.MessageEntity;
 
 /**
  * 장바구니 관리 컨트롤러
- * @author 한소희
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  */
 @WebServlet("/cartController")
 public class FrontCartServlet extends HttpServlet {
