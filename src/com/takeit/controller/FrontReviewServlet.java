@@ -114,21 +114,7 @@ public class FrontReviewServlet extends HttpServlet {
 		
 		String itemNo = request.getParameter("itemNo");
 		
-		if (itemNo == null || itemNo.trim().length() == 0){
-			MessageEntity message = new MessageEntity("validation", 5);
-			message.setUrl("takeit/member/myPage.jsp");
-			message.setLinkTitle("마이페이지로 이동");
-
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
-			return;  
-
-		}
-		
-		itemNo = itemNo.trim();
-		
 		request.setAttribute("itemNo", itemNo);
-		
 		request.getRequestDispatcher("/review/review.jsp").forward(request, response);
 	}
 

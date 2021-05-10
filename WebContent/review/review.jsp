@@ -10,6 +10,18 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/review.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#itemNo").attr("readonly",true);
+	
+
+	if ($("#itemNo").val() == "null") {
+		$("#itemNo").attr("readonly", false).val("");
+	} else {
+		$("#itemNo").attr("readonly", true);
+	}
+});
+</script>
 </head>
 <body>
 
@@ -43,7 +55,7 @@
 				%>
 				<tr>
 					<th>상품번호</th>
-					<td><input type="text" name="itemNo" class="reviewInput" placeholder="상품번호" value="<%=itemNo%>" readonly="readonly"></td>
+					<td><input type="text" name="itemNo" id="itemNo" class="reviewInput" placeholder="상품번호" value="<%=itemNo%>" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>글제목</th> 
