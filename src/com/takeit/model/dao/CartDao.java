@@ -26,8 +26,9 @@ public class CartDao {
 	/**장바구니 전체 목록 조회*/
 	public void getCartList(Connection con, String memberId, int cartTotalPrice, ArrayList<Cart> cart) throws CommonException {
 		System.out.println("[debug] 장바구니 전체 목록 dao 요청");
-		String sql = "SELECT I.ITEM_NO AS ITEM_NO, I.ITEM_NAME AS ITEM_NAME, S.NAME AS SELLER_NAME, I.ITEM_IMG AS ITEM_IMG, "
-				+ "C.CART_ITEM_QTY AS CART_ITEM_QTY, I.ITEM_PRICE AS ITEM_PRICE, (I.ITEM_PRICE * C.CART_ITEM_QTY) AS TOTAL_PRICE "
+		String sql = "SELECT I.ITEM_NO AS ITEM_NO, I.ITEM_NAME AS ITEM_NAME, S.NAME AS SELLER_NAME, "
+				+ "I.ITEM_IMG AS ITEM_IMG, I.DISC_RATE AS DISC_RATE, C.CART_ITEM_QTY AS CART_ITEM_QTY, "
+				+ "I.ITEM_PRICE AS ITEM_PRICE, (100-I.DISC_RATE)/100*I.ITEM_PRICE * C.CART_ITEM_QTY AS TOTAL_PRICE "
 				+ "FROM CART C, ITEM I, SELLER S "
 				+ "WHERE C.ITEM_NO = I.ITEM_NO "
 				+ "AND I.SELLER_ID = S.SELLER_ID "
@@ -50,6 +51,7 @@ public class CartDao {
 				dto.setItemPrice(rs.getInt("ITEM_PRICE"));
 				dto.setTotalPrice(rs.getInt("TOTAL_PRICE"));
 				dto.setItemImg(rs.getString("ITEM_IMG"));
+				dto.setDiscRate(rs.getInt("DISC_RATE"));
 				cartTotalPrice += dto.getTotalPrice();
 				System.out.println("[debug] 누적 총 결제 금액= " + cartTotalPrice);
 				cart.add(dto);

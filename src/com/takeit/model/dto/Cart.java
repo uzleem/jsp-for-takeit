@@ -21,7 +21,9 @@ public class Cart {
 	private int cartItemQty;
 	/** 장바구니 상품 판매가, itemNo로 자동호출, 필수  */
 	private int itemPrice;
-	/** 장바구니 배달료 적용 가격, itemPrice로 연산, 필수*/
+	/** 장바구니 할인율, itemPrice로 연산, 필수*/
+	private int discRate;
+	/** 장바구니 전체 가격, itemPrice로 연산, 필수*/
 	private int totalPrice;
 	/** 장바구니 전체 결제 금액, itemPrice*cartitemQty+배달료, 필수 */
 	private int cartTotalPrice; 
@@ -147,6 +149,14 @@ public class Cart {
 	public void setCartTotalPrice(int cartTotalPrice) {
 		this.cartTotalPrice = cartTotalPrice;
 	}
+	
+	public int getDiscRate() {
+		return discRate;
+	}
+
+	public void setDiscRate(int discRate) {
+		this.discRate = discRate;
+	}
 
 	@Override
 	public String toString() {
@@ -167,12 +177,15 @@ public class Cart {
 		builder.append(", ");
 		builder.append(itemPrice);
 		builder.append(", ");
+		builder.append(discRate);
+		builder.append(", ");
 		builder.append(totalPrice);
 		builder.append(", ");
 		builder.append(cartTotalPrice);
 		return builder.toString();
 	}
 
+	 
 	
 	
 	
