@@ -68,6 +68,12 @@ public class FrontMemberServlet extends HttpServlet {
 		case "memberEmailChk":
 			memberEmailChk(request, response);
 			break;
+		case "kakaoLogin":
+			kakaoLogin(request, response);
+			break;
+		case "kakaoMemberInputForm":
+			kakaoMemberInputForm(request, response);
+			break;
 		default:
 			response.sendRedirect(CONTEXT_PATH + "/index");
 			break;
@@ -312,7 +318,7 @@ public class FrontMemberServlet extends HttpServlet {
 	protected void memberIdChk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String memberId = request.getParameter("memberId");
-		
+		System.out.println("chk"+memberId);
 		memberId = memberId.trim();
 		
 		MemberBiz biz = new MemberBiz();
@@ -356,5 +362,47 @@ public class FrontMemberServlet extends HttpServlet {
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 		}
+	}
+	
+	protected void kakaoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String memberId = request.getParameter("kakaoId");
+		
+		System.out.println("작동확인 : kakaoLogin");
+		RequestDispatcher rd = request.getRequestDispatcher("/message.jsp");
+		
+		Member dto = new Member();
+		MemberBiz biz = new MemberBiz();
+		dto.setMemberId(memberId);
+		
+		try {
+			biz.kakaoLogin(dto);
+			if(dto.getAddress() != null) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("memberId", memberId); 
+				session.setAttribute("dto", dto);
+				response.sendRedirect("/takeit/index");
+			}else {
+				MessageEntity message = new MessageEntity("error", 34);
+				message.setLinkTitle("뒤로가기");
+				message.setUrl("/takeit/member/memberLogin.jsp");
+				request.setAttribute("message", message);
+				rd.forward(request, response);
+			}
+		} catch (CommonException e) {
+			MessageEntity message = e.getMessageEntity();
+			request.setAttribute("message", message);
+			rd.forward(request, response);
+		}
+	}
+	protected void kakaoMemberInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String kakaoId = request.getParameter("kakaoIdInput");
+		System.out.println(kakaoId);
+		
+		String kakaoEmail = request.getParameter("kakaoEmail");
+		System.out.println(kakaoEmail);
+		request.setAttribute("kakaoId", kakaoId);
+		request.setAttribute("kakaoEmail", kakaoEmail);
+		
+		request.getRequestDispatcher("/loginapi/kakaoMemberInput.jsp").forward(request, response);
 	}
 }

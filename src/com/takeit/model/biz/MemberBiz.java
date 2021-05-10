@@ -111,4 +111,16 @@ public class MemberBiz {
 		}
 		return 0;
 	}
+
+	public void kakaoLogin(Member dto) throws CommonException {
+		Connection con = JdbcTemplate.getConnection();
+		try{
+			dao.kakaoLogin(con, dto);
+		} catch(CommonException e) {
+			throw e; 
+		} finally {
+			JdbcTemplate.close(con);
+		}
+		
+	}
 }
