@@ -37,6 +37,8 @@ public class FrontMemberServlet extends HttpServlet {
 		System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
 		application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
 		application.setAttribute("takeitScope", "all");
+		String imgPath="C:/student_ucamp33/apps_down/05.tomcat/apache-tomcat-8.5.64/webapps";
+		application.setAttribute("imgPath", imgPath);
 	}
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
