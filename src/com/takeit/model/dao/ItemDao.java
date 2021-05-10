@@ -13,7 +13,10 @@ import com.takeit.model.dto.MessageEntity;
 
 
 /**
+ * 상품 Item
  * @author 김효원
+ * @since jdk1.8
+ * @version v2.0
  */
 public class ItemDao {
 	
@@ -319,7 +322,7 @@ public class ItemDao {
 
 
 			while (rs.next()) {
-				//포장타입
+				
 				System.out.println("PACK_TYPE_NO = "+rs.getString("PACK_TYPE_NO"));
 
 				dto.setPackTypeNo(rs.getString("PACK_TYPE_NO"));
@@ -344,7 +347,6 @@ public class ItemDao {
 				dto.setDiscRate(rs.getInt("DISC_RATE"));
 				dto.setItemTakeit(rs.getString("ITEM_TAKEIT"));
 
-				//판매자
 				dto.setSellerName(rs.getString("SELLER_NAME"));
 				dto.setShopName(rs.getString("SHOP_NAME"));
 			}
@@ -419,11 +421,11 @@ public class ItemDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-	/**
-	 * 등록상품내역변경(packing table)
-	 * @param conn
-	 * @param dto 상품
-	 */
+		/**
+		 * 등록상품내역변경(packing table)
+		 * @param conn
+		 * @param dto 상품
+		 */
 	public void updatePacking(Connection conn,Item dto)throws CommonException{
 		
 			String sql = "update packing set pack_type_name=?"

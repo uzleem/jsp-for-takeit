@@ -17,9 +17,12 @@ import com.takeit.model.dto.Review;
 
 
 /**
+ * 후기
  * @author 김효원
- *
+ * @since jdk1.8
+ * @version v2.0
  */
+
 public class ReviewDao {
 	private static ReviewDao instance = new ReviewDao();
 	private ReviewDao() {}
@@ -72,7 +75,7 @@ public class ReviewDao {
 		JdbcTemplate.close(stmt);
 	}
 	/**
-	 * 내작성후기 전체목록
+	 * 회원작성후기 전체목록
 	 * @param con
 	 * @param ReviewList
 	 * @throws CommonException
@@ -155,7 +158,7 @@ public class ReviewDao {
 	}
 
 	/**
-	 * 내가 쓴 후기 상세조회
+	 * 회원후기 상세조회
 	 * @param conn
 	 * @param dto 후기
 	 */
