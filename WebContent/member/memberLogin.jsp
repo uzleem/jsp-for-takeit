@@ -13,29 +13,39 @@
 <!-- 카카오 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-Kakao.init('4a836a6d7613b825e60dc25d5b9d8a82'); //발급받은 키 중 javascript키를 사용해준다.
+Kakao.init('cfba92f035510f0ba0faccfd270f7b1a'); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 <!-- 카카오 로그인 -->
 function kakaoLogin() {
+	
+	console.log(Kakao.Auth.getAccessToken());
+	console.log("login req");
     Kakao.Auth.login({
       scope: 'account_email',
       success: function (response) {
+    	  
+    	  
+    	  //아이디 존재여부 확인
+    	  
+    	  
+    	  
+    	  console.log("login succ");
         Kakao.API.request({
           url: '/v2/user/me',
           success: function (response) {
         	  const kakao_account = response.kakao_account;
-        	  //$("#id").text(response.id);
-        	  //("#email").text(response.kakao_account.email);
-        	  console.log(response)
-        	  
+        	  console.log(response.id);
+        	  console.log(kakao_account.email);
           },
           fail: function (error) {
             console.log(error)
+            console.log("요청실패");
           },
         })
       },
       fail: function (error) {
         console.log(error)
+        console.log("로그인실패");
       },
     })
   }
@@ -102,10 +112,6 @@ function kakaoLogin() {
 		<!-- <td><input type="button" value="카카오 로그인" id="kakaoLogin" onclick="kakaoLogin();"/></td> -->
 	</tr>
 </table>
-<!-- <div>
-	회원번호 : <span id ="id"></span><br>
-	이메일 : <span id="email"></span><br>
-</div> -->
 </form>
 </div>
 <!-- scroll function -->

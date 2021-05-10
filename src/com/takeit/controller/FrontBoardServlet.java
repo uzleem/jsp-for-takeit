@@ -183,7 +183,6 @@ public class FrontBoardServlet extends HttpServlet {
 		System.out.println("[debug]게시글 등록 페이지 요청");
 		String itemNo = request.getParameter("itemNo");
 		
-		
 		BoardBiz bbiz = new BoardBiz();
 		ArrayList<Category> category = new ArrayList<Category>();
 		try {
