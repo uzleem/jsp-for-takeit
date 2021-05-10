@@ -40,7 +40,7 @@ public class FrontItemServlet extends HttpServlet {
 			CONTEXT_PATH = application.getContextPath();
 			System.out.println("[loadOnStartup]CONTEXT_PATH : " + CONTEXT_PATH);
 			application.setAttribute("CONTEXT_PATH", CONTEXT_PATH);
-			String imgPath = "C:/student_ucamp33/apps_down/05.tomcat/apache-tomcat-8.5.64/webapps";
+			imgPath = "C:/student_ucamp33/apps_down/05.tomcat/apache-tomcat-8.5.64/webapps";
 			application.setAttribute("imgPath", imgPath);
 		}
 		
