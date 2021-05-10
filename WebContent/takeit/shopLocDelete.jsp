@@ -26,6 +26,15 @@ function shopLocDelete(){
 </script>
 </head>
 <body>
+<c:if test="${empty dto || empty dto.grade != 'A'}">
+	<%-- <jsp:useBean id="message" class="exe02.entity.MessageEntity" scope="request" />
+	<jsp:setProperty property="type" name="message" value="message"/>
+	<jsp:setProperty property="index" name="message" value="0"/>
+	<jsp:setProperty property="url" name="message" value="${CONTEXT_PATH}/exe02/welcome.html"/>
+	<jsp:setProperty property="linkTitle" name="message" value="처음으로"/>
+	<jsp:forward page="/exe02/teacher/message.jsp"/> --%>
+</c:if>
+
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->
