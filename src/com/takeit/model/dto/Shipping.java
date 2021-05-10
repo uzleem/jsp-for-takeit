@@ -6,19 +6,13 @@ package com.takeit.model.dto;
  * </pre>
  * @author 김태경
  * @since jdk1.8
- * @version ver.1.0
+ * @version v2.0
  */
 public class Shipping {
-	/** 
-	 * 배송상태코드 : 필수데이터, 중복불가 
-	 * (O-GET, I-GET, I-MOVE, S-ARR, S-GO, DONE)
-	 */
+	/** 배송상태코드 : 필수데이터, 중복불가 , (O-GET, I-GET, I-MOVE, S-ARR, S-GO, DONE) */
 	private String shipStatusCode;
 	
-	/**
-	 * 배송상태이름 : 필수데이터 
-	 * (주문접수, 상품인수, 상품이동중, 배달지도착, 배달출발, 배달완료)
-	 */
+	/** 배송상태이름 : 필수데이터, (주문접수, 상품인수, 상품이동중, 배달지도착, 배달출발, 배달완료) */
 	private String shipStatus;
 	
 	

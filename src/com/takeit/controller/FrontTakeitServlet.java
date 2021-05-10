@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.takeit.common.CommonException;
 import com.takeit.model.biz.TakeitBiz;
-import com.takeit.model.dto.Category;
 import com.takeit.model.dto.Member;
 import com.takeit.model.dto.MessageEntity;
 import com.takeit.model.dto.Paging;
@@ -87,6 +86,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		}
 	}
 	
+	/** 잇거래 삭제 요청 서비스 */
 	protected void takeitDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("dto") == null) {
@@ -100,7 +100,6 @@ public class FrontTakeitServlet extends HttpServlet {
 		
 		String[] takeitNos = request.getParameterValues("takeitNo");
 		request.getParameter("takeitRange");
-		
 		
 		ArrayList<String> takeitNoList = new ArrayList<>();
 		for (String takeitNo : takeitNos) {
@@ -122,6 +121,7 @@ public class FrontTakeitServlet extends HttpServlet {
 		}
 	}
 	
+	/** 테이크잇 목록 요청 서비스 */
 	protected void takeitManageForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("dto") == null) {
@@ -221,7 +221,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	/** 잇거래 등록 화면 요청 서비스 */
 	protected void takeitInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (session == null || session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -250,7 +250,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	/** 상점구역 등록 요청 서비스 */
 	protected void shopLocInput(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (session == null || session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -305,7 +305,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	/** 상점구역 등록화면 요청 서비스 */
 	protected void shopLocInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (session == null || session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -320,7 +320,6 @@ public class FrontTakeitServlet extends HttpServlet {
 	protected void takeitItemDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String itemNo = request.getParameter("itemNo");
-		String shopLocCode= request.getParameter("shopLocCode");
 		
 		if (itemNo == null || itemNo.trim().length() == 0) {
 			MessageEntity message = new MessageEntity("error", 12);
@@ -371,8 +370,10 @@ public class FrontTakeitServlet extends HttpServlet {
 		if (scope != null) {
 			application.setAttribute("takeitScope", scope);
 		}
+		
 		HttpSession session = request.getSession(false);
-		if (application.getAttribute("takeitScope").equals("my") && (session == null || session.getAttribute("dto") == null)) {
+		if (application.getAttribute("takeitScope").equals("my")
+				&& (session == null || session.getAttribute("dto") == null)) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -380,6 +381,7 @@ public class FrontTakeitServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
+		
 		if (session == null || session.getAttribute("dto") == null) {
 			application.setAttribute("takeitScope", "all");
 		}
@@ -408,8 +410,8 @@ public class FrontTakeitServlet extends HttpServlet {
 				totalCnt = biz.takeitItemListCount();
 				paging.setTotalCount(totalCnt);
 				
-				int startRow = paging.getStartRowNo(); 	//페이지 시작 라인
-				int endRow = paging.getEndRowNo();		//페이직 끝 라인
+				int startRow = paging.getStartRowNo(); 
+				int endRow = paging.getEndRowNo();	
 				
 				request.setAttribute("startRow", startRow);
 				request.setAttribute("endRow", endRow);
@@ -471,8 +473,8 @@ public class FrontTakeitServlet extends HttpServlet {
 				
 				paging.setTotalCount(totalCnt);
 				
-				int startRow = paging.getStartRowNo(); 	//페이지 시작 라인
-				int endRow = paging.getEndRowNo();		//페이직 끝 라인
+				int startRow = paging.getStartRowNo();
+				int endRow = paging.getEndRowNo();	
 				
 				request.setAttribute("startRow", startRow);
 				request.setAttribute("endRow", endRow);
@@ -496,10 +498,11 @@ public class FrontTakeitServlet extends HttpServlet {
 			break;
 		}
 	}	
-	/** 지역상점 삭제 화면 서비스 */
+	
+	/** 상점구역 삭제 화면 요청 서비스 */
 	protected void shopLocDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (session == null || session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -530,7 +533,7 @@ public class FrontTakeitServlet extends HttpServlet {
 	protected void shopLocDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("dto") == null) {
+		if (session == null || session.getAttribute("dto") == null) {
 			MessageEntity message = new MessageEntity("message", 0);
 			message.setLinkTitle("로그인");
 			message.setUrl(CONTEXT_PATH + "/member/memberLogin.jsp");
@@ -570,8 +573,6 @@ public class FrontTakeitServlet extends HttpServlet {
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}
-		
-		
 	}
 }
 
