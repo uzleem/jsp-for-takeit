@@ -100,7 +100,7 @@
 				<input type="hidden" value="<%=cart.getItemNo()%>" name="itemNo"> 
 				<input type="hidden" value="<%=cart.getCartItemQty()%>" name="itemQty" > 
 				<input type="hidden" value="${discPrice}" name="itemPrice" > 
-				<input type="hidden" value="${itemTotalPrice}" name="totalPrice" > 
+				<input type="hidden" value="${cart.discPrice}" name="totalPrice" > 
 				<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 				
 				
 				<input type="submit" value="구매" class="small-btn" style="margin-bottom: 10px;">
@@ -121,7 +121,7 @@
 <div id="cart-final-area">
 	<div id="cart-final-price-area">
 		<b>전체 결제 금액: </b><span id="cartTotalPrice">
-		&#8361;<fmt:formatNumber value="<%= cartTotalPrice  %>" pattern="###,###,###"/></span>
+		&#8361;<fmt:formatNumber value="${cartTotalPrice}" pattern="###,###,###"/></span>
 	</div>
 	<div id="cart-fainal-btn-area">
 		<form action="#" method="post">
@@ -138,8 +138,8 @@
 <c:forEach items="${cartList}" var="cart">
 	<input type="hidden" value="${cart.itemNo}" name="itemNo" id="${cart.itemNo}"> 
 	<input type="hidden" value="${cart.cartItemQty}" name="itemQty" id="${cart.itemNo}qty"> 
-	<input type="hidden" value="${discPrice}" name="itemPrice" id="${cart.itemNo}price"> 
-	<input type="hidden" value="${itemTotalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
+	<input type="hidden" value="${cart.discPrice}" name="itemPrice" id="${cart.itemNo}price"> 
+	<input type="hidden" value="${cart.totalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
 </c:forEach>
 	<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 
 </form>

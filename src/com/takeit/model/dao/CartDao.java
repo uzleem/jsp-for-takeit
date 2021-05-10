@@ -55,10 +55,9 @@ public class CartDao {
 				dto.setTotalPrice(rs.getInt("TOTAL_PRICE"));
 				dto.setItemImg(rs.getString("ITEM_IMG"));
 				
-				cartTotalPrice += dto.getTotalPrice();
+				//cartTotalPrice += dto.getTotalPrice();
 				System.out.println("[debug] 누적 총 결제 금액= " + cartTotalPrice);
 				dto.setItemTakeit(rs.getString("item_Takeit"));
-				
 				if (rs.getString("ITEM_TAKEIT").equals("T")) {
 					Date firstDate = Utility.convertStringToDate(Utility.getCurrentDate(), "yyyy-MM-dd HH:mm:ss");
 					Date secondDate = Utility.convertStringToDate(rs.getString("ITEM_INPUT_DATE"), "yyyy-MM-dd HH:mm:ss");
@@ -76,16 +75,21 @@ public class CartDao {
 					dto.setDiscRate(100 - (int)((double)takeitPrice / itemPrice * 100));
 					dto.setDiscPrice(takeitPrice);
 					
+					dto.setTotalPrice(takeitPrice * rs.getInt("CART_ITEM_QTY"));
+					
 				} else {
 					dto.setDiscRate(rs.getInt("DISC_RATE"));
 					int discRate = rs.getInt("disc_rate");
-					dto.setDiscPrice(rs.getInt("ITEM_PRICE") * (100-discRate) / 100);
+					int discPrice = (int)(rs.getInt("ITEM_PRICE") * (100-discRate) / 100);
+					dto.setDiscPrice(discPrice);
+					
+					dto.setTotalPrice(discPrice * rs.getInt("CART_ITEM_QTY"));
 				}
 				
 				cart.add(dto);
 			}
 			System.out.println("[debug] 장바구니 전체 목록 dao 요청 완료");
-			
+			System.out.println("[debug] 누적 총 결제 금액= " + cartTotalPrice);
 		} catch (Exception e) {
 			System.out.println("[debug] 장바구니 전체 목록 dao 요청 실패");
 			System.out.println(e.getMessage());
