@@ -10,7 +10,18 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/order.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="/takeit/js/takeit/order.js"></script>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#receiveMethod1").click(function() {
+			$("#recipientName").val("${order.recipientName}");
+			$("#recipientMobile").val("${order.recipientMobile}");
+			$("#recipientPostNo").val("${order.recipientPostNo}").attr("disabled", false);
+			$("#recipientAddr").val("${order.recipientAddr}").attr("disabled", false);
+			$("#recipientAddrDetail").val("${order.recipientAddrDetail}").attr("disabled", false);
+			$("#shipRequest").val("${order.shipRequest}").attr("disabled", false);
+		});
+	});
+</script>
 
 </head>
 <body>

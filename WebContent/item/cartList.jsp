@@ -45,6 +45,9 @@
 	ArrayList<Cart> cartList = (ArrayList<Cart>)session.getAttribute("cartList");
 	for(Cart cart : cartList){
 %>
+<c:if test=""></c:if>
+
+
 	<div id="cart">
 		<div>
 			<img id="cart-img" alt="" src="/takeit/img/item/<%= cart.getItemImg() %>">
@@ -55,13 +58,22 @@
 			<b>판매자</b>&emsp;
 			<span id="cart-itemSeller"><%= cart.getSellerName() %></span><br>
 			<b>배송비</b>&emsp;
-			<span id="cart-shippingFee">3,500원</span><br>
+			<c:choose>
+				<c:when test='<%= cart.getItemTakeit().equals("T") %>'>
+					<span id="cart-shippingFee">무료(잇거래)</span><br>
+				</c:when>
+				<c:otherwise>
+					<span id="cart-shippingFee">3,500원</span><br>
+				</c:otherwise>
+			</c:choose>
 			<b>할인율</b>&emsp;
 			<span id="cart-shippingFee"><%= cart.getDiscRate() %>%</span><br>
 			<b>판매가</b>&emsp;
 			<span id="cart-itemPrice"><fmt:formatNumber value="<%= cart.getItemPrice()  %>" pattern="###,###"/>원</span><br>
 			<b>할인적용가</b>&emsp;
-			<span id="cart-itemPrice"><fmt:formatNumber value="<%= ((100-cart.getDiscRate())*0.01)*cart.getItemPrice()  %>" pattern="###,###"/>원</span><br>
+			<%-- <c:set var="discPrice" value="<%= (int)(((100-cart.getDiscRate())*0.01)*cart.getItemPrice())  %>" /> --%>
+			<c:set var="discPrice" value="<%= cart.getDiscPrice()  %>" />
+			<span id="cart-itemPrice"><fmt:formatNumber value="${discPrice}" pattern="###,###"/>원</span><br>
 			<b>수량</b>&emsp;&emsp;
 			<span id="cart-itemQty"><%= cart.getCartItemQty() %></span><br>
 			<form action="/takeit/cartController?action=changeCartQty&itemNo=<%= cart.getItemNo()%>" method="post">
@@ -73,15 +85,22 @@
 		</div>
 		<div id="cart-btn-wrap">
 			<div>
-				<b>결제금액</b>&emsp;<span id="cart-totPrice">
-				&#8361;<fmt:formatNumber value="<%= ((100-cart.getDiscRate())*0.01)*cart.getItemPrice()*cart.getCartItemQty()+3500 %>" pattern="###,###"/>
+				<c:choose>
+				<c:when test='<%= cart.getItemTakeit().equals("T") %>'>
+					<b>결제금액</b>&emsp;<span id="cart-totPrice"><c:set var="itemTotalPrice" value="<%= cart.getDiscPrice()*cart.getCartItemQty() %>" />
+				</c:when>
+				<c:otherwise>
+					<b>결제금액</b>&emsp;<span id="cart-totPrice"><c:set var="itemTotalPrice" value="<%= cart.getDiscPrice()*cart.getCartItemQty()+3500 %>" />
+				</c:otherwise>
+			</c:choose>
+				&#8361;<fmt:formatNumber value="${itemTotalPrice}" pattern="###,###"/> 
 				</span>
 			</div><br>
 			<form action="${CONTEXT_PATH}/order/orderController?action=orderForm" method="post">
 				<input type="hidden" value="<%=cart.getItemNo()%>" name="itemNo"> 
 				<input type="hidden" value="<%=cart.getCartItemQty()%>" name="itemQty" > 
-				<input type="hidden" value="<%=cart.getItemPrice()%>" name="itemPrice" > 
-				<input type="hidden" value="<%=cart.getTotalPrice()%>" name="totalPrice" > 
+				<input type="hidden" value="${discPrice}" name="itemPrice" > 
+				<input type="hidden" value="${itemTotalPrice}" name="totalPrice" > 
 				<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 				
 				
 				<input type="submit" value="구매" class="small-btn" style="margin-bottom: 10px;">
@@ -119,8 +138,8 @@
 <c:forEach items="${cartList}" var="cart">
 	<input type="hidden" value="${cart.itemNo}" name="itemNo" id="${cart.itemNo}"> 
 	<input type="hidden" value="${cart.cartItemQty}" name="itemQty" id="${cart.itemNo}qty"> 
-	<input type="hidden" value="${cart.itemPrice}" name="itemPrice" id="${cart.itemNo}price"> 
-	<input type="hidden" value="${cart.totalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
+	<input type="hidden" value="${discPrice}" name="itemPrice" id="${cart.itemNo}price"> 
+	<input type="hidden" value="${itemTotalPrice}" name="totalPrice" id="${cart.itemNo}totalPrice"> 
 </c:forEach>
 	<input type="hidden" value="${cartTotalPrice}" name="cartTotalPrice" id="cartTotalPrice"> 
 </form>

@@ -55,7 +55,7 @@
 		<div id="takeitManage-wrap">
 			<div>
 				<div class="takeitMgr-title">
-					<h1>만료된 잇거래 목록</h1>
+					<h1>잇거래 목록</h1>
 				</div>
 
 				<form action="/takeit/takeit/takeitController?action=takeitManageForm" method="post" id="takeitListForm">

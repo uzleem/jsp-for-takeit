@@ -72,7 +72,7 @@ public class FrontCartServlet extends HttpServlet {
 		protected void cartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("[dubug]장바구니 전체 목록 요청");
 			HttpSession session = request.getSession(false);
-			if(session.getAttribute("memberId") == null) {
+			if(session == null || session.getAttribute("memberId") == null) {
 				MessageEntity message = new MessageEntity("message" , 0);
 				message.setLinkTitle("로그인");
 				message.setUrl("/takeit/member/memberLogin.jsp");
