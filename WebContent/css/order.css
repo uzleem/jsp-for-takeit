@@ -119,3 +119,17 @@
 .orderList-wrap{
 	margin-top: 30px;
 }
+/**no order list*/
+#noOrderList-wrap{
+	width: fit-content;
+	margin: 20px auto;
+}
+#noOrderList-title>h3{
+	font-size: 40px;
+	font-weight: 700;
+	text-align: center;
+}
+#noOrderList-info{
+	margin-top: 30px;
+	font-size: 20px;
+}

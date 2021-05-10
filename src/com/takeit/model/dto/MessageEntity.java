@@ -71,6 +71,7 @@ public class MessageEntity {
 		error.add("[지역시장 중복 등록]"); //43
 		error.add("[등록상품 변경오류] "); 
 		error.add("[지역시장 삭제 오류]");
+		error.add("[주문 내역 없음]");
 
 		
 		
