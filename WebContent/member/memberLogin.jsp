@@ -21,7 +21,7 @@ function kakaoLogin() {
 	
 	console.log(Kakao.Auth.getAccessToken());
 	console.log("login req");
-	Kakao.Auth.login({
+	Kakao.Auth.loginForm({
 		scope: 'account_email',
 		success: function (response) {
 		console.log("login succ");
