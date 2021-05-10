@@ -6,14 +6,7 @@
 $(document).ready(function() {
 	
 	/* 수령 radio */
-	$("#receiveMethod1").click(function() {
-		$("#recipientName").val("${order.recipientName}");
-		$("#recipientMobile").val("${order.recipientMobile}");
-		$("#recipientPostNo").val("${order.recipientPostNo}").attr("disabled", false);
-		$("#recipientAddr").val("${order.recipientAddr}").attr("disabled", false);
-		$("#recipientAddrDetail").val("${order.recipientAddrDetail}").attr("disabled", false);
-		$("#shipRequest").val("${order.shipRequest}").attr("disabled", false);
-	});
+	
 	$("#receiveMethod2").click(function() {
 		$("#recipientName").val("");
 		$("#recipientMobile").val("");

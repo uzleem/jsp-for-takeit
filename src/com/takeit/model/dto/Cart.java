@@ -27,6 +27,12 @@ public class Cart {
 	private int totalPrice;
 	/** 장바구니 전체 결제 금액, itemPrice*cartitemQty+배달료, 필수 */
 	private int cartTotalPrice; 
+	/** 장바구니 할인가, itemPrice * discRate로 연산, 필수*/
+	private int discPrice;
+	/** 잇거래 상품여부, 필수 */
+	private String itemTakeit;
+	
+	
 	
 	public Cart() {}
 
@@ -68,6 +74,23 @@ public class Cart {
 		this.sellerName = sellerName;
 		this.cartItemQty = cartItemQty;
 		this.totalPrice = totalPrice;
+	}
+
+	
+	public String getItemTakeit() {
+		return itemTakeit;
+	}
+
+	public void setItemTakeit(String itemTakeit) {
+		this.itemTakeit = itemTakeit;
+	}
+
+	public int getDiscPrice() {
+		return discPrice;
+	}
+
+	public void setDiscPrice(int discPrice) {
+		this.discPrice = discPrice;
 	}
 
 	public String getMemberId() {
