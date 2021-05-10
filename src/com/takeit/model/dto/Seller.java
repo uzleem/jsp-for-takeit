@@ -89,7 +89,7 @@ public class Seller implements Serializable{
 		this.shopCategoryNo = shopCategoryNo;
 		this.shopLocCode = shopLocCode;
 	}
-
+	
 	/* 전체 데이터 */
 	public Seller(String sellerId, String sellerPw, String name, String mobile, String email, String entryDate,
 			String postNo, String address, String addressDetail, String grade, String sellerNo, String shopMobile,

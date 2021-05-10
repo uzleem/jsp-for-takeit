@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+/* 유효성검사 결과 */
+.orderResult{
+	font-size:12px;
+	color:#666666;
+	font-style: normal;
+}
+
 /**사이드바*/
 .side-menu{
 	margin-right: 50px;
