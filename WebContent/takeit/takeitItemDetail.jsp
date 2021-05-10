@@ -102,6 +102,7 @@ $(document).ready(function (){
 
 </script>
 </head>
+<body>
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->

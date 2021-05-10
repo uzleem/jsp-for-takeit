@@ -1,12 +1,5 @@
-/**
- * 테이크잇 : 주문
- * @author 김태경
- * 
- */
 $(document).ready(function() {
-	
 	/* 수령 radio */
-	
 	$("#receiveMethod2").click(function() {
 		$("#recipientName").val("");
 		$("#recipientMobile").val("");
@@ -33,14 +26,12 @@ $(document).ready(function() {
 		if(recipientMobile_Valid) {
 			$('#mobileResult1').show().html(" o - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 			$('#mobileResult1').css('color','#08A600')
-			//$("#mobile_button" ).prop('disabled', false);
 		}else {
 			$('#mobileResult1').show().html(" x - 포함 13자리를 입력하세요. ex) 000-0000-0000");
 			$('#mobileResult1').css('color','#FF0000')
-			//$("#mobile_button" ).prop('disabled', true);
 		} 
 	});
-}); // ready 끝
+});
 
 /* 휴대폰  : 010-0000-0000 형식에 맞춰 입력 */
 function mobile_data(take) {
@@ -52,7 +43,6 @@ function mobile_data(take) {
 function orderCheck() {
 	/* 이름 */
 	var recipientName = $("#recipientName").val();
-	//var name_Valid = name_data(name)
 	if (recipientName == "") {
 		$("#recipientName").focus();
 		return false;

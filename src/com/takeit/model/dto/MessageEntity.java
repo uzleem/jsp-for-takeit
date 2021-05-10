@@ -112,6 +112,7 @@ public class MessageEntity {
 		ArrayList<String> message = new ArrayList<String>();
 		message.add("[이 페이지는 로그인이 필요합니다.]");
 		message.add("[일반회원 전용]");
+		message.add("[관리자 전용]"); //2
 		
 		
 		messageList.put("error", error);
