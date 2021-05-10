@@ -9,45 +9,8 @@
 <link type="text/css" rel="stylesheet" href="/takeit/css/link.css">
 <link type="text/css" rel="stylesheet" href="/takeit/css/order.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript">
-var goPopup = function() {
-	 var pop = window.open("${CONTEXT_PATH}/member/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
- } 
-var jusoCallBack = function(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
-	 document.getElementById("recipientPostNo").value = zipNo; 
-	 document.getElementById("recipientAddr").value = roadAddrPart1; 
-	 document.getElementById("recipientAddrDetail").value = addrDetail; 
-	 if(addressDetail.length>30){ 
-		alert('상세주소를 30자 이내로 입력하세요.'); 
-		return; 
-	} 
-}
+<script type="text/javascript" src="/takeit/js/takeit/order.js"></script>
 
-$(document).ready(function() {
-	$("#receiveMethod1").click(function() {
-		$("#recipientName").val("${order.recipientName}");
-		$("#recipientMobile").val("${order.recipientMobile}");
-		$("#recipientPostNo").val("${order.recipientPostNo}").attr("disabled", false);
-		$("#recipientAddr").val("${order.recipientAddr}").attr("disabled", false);
-		$("#recipientAddrDetail").val("${order.recipientAddrDetail}").attr("disabled", false);
-		$("#shipRequest").val("${order.shipRequest}").attr("disabled", false);
-	});
-	$("#receiveMethod2").click(function() {
-		$("#recipientName").val("");
-		$("#recipientMobile").val("");
-		$("#recipientPostNo").val("").attr("disabled", false);
-		$("#recipientAddr").val("").attr("disabled", false);
-		$("#recipientAddrDetail").val("").attr("disabled", false);
-		$("#shipRequest").val("").attr("disabled", false);
-	});
-	$("#receiveMethod3").click(function() {
-		$("#recipientPostNo").val("").attr("disabled", true);
-		$("#recipientAddr").val("").attr("disabled", true);
-		$("#recipientAddrDetail").val("").attr("disabled", true);
-		$("#shipRequest").val("").attr("disabled", true);
-	});
-});
-</script>
 </head>
 <body>
 
@@ -94,11 +57,11 @@ $(document).ready(function() {
 				<span><b>배송요청사항</b></span>
 			</div>
 			<div class="recipient-info" style="margin-left: 10px;">
-				<span><input type="text" id="recipientName" name="recipientName"  class="recipient-receiveMethod" value="${order.recipientName}"></span><br>
-				<span><input type="text" id="recipientMobile" name="recipientMobile"  class="recipient-receiveMethod" value="${order.recipientMobile}"></span><br>
-				<span><input type="text" id="recipientPostNo" readonly="readonly" class="recipient-receiveMethod" name="recipientPostNo" value="${order.recipientPostNo}"></span><input type="button" id="postNoBtn" name="postNoBtn" class="small-btn" onclick="goPopup();" value="주소검색" /> <br>
-				<input type="text" id="recipientAddr" readonly="readonly" name="recipientAddr"  class="recipient-receiveMethod" value="${order.recipientAddr}"><br>
-				<input type="text" id="recipientAddrDetail" name="recipientAddrDetail"  class="recipient-receiveMethod" value="${order.recipientAddrDetail}"><br>
+				<span><input type="text" id="recipientName" name="recipientName"  class="recipient-receiveMethod" value="${order.recipientName}" ></span><br>
+				<span><input type="text" id="recipientMobile" name="recipientMobile"  class="recipient-receiveMethod" value="${order.recipientMobile}" ><span id="mobileResult1" class="orderResult"></span></span><br>
+				<span><input type="text" id="recipientPostNo" readonly="readonly"  class="recipient-receiveMethod" name="recipientPostNo" value="${order.recipientPostNo}"></span><input type="button" id="postNoBtn" name="postNoBtn" class="small-btn" onclick="goPopup();" value="주소검색" /> <br>
+				<span><input type="text" id="recipientAddr" readonly="readonly"  name="recipientAddr"  class="recipient-receiveMethod" value="${order.recipientAddr}"><span id="postNoResult1" class="orderResult"></span></span><br>
+				<span><input type="text" id="recipientAddrDetail" required="required" name="recipientAddrDetail"  class="recipient-receiveMethod" value="${order.recipientAddrDetail}"><span id="addressDetailResult1" class="orderResult"></span></span><br>
 				<span><input type="text" id="shipRequest" name="shipRequest"  class="recipient-receiveMethod" value="${order.shipRequest}"></span>
 			</div>
 			</div>
@@ -143,7 +106,7 @@ $(document).ready(function() {
 				<b>총 주문금액 :</b> 
 				<span style="font-weight: 700; font-size:35px;  color: red;">&#8361;<fmt:formatNumber value="${totalPrice}"  pattern="###,###"/></span> 
 			</span>
-			<input type="submit" class="link" value="결제하기"/>
+			<input type="submit" class="link" value="결제하기" onclick="return orderCheck()"/>
 			</div>
 <input type="hidden" value="${totalPrice}" name="orderPrice">	
 	</form>
