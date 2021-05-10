@@ -181,11 +181,30 @@ public class FrontBoardServlet extends HttpServlet {
 	/**카테고리*/
 	private void boardInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]게시글 등록 페이지 요청");
+		
+		String itemNo = request.getParameter("itemNo");
+		
+		if (itemNo == null || itemNo.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 5);
+			message.setUrl("takeit/member/myPage.jsp");
+			message.setLinkTitle("마이페이지로 이동");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+
+		}
+		
+		itemNo = itemNo.trim();
+		
+		
+		
 		BoardBiz bbiz = new BoardBiz();
 		ArrayList<Category> category = new ArrayList<Category>();
 		try {
 			bbiz.getCategoryList(category);
 			if(category != null) {
+				request.setAttribute("itemNo", itemNo);
 				request.setAttribute("category", category);
 				request.getRequestDispatcher("/board/boardInput.jsp").forward(request, response);
 			}
@@ -202,13 +221,14 @@ public class FrontBoardServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		String boardWriter = (String)session.getAttribute("memberId");
-		boardWriter = boardWriter.trim();
-		
+
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContents = request.getParameter("boardContents");
 		String boardCategory = request.getParameter("boardCategory");
-		String boardItemNo = request.getParameter("itemNo");
-		boardItemNo = boardItemNo.trim();
+		String boardItem = request.getParameter("itemNo");
+		
+		boardWriter = boardWriter.trim();
+		boardItem = boardItem.trim();
 		boardTitle = boardTitle.trim();
 		boardContents = boardContents.trim();
 		boardCategory = boardCategory.trim();
@@ -216,13 +236,16 @@ public class FrontBoardServlet extends HttpServlet {
 		System.out.println("[debug] " + boardTitle + boardContents);
 		
 		BoardBiz bbiz = new BoardBiz();
-		Board notice = new Board(boardWriter, boardTitle, boardContents, boardCategory, boardItemNo);
+		Board notice = new Board(boardWriter, boardTitle, boardContents, boardCategory, boardItem);
+		
 		
 		try {
+			
 			bbiz.boardInput(notice);
 			request.getRequestDispatcher("/boardController?action=boardList&boardCategory="+boardCategory).forward(request, response);;
 		} catch (CommonException e) {
-			MessageEntity message = new MessageEntity("error", 13);
+			System.out.println("걍 실패 떙떙");
+			MessageEntity message = new MessageEntity("error", 15);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 		}

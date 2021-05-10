@@ -26,6 +26,7 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
+
 <div id="review-input">
 	<div id="reviewInput-wrap" class="view-width">
 		<div id="reviewInput-title">
@@ -35,15 +36,17 @@
 			<table id="reviewInput-table">
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="memberId" class="reviewInput" placeholder="작성자" value="${memberId }"></td>
+					<td><input type="text" name="memberId" class="reviewInput" placeholder="작성자" value="${memberId }" readonly="readonly"></td>
 				</tr>
-
+				<%
+					String itemNo = request.getParameter("itemNo");
+				%>
 				<tr>
 					<th>상품번호</th>
-					<td><input type="text" name="itemNo" class="reviewInput" placeholder="상품번호" value="${order.orderNo}"></td>
+					<td><input type="text" name="itemNo" class="reviewInput" placeholder="상품번호" value="<%=itemNo%>" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<th>글제목</th>
+					<th>글제목</th> 
 					<td><input type="text" name="reviewTitle" class="reviewInput" placeholder="제목을 입력해주세요"></td>
 				</tr>
 				<tr>

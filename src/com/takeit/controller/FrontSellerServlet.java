@@ -124,7 +124,7 @@ public class FrontSellerServlet extends HttpServlet {
 		
 		System.out.println("작동확인 : sellerInput");
 		
-		String directory = "C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/seller";
+		String directory = "C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/seller";
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
 		System.out.println(directory);

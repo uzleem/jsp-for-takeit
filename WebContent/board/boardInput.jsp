@@ -84,8 +84,11 @@
 	<tr>
 		<th>작성자</th>
 		<td><input type="text" name="boardWriter" id="boardWriter" class="boardInput" value="${memberId }" readonly="readonly"></td>
+		<%
+			String itemNo = request.getParameter("itemNo");
+		%>
 		<th >상품번호</th>
-		<td><input type="text" id="itemNo" class="boardInput" name="itemNo" placeholder="상품번호(예:FR0709)"></td>
+		<td><input type="text" id="itemNo" class="boardInput" name="itemNo" placeholder="상품번호(예:FR0709)" value="<%=itemNo%>" readonly="readonly"></td>
 	</tr>
 	<tr>
 		<th colspan="4">내용</th>

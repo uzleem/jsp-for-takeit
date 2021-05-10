@@ -112,17 +112,30 @@ public class FrontReviewServlet extends HttpServlet {
 	 */
 	protected void enrollReviewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String itemNo = request.getParameter("itemNo");
 		
+		if (itemNo == null || itemNo.trim().length() == 0){
+			MessageEntity message = new MessageEntity("validation", 5);
+			message.setUrl("takeit/member/myPage.jsp");
+			message.setLinkTitle("마이페이지로 이동");
+
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;  
+
+		}
 		
+		itemNo = itemNo.trim();
 		
-		String url = "/takeit/review/review.jsp";
-		response.sendRedirect(url);
+		request.setAttribute("itemNo", itemNo);
+		
+		request.getRequestDispatcher("/review/review.jsp").forward(request, response);
 	}
 
 	/**후기등록*/
 	private void enrollReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		String directory = 	"C:/student_ucamp33/workspace_takeit/takeit/WebContent/img/review";
+		String directory = 	"C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/review";
 	
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
