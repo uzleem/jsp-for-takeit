@@ -264,7 +264,7 @@ public class FrontMypageServlet extends HttpServlet {
 			if(dto.getItemName() != null) {
 				
 				message = new MessageEntity("success", 14);
-				message.setUrl("/takeit/member/mypageController?action=itemList");
+				message.setUrl("/takeit/item/itemController?action=itemList");
 				message.setLinkTitle("상품 리스트로");
 				request.setAttribute("message", message);
 				request.getRequestDispatcher("/message.jsp").forward(request, response);;
