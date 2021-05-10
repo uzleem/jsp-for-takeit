@@ -40,18 +40,14 @@ function kakaoLogin() {
 				success:function(data){
 					console.log(kakaoId);
 					if(data == "1"){
-						alert("사용가능한 아이디입니다.");
+						alert("회원가입이 필요합니다!!!");
 						$("#kakaoEmail").val(kakao_account.email);
 						$("#kakaoIdInput").val(""+kakaoId);
-						
 						$("#kakaoInputForm").submit();
-						//회원가입 페이지로 이동하는데 데이터를 갖고 지나가
         					
        				} else {					
-						alert("해당 아이디는 사용중입니다.");
 						$("#kakaoId").val(response.id);
 						$("#kakaoLoginForm").submit();
-						//메인페이지
 					}
        			}
        		});
