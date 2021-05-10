@@ -81,7 +81,7 @@
 			</div>
 		</div>
 	<hr style="border-top-width: 3px;">	
-	
+<c:set var="shipPay" value="0" />	
 	<c:set var="totalPrice" value="0" scope="page"/>
 		<div class="orderList-wrap">
 		<h3>주문상품</h3><hr>
@@ -95,10 +95,14 @@
 					<span><b>상품명 :</b> ${orderDetail.itemName} </span><br>
 					<span><b>상품개수 :</b> ${orderDetail.itemQty}개 </span><br>
 					<span><b>배송비 :</b>
+					
 					<c:choose>
 						<c:when test="${orderDetail.itemTakeit == 'T' }">무료(잇거래)<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
 						<c:when test="${orderDetail.itemPayPrice * orderDetail.itemQty >= 50000}">무료<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice) }"/></c:when>
-						<c:when test="${orderDetail.itemTakeit == 'F' and orderDetail.itemPayPrice * orderDetail.itemQty < 50000 }">3500원<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice)+3500}"/></c:when>
+						<c:when test="${orderDetail.itemTakeit == 'F' and orderDetail.itemPayPrice * orderDetail.itemQty < 50000 }">3500원<c:set var="totalPrice" value="${totalPrice + (orderDetail.itemQty*orderDetail.itemPayPrice)}"/>
+						<c:set var="shipPay" value="3500" />
+						</c:when>
+						
 					</c:choose></span><br>
 					<span><b>상품결제금액 :</b> ${orderDetail.itemPayPrice * orderDetail.itemQty}원</span> <br> 
 				</div>
@@ -118,7 +122,7 @@
 			<c:if test=""></c:if>
 			<span id="order-totPrice">
 				<b>총 주문금액 :</b> 
-				<span style="font-weight: 700; font-size:35px;  color: red;">&#8361;<fmt:formatNumber value="${totalPrice}"  pattern="###,###"/></span> 
+				<span style="font-weight: 700; font-size:35px;  color: red;">&#8361;<fmt:formatNumber value="${order.orderPrice}"  pattern="###,###"/></span> 
 			</span>
 			<input type="submit" class="link" value="결제하기" onclick="return orderCheck()"/>
 			</div>
