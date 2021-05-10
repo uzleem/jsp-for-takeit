@@ -14,9 +14,10 @@ import com.takeit.model.dto.MessageEntity;
 import com.takeit.util.Utility;
 
 /**
- * 일반회원 : DB접근
- * @author 임우진
- * 
+ * 일반 회원관리 컨트롤러
+ * @author  임우진
+ * @since   jdk1.8
+ * @version v2.0
  */
 public class MemberDao {
 

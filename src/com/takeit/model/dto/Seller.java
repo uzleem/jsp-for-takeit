@@ -3,9 +3,10 @@ package com.takeit.model.dto;
 import java.io.Serializable;
 
 /**
- * 회원가입 : 판매자회원 도메인
- * @author 임우진
- * 
+ * 판매자 회원관리 도메인
+ * @author  임우진
+ * @since   jdk1.8
+ * @version v2.0
  */
 public class Seller implements Serializable{	
 	
