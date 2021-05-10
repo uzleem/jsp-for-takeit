@@ -19,8 +19,9 @@ import com.takeit.model.dto.Review;
 
 /**
  * 시작페이지 dao
- * @author 한소희
- *
+ * @author 	한소희
+ * @since	jdk1.8
+ * @version v2.0
  */
 public class IndexDao {
 	private static IndexDao instance = new IndexDao();

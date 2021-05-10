@@ -1,7 +1,9 @@
 package com.takeit.model.dto;
 
 /** 상품 검색(상품명, 상호명, 판매자)
- *	@author 한소희 
+ *	@author 	한소희
+ *  @since	jdk1.8
+ *  @version v2.0 
  */
 public class Search {
 	/** 상품 카테고리 번호, 사용자 입력(전체 카테고리에서 선택시 자동입력) */

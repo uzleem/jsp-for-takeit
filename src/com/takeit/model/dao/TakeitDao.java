@@ -20,8 +20,9 @@ import com.takeit.util.Utility;
 
 /**
  * 잇거래 테이블에 대한 TakeitDao 클래스
- * 
  * @author 김태경
+ * @since jdk1.8
+ * @version v2.0 2015/05/10
  */
 public class TakeitDao {
 	private static TakeitDao instance = new TakeitDao();
@@ -178,7 +179,6 @@ public class TakeitDao {
 
 	/**
 	 * 일반회원 잇거래상품목록 조회
-	 * 
 	 * @param member         회원객체
 	 * @param takeitItemList 잇거래상품목록
 	 */
@@ -256,7 +256,6 @@ public class TakeitDao {
 
 	/**
 	 * 잇거래상품 상세 조회
-	 * 
 	 * @param takeitItem 잇거래 상품
 	 */
 	public void searchTakeitItem(Connection conn, TakeitItem takeitItem) throws CommonException {
@@ -417,7 +416,6 @@ public class TakeitDao {
 
 	/**
 	 * 회원구역 초기화 메서드 상점구역등록에 따른 회원구역 초기화 등록
-	 * 
 	 * @param shopLoc 상점구역
 	 */
 	public void addMemberLoc(Connection conn, ShopLoc shopLoc) throws CommonException {
@@ -471,7 +469,6 @@ public class TakeitDao {
 
 	/**
 	 * 잇거래 존재여부 확인 메서드
-	 * 
 	 * @param shopLocCode 상점구역코드
 	 * @return 존재하면 1, 미존재시 0
 	 */
@@ -637,6 +634,7 @@ public class TakeitDao {
 		}
 	}
 
+	/** 회원구역 변경 */
 	public void updateMemberLoc(Connection conn, Member member) throws CommonException {
 		String sql = "UPDATE MEMBER SET MEMBER_LOC_NO = ? , SHOP_LOC_CODE = ? where member_ID = ?";
 		PreparedStatement stmt = null;
@@ -681,11 +679,7 @@ public class TakeitDao {
 		}
 	}
 
-	/**
-	 * 잇거래 현재금액 조회
-	 * 
-	 * @throws CommonException
-	 */
+	/** 잇거래 현재금액 조회 */
 	public void searchTakeitCurrPrice(Connection conn, TakeitItem takeitItem) throws CommonException {
 		String sql = "SELECT TAKEIT_CURR_PRICE, TAKEIT_PRICE " + "FROM TAKEIT " + "WHERE TAKEIT_NO = ?";
 
@@ -712,6 +706,7 @@ public class TakeitDao {
 		}
 	}
 
+	/** 상점구역 조회 */
 	public void searchshopLocName(Connection conn, TakeitItem takeitItem) throws CommonException {
 		String sql = "SELECT SHOP_LOC_NAME FROM SHOP_LOC WHERE SHOP_LOC_CODE = ? ";
 
@@ -739,7 +734,6 @@ public class TakeitDao {
 
 	/**
 	 * 지역상점 삭제
-	 * 
 	 * @param takeit 잇거래 객체
 	 */
 	public void deleteShopLoc(Connection conn, Takeit takeit) throws CommonException {
@@ -765,7 +759,6 @@ public class TakeitDao {
 	
 	/**
 	 * 삭제 지역상점 해당 회원 상점코드 변경
-	 * 
 	 * @param takeit 잇거래 객체
 	 */
 	public void updateMemberLocNull(Connection conn, Takeit takeit) throws CommonException {
@@ -784,8 +777,8 @@ public class TakeitDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-
-
+	
+	/** 만료된 잇거래 목록 조회 */
 	public void searchTakeitExpiredList(Connection conn, ArrayList<Takeit> takeitList) throws CommonException {
 		String sql = "SELECT SHOP_LOC_CODE, TAKEIT_NO, TAKEIT_PRICE, TAKEIT_CURR_PRICE, TO_CHAR(TAKEIT_DATE, 'yyyy-mm-dd') TAKEIT_DATE, TAKEIT_CUST_SCORE, TAKEIT_ALIVE, MEMBER_LOC_NO, SHOP_LOC_NAME, TO_CHAR(TAKEIT_DATE+7, 'yyyy-mm-dd') TAKEIT_END_DATE"
 				+ " FROM TAKEIT JOIN SHOP_LOC USING(SHOP_LOC_CODE) "
@@ -823,6 +816,7 @@ public class TakeitDao {
 		}
 	}
 
+	/** 진행중 잇거래 목록 조회 */
 	public void searchTakeitLiveList(Connection conn, ArrayList<Takeit> takeitList) throws CommonException {
 		String sql = "SELECT SHOP_LOC_CODE, TAKEIT_NO, TAKEIT_PRICE, TAKEIT_CURR_PRICE, TO_CHAR(TAKEIT_DATE, 'yyyy-mm-dd') TAKEIT_DATE, TAKEIT_CUST_SCORE, TAKEIT_ALIVE, MEMBER_LOC_NO, SHOP_LOC_NAME, TO_CHAR(TAKEIT_DATE+7, 'yyyy-mm-dd') TAKEIT_END_DATE"
 				+ " FROM TAKEIT JOIN SHOP_LOC USING(SHOP_LOC_CODE) "
@@ -859,7 +853,8 @@ public class TakeitDao {
 			JdbcTemplate.close(stmt);
 		}
 	}
-
+	
+	/** 종료된 잇거래 목록 조회 */
 	public void searchTakeitDeadList(Connection conn, ArrayList<Takeit> takeitList) throws CommonException {
 		String sql = "SELECT SHOP_LOC_CODE, TAKEIT_NO, TAKEIT_PRICE, TAKEIT_CURR_PRICE, TO_CHAR(TAKEIT_DATE, 'yyyy-mm-dd') TAKEIT_DATE, TAKEIT_CUST_SCORE, TAKEIT_ALIVE, MEMBER_LOC_NO, SHOP_LOC_NAME, TO_CHAR(TAKEIT_DATE+7, 'yyyy-mm-dd') TAKEIT_END_DATE"
 				+ " FROM TAKEIT JOIN SHOP_LOC USING(SHOP_LOC_CODE) " + " WHERE TAKEIT_ALIVE = 'F' ";
@@ -896,6 +891,7 @@ public class TakeitDao {
 
 	}
 
+	/** 전체 잇거래 목록 조회 */
 	public void searchTakeitAllList(Connection conn, ArrayList<Takeit> takeitList) throws CommonException {
 		String sql = "SELECT SHOP_LOC_CODE, TAKEIT_NO, TAKEIT_PRICE, TAKEIT_CURR_PRICE, TO_CHAR(TAKEIT_DATE, 'yyyy-mm-dd') TAKEIT_DATE, TAKEIT_CUST_SCORE, TAKEIT_ALIVE, MEMBER_LOC_NO, SHOP_LOC_NAME, TO_CHAR(TAKEIT_DATE+7, 'yyyy-mm-dd') TAKEIT_END_DATE"
 				+ " FROM TAKEIT JOIN SHOP_LOC USING(SHOP_LOC_CODE) ";
@@ -932,6 +928,7 @@ public class TakeitDao {
 
 	}
 
+	/** 잇거래 삭제 */
 	public void deleteTakeit(Connection conn, String takeitNo) throws CommonException {
 		String sql = "UPDATE TAKEIT SET TAKEIT_ALIVE = 'F' WHERE TAKEIT_NO = ? "; 
 		PreparedStatement stmt = null;

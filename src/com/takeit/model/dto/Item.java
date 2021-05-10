@@ -6,8 +6,10 @@ package com.takeit.model.dto;
 import java.io.Serializable;
 
 /**
+ * 상품
  * @author 김효원
- *
+ * @since jdk1.8
+ * @version v2.0
  */
 public class Item implements Serializable{
 
