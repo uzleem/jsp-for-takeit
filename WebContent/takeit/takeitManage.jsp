@@ -68,7 +68,7 @@
 				<c:forEach var="takeit" items="${takeitList}">
 					<input type="hidden" value="${takeit.takeitNo}" name="takeitNo">
 				</c:forEach>
-					<input type="submit" class="takeitMgr-del-btn" value="전체삭제">
+					<input type="submit" class="takeitMgr-del-btn" style="float: right; margin-right: 50px;" value="전체삭제">
 				</form>
 			</div>
 			<div>

@@ -41,11 +41,18 @@
 				$("#itemNo").attr("readonly",true);
 			}
 		});
+		
 		$("#cancle").on("click", function(){
 			history.back();
 		});
 		
-	});
+		if ($("#itemNo").val() == "null") {
+			$("#itemNo").attr("readonly", false).val("");
+		} else {
+			$("#itemNo").attr("readonly", true);
+		}
+});
+
 	
 </script>
 </head>

@@ -181,7 +181,6 @@ public class FrontBoardServlet extends HttpServlet {
 	/**카테고리*/
 	private void boardInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("[debug]게시글 등록 페이지 요청");
-		
 		String itemNo = request.getParameter("itemNo");
 		
 		BoardBiz bbiz = new BoardBiz();
@@ -229,7 +228,6 @@ public class FrontBoardServlet extends HttpServlet {
 			bbiz.boardInput(notice);
 			request.getRequestDispatcher("/boardController?action=boardList&boardCategory="+boardCategory).forward(request, response);;
 		} catch (CommonException e) {
-			System.out.println("걍 실패 떙떙");
 			MessageEntity message = new MessageEntity("error", 15);
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("/message.jsp").forward(request, response);

@@ -56,8 +56,12 @@
 			<span id="cart-itemSeller"><%= cart.getSellerName() %></span><br>
 			<b>배송비</b>&emsp;
 			<span id="cart-shippingFee">3,500원</span><br>
+			<b>할인율</b>&emsp;
+			<span id="cart-shippingFee"><%= cart.getDiscRate() %>%</span><br>
 			<b>판매가</b>&emsp;
 			<span id="cart-itemPrice"><fmt:formatNumber value="<%= cart.getItemPrice()  %>" pattern="###,###"/>원</span><br>
+			<b>할인적용가</b>&emsp;
+			<span id="cart-itemPrice"><fmt:formatNumber value="<%= ((100-cart.getDiscRate())*0.01)*cart.getItemPrice()  %>" pattern="###,###"/>원</span><br>
 			<b>수량</b>&emsp;&emsp;
 			<span id="cart-itemQty"><%= cart.getCartItemQty() %></span><br>
 			<form action="/takeit/cartController?action=changeCartQty&itemNo=<%= cart.getItemNo()%>" method="post">
@@ -69,8 +73,8 @@
 		</div>
 		<div id="cart-btn-wrap">
 			<div>
-				<b>결제금액${cart.cartItemQty}</b>&emsp;<span id="cart-totPrice">
-				&#8361;<fmt:formatNumber value="<%= cart.getTotalPrice()+3500 %>" pattern="###,###"/>
+				<b>결제금액</b>&emsp;<span id="cart-totPrice">
+				&#8361;<fmt:formatNumber value="<%= ((100-cart.getDiscRate())*0.01)*cart.getItemPrice()*cart.getCartItemQty()+3500 %>" pattern="###,###"/>
 				</span>
 			</div><br>
 			<form action="${CONTEXT_PATH}/order/orderController?action=orderForm" method="post">
