@@ -11,17 +11,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
-<%-- <c:choose>
-	<c:when test="${not empty dto and not empty sellerId}">
-		<jsp:forward page="/order/orderController?action=sellerOrderList"/>
-	</c:when>
-	<c:when test="${not empty dto and not empty memberId}">
-		<jsp:forward page="/order/orderController?action=memberOrderList"/>
-	</c:when>
-	<c:otherwise>
-		<jsp:forward page="/index"/>
-	</c:otherwise>
-</c:choose> --%>
 <!-- 상단 메뉴 -->
 <c:if test="${empty memberId and empty sellerId}">
 	<!-- 로그인 전 메뉴 -->
@@ -35,32 +24,30 @@
 <jsp:include page="/common/logo.jsp"></jsp:include>
 <!-- 네비게이션 -->
 <jsp:include page="/common/navigation.jsp"></jsp:include>
-	
-<h3 id ="title" align="center">주문내역</h3>
-<div id="container">
-	<c:choose>
-		<c:when test ="${sellerId != null}">
-	 		<!-- 판매자 마이페이지 메뉴 -->
-	 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
-		</c:when>
-		<c:otherwise>
-			<!-- 일반회원 마이페이지 메뉴 -->
-			<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
-		</c:otherwise>
-	</c:choose>
-
-	<div id="noOrderList-wrap">
-		<div id="noOrderList-title">
-			<h3>주문내역 </h3>
+<div id="no-orderList-wrap">
+	<div id="no-orderList">
+		<div class="side-menu" >
+		<c:choose>
+			<c:when test ="${sellerId != null}">
+		 		<!-- 판매자 마이페이지 메뉴 -->
+		 		<jsp:include page="/common/mypage_seller_menu.jsp"></jsp:include>
+			</c:when>
+			<c:otherwise>
+				<!-- 일반회원 마이페이지 메뉴 -->
+				<jsp:include page="/common/mypage_member_menu.jsp"></jsp:include>
+			</c:otherwise>
+		</c:choose>
 		</div>
-		<img alt="오류" id="warning" src="/takeit/img/icon/warning-sign.png">
-		<div id="noOrderList-info">
-			
-			<span>현재 고객님의 주문 상품이 존재하지 않습니다.</span><br>
-			<span>상품 구매후 이용 부탁드립니다.</span><br>
-	
+		<div id="no-orderList-main">
+			<div id="noOrderList-title">
+				<h3>주문내역 </h3>
+			</div>
+			<div id="noOrderList-info">
+				<span>현재 고객님의 주문 상품이 존재하지 않습니다.</span><br>
+				<span>상품 구매후 이용 부탁드립니다.</span><br>
+			</div>
+			<a href="/takeit/index" class="link" style="margin-top: 30px;">홈으로 이동</a>
 		</div>
-		<a href="/takeit/index" class="link" style="margin-top: 30px;">홈으로 이동</a>
 	</div>
 </div>
  <!-- scroll function -->
