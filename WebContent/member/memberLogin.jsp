@@ -13,7 +13,7 @@
 <!-- 카카오 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-Kakao.init('cfba92f035510f0ba0faccfd270f7b1a'); //발급받은 키 중 javascript키를 사용해준다.
+Kakao.init('ef7d648c9d8cef88d6c092d4942eee41'); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 //<!-- 카카오 로그인 -->
 var kakaoId = "";
