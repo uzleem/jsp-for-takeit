@@ -27,10 +27,12 @@ public class FrontReviewServlet extends HttpServlet {
 
 	public ServletContext application;
 	public String CONTEXT_PATH;
-
+	public String imgPath;
+	
 	public void init() {
 		application = getServletContext();
-		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");	
+		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");
+		imgPath = (String)application.getAttribute("imgPath");
 	}	   
 
 
@@ -121,7 +123,7 @@ public class FrontReviewServlet extends HttpServlet {
 	/**후기등록*/
 	private void enrollReview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		String directory = 	"C:/student_ucamp33/workspace_takeit/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/takeit/img/review";
+		String directory = 	imgPath+"/takeit/img/review";
 	
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
