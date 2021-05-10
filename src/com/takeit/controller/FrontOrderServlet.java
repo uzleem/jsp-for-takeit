@@ -396,8 +396,17 @@ public class FrontOrderServlet extends HttpServlet {
 		try {
 			biz.getMemberOrderList(memberId, orderList);
 			
-			request.setAttribute("orderList", orderList);
-			request.getRequestDispatcher("/order/memberOrderList.jsp").forward(request, response);
+			if(!orderList.isEmpty()){
+				request.setAttribute("orderList", orderList);
+				request.getRequestDispatcher("/order/memberOrderList.jsp").forward(request, response);
+			}else {
+//				MessageEntity message = new MessageEntity("error", 46);//주문내역없음
+//				message.setLinkTitle("주문내역없음");
+//				message.setUrl("/takeit/order/noOrderList.jsp");
+//				request.setAttribute("message", message);
+				response.sendRedirect("/takeit/order/noOrderList.jsp");
+				//send.getRequestDispatcher("/order/noOrderList.jsp").forward(request, response);
+			}
 		} catch (CommonException e) {
 			MessageEntity message = e.getMessageEntity();
 			message.setLinkTitle("메인으로");
