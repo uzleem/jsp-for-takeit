@@ -14,9 +14,9 @@ import com.takeit.model.dto.Seller;
 
 /**
  * 마이페이지 로직 담당 클래스 
- * 
  * @author 심선경
- *
+ * @since jdk1.8
+ * @version v2.0
  */
 
 public class MypageBiz {
@@ -61,70 +61,6 @@ public class MypageBiz {
 		}
 		
 	}
-	
-	
-	
-	/**
-	 * 상점 카테고리 목록 조회
-	 * @param dto 상품 객체
-	 * @throws CommonException
-	 */
-	public void getItemImgName(Item dto) throws CommonException{
-		Connection conn = JdbcTemplate.getConnection();
-		
-		try {
-			dao.searchItemImgName(conn, dto);
-		}catch (Exception e) {
-			e.printStackTrace();
-			
-			throw e;
-		}finally {
-			JdbcTemplate.close(conn);
-		}
-		
-	}
-	
-	/**
-	 * 상품 등록
-	 * @param dto 상품객체
-	 * @throws CommonException
-	 */
-	public void addItem(Item dto) throws CommonException{
-		Connection conn = JdbcTemplate.getConnection();
-		
-		try {
-			dao.addItem(conn, dto);
-			JdbcTemplate.commit(conn);
-		}catch (Exception e) {
-			e.printStackTrace();
-			JdbcTemplate.rollback(conn);
-			throw e;
-		}finally {
-			JdbcTemplate.close(conn);
-		}
-		
-	}
-	
-	
-	/**
-	 * 카테고리 목록 조회
-	 * @param categoryList 카테고리 목록
-	 * @throws CommonException
-	 */
-	public void getCategoryList(ArrayList<Item> categoryList) throws CommonException{
-		
-		Connection conn = JdbcTemplate.getConnection(); 
-		try {
-			dao.getCategotyList(conn, categoryList);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}finally {
-			JdbcTemplate.close(conn);
-		}
-		
-	} 
 	
 	
 	/**

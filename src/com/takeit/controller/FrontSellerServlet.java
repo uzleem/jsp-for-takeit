@@ -29,10 +29,12 @@ public class FrontSellerServlet extends HttpServlet {
 
 	public ServletContext application;
 	public String CONTEXT_PATH;
+	public String imgPath;
 	
 	public void init() {
 		application = getServletContext();
 		CONTEXT_PATH = (String) application.getAttribute("CONTEXT_PATH");	
+		imgPath = (String)application.getAttribute("imgPath");
 	}	 
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
