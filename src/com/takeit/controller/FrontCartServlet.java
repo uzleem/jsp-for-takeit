@@ -93,17 +93,23 @@ public class FrontCartServlet extends HttpServlet {
 				int cartTotalPrice =  0;
 				cbiz.getCartList(memberId, cartTotalPrice, cartList);
 				session.setAttribute("cartList", cartList);
+				boolean isNotTakeit = false;
 				for(Cart dto : cartList) {
 					cartTotalPrice += dto.getTotalPrice();
+					System.out.println("isTakeit:"+dto.getItemTakeit());
+					if (dto.getItemTakeit().equals("F")) {
+						isNotTakeit = true;
+					}
 				}
-				if(cartTotalPrice < 50000 && cartTotalPrice > 0) {
-					session.setAttribute("cartTotalPrice", cartTotalPrice+3500);
+				
+				if(cartTotalPrice < 50000 && cartTotalPrice > 0 && isNotTakeit) {
+					session.setAttribute("cartTotalPrice", cartTotalPrice + 3500);
 				} else if(cartTotalPrice == 0){
 					session.setAttribute("cartTotalPrice", 0);
 				} else {
 					session.setAttribute("cartTotalPrice", cartTotalPrice);
 				}
-				System.out.println("[debug] servlet 누적 총 결제 금액= " + cartTotalPrice);
+				System.out.println("[debug] servlet 누적 총 결제 금액= " + (int)session.getAttribute("cartTotalPrice"));
 				request.getRequestDispatcher("/item/cartList.jsp").forward(request, response);
 			} catch (CommonException e) {
 				MessageEntity message = new MessageEntity("error", 21);
@@ -149,12 +155,16 @@ public class FrontCartServlet extends HttpServlet {
 					cbiz.addCart(cart);
 				}
 				cbiz.getCartList(memberId, cartTotalPrice, cartList);
-				
+				boolean isNotTakeit = false;
 				session.setAttribute("cartList", cartList);
 				for(Cart dto : cartList) {
 					cartTotalPrice += dto.getTotalPrice();
+					if (dto.getItemTakeit().equals("F")) {
+						isNotTakeit = true;
+					}
 				}
-				if(cartTotalPrice < 50000 && cartTotalPrice > 0) {
+				
+				if(cartTotalPrice < 50000 && cartTotalPrice > 0 && isNotTakeit) {
 					session.setAttribute("cartTotalPrice", cartTotalPrice+3500);
 				} else if(cartTotalPrice == 0){
 					session.setAttribute("cartTotalPrice", 0);

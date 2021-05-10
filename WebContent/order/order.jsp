@@ -122,7 +122,7 @@
 			</span>
 			<input type="submit" class="link" value="결제하기" onclick="return orderCheck()"/>
 			</div>
-<input type="hidden" value="${totalPrice}" name="orderPrice">	
+<input type="hidden" value="${order.orderPrice}" name="orderPrice">	
 	</form>
 </div>
 
