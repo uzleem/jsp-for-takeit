@@ -1,8 +1,6 @@
-# 소개
+![1](https://github.com/uzleem/jsp-for-takeit/assets/43229599/7fed6966-d811-4dda-8322-6a5da09ff1c3)# 소개
 
-React 사이드프로젝트 : Netflix
-
-(현재는 LayOut만 작성되었고, 추후 내용 추가 예정)
+LGCNS U-CAMP 33기 팀 프로젝트 : TAKEIT
 
 <br><br>
 
@@ -36,3 +34,4 @@ React 사이드프로젝트 : Netflix
 # TODO
 
 <br><br>
+![1](https://github.com/uzleem/jsp-for-takeit/assets/43229599/1be2d9db-0ea0-4c4a-a5de-2ac2761a6d18)
