@@ -12,6 +12,7 @@ LGCNS U-CAMP 33기 팀 프로젝트 : TAKEIT
 
 > 역할
 
+> 기능구현
 <br><br>
 
 # 프로젝트 설명
